@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_view_form" model="ir.ui.view">
+        <field name="name">product.attribute.view.form.is.fabric</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='create_variant']" position="after">
+                <field name="product_attribute_id"/>
+                <field name="is_fabric_attribute"/>
+            </xpath>
+            <xpath expr="//field[@name='value_ids']/tree" position="inside">
+                <field name="attribute_id" invisible="1"/>
+                <field name="product_attribute_value_id" domain="[('attribute_id', '=', parent.product_attribute_id)]"/>
+                <field name="is_tlc"/>
+                <field name="unit_price"/>
+            </xpath>
+            <xpath expr="//field[@name='value_ids']" position="inside">
+                <form string="Product Attribute Value">
+                    <field name="is_used_on_products" invisible="1"/>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Value"/>
+                                <field name="attribute_id"/>
+                                <label for="unit_price"/>
+                                <div class="o_row" name="price">
+                                    <field name="unit_price"/>
+                                    <span>/<field name="length_uom_name"/></span>
+                                </div>
+                                <field name="product_attribute_value_id"/>
+                            </group>
+                            <group>
+                                <field name="is_tlc"/>
+                                <field name="is_custom"/>
+                                <field name="display_type"/>
+                                <field name="html_color"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product Attribute Lines">
+                                <field name="pav_attribute_line_ids" widget="many2many" nolabel="1" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+           </xpath>
+        </field>
+    </record>
+
+</odoo>
