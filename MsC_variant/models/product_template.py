@@ -18,6 +18,8 @@ class ProductTemplate(models.Model):
 
     @api.model
     def get_length_uom_name(self):
+        """ Retrieve reference uom name for length measures.
+        It is possible to change this easily to use uom from ir.config.parameter for example """
         uom = self.env.ref('uom.product_uom_meter', False) or self.env['uom.uom'].search(
             [('measure_type', '=', 'length'), ('uom_type', '=', 'reference')], limit=1)
         return uom.name
