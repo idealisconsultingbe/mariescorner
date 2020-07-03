@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models
+from odoo import models, _
+from odoo.exceptions import ValidationError
 
 
 class MrpProduction(models.Model):
@@ -33,7 +34,7 @@ class MrpProduction(models.Model):
         """
         res = super(MrpProduction, self)._get_move_raw_values(bom_line, line_data)
         if not bom_line.product_id and bom_line.product_tmpl_id:
-            sale_line_id = self._get_sale_line(self.move_dest_ids[0])
+            sale_line_id = self._get_sale_line(self.move_dest_ids[0] if self.move_dest_ids else False)
             if sale_line_id:
                 # filter product template attribute values (product.template.attribute.value) from sale line
                 # in order to keed only those which attribute value (product.attribute.value) is related to
@@ -55,7 +56,10 @@ class MrpProduction(models.Model):
                 if len(products) == 1:
                     res['product_id'] = products.id
                 else:
-                    res['product_tmpl_id'] = bom_line.product_tmpl_id.id
+                    raise ValidationError(_('Cannot produce {}, there is no BoM fabric related to this configuration: {}')
+                                          .format(sale_line_id.product_template_id.name,
+                                                  ', '.join(sale_line_id.product_no_variant_attribute_value_ids
+                                                  .filtered(lambda pnvav: pnvav.attribute_id.is_fabric_attribute).mapped('name'))))
             else:
                 res['product_tmpl_id'] = bom_line.product_tmpl_id.id
         return res
@@ -65,10 +69,10 @@ class MrpProduction(models.Model):
         Retrieve sale line from a move
         """
         self.ensure_one()
-        if move.sale_line_id:
+        if move and move.sale_line_id:
             return move.sale_line_id
         else:
-            raw_production = move.raw_material_production_id
+            raw_production = move.raw_material_production_id if move else False
             if raw_production and len(raw_production.move_dest_ids) == 1:
                 return self._get_sale_line(raw_production.move_dest_ids)
             if raw_production and len(raw_production.move_finished_ids) == 1:

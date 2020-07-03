@@ -37,12 +37,21 @@ class ProductAttribute(models.Model):
     def write(self, vals):
         """ Overridden standard method
         Handle synchronization between related fields """
+        # if new values are added to current attribute, create copy of them in related attribute
         if self.product_attribute_id and not self.env.context.get('is_synchronized', False):
             attribute_values = [list for list in vals.get('value_ids', []) if list[0] == 0]
             self.with_context(is_synchronized=True).product_attribute_id.write({'value_ids': attribute_values})
         res = super(ProductAttribute, self).write(vals)
-        # attribute values synchronization
+        # synchronization
         if not self.env.context.get('is_synchronized', False):
+            # attributes synchronization
+            if self.product_attribute_id:
+                # condition does not work with get() if 'is_fabric_attribute' is explicitly False
+                if 'is_fabric_attribute' in vals:
+                    self.with_context(is_synchronized=True).product_attribute_id.update({'is_fabric_attribute': vals.get('is_fabric_attribute')})
+                if vals.get('display_type'):
+                    self.with_context(is_synchronized=True).product_attribute_id.update({'display_type': vals.get('display_type')})
+            # attribute values synchronization
             for value in vals.get('value_ids', []):
                 # create synchronization
                 if value[0] == 0:
