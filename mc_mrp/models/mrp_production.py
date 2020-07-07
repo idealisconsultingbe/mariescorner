@@ -37,7 +37,7 @@ class MrpProduction(models.Model):
             sale_line_id = self._get_sale_line(self.move_dest_ids[0] if self.move_dest_ids else False)
             if sale_line_id:
                 # filter product template attribute values (product.template.attribute.value) from sale line
-                # in order to keed only those which attribute value (product.attribute.value) is related to
+                # in order to keep only those which attribute value (product.attribute.value) is related to
                 # one of product template attribute values (product.attribute.value)
                 attribute_values = sale_line_id.product_no_variant_attribute_value_ids.filtered(
                     lambda value: value.product_attribute_value_id.product_attribute_value_id in bom_line.product_tmpl_id.attribute_line_ids.mapped('value_ids'))
@@ -70,12 +70,16 @@ class MrpProduction(models.Model):
         """
         self.ensure_one()
         if move and move.sale_line_id:
-            return move.sale_line_id
-        else:
-            raw_production = move.raw_material_production_id if move else False
-            if raw_production and len(raw_production.move_dest_ids) == 1:
-                return self._get_sale_line(raw_production.move_dest_ids)
-            if raw_production and len(raw_production.move_finished_ids) == 1:
-                return self._get_sale_line(raw_production.move_finished_ids)
-            return False
+            if move.sale_line_id.product_no_variant_attribute_value_ids:
+                return move.sale_line_id
+            elif move.sale_line_id.order_id:
+                try:
+                    order_line = move.sale_line_id.order_id.auto_purchase_order_id.order_line
+                except Exception:
+                    return False
+                if order_line.move_dest_ids and len(order_line.move_dest_ids) == 1:
+                    return self._get_sale_line(order_line.move_dest_ids[0])
+        if move.move_dest_ids and len(move.move_dest_ids) == 1:
+            return self._get_sale_line(move.move_dest_ids[0])
+        return False
 
