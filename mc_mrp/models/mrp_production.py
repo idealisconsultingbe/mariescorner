@@ -82,4 +82,3 @@ class MrpProduction(models.Model):
         if move.move_dest_ids and len(move.move_dest_ids) == 1:
             return self._get_sale_line(move.move_dest_ids[0])
         return False
-
