@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">view.order.form.inherited.purchase.confirmation</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm'][2]" position="after">
+                <field name="confirmation_done" invisible="1"/>
+                <button name="action_confirm_purchase_order" string="Confirm Purchase Order" type="object" attrs="{'invisible': ['|', ('confirmation_done', '=', True), ('state', 'in', ['draft', 'cancel'])]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

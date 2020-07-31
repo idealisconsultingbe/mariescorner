@@ -3,10 +3,10 @@
     'name': 'MsC BoM Product Template',
     'version': '13.0.0.1',
     'category': 'Manufacturing/Manufacturing',
-    'summary': 'Allow to create a BoM with only product template in its components.',
+    'summary': 'Allow usage of product templates as BoM components.',
     'description': """
-    In BoMs it is possible to select only product template in its components.
-    In the mto manufacturing process the right product product is automatically selected depending on the attributes selected on the SO.
+    In BoMs users can select product templates to fill components list.
+    In the mto manufacturing process the right product product is automatically selected thanks to SO line attributes.
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
