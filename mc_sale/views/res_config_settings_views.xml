@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.best.offer</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='group_stock_production_lot']/.." position="inside">
+                <div class="mt16" attrs="{'invisible': [('group_stock_production_lot', '=', False)]}">
+                    <div class="text-muted">
+                        Automatic creation of sales lots when validating a sale order
+                    </div>
+                    <div class="row">
+                        <field name="group_automatic_lot_creation" class="col-lg-1 ml16"/>
+                        <label for="group_automatic_lot_creation"/>
+                    </div>
+                    <div class="row">
+                        <field name="extra_serial_digits" class="text-center oe_inline ml16"/> extra digits required to compose S/N
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
