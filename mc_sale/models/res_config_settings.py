@@ -13,12 +13,15 @@ class ResConfigSettings(models.TransientModel):
 
     @api.constrains('group_automatic_lot_creation', 'group_stock_production_lot')
     def _check_group_automatic_lot_creation(self):
+        """ Prevent user to check Automatic Sales Lot Creation if system does not handle lots and serial numbers """
         for settings in self:
             if settings.group_automatic_lot_creation and not settings.group_stock_production_lot:
                 raise UserError(_('Configuration conflict: Automatic Sales Lot Creation cannot be checked while Lots and Serial Numbers is not'))
 
     @api.onchange('group_stock_production_lot')
     def _onchange_group_stock_production_lot(self):
+        """ Overridden method
+            If user unchecks Lots and Serial Numbers parameter then uncheck Automatic Sales Lot Creation too """
         super(ResConfigSettings, self)._onchange_group_stock_production_lot()
         if not self.group_stock_production_lot:
             self.group_automatic_lot_creation = False

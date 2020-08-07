@@ -8,6 +8,10 @@ class MrpProductProduce(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
+        """
+        Fill automatically lot/serial number in current view after creating them only if production has
+        a Sales Lot in its moves
+        """
         res = super(MrpProductProduce, self).default_get(fields)
         production = self.env['mrp.production']
         production_id = self.env.context.get('default_production_id') or self.env.context.get('active_id')
@@ -40,7 +44,9 @@ class MrpProductProduce(models.TransientModel):
     serial_increment = fields.Integer(string='Serial Increment')
 
     def continue_production(self):
-        """ Save current wizard and directly opens a new. """
+        """ Overridden Method
+            Save current wizard and directly opens a new after updating serial increment
+        """
         self.ensure_one()
         res = super(MrpProductProduce, self).continue_production()
         if self.product_tracking == 'serial':

@@ -13,7 +13,7 @@ class SaleOrderLine(models.Model):
 
     @api.depends('product_id', 'has_tracking')
     def _compute_sales_lot_number_visible(self):
-        """ According to this field, the field "Sales Lot Number" will be displayed
+        """ According to this field, "Sales Lot Number" readonly and required field attributes will be set True
         on a sale order line from its order form view, or not.
         """
         automatic_lot_enabled = self.user_has_groups('mc_sale.group_automatic_sales_lot')
@@ -27,6 +27,7 @@ class SaleOrderLine(models.Model):
 
     @api.constrains('sales_lot_number')
     def _check_sales_lot_number(self):
+        """ Prevent user to force an order line without a Sales Lot number """
         for line in self:
             if line.sales_lot_number_visible and not line.sales_lot_number:
                 raise ValidationError(_('Sales Lot Number is mandatory ({} product).').format(line.product_id.name))
