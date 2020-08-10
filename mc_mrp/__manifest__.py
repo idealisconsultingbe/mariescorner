@@ -10,7 +10,7 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale', 'mrp'],
+    'depends': ['sale', 'mrp', 'purchase_stock'],
     'data': [
         'views/product_template_views.xml',
         'views/product_attribute_views.xml',

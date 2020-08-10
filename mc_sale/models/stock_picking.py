@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.tools.float_utils import float_is_zero
 
 
@@ -7,6 +7,14 @@ class Picking(models.Model):
     _inherit = 'stock.picking'
 
     serial_increment = fields.Integer(string='Serial Increment', default=1)
+    update_lot_name_visible = fields.Boolean(string='Button Update Lot Name Visibility', compute='_compute_update_lot_name_visible')
+
+    @api.depends('move_lines.sales_lot_id')
+    def _compute_update_lot_name_visible(self):
+        for picking in self:
+            picking.update_lot_name_visible = False
+            if any(move_line.sales_lot_id for move_line in picking.move_lines):
+                picking.update_lot_name_visible = True
 
     def button_update_lot_name(self):
         """

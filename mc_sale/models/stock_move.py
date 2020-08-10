@@ -7,7 +7,7 @@ class StockMove(models.Model):
 
     sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Sales Lot', store=True)
 
-    @api.depends('sale_line_id.sales_lot_id')
+    @api.depends('sale_line_id.sales_lot_id', 'move_dest_ids.sales_lot_id')
     def _compute_sales_lot_id(self):
         """ Compute M2o relation to Stock Production Sales Lot.
             There are 2 possible cases:

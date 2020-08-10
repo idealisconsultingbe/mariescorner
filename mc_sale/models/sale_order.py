@@ -58,8 +58,11 @@ class SaleOrder(models.Model):
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         if production_lot_enabled:
             for order in self:
-                for line in order.order_line.filtered(lambda l: l.has_tracking and not l.sales_lot_id):
-                    name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot') if automatic_lot_enabled else line.sales_lot_number
-                    sales_lot_id = self.env['stock.production.sales.lot'].create({'name': name, 'product_id': line.product_id.id})
-                    line.update({'sales_lot_id': sales_lot_id.id, 'sales_lot_number': name})
+                for line in order.order_line.filtered(lambda l: l.has_tracking):
+                    if not line.sales_lot_id:
+                        name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot') if automatic_lot_enabled else line.sales_lot_number
+                        sales_lot_id = self.env['stock.production.sales.lot'].create({'name': name, 'product_id': line.product_id.id})
+                        line.update({'sales_lot_id': sales_lot_id.id, 'sales_lot_number': name})
+                    else:
+                        line.update({'sales_lot_number': line.sales_lot_id.name})
         return super(SaleOrder, self)._action_confirm()
