@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_value_view_form" model="ir.ui.view">
+        <field name="name">product.attribute.value.view.form</field>
+        <field name="model">product.attribute.value</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="attribute_id"/>
+                            <field name="product_attribute_value_id"/>
+                        </group>
+                        <group>
+                            <field name="display_type"/>
+                            <field name="html_color" attrs="{'invisible': [('display_type', '!=', 'color')]}"/>
+                            <field name="is_used_on_products"/>
+                            <field name="is_custom"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Attribute Lines">
+                            <field name="pav_attribute_line_ids" widget="many2many" nolabel="1"/>
+                        </page>
+                        <page string="Percentage Prices">
+                            <field name="percentage_price_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

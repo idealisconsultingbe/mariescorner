@@ -12,10 +12,13 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['sale', 'mrp', 'purchase_stock'],
     'data': [
+        'security/ir.model.access.csv',
         'views/product_template_views.xml',
         'views/product_attribute_views.xml',
         'views/product_template_attribute_value_views.xml',
         'views/mrp_bom_views.xml',
+        'views/product_attribute_value_percentage_price_views.xml',
+        'views/product_attribute_value_views.xml',
     ],
     'auto_install': False,
     'installable': True,
