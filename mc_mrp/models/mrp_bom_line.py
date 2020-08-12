@@ -7,6 +7,9 @@ class MrpBomLine(models.Model):
     _inherit = 'mrp.bom.line'
 
     product_id = fields.Many2one('product.product', required=False)
+    product_uom_id = fields.Many2one(
+        'uom.uom', domain="[('category_id', 'in', [product_uom_category_id, product_tmpl_uom_category_id])]")
+    product_tmpl_uom_category_id = fields.Many2one('uom.category', related='product_tmpl_id.uom_id.category_id')
     # should be stored to prevent unwanted related=True behavior
     product_tmpl_id = fields.Many2one('product.template', store=True)
     product_attribute_ids = fields.Many2many('product.attribute', 'bom_line_product_attribute_rel', 'line_id', 'attribute_id', string='Product Attributes')
