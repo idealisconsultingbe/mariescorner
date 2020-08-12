@@ -10,10 +10,7 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
         },
 
         /**
-         * This is overridden to allow catching the "select" event on our product template select field.
-         *
-         * @override
-         * @private
+         * Override the standard method in order to catch changes of custom values.
          */
         _onFieldChanged: function (event) {
             if (event.data.changes.tissue_meterage_1){
@@ -32,28 +29,13 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
         },
 
         /**
-         * This triggers the close action for the window and
-         * adds the product as the "infos" parameter.
-         * It will allow the caller (typically the product_configurator widget) of this window
-         * to handle the added products.
-         *
-         * @private
-         * @param {Array} products the list of added products
-         *   {integer} products.product_id: the id of the product
-         *   {integer} products.quantity: the added quantity for this product
-         *   {Array} products.product_custom_attribute_values:
-         *     see variant_mixin.getCustomVariantValues
-         *   {Array} products.no_variant_attribute_values:
-         *     see variant_mixin.getNoVariantAttributeValues
+         * Override the standard method in order to send to the product configurator widget the custom values.
          */
         _addProducts: function (products) {
             products[0]['tissue_meterage_1'] = this.tissueMeterage1;
             products[0]['tissue_meterage_2'] = this.tissueMeterage2;
             products[0]['comment'] = this.comment;
-            this.do_action({type: 'ir.actions.act_window_close', infos: {
-                    mainProduct: products[0],
-                    options: products.slice(1)
-                }});
+            this._super.apply(this, arguments);
         },
     });
 
