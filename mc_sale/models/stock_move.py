@@ -21,3 +21,12 @@ class StockMove(models.Model):
                 # if all stock moves have the same Sales Lot then add it to values
                 if len(move.move_dest_ids.mapped('sales_lot_id')) == 1 and all(move.sales_lot_id for move in move.move_dest_ids):
                     move.sales_lot_id = move.move_dest_ids[0].sales_lot_id
+
+    def _prepare_move_line_vals(self, quantity=None, reserved_quant=None, lot_name=None):
+        """ Overridden method
+            Add lot name to move lines
+        """
+        res = super(StockMove, self)._prepare_move_line_vals(quantity, reserved_quant)
+        if lot_name:
+            res['lot_name'] = lot_name
+        return res

@@ -27,6 +27,13 @@ class ProductAttribute(models.Model):
             else:
                 attribute.relationship_type = 'none'
 
+    @api.onchange('product_attribute_id', 'product_attribute_ids')
+    def _onchange_product_attribute_id(self):
+        """ Advise user to don't save changes if he doesn't want to lose all links between attribute values """
+        # FIXME : if we change display_type, all relationships are erased too
+        return {'warning': {'title': _('Warning'), 'message': _(
+                'Changing this relationship will erase all links between values on this record and related ones. Discard changes if you are not sure of what you are doing.')}}
+
     @api.constrains('product_attribute_id', 'product_attribute_ids')
     def _check_product_attributes(self):
         """ Prevent user to use both product attribute relationships """
@@ -37,7 +44,7 @@ class ProductAttribute(models.Model):
     def write(self, vals):
         """ Overridden standard method
         Handle synchronization between related fields """
-        # if new values are added to current attribute, create copy of them in related attributes before establishing relationships
+        # retrieve all attributes related to current one
         if self.product_attribute_id:
             # if current product attribute has a parent, then this parent and its children (minus current attribute) must be updated
             related_product_attributes = self.product_attribute_id + self.product_attribute_id.product_attribute_ids - self
@@ -47,12 +54,27 @@ class ProductAttribute(models.Model):
         else:
             related_product_attributes = []
 
+        # if relationship to other attribute(s) changes, then erase all relationships between attribute values
+        if 'product_attribute_id' or 'product_attribute_ids' in vals:
+            self.value_ids.update({'product_attribute_value_id': False, 'product_attribute_value_ids': [(5, 0, 0)]})
+
+        # if new values are added to current attribute, create copy of them in related attributes before establishing relationships
+        # if values are deleted, delete them as well in related attributes before doing it on current attribute
         if related_product_attributes and not self.env.context.get('is_synchronized', False):
             # retrieve new values
             attribute_values = [list for list in vals.get('value_ids', []) if list[0] == 0] # list[0] = 0 is for new records -> (0, 0, values)
             for product_attribute in related_product_attributes:
                 # write new values in related attributes and use a flag to prevent loops
                 product_attribute.with_context(is_synchronized=True).write({'value_ids': attribute_values})
+            # delete values
+            attribute_values = [list for list in vals.get('value_ids', []) if list[0] == 2] # list[0] = 2 is for deleted records -> (2, id, 0)
+            for value in attribute_values:
+                v = self.env['product.attribute.value'].browse(value[1])
+                for related_product_attribute in related_product_attributes:
+                    pav_to_delete = self.env['product.attribute.value'].search(
+                        [('attribute_id', '=', related_product_attribute.id), ('name', '=', v.name)])
+                    related_product_attribute.with_context(is_synchronized=True).update(
+                        {'value_ids': [(2, pav_to_delete.id or False)]})
 
         res = super(ProductAttribute, self).write(vals)
 
@@ -100,64 +122,4 @@ class ProductAttribute(models.Model):
                         for pav in v.product_attribute_value_ids:
                             pav.update(update_vals)
         return res
-
-    # # one2one relationship
-    # product_attribute_id = fields.Many2one('product.attribute', string='Related Attribute', compute='_compute_product_attribute_id', inverse='_inverse_product_attribute_id', store=True, help='Changing this relationship will erase all links between values on this record and related ones.')
-    # product_attribute_ids = fields.One2many('product.attribute', 'product_attribute_id', readonly=True, help='Utility field, not used in UI')
-    #
-    # @api.depends('product_attribute_ids')
-    # def _compute_product_attribute_id(self):
-    #     """ inverse method changes one2many field which triggers computation of 'pseudo' one2one field product_attribute_id """
-    #     for attribute in self:
-    #         if len(attribute.product_attribute_ids) > 0:
-    #             attribute.product_attribute_id = attribute.product_attribute_ids[0]
-    #         else:
-    #             attribute.product_attribute_id = False
-    #
-    # def _inverse_product_attribute_id(self):
-    #     """ changing one2one relationship erase all links between attribute values """
-    #     for attribute in self:
-    #         attribute.product_attribute_ids = [(6, 0, [attribute.product_attribute_id.id])]
-    #         attribute.value_ids.write({'product_attribute_value_id': False})
-    #
-    # @api.onchange('product_attribute_id')
-    # def _onchange_product_attribute_id(self):
-    #     """ Advise user to don't save changes if he doesn't want to lose all links between attribute values """
-    #     # FIXME : if we change display_type, all relationships are erased too
-    #     if self.product_attribute_id:
-    #         return {'warning': {'title': _('Warning'), 'message': _(
-    #             'Changing this relationship will erase all links between values on this record and related ones. Discard changes if you are not sure of what you are doing.')}}
-    #
-    # def write(self, vals):
-    #     """ Overridden standard method
-    #     Handle synchronization between related fields """
-    #     # if new values are added to current attribute, create copy of them in related attribute
-    #     if self.product_attribute_id and not self.env.context.get('is_synchronized', False):
-    #         attribute_values = [list for list in vals.get('value_ids', []) if list[0] == 0]
-    #         self.with_context(is_synchronized=True).product_attribute_id.write({'value_ids': attribute_values})
-    #     res = super(ProductAttribute, self).write(vals)
-    #     # synchronization
-    #     if not self.env.context.get('is_synchronized', False):
-    #         # attributes synchronization
-    #         if self.product_attribute_id:
-    #             # condition does not work with get() if 'has_linear_price' is explicitly False
-    #             if 'has_linear_price' in vals:
-    #                 self.with_context(is_synchronized=True).product_attribute_id.update({'has_linear_price': vals.get('has_linear_price')})
-    #             if vals.get('display_type'):
-    #                 self.with_context(is_synchronized=True).product_attribute_id.update({'display_type': vals.get('display_type')})
-    #         # attribute values synchronization
-    #         for value in vals.get('value_ids', []):
-    #             # create synchronization
-    #             if value[0] == 0:
-    #                 name = value[2]['name']
-    #                 # name is unique inside values of an attribute so it works as an identifier
-    #                 self.value_ids.filtered(lambda v: v.name == name).update({'product_attribute_value_id': self.product_attribute_id.value_ids.filtered(lambda v: v.name == name).id})
-    #             # update synchronization
-    #             if value[0] == 1:
-    #                 v = self.env['product.attribute.value'].browse(value[1])
-    #                 if v.product_attribute_value_id:
-    #                     update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom')}
-    #                     v.product_attribute_value_id.update(update_vals)
-    #     return res
-
 

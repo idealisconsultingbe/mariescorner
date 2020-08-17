@@ -31,10 +31,3 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.sales_lot_number_visible and not line.sales_lot_number:
                 raise ValidationError(_('Sales Lot Number is mandatory ({} product).').format(line.product_id.name))
-
-    # @api.constrains('product_uom_qty')
-    # def _check_product_uom_qty(self):
-    #     for line in self:
-    #         if line.has_tracking == 'serial' and line.product_uom_qty > 1:
-    #             raise ValidationError(_('Please restrain yourself to one UoM quantity per line with a product tracked by S/N ({} product).').format(line.product_id.name))
-    #

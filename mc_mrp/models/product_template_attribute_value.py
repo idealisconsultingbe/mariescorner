@@ -7,7 +7,7 @@ class ProductTemplateAttributeValue(models.Model):
     _inherit = "product.template.attribute.value"
 
     price_extra = fields.Float(compute='_compute_price_extra', readonly=False, store=True)
-    manual_price_extra = fields.Boolean(string='Manual Price', help='Used to prevent automatic computation of extra price')
+    manual_price_extra = fields.Boolean(string='Manual Price', help='Used to prevent automatic computation of extra price', default=False)
 
     @api.depends(
         'product_tmpl_id.linear_length',
