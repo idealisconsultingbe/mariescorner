@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+        <record id="group_automatic_sales_lot" model="res.groups">
+            <field name="name">Manage Automatic Sales Lots / Serial Numbers</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+
+</odoo>

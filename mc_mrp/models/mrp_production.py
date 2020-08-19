@@ -36,30 +36,32 @@ class MrpProduction(models.Model):
         if not bom_line.product_id and bom_line.product_tmpl_id:
             sale_line_id = self._get_sale_line(self.move_dest_ids[0] if self.move_dest_ids else False)
             if sale_line_id:
-                # filter product template attribute values (product.template.attribute.value) from sale line
-                # in order to keep only those which attribute value (product.attribute.value) is related to
-                # one of product template attribute values (product.attribute.value)
-                attribute_values = sale_line_id.product_no_variant_attribute_value_ids.filtered(
-                    lambda value: value.product_attribute_value_id.product_attribute_value_id in bom_line.product_tmpl_id.attribute_line_ids.mapped('value_ids'))
-                # retrieve product attribute values (product.attribute.value) from previous result
-                related_attribute_values = attribute_values.mapped('product_attribute_value_id.product_attribute_value_id')
-                # search for product template attribute values (product.template.attribute.value)
-                # with product attribute value (product.attribute.value) included in previous result
-                # and same product template as the one on bom line
-                product_template_attribute_values = self.env['product.template.attribute.value'].search([('product_attribute_value_id', 'in', related_attribute_values.ids), ('product_tmpl_id', '=', bom_line.product_tmpl_id.id)])
-                # compute a domain to find products with those product template attribute values (product.template.attribute.value)
-                domain = []
-                for ptav in product_template_attribute_values:
-                    domain.append(('product_template_attribute_value_ids', '=', ptav.id))
-                products = self.env['product.product'].search(domain)
-                # if there is one and one product matching domain, add product to move values else add product template instead
-                if len(products) == 1:
-                    res['product_id'] = products.id
+                bom_line_attributes = bom_line.product_attribute_ids
+                sale_line_attributes = sale_line_id.product_no_variant_attribute_value_ids.mapped('attribute_id')
+                # The goal is to make sure that current bom line attributes are present in sale line configuration
+                if (bom_line_attributes & sale_line_attributes) == bom_line_attributes:
+                    # filter product attribute values (product.attribute.value) from sale line
+                    # in order to keep only those which attribute (product.attribute) is present in bom line attributes
+                    attribute_values = sale_line_id.product_no_variant_attribute_value_ids.mapped('product_attribute_value_id').filtered(lambda pav: pav.attribute_id in bom_line_attributes)
+                    # search for product template attribute values (product.template.attribute.value)
+                    # with product attribute value (product.attribute.value) included in product attribute values related to previous result
+                    # and same product template as the one on bom line
+                    product_template_attribute_values = self.env['product.template.attribute.value'].search([('product_attribute_value_id', 'in', attribute_values.mapped('product_attribute_value_id').ids), ('product_tmpl_id', '=', bom_line.product_tmpl_id.id)])
+                    # compute a domain to find products with those product template attribute values (product.template.attribute.value)
+                    domain = []
+                    for ptav in product_template_attribute_values:
+                        domain.append(('product_template_attribute_value_ids', '=', ptav.id))
+                    products = self.env['product.product'].search(domain)
+                    # if there is one and one product matching domain, add product to move values else add product template instead
+                    if len(products) == 1:
+                        res['product_id'] = products.id
+                    else:
+                        raise ValidationError(_('Cannot produce {}, there is no BoM fabric related to this configuration: {}')
+                                              .format(sale_line_id.product_template_id.name,
+                                                      ', '.join(sale_line_id.product_no_variant_attribute_value_ids
+                                                                .filtered(lambda pnvav: pnvav.attribute_id.has_linear_price).mapped('name'))))
                 else:
-                    raise ValidationError(_('Cannot produce {}, there is no BoM fabric related to this configuration: {}')
-                                          .format(sale_line_id.product_template_id.name,
-                                                  ', '.join(sale_line_id.product_no_variant_attribute_value_ids
-                                                  .filtered(lambda pnvav: pnvav.attribute_id.has_linear_price).mapped('name'))))
+                    res['product_tmpl_id'] = bom_line.product_tmpl_id.id
             else:
                 res['product_tmpl_id'] = bom_line.product_tmpl_id.id
         return res
