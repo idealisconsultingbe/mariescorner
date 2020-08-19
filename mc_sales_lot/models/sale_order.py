@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
             Create Stock Production Sales Lot at order confirmation and update order lines accordingly.
             Sales Lots may be created automatically or manually according to configuration settings.
         """
-        automatic_lot_enabled = self.user_has_groups('mc_sale.group_automatic_sales_lot')
+        automatic_lot_enabled = self.user_has_groups('mc_sales_lot.group_automatic_sales_lot')
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         if production_lot_enabled:
             for order in self:

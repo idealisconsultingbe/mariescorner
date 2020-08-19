@@ -17,7 +17,7 @@ class SaleOrderLine(models.Model):
         """ According to this field, "Sales Lot Number" readonly and required field attributes will be set True
         on a sale order line from its order form view, or not.
         """
-        automatic_lot_enabled = self.user_has_groups('mc_sale.group_automatic_sales_lot')
+        automatic_lot_enabled = self.user_has_groups('mc_sales_lot.group_automatic_sales_lot')
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         sales_lot_number_visible = (production_lot_enabled and not automatic_lot_enabled)
         for line in self:

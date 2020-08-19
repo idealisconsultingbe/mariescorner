@@ -29,7 +29,7 @@ class MrpProductProduce(models.TransientModel):
                         lot_name = sale_lot.name
                         finished_lot_id = self.env['stock.production.lot'].search([('name', '=', sale_lot.name), ('product_id', '=', self.product_id.id)])
                     else:
-                        numbers_to_add = self.env['ir.config_parameter'].sudo().get_param('mc_sale.additional_serial_number')
+                        numbers_to_add = self.env['ir.config_parameter'].sudo().get_param('mc_sales_lot.additional_serial_number')
                         increment = len(production.finished_move_line_ids.sorted(
                             key=lambda fml: fml.product_id == self.product_id and fml.sales_lot_id == sale_lot)) + 1
                         lot_name = sale_lot.name + str(increment).zfill(int(numbers_to_add))

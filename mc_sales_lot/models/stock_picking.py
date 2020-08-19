@@ -29,7 +29,7 @@ class Picking(models.Model):
         # this should work only for receipt
         if self.picking_type_code == 'incoming':
             # retrieve 'extra numbers' to add to serial numbers from configuration parameters
-            serial_numbers_to_add = self.env['ir.config_parameter'].sudo().get_param('mc_sale.additional_serial_number')
+            serial_numbers_to_add = self.env['ir.config_parameter'].sudo().get_param('mc_sales_lot.additional_serial_number')
             if not self.move_line_ids:
                 precision_digits = self.env['decimal.precision'].precision_get('Product Unit of Measure')
                 # select only moves in correct state with a quantity set and no Sales Lot
