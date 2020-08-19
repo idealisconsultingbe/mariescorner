@@ -22,9 +22,6 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
             if (event.data.changes.comment){
                 this.comment = event.data.changes.comment
             }
-            if (!event.data.changes.product_template_id){
-                event.data.changes['product_template_id'] = {id: this.current_product_template_id}
-            }
             this._super.apply(this, arguments);
         },
 

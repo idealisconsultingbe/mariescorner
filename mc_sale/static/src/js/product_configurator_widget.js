@@ -6,24 +6,41 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
      */
     ProductConfiguratorWidget.include({
         _openConfigurator: function (result, productTemplateId, dataPointId) {
-            if (!result.mode || result.mode === 'configurator') {
-                this._openProductConfigurator({
-                        configuratorMode: result && result.has_optional_products ? 'options' : 'add',
-                        default_pricelist_id: this._getPricelistId(),
-                        default_product_template_id: productTemplateId,
-                        // Custom changes
-                        default_tissue_meterage_1: this._getTissueMeterage1(),
-                        default_tissue_meterage_2: this._getTissueMeterage2(),
-                        default_product_price: this._getProductPrice(),
-                        default_product_cost: this._getProductCost(),
-                        default_comment: this._getComment(),
-                        // End custom changes
-                    },
-                    dataPointId
-                );
-                return Promise.resolve(true);
-            }
-            return Promise.resolve(false);
+            var self = this;
+            this._rpc({
+                model: 'product.template',
+                method: 'search_read',
+                domain: [['id', '=', productTemplateId]],
+                fields: ['list_price', 'standard_price', 'linear_length'],
+            }).then(function (query_result) {
+                var product_price =  0;
+                var product_cost =  0;
+                var tissue_meterage_1 = 0;
+                if (query_result) {
+                    product_price = query_result[0].list_price;
+                    product_cost =  query_result[0].standard_price;
+                    tissue_meterage_1 = query_result[0].linear_length;
+                }
+                if (!result.mode || result.mode === 'configurator') {
+                    self._openProductConfigurator({
+                            configuratorMode: result && result.has_optional_products ? 'options' : 'add',
+                            default_pricelist_id: self._getPricelistId(),
+                            default_product_template_id: productTemplateId,
+                            // Custom changes
+                            default_tissue_meterage_1: tissue_meterage_1,
+                            default_tissue_meterage_2: self._getTissueMeterage2(),
+                            default_product_price: product_price,
+                            default_product_cost: product_cost,
+                            default_comment: self._getComment(),
+                            // End custom changes
+                        },
+                        dataPointId
+                    );
+                    return Promise.resolve(true);
+                }
+                return Promise.resolve(false);
+            });
+            return Promise.resolve(true);
         },
 
         /**

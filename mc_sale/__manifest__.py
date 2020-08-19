@@ -10,6 +10,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['sale', 'sale_product_configurator', 'purchase', 'product'],
     'data': [
+        'views/product_attribute_views.xml',
         'views/product_category_views.xml',
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
