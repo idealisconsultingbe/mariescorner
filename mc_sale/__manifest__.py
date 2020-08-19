@@ -9,6 +9,7 @@
     * Adapt the sale.product.configurator to the need of Maries Corner.
         - Add some fields in the product configurator.
         - Those fields could impact the price unit of the so line.
+        - Limitations when the user change the product on an existing so line custom fields are not refresh and keeps the values of the previous product.
     * Add some fields to product.attributes, product.attribute.values and product.template.
         - The main purpose of those fields is to automatically calculate the extra price of the product attribute values
             1. depending on the product categories (thanks to a new model product.attribute.value.percentage.price).

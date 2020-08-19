@@ -11,12 +11,13 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                 model: 'product.template',
                 method: 'search_read',
                 domain: [['id', '=', productTemplateId]],
-                fields: ['list_price', 'standard_price', 'linear_length'],
+                fields: ['list_price', 'standard_price', 'linear_length', 'tailor_made'],
             }).then(function (query_result) {
                 var product_price =  0;
                 var product_cost =  0;
                 var tissue_meterage_1 = 0;
-                if (query_result) {
+                // Tailor made product has no default values, every values should be filled in by the user.
+                if (query_result && !query_result[0].tailor_made) {
                     product_price = query_result[0].list_price;
                     product_cost =  query_result[0].standard_price;
                     tissue_meterage_1 = query_result[0].linear_length;
@@ -29,7 +30,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                             // Custom changes
                             default_tissue_meterage_1: tissue_meterage_1,
                             default_tissue_meterage_2: self._getTissueMeterage2(),
-                            default_product_price: product_price,
+                            default_standard_product_price: product_price,
                             default_product_cost: product_cost,
                             default_comment: self._getComment(),
                             // End custom changes
@@ -61,8 +62,8 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                     // Custom changes
                     default_tissue_meterage_1: this._getTissueMeterage1(),
                     default_tissue_meterage_2: this._getTissueMeterage2(),
-                    default_product_price: this._getProductPrice(),
-                    default_product_cost: this._getProductCost(),
+                    default_product_cost: this._getPurchasePrice(),
+                    default_standard_product_price: this._getProductSalePrice(),
                     default_comment: this._getComment(),
                     // End custom changes
                     default_product_template_attribute_value_ids: this._convertFromMany2Many(
@@ -82,12 +83,22 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
 
         /**
          * Override the standard method in order to save the custom values onto the SO.
+         * If custom fields have their default values we assume that no changes have been made, no need to send the values to the SO line.
          */
         _getMainProductChanges: function (mainProduct) {
             result = this._super.apply(this, arguments);
-            result['tissue_meterage_1'] = mainProduct.tissue_meterage_1;
-            result['tissue_meterage_2'] = mainProduct.tissue_meterage_2;
-            result['comment'] = mainProduct.comment;
+            if (mainProduct.tissue_meterage_1 !== -1) {
+                result['tissue_meterage_1'] = mainProduct.tissue_meterage_1;
+            }
+            if (mainProduct.tissue_meterage_2 !== -1) {
+                result['tissue_meterage_2'] = mainProduct.tissue_meterage_2;
+            }
+            if (mainProduct.comment !== 'None') {
+                result['comment'] = mainProduct.comment;
+            }
+            if (mainProduct.product_cost !== -1) {
+                result['purchase_price'] = mainProduct.product_cost;
+            }
 
             return result;
         },
@@ -118,8 +129,8 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          * @private
          * @returns {float} product_price's value
          */
-        _getProductPrice: function () {
-            return this.record.evalContext.product_price;
+        _getPurchasePrice: function () {
+            return this.record.evalContext.purchase_price;
         },
 
         /**
@@ -128,8 +139,8 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          * @private
          * @returns {float} product_price's value
          */
-        _getProductCost: function () {
-            return this.record.evalContext.product_cost;
+        _getProductSalePrice: function () {
+            return this.record.evalContext.product_sale_price;
         },
 
         /**

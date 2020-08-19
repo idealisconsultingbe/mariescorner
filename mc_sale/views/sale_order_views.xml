@@ -11,12 +11,12 @@
                 <field name="po_state" invisible="1"/>
                 <button name="action_confirm_purchase_order" string="Confirm Purchase Order" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
             </xpath>
+            <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="after">
                 <field name="tissue_meterage_1" invisible="1"/>
                 <field name="tissue_meterage_2" invisible="1"/>
-                <field name="product_price" invisible="1"/>
-                <field name="product_cost" invisible="1"/>
                 <field name="comment" invisible="1"/>
+                <field name="product_sale_price" invisible="1"/>
             </xpath>
         </field>
     </record>
