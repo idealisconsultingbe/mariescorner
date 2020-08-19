@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="product_template_attribute_value_view_tree" model="ir.ui.view">
-        <field name="name">product.template.attribute.value.view.tree.inherited.manual.extra.price</field>
+        <field name="name">mc.product.template.attribute.value.view.tree.inherited.manual.extra.price</field>
         <field name="model">product.template.attribute.value</field>
         <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>
         <field name="arch" type="xml">
@@ -13,7 +13,7 @@
     </record>
 
     <record id="product_template_attribute_value_view_form" model="ir.ui.view">
-        <field name="name">product.template.attribute.value.view.form.inherited.manual.extra.price</field>
+        <field name="name">mc.product.template.attribute.value.view.form.inherited.manual.extra.price</field>
         <field name="model">product.template.attribute.value</field>
         <field name="inherit_id" ref="product.product_template_attribute_value_view_form"/>
         <field name="arch" type="xml">

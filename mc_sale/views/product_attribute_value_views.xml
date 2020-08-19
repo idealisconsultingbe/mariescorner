@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_value_view_form" model="ir.ui.view">
+        <field name="name">mc.product.attribute.value.view.form</field>
+        <field name="model">product.attribute.value</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="attribute_id"/>
+                            <label for="unit_price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}"/>
+                            <div class="o_row" name="price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}">
+                                <field name="unit_price"/>
+                                <span>/<field name="length_uom_name"/></span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="display_type"/>
+                            <field name="html_color" attrs="{'invisible': [('display_type', '!=', 'color')]}"/>
+                            <field name="is_used_on_products"/>
+                            <field name="is_custom"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Attribute Lines">
+                            <field name="pav_attribute_line_ids" widget="many2many" nolabel="1"/>
+                        </page>
+                        <page string="Percentage Prices">
+                            <field name="percentage_price_ids" context="{'default_product_attribute_value_id': active_id}" widget="many2many" nolabel="1">
+                                <tree string="Values" editable="bottom">
+                                    <field name="product_category_id"/>
+                                    <field name="percentage_price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

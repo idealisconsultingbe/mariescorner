@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="product_attribute_view_form" model="ir.ui.view">
-        <field name="name">product.attribute.view.form.inherited.linear.price</field>
+        <field name="name">mc.product.attribute.view.form.inherited.linear.price</field>
         <field name="model">product.attribute</field>
         <field name="inherit_id" ref="product.product_attribute_view_form"/>
         <field name="arch" type="xml">
@@ -10,7 +10,6 @@
                 <field name="relationship_type" invisible="1"/>
                 <field name="product_attribute_id" attrs="{'invisible': [('relationship_type', '=', 'o2m')]}"/>
                 <field name="product_attribute_ids" widget="many2many_tags" attrs="{'invisible': [('relationship_type', '=', 'm2o')]}"/>
-                <field name="has_linear_price"/>
             </xpath>
             <xpath expr="//field[@name='value_ids']" position="attributes">
                 <attribute name="context">{'default_attribute_id': active_id}</attribute>
@@ -23,47 +22,7 @@
                 <field name="relationship_type" invisible="1"/>
                 <field name="product_attribute_value_id" attrs="{'column_invisible': [('parent.relationship_type', '=', 'o2m')]}" domain="['|', ('attribute_id', '=', parent.product_attribute_id), ('attribute_id', 'in', parent.product_attribute_ids)]"/>
                 <field name="product_attribute_value_ids" widget="many2many_tags" attrs="{'column_invisible': [('parent.relationship_type', '=', 'm2o')]}" domain="['|', ('attribute_id', '=', parent.product_attribute_id), ('attribute_id', 'in', parent.product_attribute_ids)]"/>
-                <field name="unit_price" attrs="{'column_invisible': [('parent.has_linear_price', '=', False)]}"/>
             </xpath>
-            <xpath expr="//field[@name='value_ids']" position="inside">
-                <form string="Product Attribute Value">
-                    <field name="is_used_on_products" invisible="1"/>
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="name" string="Value"/>
-                                <field name="attribute_id"/>
-                                <label for="unit_price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}"/>
-                                <div class="o_row" name="price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}">
-                                    <field name="unit_price"/>
-                                    <span>/<field name="length_uom_name"/></span>
-                                </div>
-                                <field name="relationship_type" invisible="1"/>
-                                <field name="product_attribute_value_id" attrs="{'invisible': [('relationship_type', '=', 'o2m')]}" domain="['|', ('attribute_id', '=', parent.product_attribute_id), ('attribute_id', 'in', parent.product_attribute_ids)]"/>
-                                <field name="product_attribute_value_ids" widget="many2many_tags" attrs="{'invisible': [('relationship_type', '=', 'm2o')]}" domain="['|', ('attribute_id', '=', parent.product_attribute_id), ('attribute_id', 'in', parent.product_attribute_ids)]"/>
-                            </group>
-                            <group>
-                                <field name="is_custom"/>
-                                <field name="display_type"/>
-                                <field name="html_color"/>
-                            </group>
-                        </group>
-                        <notebook>
-                            <page string="Product Attribute Lines">
-                                <field name="pav_attribute_line_ids" widget="many2many" nolabel="1" readonly="1"/>
-                            </page>
-                            <page string="Percentage Prices">
-                                <field name="percentage_price_ids" context="{'default_product_attribute_value_id': active_id}" widget="many2many" nolabel="1">
-                                    <tree string="Values" editable="bottom">
-                                        <field name="product_category_id"/>
-                                        <field name="percentage_price"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-           </xpath>
         </field>
     </record>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_order_form" model="ir.ui.view">
-        <field name="name">view.order.form.inherited.purchase.confirmation</field>
+    <record id="sale_order_form_view" model="ir.ui.view">
+        <field name="name">mc.view.order.form</field>
         <field name="model">sale.order</field>
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
@@ -11,9 +11,12 @@
                 <field name="po_state" invisible="1"/>
                 <button name="action_confirm_purchase_order" string="Confirm Purchase Order" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                <field name="sales_lot_number_visible" invisible="1"/>
-                <field name="sales_lot_number" attrs="{'readonly': [('sales_lot_number_visible', '=', False)], 'required': [('sales_lot_number_visible', '=', True)]}"/>
+            <!--Useful for sending values to js-->
+            <xpath expr="//tree/field[@name='product_template_id']" position="after">
+                <field name="tissue_meterage_1" invisible="1"/>
+                <field name="tissue_meterage_2" invisible="1"/>
+                <field name="comment" invisible="1"/>
+                <field name="product_sale_price" invisible="1"/>
             </xpath>
         </field>
     </record>

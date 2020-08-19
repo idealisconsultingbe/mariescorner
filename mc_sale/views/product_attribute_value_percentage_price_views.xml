@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="product_attribute_value_percentage_price_view_tree" model="ir.ui.view">
-        <field name="name">product.attribute.value.percentage.price.view.tree</field>
+        <field name="name">mc.product.attribute.value.percentage.price.view.tree</field>
         <field name="model">product.attribute.value.percentage.price</field>
         <field name="arch" type="xml">
             <tree string="Percentage Prices" editable="bottom">

@@ -7,12 +7,6 @@ from odoo.exceptions import UserError
 class ProductAttributeValue(models.Model):
     _inherit = 'product.attribute.value'
 
-    def _default_length_uom(self):
-        return self.env['product.template'].get_length_uom_name()
-
-    unit_price = fields.Float('Unit Price', digits='Product Price', help='Price per length unit')
-    length_uom_name = fields.Char(string='Length UoM Name', compute='_compute_length_uom_name', default=_default_length_uom, store=True)
-    percentage_price_ids = fields.One2many('product.attribute.value.percentage.price', 'product_attribute_value_id', string='Percentage Price')
     product_attribute_value_id = fields.Many2one('product.attribute.value', string='Related Value')
     product_attribute_value_ids = fields.One2many('product.attribute.value', 'product_attribute_value_id', string='Related Values')
     relationship_type = fields.Selection([('o2m', 'One to Many'), ('m2o', 'Many to One'), ('none', 'None')], string='Relationship Type', compute='_compute_relationship_type', help='Utility field used in UI.')
@@ -31,11 +25,6 @@ class ProductAttributeValue(models.Model):
                 value.relationship_type = 'o2m'
             else:
                 value.relationship_type = 'none'
-
-    def _compute_length_uom_name(self):
-        """ retrieve uom name from product template """
-        for value in self:
-            value.length_uom_name = self.env['product.template'].get_length_uom_name()
 
     @api.constrains('product_attribute_value_id', 'product_attribute_value_ids')
     def _check_product_attributes(self):

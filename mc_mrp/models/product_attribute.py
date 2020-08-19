@@ -7,7 +7,6 @@ from odoo.exceptions import UserError
 class ProductAttribute(models.Model):
     _inherit = "product.attribute"
 
-    has_linear_price = fields.Boolean(string='Linear Price')
     product_attribute_id = fields.Many2one('product.attribute', string='Related Attribute')
     product_attribute_ids = fields.One2many('product.attribute', 'product_attribute_id', string='Related Attributes')
     relationship_type = fields.Selection([('o2m', 'One to Many'), ('m2o', 'Many to One'), ('none', 'None')], string='Relationship Type', compute='_compute_relationship_type', help='Utility field used in UI.')
