@@ -13,8 +13,7 @@
             </xpath>
             <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="after">
-                <field name="tissue_meterage_1" invisible="1"/>
-                <field name="tissue_meterage_2" invisible="1"/>
+                <field name="fabrics_meterage_needed" invisible="1"/>
                 <field name="comment" invisible="1"/>
                 <field name="product_sale_price" invisible="1"/>
             </xpath>

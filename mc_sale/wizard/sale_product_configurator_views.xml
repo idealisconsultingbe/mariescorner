@@ -9,11 +9,8 @@
                 <attribute name="readonly">1</attribute>
             </field>
             <field name="product_template_id" position="after">
-                <field name="has_attribute_tissue_1" invisible="1"/>
-                <field name="has_attribute_tissue_2" invisible="1"/>
                 <field name="product_is_tailor_made" invisible="1"/>
-                <field name="tissue_meterage_1" attrs="{'invisible': [('has_attribute_tissue_1', '=', False)]}"/>
-                <field name="tissue_meterage_2" attrs="{'invisible': [('has_attribute_tissue_2', '=', False)]}"/>
+                <field name="fabrics_meterage_needed" readonly="1"/>
                 <field name="standard_product_price" attrs="{'invisible': [('product_is_tailor_made', '=', True)]}"/>
                 <field name="product_cost" attrs="{'readonly': [('product_is_tailor_made', '=', False)]}"/>
             </field>

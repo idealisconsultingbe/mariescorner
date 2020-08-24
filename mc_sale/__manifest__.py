@@ -29,6 +29,7 @@
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
         'views/assets.xml',
+        'views/variant_templates.xml',
         'wizard/sale_product_configurator_views.xml',
     ],
     'auto_install': False,

@@ -6,8 +6,7 @@ from odoo import api, fields, models, _
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    tissue_meterage_1 = fields.Float(string="Meterage of tissue 1", default=-1)
-    tissue_meterage_2 = fields.Float(string="Meterage of tissue 2", default=0.0)
+    fabrics_meterage_needed = fields.Float(string="Meterage of fabrics", related="product_id.linear_length")
     product_sale_price = fields.Float(related="product_template_id.list_price", string="Standard Sale Price")
     comment = fields.Html(string="Comment")
 

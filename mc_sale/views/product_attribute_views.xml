@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='create_variant']" position="after">
                 <field name="has_linear_price"/>
-                <field name="tissue_category" attrs="{'invisible': [('has_linear_price', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='value_ids']/tree" position="inside">
                 <field name="unit_price" attrs="{'column_invisible': [('parent.has_linear_price', '=', False)]}"/>

@@ -12,6 +12,7 @@ class ProductAttributeValue(models.Model):
     unit_price = fields.Float('Unit Price', digits='Product Price', help='Price per length unit')
     length_uom_name = fields.Char(string='Length UoM Name', compute='_compute_length_uom_name', default=_default_length_uom, store=True)
     percentage_price_ids = fields.One2many('product.attribute.value.percentage.price', 'product_attribute_value_id', string='Percentage Price')
+    has_linear_price = fields.Boolean(string='Linear Price', related='attribute_id.has_linear_price')
 
     def _compute_length_uom_name(self):
         """ retrieve uom name from product template """

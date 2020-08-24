@@ -18,10 +18,11 @@
                             </div>
                         </group>
                         <group>
+                            <field name="has_linear_price" invisible="1"/>
                             <field name="display_type"/>
                             <field name="html_color" attrs="{'invisible': [('display_type', '!=', 'color')]}"/>
                             <field name="is_used_on_products"/>
-                            <field name="is_custom"/>
+                            <field name="is_custom" attrs="{'readonly': [('has_linear_price', '=', True)]}"/>
                         </group>
                     </group>
                     <notebook>

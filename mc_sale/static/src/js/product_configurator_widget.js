@@ -15,12 +15,12 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
             }).then(function (query_result) {
                 var product_price =  0;
                 var product_cost =  0;
-                var tissue_meterage_1 = 0;
+                var fabrics_meterage_needed = 0;
                 // Tailor made product has no default values, every values should be filled in by the user.
                 if (query_result && !query_result[0].tailor_made) {
                     product_price = query_result[0].list_price;
                     product_cost =  query_result[0].standard_price;
-                    tissue_meterage_1 = query_result[0].linear_length;
+                    fabrics_meterage_needed = query_result[0].linear_length;
                 }
                 if (!result.mode || result.mode === 'configurator') {
                     self._openProductConfigurator({
@@ -28,8 +28,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                             default_pricelist_id: self._getPricelistId(),
                             default_product_template_id: productTemplateId,
                             // Custom changes
-                            default_tissue_meterage_1: tissue_meterage_1,
-                            default_tissue_meterage_2: self._getTissueMeterage2(),
+                            default_fabrics_meterage_needed: fabrics_meterage_needed,
                             default_standard_product_price: product_price,
                             default_product_cost: product_cost,
                             default_comment: self._getComment(),
@@ -60,8 +59,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                     default_product_template_id: this.recordData.product_template_id.data.id,
                     default_pricelist_id: this._getPricelistId(),
                     // Custom changes
-                    default_tissue_meterage_1: this._getTissueMeterage1(),
-                    default_tissue_meterage_2: this._getTissueMeterage2(),
+                    default_fabrics_meterage_needed: this._getFabricsMeterageNeeded(),
                     default_product_cost: this._getPurchasePrice(),
                     default_standard_product_price: this._getProductSalePrice(),
                     default_comment: this._getComment(),
@@ -87,12 +85,6 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          */
         _getMainProductChanges: function (mainProduct) {
             result = this._super.apply(this, arguments);
-            if (mainProduct.tissue_meterage_1 !== -1) {
-                result['tissue_meterage_1'] = mainProduct.tissue_meterage_1;
-            }
-            if (mainProduct.tissue_meterage_2 !== -1) {
-                result['tissue_meterage_2'] = mainProduct.tissue_meterage_2;
-            }
             if (mainProduct.comment !== 'None') {
                 result['comment'] = mainProduct.comment;
             }
@@ -109,18 +101,8 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          * @private
          * @returns {float} tissue_meterage_1's value
          */
-        _getTissueMeterage1: function () {
-            return this.record.evalContext.tissue_meterage_1;
-        },
-
-        /**
-         * Returns the tissue_meterage_2 set on the sale_order_line
-         *
-         * @private
-         * @returns {float} tissue_meterage_2's value
-         */
-        _getTissueMeterage2: function () {
-            return this.record.evalContext.tissue_meterage_2;
+        _getFabricsMeterageNeeded: function () {
+            return this.record.evalContext.fabrics_meterage_needed;
         },
 
         /**
