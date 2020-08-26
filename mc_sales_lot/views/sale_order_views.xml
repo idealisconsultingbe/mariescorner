@@ -8,8 +8,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                <field name="sales_lot_number_visible" invisible="1"/>
-                <field name="sales_lot_number" attrs="{'readonly': [('sales_lot_number_visible', '=', False)], 'required': [('sales_lot_number_visible', '=', True), ('state', 'in', ['sale', 'done'])]}"/>
+                <field name="sales_lot_id_required" invisible="1"/>
+                <field name="sales_lot_id" attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}"/>
             </xpath>
         </field>
     </record>

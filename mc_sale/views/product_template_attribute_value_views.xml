@@ -7,7 +7,11 @@
         <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_extra']" position="before">
-                <field name="manual_price_extra"/>
+                <field name="is_manual_price_extra"/>
+                <field name="manual_price_extra" attrs="{'invisible': [('is_manual_price_extra', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='price_extra']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_manual_price_extra', '=', True)]}</attribute>
             </xpath>
         </field>
     </record>
@@ -19,7 +23,11 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_extra']" position="replace">
                 <label for="price_extra"/>
-                <div class="o_row"><field name="price_extra"/><field name="manual_price_extra"/>manual price</div>
+                <div class="o_row">
+                    <field name="manual_price_extra" attrs="{'invisible': [('is_manual_price_extra', '=', False)]}"/>
+                    <field name="price_extra" attrs="{'invisible': [('is_manual_price_extra', '=', True)]}"/>
+                    <field name="is_manual_price_extra"/>manual price
+                </div>
             </xpath>
         </field>
     </record>

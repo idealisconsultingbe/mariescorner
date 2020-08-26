@@ -7,11 +7,13 @@ from odoo.exceptions import UserError
 class ProductAttributeValue(models.Model):
     _inherit = 'product.attribute.value'
 
-    product_attribute_value_id = fields.Many2one('product.attribute.value', string='Related Value')
-    product_attribute_value_ids = fields.One2many('product.attribute.value', 'product_attribute_value_id', string='Related Values')
+    product_attribute_value_id = fields.Many2one('product.attribute.value', string='Related Value', domain="[('attribute_id', '=', related_product_attribute_id)]")
+    product_attribute_value_ids = fields.One2many('product.attribute.value', 'product_attribute_value_id', string='Related Values', domain="[('attribute_id', 'in', related_product_attribute_ids)]")
+    related_product_attribute_id = fields.Many2one('product.attribute', string='Related Attribute', related='attribute_id.product_attribute_id')
+    related_product_attribute_ids = fields.One2many('product.attribute', 'product_attribute_id', string='Related Attributes', related='attribute_id.product_attribute_ids')
     relationship_type = fields.Selection([('o2m', 'One to Many'), ('m2o', 'Many to One'), ('none', 'None')], string='Relationship Type', compute='_compute_relationship_type', help='Utility field used in UI.')
+    is_none_value = fields.Boolean(string='Is None Value', default=False)
 
-    @api.depends('product_attribute_value_ids', 'product_attribute_value_id')
     def _compute_relationship_type(self):
         """ Compute relationship type in order to hide unwanted fields
             - if relationship_type = o2m, then m2o field should be hidden
@@ -19,9 +21,9 @@ class ProductAttributeValue(models.Model):
             - else both fields should be visible
         """
         for value in self:
-            if value.product_attribute_value_id:
+            if value.related_product_attribute_id:
                 value.relationship_type = 'm2o'
-            elif value.product_attribute_value_ids:
+            elif value.related_product_attribute_ids:
                 value.relationship_type = 'o2m'
             else:
                 value.relationship_type = 'none'

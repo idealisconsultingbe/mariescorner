@@ -17,7 +17,7 @@
             <xpath expr="//field[@name='value_ids']/tree" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <xpath expr="//field[@name='value_ids']/tree" position="inside">
+            <xpath expr="//field[@name='value_ids']/tree/field[@name='name']" position="after">
                 <field name="attribute_id" invisible="1"/>
                 <field name="relationship_type" invisible="1"/>
                 <field name="product_attribute_value_id" attrs="{'column_invisible': [('parent.relationship_type', '=', 'o2m')]}" domain="['|', ('attribute_id', '=', parent.product_attribute_id), ('attribute_id', 'in', parent.product_attribute_ids)]"/>

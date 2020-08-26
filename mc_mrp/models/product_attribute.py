@@ -54,7 +54,7 @@ class ProductAttribute(models.Model):
             related_product_attributes = []
 
         # if relationship to other attribute(s) changes, then erase all relationships between attribute values
-        if 'product_attribute_id' or 'product_attribute_ids' in vals:
+        if 'product_attribute_id' in vals or 'product_attribute_ids' in vals:
             self.value_ids.update({'product_attribute_value_id': False, 'product_attribute_value_ids': [(5, 0, 0)]})
 
         # if new values are added to current attribute, create copy of them in related attributes before establishing relationships
@@ -110,7 +110,7 @@ class ProductAttribute(models.Model):
                     # retrieve record to update
                     v = self.env['product.attribute.value'].browse(value[1])
                     # retrieve updated values
-                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom')}
+                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom', 'is_none_value')}
                     if v.product_attribute_value_id:
                         # if record has a parent, update parent values before updating children values
                         v.product_attribute_value_id.update(update_vals)

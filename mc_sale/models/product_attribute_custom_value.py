@@ -27,10 +27,10 @@ class ProductAttributeCustomValue(models.Model):
         return super(ProductAttributeCustomValue, self).write(values)
 
     @api.constrains('custom_value')
-    def check_custom_value_formant(self):
+    def _check_custom_value_format(self):
         for custom_attribute in self:
             if custom_attribute.custom_product_template_attribute_value_id.attribute_id.has_linear_price and custom_attribute.custom_value:
                 attribute = custom_attribute.custom_product_template_attribute_value_id.attribute_id
                 custom_value = custom_attribute.custom_value.replace(',', '.')
                 if not is_float(custom_value):
-                    raise ValidationError(_("The custom value for the attribute '{}' should be a float. Something like 2.25 or 2,25. But your input is {}.".format(attribute.name, custom_attribute.custom_value)))
+                    raise ValidationError(_("The custom value for the attribute '{}' should be a float like 2.25 or 2,25 (your input is {}).".format(attribute.name, custom_attribute.custom_value)))

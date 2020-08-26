@@ -13,11 +13,12 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale', 'mrp', 'purchase_stock', 'mc_sale'],
+    'depends': ['mrp', 'purchase_stock', 'mc_sale'],
     'data': [
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
         'views/product_attribute_value_views.xml',
+        'views/mrp_production_views.xml'
     ],
     'auto_install': False,
     'installable': True,

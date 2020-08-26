@@ -21,5 +21,10 @@ class PurchaseOrder(models.Model):
         res = super(PurchaseOrder, self)._prepare_sale_order_line_data(line, company, sale_id)
         # if all stock moves have the same Sales Lot then add it to values
         if line.product_no_variant_attribute_value_ids:
-            res.update({'name': line.name, 'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)]})
+            res.update({
+                'name': line.name,
+                'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],
+                'product_custom_attribute_value_ids': [(6, 0, line.product_custom_attribute_value_ids.ids)],
+                'comment': line.comment
+            })
         return res

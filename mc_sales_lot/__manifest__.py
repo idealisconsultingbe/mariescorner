@@ -14,7 +14,7 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale', 'purchase', 'mrp', 'inter_company_rules', 'sale_stock'],
+    'depends': ['purchase', 'mrp', 'inter_company_rules', 'sale_stock'],
     'data': [
         'security/ir.model.access.csv',
         'security/stock_production_sales_lot_groups.xml',

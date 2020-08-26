@@ -8,8 +8,13 @@
         <field name="arch" type="xml">
             <field name="attribute_id" position="after">
                 <field name="relationship_type" invisible="1"/>
+                <field name="related_product_attribute_ids" invisible="1"/>
+                <field name="related_product_attribute_id" invisible="1"/>
                 <field name="product_attribute_value_id" attrs="{'invisible': [('relationship_type', '=', 'o2m')]}"/>
                 <field name="product_attribute_value_ids" widget="many2many_tags" attrs="{'invisible': [('relationship_type', '=', 'm2o')]}"/>
+            </field>
+            <field name="has_linear_price" position="before">
+                <field name="is_none_value"/>
             </field>
         </field>
     </record>
