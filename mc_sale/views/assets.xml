@@ -2,9 +2,9 @@
 <odoo>
     <template id="assets_backend" inherit_id="web.assets_backend" name="sale_product_configurator assets backend">
         <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/mc_sale/static/src/js/variant_mixin.js"/>
             <script type="text/javascript" src="/mc_sale/static/src/js/product_configurator_widget.js"/>
             <script type="text/javascript" src="/mc_sale/static/src/js/product_configurator_controller.js"/>
-            <script type="text/javascript" src="/mc_sale/static/src/js/variant_mixin.js"/>
         </xpath>
     </template>
 </odoo>

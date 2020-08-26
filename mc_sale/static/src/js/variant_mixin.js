@@ -1,13 +1,59 @@
 odoo.define('mc_sale.VariantMixin', function (require) {
-    var VariantMixin = require('sale.VariantMixin');
+    'use strict';
 
-    VariantMixin.include({
+    var ajax = require('web.ajax');
+    var FormRenderer = require('sale_product_configurator.ProductConfiguratorFormRenderer');
+    // var VariantMixin = require('sale.VariantMixin');
+
+
+    var ProductConfiguratorFormRenderer = FormRenderer.include({
+
         /**
-         * Will add the "custom value" input for this attribute value if
-         * the attribute value is configured as "custom" (see product_attribute_value.is_custom)
-         *
-         * @private
-         * @param {MouseEvent} ev
+         * @override
+         */
+        _onChangeColorAttribute: function (ev) {
+            this._super.apply(this, arguments);
+            var $parent = $(ev.target).closest('.js_product');
+            $parent.find('.css_attribute_color')
+                .removeClass("active")
+                .filter(':has(input:checked)')
+                .addClass("active");
+        },
+
+        /**
+         * @overwrite
+         */
+        _getCombinationInfo: function (ev) {
+            var self = this;
+
+            var $parent = $(ev.target).closest('.js_product');
+            var qty = $parent.find('input[name="add_qty"]').val();
+            var combination = this.getSelectedVariantValues($parent);
+            var parentCombination = $parent.find('ul[data-attribute_exclusions]').data('attribute_exclusions').parent_combination;
+            var productTemplateId = parseInt($parent.find('.product_template_id').val());
+            // Custom changes
+            var customValues = this.getCustomVariantValues($parent);
+            // End custom changes
+
+            self._checkExclusions($parent, combination);
+
+            return ajax.jsonRpc(this._getUri('/sale/get_combination_info'), 'call', {
+                'product_template_id': productTemplateId,
+                'product_id': this._getProductId($parent),
+                'combination': combination,
+                'add_qty': parseInt(qty),
+                'pricelist_id': this.pricelistId || false,
+                'parent_combination': parentCombination,
+                // Custom changes
+                'custom_values': customValues,
+                // End custom changes
+            }).then(function (combinationData) {
+                self._onChangeCombination(ev, $parent, combinationData);
+            });
+        },
+
+        /**
+         * @overwrite
          */
         handleCustomValues: function ($target) {
             var $variantContainer;
@@ -63,5 +109,5 @@ odoo.define('mc_sale.VariantMixin', function (require) {
             }
         },
     });
-    return VariantMixin;
+    return ProductConfiguratorFormRenderer;
 });
