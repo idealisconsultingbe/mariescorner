@@ -19,7 +19,7 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale_product_configurator', 'purchase', 'product'],
+    'depends': ['sale_product_configurator', 'purchase', 'product', 'website_sale_stock'],
     'data': [
         'security/ir.model.access.csv',
         'views/product_attribute_value_percentage_price_views.xml',

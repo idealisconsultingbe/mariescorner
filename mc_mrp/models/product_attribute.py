@@ -83,8 +83,8 @@ class ProductAttribute(models.Model):
             # attributes synchronization
             for product_attribute in related_product_attributes:
                 # condition does not work with get() if 'has_linear_price' is explicitly False
-                if 'has_linear_price' in vals:
-                    product_attribute.with_context(is_synchronized=True).update({'has_linear_price': vals.get('has_linear_price')})
+                # if 'has_linear_price' in vals:
+                #     product_attribute.with_context(is_synchronized=True).update({'has_linear_price': vals.get('has_linear_price')})
                 if vals.get('display_type'):
                     product_attribute.with_context(is_synchronized=True).update({'display_type': vals.get('display_type')})
 
@@ -110,7 +110,8 @@ class ProductAttribute(models.Model):
                     # retrieve record to update
                     v = self.env['product.attribute.value'].browse(value[1])
                     # retrieve updated values
-                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom', 'is_none_value')}
+                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_none_value')}
+                    # update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom', 'is_none_value')}
                     if v.product_attribute_value_id:
                         # if record has a parent, update parent values before updating children values
                         v.product_attribute_value_id.update(update_vals)
