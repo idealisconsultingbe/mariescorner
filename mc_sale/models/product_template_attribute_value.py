@@ -16,8 +16,11 @@ class ProductTemplateAttributeValue(models.Model):
 
     @api.depends(
         'product_tmpl_id.linear_length',
-        'product_attribute_value_id.unit_price',
+        'product_tmpl_id.list_price',
         'product_attribute_value_id.percentage_price_ids',
+        'product_attribute_value_id.percentage_price_ids.percentage',
+        'product_attribute_value_id.percentage_price_ids.price_extra',
+        'product_attribute_value_id.percentage_price_ids.type',
         'attribute_id.has_linear_price',
         'manual_price_extra',
         'is_manual_price_extra')
@@ -50,7 +53,7 @@ class ProductTemplateAttributeValue(models.Model):
     def _get_percentage_price(self):
         """ Retrieve applicable percentage rule according to matching category """
         # product_attribute_value_id is mandatory
-        for percentage_price in self.product_attribute_value_id.percentage_price_ids.filtered(lambda p: p.percentage_price):
+        for percentage_price in self.product_attribute_value_id.percentage_price_ids.filtered(lambda p: p.percentage_price or p.price_extra):
             category = self.product_tmpl_id.categ_id
             # search for a matching category through parents
             while category:
