@@ -18,7 +18,7 @@ class ProductTemplateAttributeValue(models.Model):
         'product_tmpl_id.linear_length',
         'product_tmpl_id.list_price',
         'product_attribute_value_id.percentage_price_ids',
-        'product_attribute_value_id.percentage_price_ids.percentage',
+        'product_attribute_value_id.percentage_price_ids.percentage_price',
         'product_attribute_value_id.percentage_price_ids.price_extra',
         'product_attribute_value_id.percentage_price_ids.type',
         'attribute_id.has_linear_price',
