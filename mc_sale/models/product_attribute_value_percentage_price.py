@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 
 
 class PercentagePrice(models.Model):
@@ -12,5 +12,14 @@ class PercentagePrice(models.Model):
     ]
 
     product_attribute_value_id = fields.Many2one('product.attribute.value', string='Product Attribute Value', required=True)
-    percentage_price = fields.Float(string='Percentage Price')
+    price_extra = fields.Float(string='Extra Price', default=0.0)
+    type = fields.Selection([('percentage', 'Percentage'), ('amount', 'Fix Amount')], sting='Type', default='percentage')
+    percentage_price = fields.Float(string='Percentage Price', default=0.0)
     product_category_id = fields.Many2one('product.category', string='Product Category', required=True)
+
+    @api.onchange('type')
+    def onchange_price(self):
+        if self.type == 'percentage':
+            self.price_extra = 0
+        elif self.type == 'amount':
+            self.percentage_price = 0

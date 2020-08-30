@@ -30,7 +30,8 @@ class ProductAttribute(models.Model):
     def _onchange_product_attribute_id(self):
         """ Advise user to don't save changes if he doesn't want to lose all links between attribute values """
         # FIXME : if we change display_type, all relationships are erased too
-        return {'warning': {'title': _('Warning'), 'message': _(
+        if self._origin.product_attribute_id or self._origin.product_attribute_ids:
+            return {'warning': {'title': _('Warning'), 'message': _(
                 'Changing this relationship will erase all links between values on this record and related ones. Discard changes if you are not sure of what you are doing.')}}
 
     @api.constrains('product_attribute_id', 'product_attribute_ids')

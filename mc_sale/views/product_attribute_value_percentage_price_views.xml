@@ -7,8 +7,9 @@
         <field name="arch" type="xml">
             <tree string="Percentage Prices" editable="bottom">
                 <field name="product_category_id"/>
-                <field name="product_attribute_value_id"/>
-                <field name="percentage_price"/>
+                <field name="type"/>
+                <field name="percentage_price" widget="percentage" attrs="{'invisible': [('type', '!=', 'percentage')]}"/>
+                <field name="price_extra" attrs="{'invisible': [('type', '!=', 'amount')]}"/>
             </tree>
         </field>
     </record>

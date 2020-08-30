@@ -25,23 +25,27 @@ class ProductTemplateAttributeValue(models.Model):
         """ compute extra price according to precedence rule:
         * Precedence rule -> manual price > linear price > percentage price
         -   if product template attribute value 'manual price' flag is on, then use price manually set by user
-        -   else if product attribute value has 'linear price' flag set, then extra price should be 0.0 and computed later
+        -   else if product attribute value has 'linear price' flag set, then extra price should be 0.0 and computed later on.
+                    Computed through the product configurator when the user has given the length used.
         -   else if product attribute value has a 'percentage price' matching product category,
-            apply this percentage on public price, else extra price should be 0.0
+                    apply this percentage on public price, else extra price should be 0.0
         -   else extra price is 0.0
         """
         for value in self:
             if value.is_manual_price_extra:
-                value.price_extra = value.manual_price_extra
+                price_extra = value.manual_price_extra
             elif value.product_attribute_value_id.has_linear_price:
-                # FIXME : should be 0.0 if has linear price ?
-                value.price_extra = 0.0
-                # value.price_extra = value.product_attribute_value_id.unit_price or 0.0
+                price_extra = 0.0
             elif value.product_attribute_value_id.percentage_price_ids:
+                price_extra = 0.0
                 percentage_price = value._get_percentage_price()
-                value.price_extra = round(value.product_tmpl_id.list_price / 100) * percentage_price.percentage_price or 0.0
+                if percentage_price and percentage_price.type == 'percentage':
+                    price_extra = round(value.product_tmpl_id.list_price * percentage_price.percentage_price)
+                elif percentage_price and percentage_price.type == 'amount':
+                    price_extra = percentage_price.price_extra
             else:
-                value.price_extra = 0.0
+                price_extra = 0.0
+            value.price_extra = price_extra
 
     def _get_percentage_price(self):
         """ Retrieve applicable percentage rule according to matching category """

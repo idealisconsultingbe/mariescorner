@@ -14,6 +14,8 @@ class ProductAttribute(models.Model):
         An attribute with a linear price should only have custom values in order to let the user indicate the meterage needed.
         """
         if self.has_linear_price:
-            self.value_ids.write({'is_custom': True})
+            not_none_value = self.value_ids.filtered(lambda v: not v.is_none_value)
+            not_none_value.write({'is_custom': True})
+            (self.value_ids - not_none_value).write({'is_custom': False})
         else:
             self.value_ids.write({'is_custom': False})
