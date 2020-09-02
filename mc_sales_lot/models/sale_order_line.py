@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Sales Lot')
+    sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Sales Lot', copy=False)
     sales_lot_id_required = fields.Boolean(string='Sales Lot Required', compute='_compute_sales_lot_id_required')
     # sales_lot_number = fields.Char(string='Sales Lot Number')
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
@@ -21,10 +21,10 @@ class SaleOrderLine(models.Model):
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         sales_lot_id_required = (production_lot_enabled and not automatic_lot_enabled)
         for line in self:
-            if not line.product_id or line.sales_lot_id:
+            if not line.product_id:
                 line.sales_lot_id_required = False
             else:
-                line.sales_lot_id_required = sales_lot_id_required and line.has_tracking != 'none'
+                line.sales_lot_id_required = sales_lot_id_required and line.has_tracking != 'none' and line.product_id.sales_lot_activated
 
     @api.constrains('sales_lot_id')
     def _check_sales_lot_id(self):

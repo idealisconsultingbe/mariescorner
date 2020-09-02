@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import stock_move
 from . import product_attribute
 from . import product_attribute_custom_value
 from . import product_attribute_value_percentage_price

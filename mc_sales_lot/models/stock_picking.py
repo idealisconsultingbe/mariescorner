@@ -29,8 +29,9 @@ class Picking(models.Model):
         # this should work only for receipt
         if self.picking_type_code == 'incoming':
             # retrieve 'extra numbers' to add to serial numbers from configuration parameters
-            serial_numbers_to_add = self.env['ir.config_parameter'].sudo().get_param('mc_sales_lot.additional_serial_number')
+            serial_numbers_to_add = int(self.env['ir.config_parameter'].sudo().get_param('mc_sales_lot.additional_serial_number'))
             if not self.move_line_ids:
+                serial_increment = 0
                 precision_digits = self.env['decimal.precision'].precision_get('Product Unit of Measure')
                 # select only moves in correct state with a quantity set and no Sales Lot
                 for move_line in self.move_lines.filtered(
@@ -42,9 +43,9 @@ class Picking(models.Model):
                             self.env['stock.move.line'].create(move_line._prepare_move_line_vals(lot_name=move_line.sales_lot_id.name, quantity=move_line.product_uom_qty))
                         else:
                             # Serial numbers should use Sales Lot name + 'extra numbers' with increment
-                            lot_name = move_line.sales_lot_id.name + str(self.serial_increment).zfill(serial_numbers_to_add)
+                            lot_name = move_line.sales_lot_id.name + str(serial_increment).zfill(serial_numbers_to_add)
                             self.env['stock.move.line'].create(move_line._prepare_move_line_vals(lot_name=lot_name, quantity=move_line.product_uom_qty))
-                            self.serial_increment += 1
+                            serial_increment += 1
             else:
                 # if there are already move lines, update them
                 serial_increment = 1

@@ -37,19 +37,6 @@ class SaleOrder(models.Model):
         else:
             purchase_order_id.button_confirm()
 
-    # def _get_purchase_order(self):
-    #     """ Retrieve purchase order(s) if there is a MTO product with buy route """
-    #     self.ensure_one()
-    #     purchase_order_ids = self.env['purchase.order']
-    #     for line in self.order_line:
-    #         if line.move_ids:
-    #             move = line.move_ids[0]
-    #             if move.created_purchase_line_id:
-    #                 purchase_order_ids += move.created_purchase_line_id.order_id
-    #             elif move.move_orig_ids and move.move_orig_ids[0].purchase_line_id:
-    #                 purchase_order_ids += move.move_orig_ids[0].purchase_line_id.order_id
-    #     return purchase_order_ids
-
     def _get_purchase_order(self):
         """ Retrieve purchase order(s) if there is a MTO product with buy route """
         self.ensure_one()
@@ -57,8 +44,7 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             if line.move_ids:
                 move = line.move_ids[0]
-                if move.created_purchase_line_id:
-                    purchase_order_ids += move.created_purchase_line_id.order_id
-                elif move.move_orig_ids and move.move_orig_ids[0].purchase_line_id:
-                    purchase_order_ids += move.move_orig_ids[0].purchase_line_id.order_id
+                purchase_order_line = move._get_purchase_line_id()
+                if purchase_order_line:
+                    purchase_order_ids += purchase_order_line.order_id
         return purchase_order_ids

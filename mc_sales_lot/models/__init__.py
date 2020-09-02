@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from . import product_category
+from . import product_product
+from . import product_template
 from . import sale_order
 from . import stock_production_sales_lot
 from . import sale_order_line

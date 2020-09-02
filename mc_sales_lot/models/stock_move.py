@@ -31,3 +31,11 @@ class StockMove(models.Model):
         if lot_name:
             res['lot_name'] = lot_name
         return res
+
+    def _merge_moves(self, merge_into=False):
+        """
+        Override the standard method -> it will prevent move using sales lot to be merged.
+        """
+        moves_using_sales_lot = self.filtered(lambda m: m.product_id.sales_lot_activated)
+        merged_moves =  super(StockMove, self - moves_using_sales_lot)._merge_moves(merge_into)
+        return (merged_moves | moves_using_sales_lot)
