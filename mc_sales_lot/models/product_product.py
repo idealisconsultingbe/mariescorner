@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
 
@@ -24,4 +25,3 @@ class ProductProduct(models.Model):
                 active = categ.use_sales_lot
                 categ = categ.parent_id
             product.sales_lot_activated = active
-

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models
 
@@ -24,4 +25,3 @@ class PurchaseOrder(models.Model):
                 and all(move.sales_lot_id for move in line.move_dest_ids):
             res['sales_lot_id'] = line.move_dest_ids[0].sales_lot_id.id
         return res
-

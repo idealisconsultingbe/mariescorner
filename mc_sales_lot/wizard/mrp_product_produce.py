@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
 
@@ -46,15 +47,3 @@ class MrpProductProduce(models.TransientModel):
                         })
                     res['finished_lot_id'] = finished_lot_id.id
         return res
-
-    # serial_increment = fields.Integer(string='Serial Increment')
-
-    # def continue_production(self):
-    #     """ Overridden Method
-    #         Save current wizard and directly opens a new after updating serial increment
-    #     """
-    #     self.ensure_one()
-    #     res = super(MrpProductProduce, self).continue_production()
-    #     if self.product_tracking == 'serial':
-    #         res['context'].update({'default_serial_increment': self.serial_increment + 1})
-    #     return res

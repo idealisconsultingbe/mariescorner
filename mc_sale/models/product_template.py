@@ -1,16 +1,8 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
+from .tools import to_float
 from odoo import api, fields, models
-
-
-def to_float(string_value):
-    try:
-        string_value = string_value.replace(',', '.')
-        return float(string_value)
-    except ValueError:
-        return 0.0
-    except AttributeError:
-        return 0.0
 
 
 class ProductTemplate(models.Model):

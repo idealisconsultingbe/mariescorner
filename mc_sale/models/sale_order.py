@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -46,5 +47,5 @@ class SaleOrder(models.Model):
                 move = line.move_ids[0]
                 purchase_order_line = move._get_purchase_line_id()
                 if purchase_order_line:
-                    purchase_order_ids += purchase_order_line.order_id
+                    purchase_order_ids |= purchase_order_line.order_id
         return purchase_order_ids

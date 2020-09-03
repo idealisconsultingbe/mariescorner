@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
 
@@ -39,3 +40,13 @@ class StockMove(models.Model):
         moves_using_sales_lot = self.filtered(lambda m: m.product_id.sales_lot_activated)
         merged_moves =  super(StockMove, self - moves_using_sales_lot)._merge_moves(merge_into)
         return (merged_moves | moves_using_sales_lot)
+
+    def _prepare_procurement_values(self):
+        """
+        Override standard method -> add the sales lot into the procurement.
+        :return:
+        """
+        values = super(StockMove, self)._prepare_procurement_values()
+        if self.product_id.sales_lot_activated:
+            values['sales_lot_id'] = self.sales_lot_id
+        return values

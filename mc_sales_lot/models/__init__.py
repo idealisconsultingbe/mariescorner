@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from . import product_category
 from . import product_product
@@ -12,3 +13,4 @@ from . import res_config_settings
 from . import stock_picking
 from . import purchase_order
 from . import mrp_production
+from . import stock_rule

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
 
@@ -15,7 +16,7 @@ class SaleOrder(models.Model):
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         if production_lot_enabled and automatic_lot_enabled:
             for order in self:
-                for line in order.order_line.filtered(lambda l: l.has_tracking and not l.sales_lot_id):
+                for line in order.order_line.filtered(lambda l: l.has_tracking and not l.sales_lot_id and l.product_id and l.product_id.sales_lot_activated):
                     name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot')
                     sales_lot_id = self.env['stock.production.sales.lot'].create({'name': name, 'product_id': line.product_id.id})
                     line.update({'sales_lot_id': sales_lot_id.id})

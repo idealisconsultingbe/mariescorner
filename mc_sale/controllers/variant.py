@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
+
 from odoo import http
 from odoo.http import request
 from odoo.addons.sale.controllers.variant import VariantController
@@ -8,6 +10,10 @@ class CustomVariantController(VariantController):
 
     @http.route(['/sale/get_combination_info'], type='json', auth="user", methods=['POST'])
     def get_combination_info(self, product_template_id, product_id, combination, add_qty, pricelist_id, **kw):
+        """
+        Override the standard method.
+        Handle the custom values sent by the JS in order to calculate the price depending on the meterage given in input by the user.
+        """
         if not kw.get('custom_values'):
             return super(CustomVariantController, self).get_combination_info(product_template_id, product_id, combination, add_qty, pricelist_id, **kw)
         else:
