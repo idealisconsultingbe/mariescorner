@@ -19,6 +19,20 @@ class ProductTemplate(models.Model):
         for template in self:
             template.length_uom_name = self.get_length_uom_name()
 
+    @api.onchange('tailor_made')
+    def onchange_tailor_made(self):
+        """
+        A product that is tailor-made should not have attribute with an extra price. We then check the flag manual price in order to prevent
+        Odoo from computing automatically extra price. The price of a tailor-made product is complex to compute since a lot of variables are envolved.
+        Sales price of tailor-made products should be computed manually by the seller.
+        """
+        product_template_attribute_values = self.env['product.template.attribute.value'].search([('product_tmpl_id', 'in', self.ids)])
+        if product_template_attribute_values:
+            if self.tailor_made:
+                product_template_attribute_values.write({'is_manual_price_extra': True})
+            else:
+                product_template_attribute_values.write({'is_manual_price_extra': False})
+
     @api.model
     def get_length_uom_name(self):
         """ Retrieve reference uom name for length measures.
@@ -49,6 +63,8 @@ class ProductTemplate(models.Model):
 
             # retrieve product template attribute values bound to custom values in order to remove them from price extra computation
             custom_combination = product_template.env['product.template.attribute.value'].browse([value['custom_product_template_attribute_value_id'] for value in kw.get('custom_values')])
+            # Keeps only custom attribute values linked to an attribute marked as linear price and for which the manual extra price is not activated.
+            custom_combination = custom_combination.filtered(lambda x: not x.is_manual_price_extra and x.attribute_id.has_linear_price)
             combination = combination - custom_combination
 
             if product:

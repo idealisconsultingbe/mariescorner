@@ -13,6 +13,7 @@ class CustomVariantController(VariantController):
         """
         Override the standard method.
         Handle the custom values sent by the JS in order to calculate the price depending on the meterage given in input by the user.
+        Tailor-made product should not have their price impact since it will be calculated manually by the seller.
         """
         if not kw.get('custom_values'):
             return super(CustomVariantController, self).get_combination_info(product_template_id, product_id, combination, add_qty, pricelist_id, **kw)

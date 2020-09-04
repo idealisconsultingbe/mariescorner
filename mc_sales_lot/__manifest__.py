@@ -26,6 +26,7 @@
         'views/res_config_settings_views.xml',
         'views/stock_picking_views.xml',
         'views/mrp_production_views.xml',
+        'views/stock_move_views.xml',
     ],
     'auto_install': False,
     'installable': True,

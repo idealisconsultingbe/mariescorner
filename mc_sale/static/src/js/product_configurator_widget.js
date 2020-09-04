@@ -16,8 +16,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                 var product_price =  0;
                 var product_cost =  0;
                 var fabrics_meterage_needed = 0;
-                // Tailor made product has no default values, every values should be filled in by the user.
-                if (query_result && !query_result[0].tailor_made) {
+                if (query_result) {
                     product_price = query_result[0].list_price;
                     product_cost =  query_result[0].standard_price;
                     fabrics_meterage_needed = query_result[0].linear_length;

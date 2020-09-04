@@ -5,10 +5,6 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='do_print_picking']" position="before">
-                <field name="update_lot_name_visible" invisible="1"/>
-                <button name="button_update_lot_name" attrs="{'invisible': ['|', '|', '|', ('immediate_transfer', '=', True), ('show_validate', '=', False), ('picking_type_code', '!=', 'incoming'), ('update_lot_name_visible', '=', False)]}" string="Update Lot/Serial Numbers" type="object" groups="stock.group_stock_user" class="o_btn_validate"/>
-            </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
                 <field name="sales_lot_id"/>
             </xpath>

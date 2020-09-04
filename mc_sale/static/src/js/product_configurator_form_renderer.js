@@ -1,4 +1,4 @@
-odoo.define('mc_sale.VariantMixin', function (require) {
+odoo.define('mc_sale.ProductConfiguratorFormRenderer', function (require) {
     'use strict';
 
     var ajax = require('web.ajax');

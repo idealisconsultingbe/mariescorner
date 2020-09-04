@@ -3,10 +3,10 @@
     <data noupdate="1">
 
         <record id="stock_production_sales_lot_seq" model="ir.sequence">
-            <field name="name">Sales Order</field>
+            <field name="name">Sales Lot</field>
             <field name="code">stock.production.sales.lot</field>
             <field name="prefix"></field>
-            <field name="padding">7</field>
+            <field name="padding">6</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
             <field name="company_id" eval="False"/>

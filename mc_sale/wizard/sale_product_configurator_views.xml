@@ -12,7 +12,7 @@
                 <field name="product_is_tailor_made" invisible="1"/>
                 <field name="fabrics_meterage_needed" readonly="1"/>
                 <field name="standard_product_price" attrs="{'invisible': [('product_is_tailor_made', '=', True)]}"/>
-                <field name="product_cost" attrs="{'readonly': [('product_is_tailor_made', '=', False)]}"/>
+                <field name="product_cost" attrs="{'invisible': [('product_is_tailor_made', '=', True)]}"/>
             </field>
             <field name="quantity" position="before">
                 <field name="comment"/>
