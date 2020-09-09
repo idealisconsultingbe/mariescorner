@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="log_sales_lot_status_tree_view" model="ir.ui.view">
+        <field name="name">mc.log.sales.lot.status.tree.view</field>
+        <field name="model">log.sales.lot.status</field>
+        <field name="arch" type="xml">
+            <tree name="log_sales_lot_tree">
+                <field name="date" readonly="1"/>
+                <field name="user_id" readonly="1"/>
+                <field name="name" string="Status" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="log_sales_lot_status_form_view" model="ir.ui.view">
+        <field name="name">mc.log.sales.lot.status.form.view</field>
+        <field name="model">log.sales.lot.status</field>
+        <field name="arch" type="xml">
+            <form name="log_sales_lot_form">
+                <sheet>
+                    <group string="General" name="general_fields">
+                        <field name="sales_lot_id" readonly="1"/>
+                        <field name="date" readonly="1"/>
+                        <field name="user_id" readonly="1"/>
+                        <field name="name" string="Status" readonly="1"/>
+                    </group>
+                    <group string="Technical" name="technical_fields">
+                        <field name="model_id" readonly="1"/>
+                        <field name="res_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

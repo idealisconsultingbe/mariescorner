@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sales_lot_tree_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.form.view</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="arch" type="xml">
+            <tree name="sales_lot_tree">
+                <field name="name" readonly="1"/>
+                <field name="product_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sales_lot_form_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.form.view</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="arch" type="xml">
+            <form name="sales_lot_form">
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group string="General" name="general_fields">
+                        <field name="product_id" readonly="1"/>
+                        <field name="lot_ids" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page name="status" string="Status">
+                            <field name="log_sales_lot_status_ids" readonly="1"/>
+                        </page>
+                        <page name="sale_order" string="Sale Orders">
+                            <field name="sale_order_ids" readonly="1"/>
+                        </page>
+                        <page name="mrp_production" string="Manufacturing Orders">
+                            <field name="production_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_production_sales_lot_action" model="ir.actions.act_window">
+        <field name="name">Sales Lot</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.production.sales.lot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+    </record>
+
+    <menuitem id="sale_stock_production_sales_lot_menu" name="Sales Lot" parent="sale.sale_order_menu" action="mc_sales_lot.stock_production_sales_lot_action"/>
+    <menuitem id="mrp_stock_production_sales_lot_menu" name="Sales Lot" parent="mrp.menu_mrp_bom" action="mc_sales_lot.stock_production_sales_lot_action"/>
+</odoo>
