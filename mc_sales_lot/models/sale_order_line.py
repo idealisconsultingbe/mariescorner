@@ -33,3 +33,14 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.sales_lot_id_required and not line.sales_lot_id:
                 raise ValidationError(_('Sales Lot Number is mandatory ({} product).').format(line.product_id.name))
+
+    def _prepare_invoice_line(self):
+        """
+        Overridden method
+        Add sales lot information to invoice line
+        """
+        self.ensure_one()
+        res = super(SaleOrderLine, self)._prepare_invoice_line()
+        if self.sales_lot_id:
+            res['sales_lot_ids'] = [(4, self.sales_lot_id.id)]
+        return res

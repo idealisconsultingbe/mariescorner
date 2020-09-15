@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import fields, models
 
 
 class LogSalesLotStatus(models.Model):
     _name = 'log.sales.lot.status'
-    _description = 'Model used for logging the status of the sales lot, allow to follow its progression.'
+    _description = 'Model used to log the sales lot status and follow its progression.'
     _order = 'date asc'
 
     user_id = fields.Many2one('res.users', string='User', required=True, default=lambda self: self.env.user.id)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import api, models
 
 
 class StockMove(models.Model):
@@ -10,7 +10,7 @@ class StockMove(models.Model):
     @api.model
     def _get_sale_line(self):
         """
-        Retrieve sale line from a move
+        Retrieve sale line from a stock move
         """
         self.ensure_one()
         if self and self.sale_line_id:

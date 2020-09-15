@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 from odoo.exceptions import ValidationError
 
 
@@ -10,8 +10,16 @@ class MrpProduction(models.Model):
 
     sale_description = fields.Text(string='Product Description', compute='_compute_sale_information')
     show_sale_description = fields.Boolean(string='Is Description Visible', compute='_compute_sale_information')
-    sale_comment = fields.Html(string="Comment", compute='_compute_sale_information')
+    sale_comment = fields.Html(string='Comment', compute='_compute_sale_information')
     show_sale_comment = fields.Boolean(string='Is Comment Visible', compute='_compute_sale_information')
+
+    def action_confirm(self):
+        """ Overridden method
+            If sale order confirmation creates a MO, then this MO is not automatically confirmed
+        """
+        if self.env.context.get('skip_mo_confirmation'):
+            return False
+        return super(MrpProduction, self).action_confirm()
 
     def _compute_sale_information(self):
         """ retrieve sale description at production creation """

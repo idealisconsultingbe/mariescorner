@@ -2,7 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from .tools import to_float
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class SaleOrderLine(models.Model):

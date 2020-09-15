@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    sales_lot_activated = fields.Boolean(string='Sales Lot Activated', compute='_compute_sales_lot_activated', help='Technical fields that tells whether a '
+    sales_lot_activated = fields.Boolean(string='Sales Lot Activated', compute='_compute_sales_lot_activated', help='Technical field that indicates whether a '
                                                                                                                     'sales lot needs to be used for this product.')
 
     def _compute_sales_lot_activated(self):
