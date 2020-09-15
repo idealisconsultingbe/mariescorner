@@ -8,6 +8,9 @@ class ProductAttribute(models.Model):
     _inherit = "product.attribute"
 
     has_linear_price = fields.Boolean(string='Linear Price')
+    display_short_description = fields.Boolean(string='Show in Short Description', default=False,
+                                               help='This information will be visible in short description of '
+                                                    'a sale order line or a purchase order line after product configuration')
 
     @api.onchange('has_linear_price')
     def onchange_linear_price(self):

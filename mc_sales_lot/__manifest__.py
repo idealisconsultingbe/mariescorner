@@ -15,7 +15,7 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['purchase', 'mrp', 'inter_company_rules', 'sale_stock'],
+    'depends': ['purchase', 'mrp', 'inter_company_rules', 'sale_stock', 'account'],
     'data': [
         'security/ir.model.access.csv',
         'security/stock_production_sales_lot_groups.xml',
@@ -29,6 +29,7 @@
         'views/stock_move_views.xml',
         'views/stock_production_sales_lot_views.xml',
         'views/log_sales_lot_status_views.xml',
+        'views/account_move_views.xml'
     ],
     'auto_install': False,
     'installable': True,

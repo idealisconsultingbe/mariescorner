@@ -17,6 +17,12 @@
                 <field name="comment" invisible="1"/>
                 <field name="product_sale_price" invisible="1"/>
             </xpath>
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="short_name" optional="show"/>
+            </xpath>
         </field>
     </record>
 

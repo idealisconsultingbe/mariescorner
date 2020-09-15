@@ -2,7 +2,8 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from .tools import to_float
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.tools.misc import get_lang
 
 
 class SaleOrderLine(models.Model):
@@ -11,9 +12,56 @@ class SaleOrderLine(models.Model):
     fabrics_meterage_needed = fields.Float(string='Meterage of fabrics', related='product_id.linear_length')
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
     comment = fields.Html(string='Comment')
+    short_name = fields.Text(string='Short Description')
+
+    @api.onchange('product_id')
+    def product_id_change(self):
+        """
+        Overridden method
+        Update short description with product attributes flagged accordingly
+        """
+        res = super(SaleOrderLine, self).product_id_change()
+
+        vals = {}
+        if not self.product_uom or (self.product_id.uom_id.id != self.product_uom.id):
+            vals['product_uom'] = self.product_id.uom_id
+            vals['product_uom_qty'] = self.product_uom_qty or 1.0
+
+        product = self.product_id.with_context(
+            lang=get_lang(self.env, self.order_id.partner_id.lang).code,
+            partner=self.order_id.partner_id,
+            quantity=vals.get('product_uom_qty') or self.product_uom_qty,
+            date=self.order_id.date_order,
+            pricelist=self.order_id.pricelist_id.id,
+            uom=self.product_uom.id
+        )
+
+        product_description = product.get_product_multiline_description_sale() if product.get_product_multiline_description_sale() else ""
+
+        if not self.product_custom_attribute_value_ids and not self.product_no_variant_attribute_value_ids:
+            product_configuration = ""
+        else:
+            product_configuration = "\n"
+
+            custom_ptavs = self.product_custom_attribute_value_ids.custom_product_template_attribute_value_id
+            no_variant_ptavs = self.product_no_variant_attribute_value_ids._origin
+
+            # display the no_variant attributes, except those that are also
+            # displayed by a custom (avoid duplicate description)
+            # select only those that should be displayed in short description
+            for ptav in (no_variant_ptavs - custom_ptavs).filtered(lambda ptav: ptav.attribute_id.display_short_description):
+                product_configuration += "\n" + ptav.with_context(lang=self.order_id.partner_id.lang).display_name
+
+            # display the is_custom values
+            # select only those that should be displayed in short description
+            for pacv in self.product_custom_attribute_value_ids.filtered(lambda pacv: pacv.custom_product_template_attribute_value_id.attribute_id.display_short_description):
+                product_configuration += "\n" + pacv.with_context(lang=self.order_id.partner_id.lang).display_name
+
+        self.update({'short_name': product_description + product_configuration})
+        return res
 
     def _get_display_price(self, product):
-        """ Overriden method
+        """ Overridden method
 
             Compute product price unit according to custom attribute values
             If there are custom values, then those values should be used

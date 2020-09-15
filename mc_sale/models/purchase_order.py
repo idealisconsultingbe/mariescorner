@@ -12,7 +12,7 @@ class PurchaseOrder(models.Model):
         """ Overridden Method
 
             Generate the Sales Order Line values from the PO line.
-            Add Stock product attribute values to SO Line values.
+            Add short description to SO Line values.
             :param line : the origin Purchase Order Line
             :rtype line : purchase.order.line record
             :param company : the company of the created SO
@@ -20,11 +20,5 @@ class PurchaseOrder(models.Model):
             :param sale_id : the id of the SO
         """
         res = super(PurchaseOrder, self)._prepare_sale_order_line_data(line, company, sale_id)
-        if line.product_no_variant_attribute_value_ids or line.product_custom_attribute_value_ids:
-            res.update({
-                'name': line.name,
-                'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],
-                'product_custom_attribute_value_ids': [(6, 0, line.product_custom_attribute_value_ids.ids)],
-                'comment': line.comment
-            })
+        res['short_name'] = line.short_name or ''
         return res
