@@ -7,6 +7,7 @@
             <tree name="sales_lot_tree">
                 <field name="name" readonly="1"/>
                 <field name="product_id" readonly="1"/>
+                <field name="partner_id" readonly="1"/>
             </tree>
         </field>
     </record>
@@ -21,7 +22,7 @@
                         <field name="name" readonly="1"/>
                     </h1>
                     <group string="General" name="general_fields">
-                        <field name="partner_id"/>
+                        <field name="partner_id" readonly="1" force_save="1"/>
                         <field name="product_id" readonly="1"/>
                         <field name="lot_ids" readonly="1"/>
                     </group>
@@ -34,6 +35,9 @@
                         </page>
                         <page name="mrp_production" string="Manufacturing Orders">
                             <field name="production_ids" readonly="1"/>
+                        </page>
+                        <page name="stock_picking" string="Transfers">
+                            <field name="picking_ids" readonly="1"/>
                         </page>
                     </notebook>
                 </sheet>
