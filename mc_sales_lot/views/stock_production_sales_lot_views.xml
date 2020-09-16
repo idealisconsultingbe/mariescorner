@@ -21,6 +21,7 @@
                         <field name="name" readonly="1"/>
                     </h1>
                     <group string="General" name="general_fields">
+                        <field name="partner_id"/>
                         <field name="product_id" readonly="1"/>
                         <field name="lot_ids" readonly="1"/>
                     </group>
