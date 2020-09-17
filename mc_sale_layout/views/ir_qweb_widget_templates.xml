@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="contact_name" inherit_id="base.contact_name">
+        <!-- add title to contact widget -->
+        <xpath expr="//div" position="replace">
+            <div t-if="'name' in fields and 'title' in fields">
+                <t t-if="object.name">
+                    <t t-if="object.parent_name">
+                        <span itemprop="name" t-esc="object.parent_name"/>,&amp;nbsp;
+                    </t>
+                    <t t-if="object.title">
+                        <span itemprop="title" t-esc="object.title.name"/>&amp;nbsp;
+                    </t>
+                    <span itemprop="name" t-esc="object.name"/>
+                </t>
+                <t t-if="not object.name and object.parent_name">
+                    <span itemprop="name" t-esc="object.parent_name"/>
+                </t>
+                <t t-if="options.get('country_image') and 'country_id' in fields and object.country_id and object.country_id.image">
+                    <span t-field="object.country_id.image" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;country_flag&quot;}"/>
+                </t>
+            </div>
+            <div t-elif="'name' in fields">
+                <t t-if="object.name">
+                    <span itemprop="name" t-esc="name"/>
+                </t>
+                <t t-if="not object.name and object.parent_name">
+                    <span itemprop="name" t-esc="object.parent_name"/>
+                </t>
+                <t t-if="options.get('country_image') and 'country_id' in fields and object.country_id and object.country_id.image">
+                    <span t-field="object.country_id.image" t-options='{"widget": "image", "class": "country_flag"}'/>
+                </t>
+            </div>
+       </xpath>
+    </template>
+    
+    <template id="contact" inherit_id="base.contact">
+        <!-- replace 'no_marker' by 'no_contact_marker' to differentiate from address marker -->
+        <xpath expr="//span[@t-esc='phone']/.." position="replace">
+            <div t-if="phone and 'phone' in fields"><i t-if="not options.get('no_contact_marker') or options.get('phone_icons')" class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/> <span class="o_force_ltr" itemprop="telephone" t-esc="phone"/></div>
+        </xpath>
+        <xpath expr="//span[@t-esc='mobile']/.." position="replace">
+            <div t-if="mobile and 'mobile' in fields"><i t-if="not options.get('no_contact_marker') or options.get('phone_icons')" class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/> <span class="o_force_ltr" itemprop="telephone" t-esc="mobile"/></div>
+        </xpath>
+        <xpath expr="//span[@t-esc='fax']/.." position="replace">
+            <div t-if="fax and 'fax' in fields"><i t-if="not options.get('no_contact_marker') or options.get('phone_icons')" class='fa fa-fax fa-fw' role="img" aria-label="Fax" title="Fax"/> <span class="o_force_ltr" itemprop="faxNumber" t-esc="fax"/></div>
+        </xpath>
+        <xpath expr="//span[@t-esc='website']/.." position="replace">
+            <div t-if="website and 'website' in fields">
+                <i t-if="not options.get('no_contact_marker')" class='fa fa-globe' role="img" aria-label="Website" title="Website"/>
+                <a t-att-href="website and '%s%s' % ('http://' if '://' not in website else '',website)"><span itemprop="website" t-esc="website"/></a>
+            </div>
+        </xpath>
+        <xpath expr="//span[@t-esc='email']/.." position="replace">
+            <div t-if="email and 'email' in fields"><i t-if="not options.get('no_contact_marker')" class='fa fa-envelope fa-fw' role="img" aria-label="Email" title="Email"/> <span itemprop="email" t-esc="email"/></div>
+        </xpath>
+        <!-- add payment terms -->
+        <xpath expr="//span[@t-esc='email']/.." position="after">
+            <div t-if="object.property_payment_term_id and 'payment' in fields"><span>Payment Terms: </span><span itemprop="payment" t-esc="object.property_payment_term_id.name"/></div>
+        </xpath>
+        <!-- add VAT -->
+        <xpath expr="//span[@t-esc='email']/.." position="after">
+            <div t-if="object.vat and 'vat' in fields"><t t-esc="object.country_id.vat_label or 'Tax ID'"/>: <span itemprop="vat" t-esc="object.vat"/></div>
+        </xpath>
+
+    </template>
+
+</odoo>

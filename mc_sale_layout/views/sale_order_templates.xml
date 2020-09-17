@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sale Order custom external layout -->
+    <template id="mc_sale_order_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="mc_sale_layout.mc_external_layout"><t t-raw="0"/></t>
+    </template>
+
+    <!-- Custom address layout -->
+    <template id="mc_address_layout">
+        <div class="address row">
+            <div class="col-12">
+                <table class="table-sm" style="width: 100%; border-collapse: collapse; border: 1px solid LightGray;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 0.5rem; width: 50%; border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;"><span class="text-muted text-uppercase" style="font-size: 0.8rem;">Invoicing Address</span>
+                            </th>
+                            <th style="padding: 0.5rem; width: 50%; border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;"><span class="text-muted text-uppercase" style="font-size: 0.8rem;">Shipping Address</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.5rem;"><t t-raw="invoicing_address"/>
+                            </td>
+                            <td style="padding: 0.5rem; border-left: 1px solid LightGray;"><t t-raw="shipping_address"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <!-- custom external layout -->
+    <template id="mc_external_layout">
+        <div t-attf-class="header o_company_#{company.id}_layout">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/mc_sale_layout/static/src/img/logo-maries-corner.png" style="max-height: 6rem;" alt="Maries Corner Logo"/>
+                </div>
+                <!--<div class="col-4"'>-->
+                <div style="position: relative; width: 100%; padding: 0px; -ms-flex: 0 0 33.333333%; flex: 0 0 33.333333%; max-width: 33.333333%;">
+                    <t t-if="order_type and order_name">
+                        <h2 class="m-0" style="height: 4rem; line-height: 4rem;">
+                            <span style="display: inline-block; vertical-align: bottom; line-height: normal;"><t t-raw="order_type"/></span>
+                        </h2>
+                        <h3 class="m-0" style="height: 2rem; line-height: 2rem;">
+                          <span style="display: inline-block; vertical-align: bottom; line-height: normal;"><t t-raw="order_name"/></span>
+                        </h3>
+                    </t>
+                </div>
+                <div class="col-6">
+                    <table style="width: 100%; height: 6rem; border-collapse: collapse; border: 1px solid LightGray;">
+                        <tbody>
+                            <tr>
+                                <th><span class="mt4 ml8">Date</span></th>
+                                <td>
+                                    <t t-if="order_date">
+                                        <span class="m-0"><t t-raw="order_date"/></span>
+                                    </t>
+                                </td>
+                                <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Customer No.</span></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <t t-if="order_validity">
+                                        <span class="mt4 ml8">Validity</span>
+                                    </t>
+                                </th>
+                                <td>
+                                    <t t-if="order_validity">
+                                        <span class="m-0"><t t-raw="order_validity"/></span>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+                                    <t t-if="customer_ref">
+                                        <span class="m-0 font-weight-bold"><t t-raw="customer_ref"/></span>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><span class="mt4 ml8">Zone</span></th>
+                                <td><span class="m-0">Unknown Info</span></td>
+                                <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Your References</span></th>
+                            </tr>
+                            <tr>
+                                <th><span class="mt4 ml8">Pricelist</span></th>
+                                <td>
+                                    <t t-if="order_pricelist">
+                                        <span class="m-0"><t t-raw="order_pricelist"/></span>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="border-left: 1px solid LightGray;">
+                                    <t t-if="order_ref">
+                                        <span class="m-0 font-weight-bold"><t t-raw="order_ref"/></span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="mc_sale_layout.mc_address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div t-attf-class="footer o_company_#{company.id}_layout">
+            <div class="text-center">
+                <ul class="list-inline mb-4">
+                    <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                         adding d-inline class fixes the problem-->
+                    <li t-if="company.name" class="list-inline-item d-inline"><span t-field="company.name"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.street" class="list-inline-item d-inline"><span t-field="company.street"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.city and company.country_id" class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/> - <span t-field="company.country_id.name"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.phone" class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="company.phone"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
+                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

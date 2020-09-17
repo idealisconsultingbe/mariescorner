@@ -23,6 +23,11 @@
             <xpath expr="//tree/field[@name='name']" position="after">
                 <field name="short_name" optional="show"/>
             </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Comment" name="comment">
+                    <field name="comment" nolabel="1"/>
+                </page>
+            </xpath>
         </field>
     </record>
 
