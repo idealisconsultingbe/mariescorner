@@ -8,6 +8,8 @@ class ProductAttribute(models.Model):
     _inherit = "product.attribute"
 
     has_linear_price = fields.Boolean(string='Linear Price')
+    default_linear_value = fields.Boolean(string='Default Linear Value', default=False,
+                                          help='Pre-filled the linear length in the produt configurator with the linear length defined on the product form view.')
     display_short_description = fields.Boolean(string='Show in Short Description', default=False,
                                                help='This information will be visible in short description of '
                                                     'a sale order line or a purchase order line after product configuration')
