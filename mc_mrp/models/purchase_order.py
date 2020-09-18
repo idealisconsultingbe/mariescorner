@@ -20,8 +20,7 @@ class PurchaseOrder(models.Model):
             :param sale_id : the id of the SO
         """
         res = super(PurchaseOrder, self)._prepare_sale_order_line_data(line, company, sale_id)
-        # if all stock moves have the same Sales Lot then add it to values
-        if line.product_no_variant_attribute_value_ids:
+        if line.product_no_variant_attribute_value_ids or line.product_custom_attribute_value_ids:
             res.update({
                 'name': line.name,
                 'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],

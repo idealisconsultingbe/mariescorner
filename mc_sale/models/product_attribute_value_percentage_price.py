@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models, api, _
+
+from odoo import api, fields, models,  _
 
 
 class PercentagePrice(models.Model):

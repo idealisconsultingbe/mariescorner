@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    use_sales_lot = fields.Boolean(string='Use Sales Lot', default=False)
+    use_sales_lot = fields.Boolean(string='Use Manufacturing Numbers', default=False)

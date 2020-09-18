@@ -8,6 +8,7 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    comment = fields.Html(string="Comment")
     po_state = fields.Selection([
         ('none', 'None'),
         ('draft', 'RFQ'),

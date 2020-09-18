@@ -8,7 +8,7 @@
             <xpath expr="//label[@for='group_stock_production_lot']/.." position="inside">
                 <div class="mt16" attrs="{'invisible': [('group_stock_production_lot', '=', False)]}">
                     <div class="text-muted">
-                        Automatic creation of sales lots when validating a sale order
+                        Automatic creation of manufacturing numbers when validating a sale order
                     </div>
                     <div class="row">
                         <field name="group_automatic_lot_creation" class="col-lg-1 ml16"/>

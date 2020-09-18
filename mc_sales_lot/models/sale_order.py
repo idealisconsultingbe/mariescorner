@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import models
 
 
 class SaleOrder(models.Model):
@@ -9,8 +9,8 @@ class SaleOrder(models.Model):
 
     def _action_confirm(self):
         """ Overridden Method
-            Create Stock Production Sales Lot at order confirmation and update order lines accordingly.
-            Sales Lots may be created automatically or manually according to configuration settings.
+            Create Stock Production Manufacturing Number at order confirmation and update order lines accordingly.
+            Manufactung Numbers may be created automatically or manually according to configuration settings.
         """
         automatic_lot_enabled = self.user_has_groups('mc_sales_lot.group_automatic_sales_lot')
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')

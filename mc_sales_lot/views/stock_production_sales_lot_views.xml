@@ -46,13 +46,13 @@
     </record>
 
     <record id="stock_production_sales_lot_action" model="ir.actions.act_window">
-        <field name="name">Sales Lot</field>
+        <field name="name">Manufacturing Numbers</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.production.sales.lot</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" eval="False"/>
     </record>
 
-    <menuitem id="sale_stock_production_sales_lot_menu" name="Sales Lot" parent="sale.sale_order_menu" action="mc_sales_lot.stock_production_sales_lot_action"/>
-    <menuitem id="mrp_stock_production_sales_lot_menu" name="Sales Lot" parent="mrp.menu_mrp_bom" action="mc_sales_lot.stock_production_sales_lot_action"/>
+    <menuitem id="sale_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="sale.sale_order_menu" action="mc_sales_lot.stock_production_sales_lot_action"/>
+    <menuitem id="mrp_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="mrp.menu_mrp_bom" action="mc_sales_lot.stock_production_sales_lot_action"/>
 </odoo>

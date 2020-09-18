@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    sales_lot_activated = fields.Boolean(string='Sales Lot Activated', compute='_compute_sales_lot_activated', help='Technical fields that tells whether a '
-                                                                                                                    'sales lot needs to be used for this product.')
+    sales_lot_activated = fields.Boolean(string='Manufacturing Number Activated', compute='_compute_sales_lot_activated', help='Technical field that indicates whether a '
+                                                                                                                               'manufacturing number needs to be used for this product.')
 
     def _compute_sales_lot_activated(self):
         """
-        Sales lot can be activated on category or on product.
-        :return:    True if a sales lot should be used for this product.
+        manufacturing number can be activated on categories or on products.
+        :return:    True if a manufacturing number should be used for this product.
                     False otherwise.
         """
         for product in self:
