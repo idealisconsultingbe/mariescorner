@@ -7,4 +7,4 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    use_sales_lot = fields.Boolean(string='Use Sales Lot', default=False)
+    use_sales_lot = fields.Boolean(string='Use Manufacturing Numbers', default=False)

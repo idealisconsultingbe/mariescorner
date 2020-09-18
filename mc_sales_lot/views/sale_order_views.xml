@@ -7,9 +7,13 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                <field name="sales_lot_id_required" invisible="1"/>
+                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
+            </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
                 <field name="sales_lot_id_required" invisible="1"/>
-                <field name="sales_lot_id" attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}"/>
+                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
             </xpath>
         </field>
     </record>

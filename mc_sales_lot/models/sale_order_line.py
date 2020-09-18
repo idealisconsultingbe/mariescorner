@@ -8,14 +8,13 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Sales Lot', copy=False)
-    sales_lot_id_required = fields.Boolean(string='Sales Lot Required', compute='_compute_sales_lot_id_required')
-    # sales_lot_number = fields.Char(string='Sales Lot Number')
+    sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Manufacturing Number', copy=False)
+    sales_lot_id_required = fields.Boolean(string='Manufacturing Number Required', compute='_compute_sales_lot_id_required')
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
 
     @api.depends('product_id', 'has_tracking')
     def _compute_sales_lot_id_required(self):
-        """ According to this field, "Sales Lot" readonly and required field attributes will be set True
+        """ According to this field, "Manufacturing Number" readonly and required field attributes will be set True
         on a sale order line from its order form view, or not.
         """
         automatic_lot_enabled = self.user_has_groups('mc_sales_lot.group_automatic_sales_lot')
@@ -29,15 +28,15 @@ class SaleOrderLine(models.Model):
 
     @api.constrains('sales_lot_id')
     def _check_sales_lot_id(self):
-        """ Prevent user to force an order line without a Sales Lot """
+        """ Prevent user to force an order line without a Manufacturing Number """
         for line in self:
             if line.sales_lot_id_required and not line.sales_lot_id:
-                raise ValidationError(_('Sales Lot Number is mandatory ({} product).').format(line.product_id.name))
+                raise ValidationError(_('Manufacturing Number is mandatory ({} product).').format(line.product_id.name))
 
     def _prepare_invoice_line(self):
         """
         Overridden method
-        Add sales lot information to invoice line
+        Add manufactuing number information to invoice line
         """
         self.ensure_one()
         res = super(SaleOrderLine, self)._prepare_invoice_line()

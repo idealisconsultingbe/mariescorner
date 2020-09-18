@@ -8,12 +8,12 @@ from odoo import api, fields, models, _
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Sales Lot',
-                                   store=True)
+    sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Manufacturing Number', store=True)
+    log_assigned_done = fields.Boolean(string='Log Assigned', default=False, help='Boolean indicating that a msg for the assignation has already been logged on the production number.')
 
     @api.depends('move_dest_ids.sales_lot_id')
     def _compute_sales_lot_id(self):
-        """ Compute M2o relation to Stock Production Sales Lot from destination moves
+        """ Compute M2o relation to Stock Production Manufacturing Number from destination moves
         """
         for production in self:
             if len(production.move_dest_ids.mapped('sales_lot_id')) == 1 and all(
@@ -30,8 +30,9 @@ class MrpProduction(models.Model):
         res = super(MrpProduction, self).action_confirm()
         for production in self.filtered(lambda p: p.sales_lot_id):
             if production.state == 'confirmed':
-                msg = _('All the necessary information have been received by {} for manufacturing order {}').format(production.company_id.name, production.name)
-                production._create_log(msg)
+                name = _('{} Confirmed').format(production.name)
+                msg = _('All the necessary information have been received by {} for manufacturing order {}, the planned date is {}').format(production.company_id.name, production.name, production.date_planned_start)
+                production._create_log(name, msg)
         return res
 
     def action_assign(self):
@@ -41,9 +42,11 @@ class MrpProduction(models.Model):
         """
         res = super(MrpProduction, self).action_assign()
         for production in self.filtered(lambda p: p.sales_lot_id):
-            if not production.env.context.get('skip_sales_lot_log') and not any(state == 'partially_available' for state in production.move_raw_ids.mapped('state')):
+            if not production.env.context.get('skip_sales_lot_log') and not production.log_assigned_done and all(state == 'assigned' for state in production.move_raw_ids.mapped('state')):
+                production.log_assigned_done = True
+                name = _('{} Ready').format(production.name)
                 msg = _('All raw materials have been received by {} for manufacturing order {}').format(production.company_id.name, production.name)
-                production._create_log(msg)
+                production._create_log(name, msg)
         return res
 
     def button_mark_done(self):
@@ -54,11 +57,11 @@ class MrpProduction(models.Model):
         self = self.with_context(skip_sales_lot_log=True)
         return super(MrpProduction, self).button_mark_done()
 
-    def _create_log(self, msg):
+    def _create_log(self, name, msg):
         """
-        Create an entry log in sales lot
+        Create an entry log in manufacturing number
         """
         self.ensure_one()
         params = self.env.context.get('params', defaultdict(lambda: False))
         model = self.env['ir.model'].search([('model', '=', params['model'])])
-        self.sales_lot_id.create_log(msg, user=self.env.user, model=model, record=params['id'])
+        self.sales_lot_id.create_log(name, msg, user=self.env.user, model=model, record=params['id'])

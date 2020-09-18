@@ -7,4 +7,4 @@ from odoo import fields, models
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    sales_lot_ids = fields.Many2many('stock.production.sales.lot', 'aml_sales_lot_rel', 'line_id', 'sales_lot_id', string='Sales Lots')
+    sales_lot_ids = fields.Many2many('stock.production.sales.lot', 'aml_sales_lot_rel', 'line_id', 'sales_lot_id', string='Manufacturing Numbers')
