@@ -98,7 +98,7 @@
                                 <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Your References</span></th>
                             </tr>
                             <tr>
-                                <th><span class="mt4 ml8">Pricelist</span></th>
+                                <th><span class="mt4 ml8">Tarif</span></th>
                                 <td>
                                     <t t-if="order_pricelist">
                                         <span class="m-0"><t t-raw="order_pricelist"/></span>

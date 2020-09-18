@@ -72,6 +72,7 @@ odoo.define('mc_sale.ProductConfiguratorFormRenderer', function (require) {
                     var attributeValueId = $customInput.data('value_id');
                     var attributeValueName = $customInput.data('value_name');
                     var has_linear_price = $customInput.data('has_linear_price');
+                    var linear_length = $customInput.data('linear_length');
 
                     if ($variantContainer.find('.variant_custom_value').length === 0
                         || $variantContainer
@@ -99,7 +100,8 @@ odoo.define('mc_sale.ProductConfiguratorFormRenderer', function (require) {
                         }
                         // Custom changes start here
                         if (has_linear_price) {
-                            $input.attr('placeholder', '1.25 m');
+                            $input.attr('placeholder', 'Meterage in meter (E.g. 1.25)');
+                            $input.attr('value', linear_length)
                         }
                         // End custom changes
                     }

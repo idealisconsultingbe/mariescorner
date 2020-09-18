@@ -22,6 +22,7 @@
                                 <option t-att-value="ptav.id"
                                         t-att-data-value_id="ptav.id"
                                         t-att-data-has_linear_price="ptav.attribute_id.has_linear_price"
+                                        t-att-data-linear_length="product.linear_length"
                                         t-att-data-value_name="ptav.name"
                                         t-att-data-attribute_name="ptav.attribute_id.name"
                                         t-att-data-is_custom="ptav.is_custom"

@@ -42,20 +42,12 @@ class MrpProduction(models.Model):
         """
         res = super(MrpProduction, self).action_assign()
         for production in self.filtered(lambda p: p.sales_lot_id):
-            if not production.env.context.get('skip_sales_lot_log') and not production.log_assigned_done and all(state == 'assigned' for state in production.move_raw_ids.mapped('state')):
+            if not production.log_assigned_done and all(state == 'assigned' for state in production.move_raw_ids.mapped('state')):
                 production.log_assigned_done = True
                 name = _('{} Ready').format(production.name)
                 msg = _('All raw materials have been received by {} for manufacturing order {}').format(production.company_id.name, production.name)
                 production._create_log(name, msg)
         return res
-
-    def button_mark_done(self):
-        """
-        Overridden method
-        Add context info in order to prevent creation of an entry log when MO is ready for production
-        """
-        self = self.with_context(skip_sales_lot_log=True)
-        return super(MrpProduction, self).button_mark_done()
 
     def _create_log(self, name, msg):
         """
