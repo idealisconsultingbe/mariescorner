@@ -13,7 +13,7 @@ class ProductionSalesLot(models.Model):
         ('product_name_unique', 'UNIQUE(product_id, name)', _('You are about to use a lot number that already exists (product and manufacturing number combination must be unique).')),
     ]
 
-    name = fields.Char(string='Lot/Serial Number', required=True)
+    name = fields.Char(string='Manufacturing Number', required=True)
     partner_id = fields.Many2one('res.partner', string='Customer')
     product_id = fields.Many2one(
         'product.product', string='Product',
