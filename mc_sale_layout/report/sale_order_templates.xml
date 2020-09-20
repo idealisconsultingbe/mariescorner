@@ -54,7 +54,7 @@
             </t>
             <!-- set invoicing address -->
             <t t-set="invoicing_address">
-                <div t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;title&quot;, &quot;name&quot;, &quot;vat&quot;], &quot;no_marker&quot;: True, &quot;no_contact_marker&quot;: False}"/>
+                <div t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;title&quot;, &quot;name&quot;, &quot;vat&quot;, &quot;payment&quot;], &quot;no_marker&quot;: True, &quot;no_contact_marker&quot;: False}"/>
             </t>
             <!-- set shipping address -->
             <t t-set="shipping_address">
