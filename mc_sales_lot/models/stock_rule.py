@@ -16,6 +16,6 @@ class StockRule(models.Model):
         """
         if procurement.product_id.sales_lot_activated:
             key = procurement.product_id, procurement.product_uom, procurement.values['propagate_date'], procurement.values['propagate_date_minimum_delta'], procurement.values['propagate_cancel'], procurement.values['sales_lot_id']
-        else :
+        else:
             key = super(StockRule, self)._get_procurements_to_merge_groupby(procurement)
         return key
