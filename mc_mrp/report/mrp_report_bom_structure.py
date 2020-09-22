@@ -7,6 +7,53 @@ from odoo.tools import float_round
 
 class ReportBomStructure(models.AbstractModel):
     _inherit = 'report.mrp.report_bom_structure'
+
+    def _get_bom(self, bom_id=False, product_id=False, line_qty=False, line_id=False, level=False):
+        """
+        Overwritten method
+
+        Change product cost computation
+        For bom lines without product.product, price cost is an average of all product variants costs
+        """
+        bom = self.env['mrp.bom'].browse(bom_id)
+        bom_quantity = line_qty
+        if line_id:
+            current_line = self.env['mrp.bom.line'].browse(int(line_id))
+            bom_quantity = current_line.product_uom_id._compute_quantity(line_qty, bom.product_uom_id)
+        # Display bom components for current selected product variant
+        if product_id:
+            product = self.env['product.product'].browse(int(product_id))
+        else:
+            product = bom.product_id or bom.product_tmpl_id.product_variant_id
+        if product:
+            attachments = self.env['mrp.document'].search(['|', '&', ('res_model', '=', 'product.product'),
+            ('res_id', '=', product.id), '&', ('res_model', '=', 'product.template'), ('res_id', '=', product.product_tmpl_id.id)])
+        else:
+            product = bom.product_tmpl_id
+            attachments = self.env['mrp.document'].search([('res_model', '=', 'product.template'), ('res_id', '=', product.id)])
+        operations = []
+        if bom.product_qty > 0:
+            operations = self._get_operation_line(bom.routing_id, float_round(bom_quantity / bom.product_qty, precision_rounding=1, rounding_method='UP'), 0)
+        company = bom.company_id or self.env.company
+        lines = {
+            'bom': bom,
+            'bom_qty': bom_quantity,
+            'bom_prod_name': product.display_name,
+            'currency': company.currency_id,
+            'product': product,
+            'code': bom and bom.display_name or '',
+            'price': product.uom_id._compute_price(product.with_context(force_company=company.id).standard_price, bom.product_uom_id) * bom_quantity,
+            'total': sum([op['total'] for op in operations]),
+            'level': level or 0,
+            'operations': operations,
+            'operations_cost': sum([op['total'] for op in operations]),
+            'attachments': attachments,
+            'operations_time': sum([op['duration_expected'] for op in operations])
+        }
+        components, total = self._get_bom_lines(bom, bom_quantity, product, line_id, level)
+        lines['components'] = components
+        lines['total'] += total
+        return lines
     
     def _get_bom_lines(self, bom, bom_quantity, product, line_id, level):
         """
@@ -22,7 +69,12 @@ class ReportBomStructure(models.AbstractModel):
             if line._skip_bom_line(product):
                 continue
             company = bom.company_id or self.env.company
-            price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * line_quantity
+            if line_product == line_product_tmpl and line_product.product_variant_ids:
+                product_tmpl = line_product.with_context(force_company=company.id)
+                average_standard_price = sum(product_tmpl.product_variant_ids.mapped('standard_price'))/len(product_tmpl.product_variant_ids)
+                price = line_product.uom_id._compute_price(average_standard_price, line.product_uom_id) * line_quantity
+            else:
+                price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * line_quantity
             if line.child_bom_id:
                 factor = line.product_uom_id._compute_quantity(line_quantity, line.child_bom_id.product_uom_id) / line.child_bom_id.product_qty
                 sub_total = self._get_price(line.child_bom_id, factor, line_product)
@@ -77,7 +129,7 @@ class ReportBomStructure(models.AbstractModel):
             else:
                 prod_qty = line.product_qty * factor
                 company = bom.company_id or self.env.company
-                not_rounded_price = line_product.uom_id._compute_price(line_product.with_context(force_comany=company.id).standard_price, line.product_uom_id) * prod_qty
+                not_rounded_price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * prod_qty
                 price += company.currency_id.round(not_rounded_price)
         return price
 
