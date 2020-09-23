@@ -34,7 +34,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 0.5rem;"><t t-raw="invoicing_address"/>
+                            <td style="padding: 0.5rem;">
+                                <t t-raw="invoicing_address"/>
+                                <p t-if="payment_terms"><t t-raw="payment_terms"/></p>
                             </td>
                             <td style="padding: 0.5rem; border-left: 1px solid LightGray;"><t t-raw="shipping_address"/>
                             </td>
@@ -94,7 +96,11 @@
                             </tr>
                             <tr>
                                 <th><span class="mt4 ml8">Zone</span></th>
-                                <td><span class="m-0">Unknown Info</span></td>
+                                <td>
+                                    <t t-if="salesperson">
+                                        <span class="m-0"><t t-raw="salesperson"/></span>
+                                    </t>
+                                </td>
                                 <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Your References</span></th>
                             </tr>
                             <tr>
@@ -140,10 +146,15 @@
                     <li t-if="company.name" class="list-inline-item d-inline">|</li>
                     <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
                 </ul>
-
-                <div t-if="report_type == 'pdf'" class="text-muted">
-                    Page: <span class="page"/> / <span class="topage"/>
-                </div>
+            </div>
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                <t t-if="updated">
+                    <div style="display: inline-block; float: left;">Page: <span class="page"/> / <span class="topage"/></div>
+                    <div style="display: inline-block; float: right;">Updated: <t t-raw="updated"/></div>
+                </t>
+                <t t-else="">
+                    <div class="text-center">Page: <span class="page"/> / <span class="topage"/></div>
+                </t>
             </div>
         </div>
     </template>

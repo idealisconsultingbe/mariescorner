@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_saleorder_downpayment"
+            string="Quotation / Order with down payment"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="mc_sale_layout.report_saleorder_downpayment"
+            name="mc_sale_layout.report_saleorder_downpayment"
+            print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
+        />
+
+    </data>
+</odoo>

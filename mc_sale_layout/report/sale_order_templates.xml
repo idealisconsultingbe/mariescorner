@@ -12,6 +12,15 @@
         </xpath>
     </template>
 
+    <template id="report_saleorder_downpayment">
+        <t t-call="web.html_container">
+            <t t-set="downpayment" t-value="True"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="mc_sale_layout.mc_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
     <!-- custom sale order document -->
     <template id="mc_report_saleorder_document">
         <t t-call="mc_sale_layout.mc_sale_order_external_layout">
@@ -59,6 +68,24 @@
             <!-- set shipping address -->
             <t t-set="shipping_address">
                 <div t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;title&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;mobile&quot;, &quot;email&quot;], &quot;no_marker&quot;: True, &quot;no_contact_marker&quot;: False}"/>
+            </t>
+            <!-- set doc payment terms -->
+            <t t-set="payment_terms">
+                <t t-if="doc.payment_term_id and doc.payment_term_id.note">
+                    <span t-field="doc.payment_term_id.note"/>
+                </t>
+            </t>
+            <!-- set doc salesperson -->
+            <t t-set="salesperson">
+                <t t-if="doc.user_id">
+                    <span t-field="doc.user_id"/>
+                </t>
+            </t>
+            <!-- set doc last update -->
+            <t t-set="updated">
+                <t t-if="doc.write_date">
+                    <span t-field="doc.write_date"/>
+                </t>
             </t>
 
             <!-- main container structure -->
@@ -170,26 +197,33 @@
                 </table>
 
                 <table class="table-sm" style="margin-top: 1rem; width: 100%; border-collapse: collapse; border: 1px solid LightGray;">
-                  <tbody>
-                    <tr>
-                      <th style="padding: 0.5rem;"><h5>Additional Information</h5></th>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem;"><span t-field="doc.comment"/></td>
-                    </tr>
-                  </tbody>
+                    <tbody>
+                        <tr>
+                            <th style="padding: 0.5rem;"><h5>Additional Information</h5></th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem;"><span t-field="doc.comment"/></td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <table class="table-sm" style="margin-top: 1rem; width: 100%; border-collapse: collapse; border: 1px solid LightGray;">
                     <tr>
                         <td rowspan="3" style="padding: 0.5rem; width: 65%;">
-                            <p t-field="doc.note"/>
-                            <p t-if="doc.payment_term_id.note">
-                                <span t-field="doc.payment_term_id.note"/>
+                            <p>
+                                We hope this offer will fulfill your needs and get all your attention.<br/>
+                                Feel free to contact us for any further information.
                             </p>
-                            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
-                                Fiscal Position Remark:
-                                <span t-field="doc.fiscal_position_id.sudo().note"/>
+                            <h5>To order</h5>
+                            <p t-if="downpayment">
+                                You are satisfied with this offer and you want to order, you just have to make a payment of <span>$AMOUNT</span> to our bank account:<br/>
+                                <t t-if="doc.company_id.bank_ids">
+                                    IBAN: <span t-field="doc.company_id.bank_ids[0].acc_number"/><br/>
+                                    SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
+                                </t>
+                            </p>
+                            <p t-else="">
+                                You are satisfied with this offer and you want to order, you just have to send it back to us with your signature for approval.
                             </p>
                         </td>
                         <td name="td_amount_untaxed_label" class="font-weight-bold" style="padding: 0.5rem; width: 25%; border-left: 1px solid LightGray; border-bottom: 0px;">Subtotal</td>
@@ -227,6 +261,22 @@
                         </td>
                     </tr>
                 </table>
+
+                <t t-if="doc.note or (doc.fiscal_position_id and doc.fiscal_position_id.sudo().note)">
+                    <table class="table-sm" style="margin-top: 1rem; width: 100%; border-collapse: collapse; border: 1px solid LightGray;">
+                        <tbody>
+                            <tr>
+                                <td rowspan="3" style="padding: 0.5rem;">
+                                    <p t-field="doc.note"/>
+                                    <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                                        Fiscal Position Remark:
+                                        <span t-field="doc.fiscal_position_id.sudo().note"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
 
                 <div class="oe_structure"/>
 
