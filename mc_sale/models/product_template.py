@@ -14,6 +14,8 @@ class ProductTemplate(models.Model):
     tailor_made = fields.Boolean(string='Is Tailor Made', default=False)
     linear_length = fields.Float('Linear Length', digits='Product Unit of Measure', default=0.0, help='Quantity of fabric required to upholster furniture')
     length_uom_name = fields.Char(string='Length UoM Label', compute='_compute_length_uom_name', default=_default_length_uom, store=True)
+    description_line_ids = fields.One2many('product.configurator.description.line', 'product_tmpl_id', string='Description Lines', help='Configuration of product short description. '
+                                                                                                                                        'Helps to configure short description of product displayed on sale orders lines and purchase orders lines.')
 
     def _compute_length_uom_name(self):
         for template in self:

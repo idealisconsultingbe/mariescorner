@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 all_access_percentage_price,product.attribute.value.percentage.price all access,model_product_attribute_value_percentage_price,base.group_user,1,1,1,1
-
+all_access_config_desc_line,product.configurator.description.line all access,model_product_configurator_description_line,base.group_user,1,1,1,1
+all_access_config_desc_line_value,product.configurator.description.line.value all access,model_product_configurator_description_line_value,base.group_user,1,1,1,1

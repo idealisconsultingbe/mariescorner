@@ -38,26 +38,44 @@ class SaleOrderLine(models.Model):
 
         product_description = product.get_product_multiline_description_sale() if product.get_product_multiline_description_sale() else ""
 
-        if not self.product_custom_attribute_value_ids and not self.product_no_variant_attribute_value_ids:
-            product_configuration = ""
-        else:
-            product_configuration = "\n"
-
+        product_configuration = formatted_product_configuration = ""
+        if self.product_custom_attribute_value_ids or self.product_no_variant_attribute_value_ids:
             custom_ptavs = self.product_custom_attribute_value_ids.custom_product_template_attribute_value_id
             no_variant_ptavs = self.product_no_variant_attribute_value_ids._origin
+            desc_line_ids = product.product_tmpl_id.description_line_ids
+            desc_line_attributes = self.env['product.attribute']
+            if desc_line_ids:
+                pacvs = self.product_custom_attribute_value_ids
+                no_custom_ptavs = no_variant_ptavs - custom_ptavs
+                desc_line_attributes = desc_line_ids.mapped('value_ids').mapped('attribute_id')
+                for line in desc_line_ids:
+                    formatted_product_values = []
+                    for value in line.value_ids:
+                        if value.type == 'text':
+                            formatted_product_values.append(value.with_context(lang=self.order_id.partner_id.lang).text)
+                        else:
+                            if value.attribute_id in pacvs.mapped('custom_product_template_attribute_value_id').mapped('attribute_id'):
+                                for pacv in pacvs.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id == value.attribute_id):
+                                    # formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).display_name)
+                                    formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name)
+                            elif value.attribute_id in no_custom_ptavs.mapped('attribute_id'):
+                                for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == value.attribute_id):
+                                    # formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).display_name)
+                                    formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
+                    formatted_product_configuration = '{}{}{}'.format(formatted_product_configuration, '\n', ' '.join(formatted_product_values))
 
             # display the no_variant attributes, except those that are also
             # displayed by a custom (avoid duplicate description)
             # select only those that should be displayed in short description
-            for ptav in (no_variant_ptavs - custom_ptavs).filtered(lambda ptav: ptav.attribute_id.display_short_description):
-                product_configuration += "\n" + ptav.with_context(lang=self.order_id.partner_id.lang).display_name
+            for ptav in (no_variant_ptavs - custom_ptavs).filtered(lambda p: p.attribute_id.display_short_description and p.attribute_id not in desc_line_attributes):
+                product_configuration += '\n' + ptav.with_context(lang=self.order_id.partner_id.lang).display_name
 
             # display the is_custom values
             # select only those that should be displayed in short description
-            for pacv in self.product_custom_attribute_value_ids.filtered(lambda pacv: pacv.custom_product_template_attribute_value_id.attribute_id.display_short_description):
-                product_configuration += "\n" + pacv.with_context(lang=self.order_id.partner_id.lang).display_name
+            for pacv in self.product_custom_attribute_value_ids.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id.display_short_description and p.custom_product_template_attribute_value_id.attribute_id not in desc_line_attributes):
+                product_configuration += '\n' + pacv.with_context(lang=self.order_id.partner_id.lang).display_name
 
-        self.update({'short_name': product_description + product_configuration})
+        self.update({'short_name': '{}\n{}\n{}'.format(product_description, formatted_product_configuration, product_configuration)})
         return res
 
     def _get_display_price(self, product):
