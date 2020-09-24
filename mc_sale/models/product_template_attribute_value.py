@@ -18,6 +18,8 @@ class ProductTemplateAttributeValue(models.Model):
     @api.depends(
         'product_tmpl_id.linear_length',
         'product_tmpl_id.list_price',
+        'product_attribute_value_id.is_custom',
+        'product_attribute_value_id.unit_price',
         'product_attribute_value_id.percentage_price_ids',
         'product_attribute_value_id.percentage_price_ids.percentage_price',
         'product_attribute_value_id.percentage_price_ids.price_extra',
@@ -27,26 +29,29 @@ class ProductTemplateAttributeValue(models.Model):
         'is_manual_price_extra')
     def _compute_price_extra(self):
         """ compute extra price according to precedence rule:
-        * Precedence rule -> manual price > linear price > percentage price
+        * Precedence rule -> manual price > linear price & custom value > linear price & percentage price > linear price & unit price
         -   if product template attribute value 'manual price' flag is on, then use price manually set by user
-        -   else if product attribute value has 'linear price' flag set, then extra price should be 0.0 and computed later on.
-                    Computed through the product configurator when the user has given the length used.
-        -   else if product attribute value has a 'percentage price' matching product category,
-                    apply this percentage on public price, else extra price should be 0.0
+        -   else if product attribute has 'linear price' flag set and product attribute value is custom,
+            then extra price should be 0.0 and computed later on (computed through the product configurator when the user has given the length used: unit price * custom quantity).
+        -   else if product attribute has 'linear price' flag set, product attribute value is not custom
+            and product attribute value has a 'percentage price' matching product category,
+            apply this percentage on public price, else extra price should be product attribute value's unit price * linear length on product template
         -   else extra price is 0.0
         """
         for value in self:
             if value.is_manual_price_extra:
                 price_extra = value.manual_price_extra
             elif value.product_attribute_value_id.has_linear_price:
-                price_extra = 0.0
-            elif value.product_attribute_value_id.percentage_price_ids:
-                price_extra = 0.0
-                percentage_price = value._get_percentage_price()
-                if percentage_price and percentage_price.type == 'percentage':
-                    price_extra = round(value.product_tmpl_id.list_price * percentage_price.percentage_price)
-                elif percentage_price and percentage_price.type == 'amount':
-                    price_extra = percentage_price.price_extra
+                if value.product_attribute_value_id.is_custom:
+                    price_extra = 0.0
+                else:
+                    price_extra = value.product_attribute_value_id.unit_price * value.product_tmpl_id.linear_length or 0.0 # default value, erased if there is a matching percentage price
+                    if value.product_attribute_value_id.percentage_price_ids:
+                        percentage_price = value._get_percentage_price()
+                        if percentage_price and percentage_price.type == 'percentage':
+                            price_extra = round(value.product_tmpl_id.list_price * percentage_price.percentage_price)
+                        elif percentage_price and percentage_price.type == 'amount':
+                            price_extra = percentage_price.price_extra
             else:
                 price_extra = 0.0
             value.price_extra = price_extra

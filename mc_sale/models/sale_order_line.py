@@ -18,7 +18,7 @@ class SaleOrderLine(models.Model):
     def product_id_change(self):
         """
         Overridden method
-        Update short description with product attributes flagged accordingly
+        Update short description with product attributes flagged accordingly and description lines on product.template(related(
         """
         res = super(SaleOrderLine, self).product_id_change()
 
@@ -75,7 +75,7 @@ class SaleOrderLine(models.Model):
             for pacv in self.product_custom_attribute_value_ids.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id.display_short_description and p.custom_product_template_attribute_value_id.attribute_id not in desc_line_attributes):
                 product_configuration += '\n' + pacv.with_context(lang=self.order_id.partner_id.lang).display_name
 
-        self.update({'short_name': '{}\n{}\n{}'.format(product_description, formatted_product_configuration, product_configuration)})
+        self.update({'short_name': '{}\n{}{}'.format(product_description, formatted_product_configuration, product_configuration)})
         return res
 
     def _get_display_price(self, product):

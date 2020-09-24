@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 
 
 class ProductAttributeCustomValue(models.Model):
-    _inherit = "product.attribute.custom.value"
+    _inherit = 'product.attribute.custom.value'
 
     @api.model
     def create(self, values):

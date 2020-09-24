@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 
 class ProductAttribute(models.Model):
-    _inherit = "product.attribute"
+    _inherit = 'product.attribute'
 
     has_linear_price = fields.Boolean(string='Linear Price')
     default_linear_value = fields.Boolean(string='Default Linear Value', default=False,
