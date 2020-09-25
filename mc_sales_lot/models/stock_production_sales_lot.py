@@ -19,7 +19,7 @@ class ProductionSalesLot(models.Model):
         'product.product', string='Product',
         domain="[('type', 'in', ['product', 'consu']), ('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', company_id)]", required=True, ondelete='restrict', check_company=True)
     production_ids = fields.One2many('mrp.production', 'sales_lot_id', string='Manufacturing Orders')
-    stock_move_ids = fields.One2many('stock.move', 'sales_lot_id', string='Stock Move Lines')
+    stock_move_ids = fields.One2many('stock.move', 'sales_lot_id', string='Stock Moves')
     stock_move_line_ids = fields.One2many('stock.move.line', 'sales_lot_id', string='Stock Move Lines')
     sale_order_line_ids = fields.One2many('sale.order.line', 'sales_lot_id', string='Sale Order Lines')
     sale_order_ids = fields.Many2many('sale.order', stirng='Sale Orders', compute='_get_sale_orders')
