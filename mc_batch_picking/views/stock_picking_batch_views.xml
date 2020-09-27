@@ -14,7 +14,7 @@
                     <field name="delivery_carrier_id"/>
                     <field name="partner_id"/>
                     <field name="picking_type_id"/>
-                    <button name="button_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', '=', 'done')]}" icon="fa-refresh" class="btn-secondary"/>
+                    <button name="button_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', '=', 'done')]}" icon="fa-refresh" class="oe_link oe_inline"/>
                 </group>
             </xpath>
             <xpath expr="//separator" position="replace"/>

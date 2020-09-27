@@ -60,4 +60,6 @@ class StockPickingBatch(models.Model):
         self._check_company()
         pickings_without_qty_done = self.mapped('picking_ids').filtered(lambda picking: all([ml.qty_done == 0.0 for ml in picking.move_line_ids]))
         pickings_without_qty_done.update({'batch_id': False})
+        if not self.picking_ids:
+            raise UserError(_('Nothing to check the availability for. Please update at least one quantity done.'))
         return super(StockPickingBatch, self).done()
