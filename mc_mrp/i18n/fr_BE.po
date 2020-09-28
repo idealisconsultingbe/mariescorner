@@ -1,0 +1,279 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_mrp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-25 11:04+0000\n"
+"PO-Revision-Date: 2020-09-25 13:35+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__allowed_attribute_ids
+msgid "Allowed Product Attributes"
+msgstr "Attributs de produit autorisés"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_purchase_order_line__product_custom_attribute_value_ids
+msgid "Attribute Custom Values"
+msgstr "Valeurs d'attribut personnalisées"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_product_attribute_value
+msgid "Attribute Value"
+msgstr "Valeur de la caractéristique"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_purchase_order_line__product_no_variant_attribute_value_ids
+msgid "Attribute Values"
+msgstr "Valeurs d'attribut"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_report_mrp_report_bom_structure
+msgid "BOM Structure Report"
+msgstr "Rapport de structure de nomenclature"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Nomenclature"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_mrp_bom_line
+msgid "Bill of Material Line"
+msgstr "Ligne de nomenclature"
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/mrp_production.py:0
+#, python-format
+msgid ""
+"Cannot produce {}, there is no BoM fabric related to this configuration: {}"
+msgstr ""
+"Impossible de produire {}, il n'y a pas de nomenclature liée à cette "
+"configuration: {}"
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/product_attribute.py:0
+#, python-format
+msgid ""
+"Changing this relationship will erase all links between values on this "
+"record and related ones. Discard changes if you are not sure of what you "
+"are doing."
+msgstr ""
+"Changer cette relation effacera tous les liens entre les valeurs de cet "
+"enregistrement et les valeurs liées. Annulez le changement si vous n'êtes "
+"pas sûr de ce que vous faites."
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_comment
+#: model:ir.model.fields,field_description:mc_mrp.field_purchase_order_line__comment
+msgid "Comment"
+msgstr "Commentaire"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_id
+msgid "Component"
+msgstr "Composant"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__product_tmpl_uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"La conversion entre les unités de mesure ne peut se faire que si elles "
+"appartiennent à la même catégorie. La conversion sera faite sur base de "
+"ratios."
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__show_sale_comment
+msgid "Is Comment Visible"
+msgstr "Commentaire visible"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__show_sale_description
+msgid "Is Description Visible"
+msgstr "Description visible"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__is_none_value
+msgid "Is None Value"
+msgstr "Valeur nulle"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__m2o
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__m2o
+msgid "Many to One"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__none
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__none
+msgid "None"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__o2m
+#: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__o2m
+msgid "One to Many"
+msgstr ""
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/report/mrp_report_bom_structure.py:0
+#, python-format
+msgid "Operations"
+msgstr "Opérations"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_product_attribute
+msgid "Product Attribute"
+msgstr "Caractéristique de l'article"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_attribute_ids
+msgid "Product Attributes"
+msgstr "Attributs de produit"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_description
+msgid "Product Description"
+msgstr "Description du produit"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_tmpl_id
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_tmpl_uom_category_id
+msgid "Product Tmpl UOM Categ"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_uom_id
+msgid "Product Unit of Measure"
+msgstr "Unité de mesure d'article"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_purchase_order_line__product_custom_attribute_value_ids
+msgid "Product attribute custom values that do not create variants"
+msgstr "Valeurs d'attribut personnalisées qui ne créent pas de variantes"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_purchase_order_line__product_no_variant_attribute_value_ids
+msgid "Product attribute values that do not create variants"
+msgstr "Valeurs d'attribut qui ne créent pas de variantes"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_mrp_production
+msgid "Production Order"
+msgstr "Ordre de fabrication"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_purchase_order
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande d'achat"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute__product_attribute_id
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__related_product_attribute_id
+msgid "Related Attribute"
+msgstr "Attribut lié"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute__product_attribute_ids
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__related_product_attribute_ids
+msgid "Related Attributes"
+msgstr "Attributs liés"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__product_attribute_value_id
+msgid "Related Value"
+msgstr "Valeur liée"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__product_attribute_value_ids
+msgid "Related Values"
+msgstr "Valeurs liées"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute__relationship_type
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__relationship_type
+msgid "Relationship Type"
+msgstr "Type de relation"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.mrp_production_form_view
+msgid "Sale Order Comment"
+msgstr "Commentaire du bon de commande"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_move
+msgid "Stock Move"
+msgstr "Stock déplacer"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_rule
+msgid "Stock Rule"
+msgstr "Règle de stock minimum"
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/product_attribute.py:0
+#, python-format
+msgid "There is already a relationship set on this attribute ({})."
+msgstr "Il y a déjà une relation définie sur cet attribut ({})."
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/product_attribute_value.py:0
+#, python-format
+msgid "There is already a relationship set on this attribute value ({})."
+msgstr "Il y a déjà une relation définie sur cette valeur d'attribut ({})."
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__product_uom_id
+msgid ""
+"Unit of Measure (Unit of Measure) is the unit of measurement for the "
+"inventory control"
+msgstr "L'unité de mesure est l'unité utilisée dans la gestion du stock"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__allowed_attribute_ids
+msgid "Used in UI"
+msgstr "Utilisé dans l'interface"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_product_attribute__relationship_type
+#: model:ir.model.fields,help:mc_mrp.field_product_attribute_value__relationship_type
+msgid "Utility field used in UI."
+msgstr "Champs utilitaire défini dans l'interface"
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/product_attribute.py:0
+#, python-format
+msgid "Warning"
+msgstr "Avertissement"
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/report/mrp_report_bom_structure.py:0
+#, python-format
+msgid "minutes"
+msgstr ""

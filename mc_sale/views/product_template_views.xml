@@ -19,6 +19,29 @@
                     <span><field name="length_uom_name"/></span>
                 </div>
             </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Description" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                    <separator string="Description Lines"/>
+                    <field name="description_line_ids" context="{'default_product_tmpl_id': active_id}">
+                        <tree string="Description Lines">
+                            <field name="sequence" widget="handle"/>
+                            <field name="value_ids" widget="many2many_tags"/>
+                        </tree>
+                        <form>
+                            <field name="sequence" invisible="1"/>
+                            <field name="product_tmpl_id" invisible="1"/>
+                            <field name="value_ids" nolabel="1">
+                                <tree string="Description Values" editable="bottom">
+                                    <field name="type"/>
+                                    <field name="text" attrs="{'required': [('type', '=', 'text')], 'readonly': [('type', '=', 'attribute')]}"/>
+                                    <field name="attribute_id" domain="[('product_tmpl_ids', '=', parent.product_tmpl_id), ('display_short_description', '=', True)]" attrs="{'required': [('type', '=', 'attribute')], 'readonly': [('type', '=', 'text')]}"/>
+                                    <field name="description_line_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
 

@@ -14,3 +14,5 @@ from . import sale_order_line
 from . import purchase_order_line
 from . import purchase_order
 from . import stock_rule
+from . import product_config_desc_line
+from . import product_config_desc_line_value

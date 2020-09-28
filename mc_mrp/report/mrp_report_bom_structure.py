@@ -22,7 +22,12 @@ class ReportBomStructure(models.AbstractModel):
             if line._skip_bom_line(product):
                 continue
             company = bom.company_id or self.env.company
-            price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * line_quantity
+            if line_product == line_product_tmpl and line_product.product_variant_ids:
+                product_tmpl = line_product.with_context(force_company=company.id)
+                average_standard_price = sum(product_tmpl.product_variant_ids.mapped('standard_price'))/len(product_tmpl.product_variant_ids)
+                price = line_product.uom_id._compute_price(average_standard_price, line.product_uom_id) * line_quantity
+            else:
+                price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * line_quantity
             if line.child_bom_id:
                 factor = line.product_uom_id._compute_quantity(line_quantity, line.child_bom_id.product_uom_id) / line.child_bom_id.product_qty
                 sub_total = self._get_price(line.child_bom_id, factor, line_product)
@@ -77,7 +82,7 @@ class ReportBomStructure(models.AbstractModel):
             else:
                 prod_qty = line.product_qty * factor
                 company = bom.company_id or self.env.company
-                not_rounded_price = line_product.uom_id._compute_price(line_product.with_context(force_comany=company.id).standard_price, line.product_uom_id) * prod_qty
+                not_rounded_price = line_product.uom_id._compute_price(line_product.with_context(force_company=company.id).standard_price, line.product_uom_id) * prod_qty
                 price += company.currency_id.round(not_rounded_price)
         return price
 
@@ -137,4 +142,3 @@ class ReportBomStructure(models.AbstractModel):
         data['components'] = []
         data['lines'] = pdf_lines
         return data
-    

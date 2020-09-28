@@ -10,6 +10,7 @@
     'depends': ['sale', 'web'],
     'data': [
         'report/sale_order_templates.xml',
+        'report/sale_report.xml',
         'views/sale_order_templates.xml',
         'views/ir_qweb_widget_templates.xml',
     ],

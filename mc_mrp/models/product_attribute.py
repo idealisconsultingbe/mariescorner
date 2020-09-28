@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 
 
 class ProductAttribute(models.Model):
-    _inherit = "product.attribute"
+    _inherit = 'product.attribute'
 
     product_attribute_id = fields.Many2one('product.attribute', string='Related Attribute')
     product_attribute_ids = fields.One2many('product.attribute', 'product_attribute_id', string='Related Attributes')
