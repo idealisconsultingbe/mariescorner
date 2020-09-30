@@ -6,11 +6,13 @@
             <field name="model">mrp.production</field>
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='id']/.." position="inside">
-                    <field name="show_sale_description" invisible="1"/>
-                    <field name="sale_description" attrs="{'invisible': [('show_sale_description', '=', False)]}" />
+                <xpath expr="//notebook" position="inside">
+                    <page string="Sale Description" attrs="{'invisible': [('show_sale_description', '=', False)]}">
+                        <field name="show_sale_description" invisible="1"/>
+                        <field name="sale_description"/>
+                    </page>
                 </xpath>
-                <xpath expr="//field[@name='move_raw_ids']" position="before">
+                <xpath expr="//h1/.." position="before">
                     <field name="show_sale_comment" invisible="1"/>
                     <div role="alert" class="alert alert-warning" attrs="{'invisible': [('show_sale_comment', '=', False)]}">
                         <label for="sale_comment" string="Sale Order Comment" attrs="{'invisible': [('show_sale_comment', '=', False)]}" />

@@ -2,7 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from .tools import to_float
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class ProductTemplate(models.Model):
@@ -34,6 +34,20 @@ class ProductTemplate(models.Model):
                 product_template_attribute_values.write({'is_manual_price_extra': True})
             else:
                 product_template_attribute_values.write({'is_manual_price_extra': False})
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        self.ensure_one()
+        res = super(ProductTemplate, self).copy(default=default)
+        for line in self.description_line_ids:
+            new_line = self.env['product.configurator.description.line'].create({'product_tmpl_id': res.id})
+            for value in line.value_ids:
+                self.env['product.configurator.description.line.value'].create(
+                    {'description_line_id': new_line.id,
+                     'type': value.type,
+                     'attribute_id': value.attribute_id.id if value.attribute_id else False,
+                     'text': value.text})
+        return res
 
     @api.model
     def get_length_uom_name(self):

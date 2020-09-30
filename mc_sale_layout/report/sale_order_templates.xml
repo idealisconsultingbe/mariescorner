@@ -89,7 +89,7 @@
             </t>
 
             <!-- main container structure -->
-            <div class="page">
+            <div class="page" style="font-size: small;">
 
                 <div class="oe_structure"/>
 
@@ -106,14 +106,11 @@
                             <th name="th_reference" class="text-center" style="padding: 0.5rem 0 0.5rem 0.5rem; height: 2.3rem; line-height: 2.3rem;">
                               <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Ref</span>
                             </th>
-                            <th name="th_model" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Model</span>
+                            <th name="th_description" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Description</span>
                             </th>
                             <th name="th_quantity" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
                               <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Quantity</span>
-                            </th>
-                            <th name="th_description" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Description</span>
                             </th>
                             <th name="th_priceunit" class="text-center" style="padding: 0.5rem 0 0.5rem 0;height: 2.3rem; line-height: 2.3rem;">
                               <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Unit Price</span>
@@ -145,16 +142,12 @@
                                       <span style="display: inline-block; width: 100%;"><t t-esc="line.product_id.default_code"/></span>
                                       <span style="display: inline-block; width: 100%;" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
                                     </td>
-                                    <td name="td_name" class="text-left" style="padding: 0.5rem;">
-                                      <span style="display: inline-block; width: 100%;"><t t-esc="line.product_id.name"/></span>
-                                      <span style="display: inline-block; width: 100%;"><t t-esc="line.product_id.description_sale"/></span>
+                                    <td name="td_desc" class="text-left" style="padding: 0.5rem;">
+                                        <span t-field="line.short_name"/>
                                     </td>
                                     <td name="td_quantity" class="text-right" style="padding: 0.5rem;">
                                         <span t-field="line.product_uom_qty"/>
                                         <span t-field="line.product_uom" groups="uom.group_uom"/>
-                                    </td>
-                                    <td name="td_desc" class="text-left" style="padding: 0.5rem;">
-                                        <span t-field="line.short_name"/>
                                     </td>
                                     <td name="td_priceunit" class="text-right" style="padding: 0.5rem;">
                                         <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
