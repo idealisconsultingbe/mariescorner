@@ -11,7 +11,7 @@ class SaleOrderLine(models.Model):
 
     fabrics_meterage_needed = fields.Float(string='Meterage of fabrics', related='product_id.linear_length')
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
-    comment = fields.Html(string='Comment')
+    comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
 
     @api.onchange('product_id')

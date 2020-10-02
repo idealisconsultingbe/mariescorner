@@ -11,4 +11,4 @@ class McSaleProductConfigurator(models.TransientModel):
     product_is_tailor_made = fields.Boolean(string='Is Tailor Made', related='product_template_id.tailor_made')
     standard_product_price = fields.Float(string="Standard Product Price", readonly=1)
     product_cost = fields.Float(string="Product Cost", readonly=1)
-    comment = fields.Html(string="Comment")
+    comment = fields.Text(string="Comment")

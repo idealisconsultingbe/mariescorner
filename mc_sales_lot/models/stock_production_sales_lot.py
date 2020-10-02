@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -22,9 +22,9 @@ class ProductionSalesLot(models.Model):
     stock_move_ids = fields.One2many('stock.move', 'sales_lot_id', string='Stock Moves')
     stock_move_line_ids = fields.One2many('stock.move.line', 'sales_lot_id', string='Stock Move Lines')
     sale_order_line_ids = fields.One2many('sale.order.line', 'sales_lot_id', string='Sale Order Lines')
-    sale_order_ids = fields.Many2many('sale.order', stirng='Sale Orders', compute='_get_sale_orders')
-    lot_ids = fields.Many2many('stock.production.lot', stirng='Lot/Serial', compute='_get_lots')
-    picking_ids = fields.Many2many('stock.picking', stirng='Transfers', compute='_get_pickings')
+    sale_order_ids = fields.Many2many('sale.order', 'sales_lot_so_rel', 'sales_lot_id', 'so_id', string='Sale Orders', compute='_get_sale_orders', store=True)
+    lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_get_lots', store=True)
+    picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_get_pickings', store=True)
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
 
     def create_log(self, name, msg, user=None, model=None, record=None, datetime=None):
@@ -57,6 +57,7 @@ class ProductionSalesLot(models.Model):
                 msg = '{} {}'.format(msg, _('(model={}, record={})').format(model.model, record))
             raise ValidationError(msg)
 
+    @api.depends('sale_order_line_ids.order_id')
     def _get_sale_orders(self):
         """
         :return SO to which current manufacturing number is linked.
@@ -64,6 +65,7 @@ class ProductionSalesLot(models.Model):
         for sale_lot in self:
             sale_lot.sale_order_ids = sale_lot.sale_order_line_ids.mapped('order_id')
 
+    @api.depends('stock_move_line_ids.lot_id')
     def _get_lots(self):
         """
         :return S/N to which current manufacturing number is linked.
@@ -71,6 +73,7 @@ class ProductionSalesLot(models.Model):
         for sale_lot in self:
             sale_lot.lot_ids = sale_lot.stock_move_line_ids.mapped('lot_id')
 
+    @api.depends('stock_move_ids.picking_id')
     def _get_pickings(self):
         """
         :return transfers to which the manufacturing number is linked.

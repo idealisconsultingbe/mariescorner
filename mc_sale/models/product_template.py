@@ -37,6 +37,9 @@ class ProductTemplate(models.Model):
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
+        """
+        When we duplicate a product template we also duplicate its description_line_ids.
+        """
         self.ensure_one()
         res = super(ProductTemplate, self).copy(default=default)
         for line in self.description_line_ids:
