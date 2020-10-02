@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class ProductionSalesLot(models.Model):
     _name = 'stock.production.sales.lot'
     _description = 'Manufacturing Number'
-    _order = 'name asc'
+    _order = 'name desc'
     _sql_constraints = [
         ('product_name_unique', 'UNIQUE(product_id, name)', _('You are about to use a lot number that already exists (product and manufacturing number combination must be unique).')),
     ]
