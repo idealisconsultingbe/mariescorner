@@ -11,8 +11,8 @@
             <field name="product_template_id" position="after">
                 <field name="product_is_tailor_made" invisible="1"/>
                 <field name="fabrics_meterage_needed" readonly="1"/>
-                <field name="standard_product_price" attrs="{'invisible': [('product_is_tailor_made', '=', True)]}"/>
-                <field name="product_cost" attrs="{'invisible': [('product_is_tailor_made', '=', True)]}"/>
+                <field name="standard_product_price" invisible="1"/>
+                <field name="product_cost" invisible="1"/>
             </field>
             <field name="quantity" position="before">
                 <field name="comment"/>

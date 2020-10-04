@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 16:53+0000\n"
-"PO-Revision-Date: 2020-09-27 18:54+0200\n"
+"POT-Creation-Date: 2020-10-02 12:35+0000\n"
+"PO-Revision-Date: 2020-10-02 14:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 2.4.1\n"
 
 #. module: mc_sales_lot
@@ -165,6 +165,11 @@ msgstr ""
 "l'utilisateur devra le faire manuellement"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_mrp_production__inter_company_origin
+msgid "Inter Company Source"
+msgstr "Inter Société Source"
+
+#. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
 #, python-format
 msgid "Internal Delivery OK"
@@ -200,7 +205,7 @@ msgstr "Assignation logguée"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__lot_ids
-msgid "Lot"
+msgid "Lot/Serial"
 msgstr ""
 
 #. module: mc_sales_lot
@@ -221,6 +226,7 @@ msgstr "Numéro de production"
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__name
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sale_order_filter_view
 msgid "Manufacturing Number"
 msgstr "Numéro de production"
 
@@ -280,16 +286,11 @@ msgid "Number digits to add to compose S/N"
 msgstr "Nombre de chiffres à ajouter pour composer le numéro de série"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__picking_ids
-msgid "Picking"
-msgstr "Transfert"
-
-#. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_product_product
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__product_id
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
 msgid "Product"
-msgstr "Article"
+msgstr "Produit"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_product_category
@@ -338,16 +339,12 @@ msgid "Record Production"
 msgstr "Enregistrer la production"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__sale_order_ids
-msgid "Sale Order"
-msgstr "Bon de commande"
-
-#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__sale_order_line_ids
 msgid "Sale Order Lines"
 msgstr "Lignes de commande"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__sale_order_ids
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
 msgid "Sale Orders"
 msgstr "Bons de commande"
@@ -360,7 +357,7 @@ msgstr "Bon de commande"
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne de bons de commande"
+msgstr "Ligne du bon de commande"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__log_sales_lot_status_ids
@@ -407,20 +404,20 @@ msgstr ""
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
 #, python-format
-msgid "The lot {} has been delivered to customer {}"
-msgstr "Le lot {} a été livré au client {}"
+msgid "The SN {} has been delivered to customer {}"
+msgstr "Le SN {} a été livré au client {}"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
 #, python-format
-msgid "The lot {} has been received by {}"
-msgstr "Le lot {} a été reçu par {}"
+msgid "The SN {} has been received by {}"
+msgstr "Le SN {} a été reçu par "
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
 #, python-format
-msgid "The lot {} is on its way towards {} warehouse"
-msgstr "Le lot {} est en chemin vers l'entrepôt {}"
+msgid "The SN {} is on its way towards {} warehouse"
+msgstr "Le SN {} est en cours d'acheminement vers l'entrepôt de {}"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_stock_picking
@@ -428,6 +425,7 @@ msgid "Transfer"
 msgstr "Transfert"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__picking_ids
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
 msgid "Transfers"
 msgstr "Transferts"
