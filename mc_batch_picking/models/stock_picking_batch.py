@@ -8,11 +8,15 @@ from odoo.exceptions import UserError
 class StockPickingBatch(models.Model):
     _inherit = 'stock.picking.batch'
 
+    inter_company_batch_picking_id = fields.Many2one('stock.picking.batch', string='InterCompany Batch Picking', readonly=True)
+
+    # used to filter pickings
     delivery_carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method', check_company=True, states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
-    partner_id = fields.Many2one('res.partner', string='Contact', states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
+    partner_id = fields.Many2one('res.partner', string='Partner', states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
     picking_type_id = fields.Many2one('stock.picking.type', string='Operation Type', check_company=True, domain=[('code', 'in', ('incoming', 'outgoing'))], states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
     move_ids = fields.Many2many('stock.move', 'batch_picking_stock_move_rel', 'batch_id', 'move_id', string='Stock Moves', compute='_compute_moves', readonly=False)
     move_line_ids = fields.Many2many('stock.move.line', 'batch_picking_stock_move_line_rel', 'batch_id', 'move_line_id', string='Operations', compute='_compute_moves', readonly=False)
+
     # compatibility fields used by pickings, moves and move lines in UI
     show_lots_text = fields.Boolean(compute='_compute_show_lots_text', help='Used in UI')
     immediate_transfer = fields.Boolean(default=False, help='Used in UI')
@@ -58,8 +62,32 @@ class StockPickingBatch(models.Model):
 
     def done(self):
         self._check_company()
+        self = self.sudo()
         pickings_without_qty_done = self.mapped('picking_ids').filtered(lambda picking: all([ml.qty_done == 0.0 for ml in picking.move_line_ids]))
         pickings_without_qty_done.update({'batch_id': False})
         if not self.picking_ids:
             raise UserError(_('Nothing to check the availability for. Please update at least one quantity done.'))
-        return super(StockPickingBatch, self).done()
+        res = super(StockPickingBatch, self).done()
+
+
+        if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id :
+            company_partners = self.env['res.company'].search([]).mapped('partner_id')
+            company_pickings = self.mapped('picking_ids').filtered(lambda pick: pick.partner_id in company_partners)
+            company_picking_dict = {partner: [pick for pick in company_pickings if pick.partner_id == partner] for partner in company_pickings.mapped('partner_id')}
+            pickings = self.env['stock.picking']
+            for partner, picks in company_picking_dict.items():
+                for pick in picks:
+                    if pick.sale_id:
+                        purchase_line_ids = pick.sale_id.mapped('order_line.inter_company_po_line_id')
+                        if purchase_line_ids:
+                            pickings |= purchase_line_ids.mapped('move_ids').filtered(lambda m: m.state in ['waiting', 'confirmed', 'draft', 'partially_available', 'assigned']).mapped('picking_id')
+            inter_company_batch = self.env['stock.picking.batch'].create({
+                'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
+                'picking_ids': [(6, 0, pickings.ids)],
+                'partner_id': self.company_id.partner_id.id,
+                'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
+                'inter_company_batch_picking_id': self.id
+            })
+            inter_company_batch.confirm_picking()
+            self.update({'inter_company_batch_picking_id': inter_company_batch.id})
+        return res
