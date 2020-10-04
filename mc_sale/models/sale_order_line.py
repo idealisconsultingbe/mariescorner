@@ -2,7 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from .tools import to_float
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.tools.misc import get_lang
 
 
@@ -62,6 +62,8 @@ class SaleOrderLine(models.Model):
                                 for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == value.attribute_id):
                                     # formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).display_name)
                                     formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
+                            else:
+                                formatted_product_values.append(_('None'))
                     formatted_product_configuration = '{}{}{}'.format(formatted_product_configuration, '\n', ' '.join(formatted_product_values))
 
             # display the no_variant attributes, except those that are also
@@ -132,3 +134,15 @@ class SaleOrderLine(models.Model):
             return max(base_price, final_price)
         else:
             return super(SaleOrderLine, self)._get_display_price(product)
+
+    def _prepare_invoice_line(self):
+        """
+        Overridden method
+        Add short description to invoice line
+        """
+        self.ensure_one()
+        res = super(SaleOrderLine, self)._prepare_invoice_line()
+        if self.short_name:
+            res['short_name'] = self.short_name
+        return res
+

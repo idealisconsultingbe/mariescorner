@@ -22,9 +22,9 @@ class ProductionSalesLot(models.Model):
     stock_move_ids = fields.One2many('stock.move', 'sales_lot_id', string='Stock Moves')
     stock_move_line_ids = fields.One2many('stock.move.line', 'sales_lot_id', string='Stock Move Lines')
     sale_order_line_ids = fields.One2many('sale.order.line', 'sales_lot_id', string='Sale Order Lines')
-    sale_order_ids = fields.Many2many('sale.order', stirng='Sale Orders', compute='_get_sale_orders')
-    lot_ids = fields.Many2many('stock.production.lot', stirng='Lot/Serial', compute='_get_lots')
-    picking_ids = fields.Many2many('stock.picking', stirng='Transfers', compute='_get_pickings')
+    sale_order_ids = fields.Many2many('sale.order', strinng='Sale Orders', compute='_get_sale_orders')
+    lot_ids = fields.Many2many('stock.production.lot', strinng='Lot/Serial', compute='_get_lots')
+    picking_ids = fields.Many2many('stock.picking', string='Transfers', compute='_get_pickings')
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
 
     def create_log(self, name, msg, user=None, model=None, record=None, datetime=None):
