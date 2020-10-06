@@ -27,6 +27,7 @@ class StockPickingBatch(models.Model):
 
     @api.depends('picking_ids')
     def _compute_moves(self):
+        """ Compute moves and move lines used in batch """
         for batch in self:
             batch.update({
                     'move_ids': [(6, 0, batch.picking_ids.mapped('move_lines').ids)],
@@ -35,6 +36,7 @@ class StockPickingBatch(models.Model):
 
     @api.depends('move_line_ids', 'picking_type_id.use_create_lots', 'picking_type_id.use_existing_lots', 'state')
     def _compute_show_lots_text(self):
+        """ Compute visibility of lot_id and lot_name in move_line_ids tree view on batch form """
         group_production_lot_enabled = self.user_has_groups('stock.group_production_lot')
         for batch in self:
             if not batch.move_line_ids:
@@ -46,6 +48,7 @@ class StockPickingBatch(models.Model):
                 batch.show_lots_text = False
 
     def button_load_picking(self):
+        """ Load all pickings with the same picking type/operation type, delivery method (optional), and partner (optional) """
         self.ensure_one()
         if self.picking_type_id:
             domain = [('company_id', '=', self.company_id.id), ('state', '=', 'assigned'), ('picking_type_id', '=', self.picking_type_id.id)]
@@ -61,6 +64,13 @@ class StockPickingBatch(models.Model):
             raise UserError(_('An operation type is required before loading available pickings'))
 
     def done(self):
+        """
+        Overridden method
+        When validating a batch:
+         - filter out all pickings with no quantities done
+         - apply standard behaviour
+         - create an inter company batch for all inter company pickings
+         """
         self._check_company()
         self = self.sudo()
         pickings_without_qty_done = self.mapped('picking_ids').filtered(lambda picking: all([ml.qty_done == 0.0 for ml in picking.move_line_ids]))

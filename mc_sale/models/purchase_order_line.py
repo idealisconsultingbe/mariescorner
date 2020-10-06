@@ -10,5 +10,9 @@ class PurchaseOrderLine(models.Model):
     short_name = fields.Text(string='Short Description')
 
     def _product_id_change(self):
+        """
+        Overridden method
+        Short_name should be filled like name if product changes
+        """
         super(PurchaseOrderLine, self)._product_id_change()
         self.short_name = self.name

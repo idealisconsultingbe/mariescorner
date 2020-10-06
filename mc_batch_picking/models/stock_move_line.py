@@ -10,6 +10,15 @@ class StockMoveLine(models.Model):
     inter_company_move_line_id = fields.Many2one('stock.move.line', string='InterCompany Stock Move Line')
 
     def _action_done(self):
+        """
+        Overridden method
+        In case of inter company transfer, the goal is to create/update move lines in the opposite company
+        when we validate lines in current company. That way, move lines already exist before processing reception, possibly in batch.
+
+        Logic:
+        If line is an outgoing move line and parent move is linked to an inter company transfer
+        then try to find candidate move lines to update in related company or create new ones.
+        """
         res = super(StockMoveLine, self)._action_done()
         self = self.sudo()
         for line in self:
