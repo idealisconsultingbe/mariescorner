@@ -43,8 +43,16 @@ class MrpProduction(models.Model):
         res = super(MrpProduction, self).action_confirm()
         for production in self.filtered(lambda p: p.sales_lot_id):
             if production.state == 'confirmed':
-                name = _('{} Confirmed').format(production.name)
-                msg = _('All the necessary information have been received by {} for manufacturing order {}, the planned date is {}').format(production.company_id.name, production.name, production.date_planned_start)
+                name = {
+                    'no_lang': _('{} Confirmed').format(production.name),
+                    'en_US': '{} Confirmed'.format(production.name),
+                    'fr_BE': '{} Confirmé'.format(production.name)
+                }
+                msg = {
+                    'no_lang': _('All the necessary information have been received by {} for manufacturing order {}, the planned date is {}').format(production.company_id.name, production.name, production.date_planned_start),
+                    'en_US': 'All the necessary information have been received by {} for manufacturing order {}, the planned date is {}'.format(production.company_id.name, production.name, production.date_planned_start),
+                    'fr_BE': 'Toutes les informations nécessaires à {} pour l\'ordre de production {} ont été reçues, la date plannifiées est {}'.format(production.company_id.name, production.name, production.date_planned_start),
+                }
                 production._create_log(name, msg)
         return res
 
@@ -57,8 +65,16 @@ class MrpProduction(models.Model):
         for production in self.filtered(lambda p: p.sales_lot_id):
             if not production.log_assigned_done and all(state == 'assigned' for state in production.move_raw_ids.mapped('state')):
                 production.log_assigned_done = True
-                name = _('{} Ready').format(production.name)
-                msg = _('All raw materials have been received by {} for manufacturing order {}').format(production.company_id.name, production.name)
+                name = {
+                    'no_lang': _('{} Ready').format(production.name),
+                    'en_US': '{} Ready'.format(production.name),
+                    'fr_BE': '{} Prêt'.format(production.name)
+                }
+                msg = {
+                    'no_lang': _('All raw materials have been received by {} for manufacturing order {}').format(production.company_id.name, production.name),
+                    'en_US': 'All raw materials have been received by {} for manufacturing order {}'.format(production.company_id.name, production.name),
+                    'fr_BE': _('Tous les matériaux ont été réceptionnés par {} pour l\'ordre de production {}').format(production.company_id.name, production.name),
+                }
                 production._create_log(name, msg)
         return res
 

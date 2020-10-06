@@ -40,7 +40,7 @@
                     <page string="Detailed Operations">
                         <!-- copy of view_stock_move_line_detailed_operation_tree with modifications -->
                         <field name="move_line_ids">
-                            <tree delete="false" create="false" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">
+                            <tree delete="false" create="false" editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">
                                 <field name="product_id" required="1" attrs="{'readonly': ['|', ('state', '=', 'done'), ('move_id', '!=', False)]}"/>
                                 <field name="company_id" invisible="1"/>
                                 <field name="move_id" invisible="1"/>
@@ -65,7 +65,7 @@
                     <page string="Operations">
                         <!-- copy of tree view from picking form with modifications -->
                         <field name="move_ids">
-                            <tree delete="false" create="false" decoration-danger="not parent.immediate_transfer and state != 'done' and quantity_done &gt; reserved_availability and show_reserved_availability" decoration-muted="scrapped == True or state == 'cancel' or (state == 'done' and is_locked == True)" string="Stock Moves">
+                            <tree delete="false" create="false" editable="bottom" decoration-danger="not parent.immediate_transfer and state != 'done' and quantity_done &gt; reserved_availability and show_reserved_availability" decoration-muted="scrapped == True or state == 'cancel' or (state == 'done' and is_locked == True)" string="Stock Moves">
                                 <field name="company_id" invisible="1"/>
                                 <field name="name" invisible="1"/>
                                 <field name="state" invisible="1" readonly="0"/>

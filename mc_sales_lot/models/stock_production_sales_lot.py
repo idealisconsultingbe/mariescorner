@@ -31,8 +31,8 @@ class ProductionSalesLot(models.Model):
         """
         Create an entry log in order to track manufacturing number actions. In case of empty message,
         an error is thrown.
-        :param name: name of the log
-        :param msg: message recorded
+        :param name: name of the log (in different languages)
+        :param msg: message recorded (in different languages)
         :param user: user who made the action
         :param model: ir.model where occurred the action
         :param record: the source record of the action
@@ -42,15 +42,18 @@ class ProductionSalesLot(models.Model):
         self.ensure_one()
         if msg:
             vals = {
-                'name': name,
-                'description': msg,
+                'name': name['no_lang'],
+                'description': msg['no_lang'],
                 'sales_lot_id': self.id,
                 'user_id': user.id or self.env.user.id,
                 'model_id': model.id or False,
                 'res_id': record or False,
                 'date': datetime or fields.Datetime.now(),
             }
-            return self.env['log.sales.lot.status'].create(vals)
+            log = self.env['log.sales.lot.status'].create(vals)
+            log.with_context(lang='fr_BE').update({'name': name['fr_BE'], 'description': msg['fr_BE']})
+            log.with_context(lang='en_US').update({'name': name['en_US'], 'description': msg['en_US']})
+            return log
         else:
             msg = _('You cannot create an empty log')
             if model and record:

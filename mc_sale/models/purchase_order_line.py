@@ -8,3 +8,7 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     short_name = fields.Text(string='Short Description')
+
+    def _product_id_change(self):
+        super(PurchaseOrderLine, self)._product_id_change()
+        self.short_name = self.name
