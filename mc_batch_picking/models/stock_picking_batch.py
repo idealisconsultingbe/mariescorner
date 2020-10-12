@@ -8,7 +8,10 @@ from odoo.exceptions import UserError
 class StockPickingBatch(models.Model):
     _inherit = 'stock.picking.batch'
 
+    # delivery batch picking
     inter_company_batch_picking_id = fields.Many2one('stock.picking.batch', string='InterCompany Batch Picking', readonly=True)
+    # receipt batch pickings
+    inter_company_batch_picking_ids = fields.One2many('stock.picking.batch', 'inter_company_batch_picking_id', string='InterCompany Batch Pickings', readonly=True)
 
     # used to filter pickings
     delivery_carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method', check_company=True, states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
@@ -82,22 +85,24 @@ class StockPickingBatch(models.Model):
 
         if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id :
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
+            company_partners |= self.env['res.partner'].search([('parent_id', 'in', company_partners.ids)])
             company_pickings = self.mapped('picking_ids').filtered(lambda pick: pick.partner_id in company_partners)
+
             company_picking_dict = {partner: [pick for pick in company_pickings if pick.partner_id == partner] for partner in company_pickings.mapped('partner_id')}
-            pickings = self.env['stock.picking']
             for partner, picks in company_picking_dict.items():
+                pickings = self.env['stock.picking']
+                partner = partner.parent_id if partner.parent_id else partner
                 for pick in picks:
                     if pick.sale_id:
                         purchase_line_ids = pick.sale_id.mapped('order_line.inter_company_po_line_id')
                         if purchase_line_ids:
                             pickings |= purchase_line_ids.mapped('move_ids').filtered(lambda m: m.state in ['waiting', 'confirmed', 'draft', 'partially_available', 'assigned']).mapped('picking_id')
-            inter_company_batch = self.env['stock.picking.batch'].create({
-                'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
-                'picking_ids': [(6, 0, pickings.ids)],
-                'partner_id': self.company_id.partner_id.id,
-                'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
-                'inter_company_batch_picking_id': self.id
-            })
-            inter_company_batch.confirm_picking()
-            self.update({'inter_company_batch_picking_id': inter_company_batch.id})
+                inter_company_batch = self.env['stock.picking.batch'].create({
+                    'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
+                    'picking_ids': [(6, 0, pickings.ids)],
+                    'partner_id': self.company_id.partner_id.id,
+                    'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
+                    'inter_company_batch_picking_id': self.id
+                })
+                inter_company_batch.confirm_picking()
         return res

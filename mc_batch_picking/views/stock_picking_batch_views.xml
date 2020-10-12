@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='user_id']/.." position="inside">
-                <field name="inter_company_batch_picking_id" string="Related Batch Picking"/>
+                <field name="inter_company_batch_picking_id" string="Related Batch Picking" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
+                <field name="inter_company_batch_picking_id" string="Related Batch Pickings" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
             </xpath>
             <xpath expr="//field[@name='user_id']/.." position="after">
                 <group>
