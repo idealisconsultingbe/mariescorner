@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-
+Configure the short description for every product belonging to a specific category.
 """
 
 import argparse
