@@ -97,12 +97,13 @@ class StockPickingBatch(models.Model):
                         purchase_line_ids = pick.sale_id.mapped('order_line.inter_company_po_line_id')
                         if purchase_line_ids:
                             pickings |= purchase_line_ids.mapped('move_ids').filtered(lambda m: m.state in ['waiting', 'confirmed', 'draft', 'partially_available', 'assigned']).mapped('picking_id')
-                inter_company_batch = self.env['stock.picking.batch'].create({
-                    'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
-                    'picking_ids': [(6, 0, pickings.ids)],
-                    'partner_id': self.company_id.partner_id.id,
-                    'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
-                    'inter_company_batch_picking_id': self.id
-                })
-                inter_company_batch.confirm_picking()
+                if pickings:
+                    inter_company_batch = self.env['stock.picking.batch'].create({
+                        'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
+                        'picking_ids': [(6, 0, pickings.ids)],
+                        'partner_id': self.company_id.partner_id.id,
+                        'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
+                        'inter_company_batch_picking_id': self.id
+                    })
+                    inter_company_batch.confirm_picking()
         return res
