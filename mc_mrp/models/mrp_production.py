@@ -12,6 +12,7 @@ class MrpProduction(models.Model):
     show_sale_description = fields.Boolean(string='Is Description Visible', compute='_compute_sale_information')
     sale_comment = fields.Text(string='Comment', compute='_compute_sale_information')
     show_sale_comment = fields.Boolean(string='Is Comment Visible', compute='_compute_sale_information')
+    delivery_date = fields.Date(string='Planned Delivery Date', help='Planned date for this product to be delivered according to production time')
 
     def action_confirm(self):
         """ Overridden method
