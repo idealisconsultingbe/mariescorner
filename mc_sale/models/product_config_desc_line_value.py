@@ -16,9 +16,11 @@ class DescriptionLineValue(models.Model):
 
     @api.onchange('type')
     def _onchange_type(self):
+        """ If type change, erase attribute and text """
         self.update({'attribute_id': False, 'text': ''})
 
     def name_get(self):
+        """ Return text or attribute name according to type """
         result = []
         for record in self:
             if record.type == 'text':
