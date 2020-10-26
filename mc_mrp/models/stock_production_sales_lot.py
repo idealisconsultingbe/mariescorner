@@ -11,6 +11,10 @@ class ProductionSalesLot(models.Model):
 
     @api.depends('production_ids.delivery_date')
     def _compute_delivery_date(self):
+        """
+        Compute delivery date from production order.
+        Compute of stored fields is always in sudo mode by default
+        """
         for sales_lot in self:
             dates_list = [production.delivery_date for production in sales_lot.production_ids]
             if dates_list:

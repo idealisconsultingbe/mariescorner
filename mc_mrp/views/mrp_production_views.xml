@@ -12,6 +12,9 @@
                         <field name="sale_description"/>
                     </page>
                 </xpath>
+                <xpath expr="//field[@name='routing_id']" position="after">
+                    <field name="delivery_date"/>
+                </xpath>
                 <xpath expr="//h1/.." position="before">
                     <field name="show_sale_comment" invisible="1"/>
                     <div role="alert" class="alert alert-warning" attrs="{'invisible': [('show_sale_comment', '=', False)]}">

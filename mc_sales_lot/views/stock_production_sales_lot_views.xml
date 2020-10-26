@@ -26,8 +26,9 @@
                     <group string="General" name="general_fields">
                         <field name="partner_id" readonly="1" force_save="1"/>
                         <field name="product_id" readonly="1"/>
-                        <field name="lot_ids" readonly="1"/>
                     </group>
+                    <separator string="Lots/Serial Numbers"/>
+                    <field name="lot_ids" nolabel="1"/>
                     <notebook>
                         <page name="status" string="Status">
                             <field name="log_sales_lot_status_ids" readonly="1"/>

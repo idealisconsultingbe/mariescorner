@@ -1,13 +1,28 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+from odoo import api, models, _
 from odoo.exceptions import UserError
 from odoo.tools import float_round
 
 
 class MrpBom(models.Model):
     _inherit = 'mrp.bom'
+
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        """ reset product attributes on component lines """
+        super(MrpBom, self).onchange_product_id()
+        if self.product_id and self.product_id.product_tmpl_id != self.product_tmpl_id:
+            for line in self.bom_line_ids:
+                line.product_attribute_ids = False
+
+    @api.onchange('product_tmpl_id')
+    def onchange_product_tmpl_id(self):
+        """ reset product attributes on component lines """
+        super(MrpBom, self).onchange_product_tmpl_id()
+        for line in self.bom_line_ids:
+            line.product_attribute_ids = False
 
     def explode(self, product, quantity, picking_type=False):
         """
