@@ -20,7 +20,8 @@
         'views/mrp_bom_views.xml',
         'views/product_attribute_value_views.xml',
         'views/mrp_production_views.xml',
-        'views/stock_production_sales_lot_views.xml'
+        'views/stock_production_sales_lot_views.xml',
+        'views/sale_order_views.xml',
     ],
     'auto_install': False,
     'installable': True,
