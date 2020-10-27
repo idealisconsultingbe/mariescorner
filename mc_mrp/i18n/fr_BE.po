@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 23:15+0000\n"
-"PO-Revision-Date: 2020-10-05 01:18+0200\n"
+"POT-Creation-Date: 2020-10-27 08:31+0000\n"
+"PO-Revision-Date: 2020-10-27 09:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,11 @@ msgstr ""
 "ratios."
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
+msgid "Delivery Date"
+msgstr "Date de livraison"
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__show_sale_comment
 msgid "Is Comment Visible"
 msgstr "Commentaire visible"
@@ -108,6 +113,11 @@ msgstr "Description visible"
 #: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__is_none_value
 msgid "Is None Value"
 msgstr "Valeur nulle"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_production_sales_lot
+msgid "Manufacturing Number"
+msgstr "Numéro de production"
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__m2o
@@ -132,6 +142,23 @@ msgstr ""
 #, python-format
 msgid "Operations"
 msgstr "Opérations"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__delivery_date
+#: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__delivery_date
+msgid "Planned Delivery Date"
+msgstr "Date de livraison prévue"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_production__delivery_date
+msgid ""
+"Planned date for this product to be delivered according to production time"
+msgstr "Date de livraison prévue déterminée par l'équipe de production"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__delivery_date
+msgid "Planned date provided by production team"
+msgstr "Date de livraison fournie par l'équipe de production"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_product_attribute
@@ -281,4 +308,4 @@ msgstr "Avertissement"
 #: code:addons/mc_mrp/report/mrp_report_bom_structure.py:0
 #, python-format
 msgid "minutes"
-msgstr "minutes"
+msgstr ""
