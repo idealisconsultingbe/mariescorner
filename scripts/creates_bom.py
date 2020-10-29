@@ -10,8 +10,8 @@ import logging
 def prepare_raw_mat_values():
     return [
         {'product_id': 35843, 'product_tmpl_id': 42728, 'product_qty': 1},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [2, 11])], 'product_qty': 5},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [9, 16])], 'product_qty': 0},
+        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [2, 11])], 'product_qty': 5, 'product_uom_id': 8},
+        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [9, 16])], 'product_qty': 0, 'product_uom_id': 8},
         {'product_tmpl_id': 434, 'product_attribute_ids': [(6, 0, [4, 5])], 'product_qty': 4},
         {'product_id': 553, 'product_tmpl_id': 430, 'product_qty': 4},
         {'product_tmpl_id': 428, 'product_attribute_ids': [(6, 0, [23])], 'product_qty': 1},
