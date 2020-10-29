@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 16:47+0000\n"
-"PO-Revision-Date: 2020-09-27 18:49+0200\n"
+"POT-Creation-Date: 2020-10-04 23:07+0000\n"
+"PO-Revision-Date: 2020-10-05 01:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,11 +45,6 @@ msgid "Confirm picking"
 msgstr "Confirmer le transfert"
 
 #. module: mc_batch_picking
-#: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__partner_id
-msgid "Contact"
-msgstr ""
-
-#. module: mc_batch_picking
 #: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__delivery_carrier_id
 msgid "Delivery Method"
 msgstr "Méthode de livraison"
@@ -62,7 +57,7 @@ msgstr "Demande"
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
@@ -85,9 +80,34 @@ msgid "Initial Demand"
 msgstr "Demande initiale"
 
 #. module: mc_batch_picking
+#: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__inter_company_batch_picking_id
+msgid "InterCompany Batch Picking"
+msgstr "Inter-société transfert en lot"
+
+#. module: mc_batch_picking
+#: model:ir.model.fields,field_description:mc_batch_picking.field_stock_production_lot__inter_company_lot_id
+msgid "InterCompany Production Lot"
+msgstr "Inter-société lot de production"
+
+#. module: mc_batch_picking
+#: model:ir.model.fields,field_description:mc_batch_picking.field_sale_order_line__inter_company_po_line_id
+msgid "InterCompany Purchase Order Line"
+msgstr "Inter-société ligne d'achat"
+
+#. module: mc_batch_picking
+#: model:ir.model.fields,field_description:mc_batch_picking.field_stock_move_line__inter_company_move_line_id
+msgid "InterCompany Stock Move Line"
+msgstr "Inter-société ligne de mouvement de stock"
+
+#. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
 msgid "Load Available Pickings"
 msgstr "Charger les transferts disponibles"
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lot/N° série"
 
 #. module: mc_batch_picking
 #: code:addons/mc_batch_picking/models/stock_picking_batch.py:0
@@ -96,8 +116,8 @@ msgid ""
 "Nothing to check the availability for. Please update at least one quantity "
 "done."
 msgstr ""
-"Pas de vérification de disponibilité à effectuer. Veuillez mettre à jour "
-"au moins une quantité faite."
+"Pas de vérification de disponibilité à effectuer. Veuillez mettre à jour au "
+"moins une quantité faite."
 
 #. module: mc_batch_picking
 #: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__picking_type_id
@@ -111,14 +131,48 @@ msgid "Operations"
 msgstr "Opérations"
 
 #. module: mc_batch_picking
+#: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Mouvements d'article (Ligne de mouvement de stock)"
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_purchase_order
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
+#. module: mc_batch_picking
+#: model:ir.model.fields,help:mc_batch_picking.field_sale_order_line__inter_company_po_line_id
+msgid ""
+"Purchase order line that created current sale order line in an intercompany "
+"logic"
+msgstr ""
+"Ligne de bon d'achat à l'origine de la ligne de commande actuelle dans une "
+"logique inter-société"
+
+#. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
 msgid "Register lots, packs, location"
 msgstr "Enregistrer les lots, packs, localisation"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
+msgid "Related Batch Picking"
+msgstr "Transfert en lot lié"
+
+#. module: mc_batch_picking
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.stock_picking_batch_form
 msgid "Reserved"
 msgstr "Réservé"
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
 
 #. module: mc_batch_picking
 #: model:ir.model.fields,field_description:mc_batch_picking.field_stock_picking_batch__show_lots_text

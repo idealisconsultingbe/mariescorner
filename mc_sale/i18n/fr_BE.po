@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-25 06:56+0000\n"
-"PO-Revision-Date: 2020-09-25 11:31+0200\n"
+"POT-Creation-Date: 2020-10-04 23:13+0000\n"
+"PO-Revision-Date: 2020-10-05 01:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr "Valeur linéaire par défaut"
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__text
 #: model_terms:ir.ui.view,arch_db:mc_sale.product_template_form_view
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__description_line_id
@@ -143,6 +143,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__product_is_tailor_made
 msgid "Is Tailor Made"
 msgstr "Sur mesure"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price____last_update
@@ -217,7 +222,9 @@ msgid "Meterage of fabrics"
 msgstr "Métrage de tissus"
 
 #. module: mc_sale
+#: code:addons/mc_sale/models/sale_order_line.py:0
 #: model:ir.model.fields.selection,name:mc_sale.selection__sale_order__po_state__none
+#, python-format
 msgid "None"
 msgstr "Aucun"
 
@@ -359,7 +366,7 @@ msgstr "Bon de commande"
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr "Ligne de bons de commande"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__sequence
@@ -367,6 +374,7 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_account_move_line__short_name
 #: model:ir.model.fields,field_description:mc_sale.field_purchase_order_line__short_name
 #: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__short_name
 msgid "Short Description"
@@ -442,7 +450,7 @@ msgstr "À approuver"
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__type
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__type
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__unit_price

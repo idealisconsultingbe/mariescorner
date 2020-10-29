@@ -31,15 +31,27 @@ class Picking(models.Model):
         record = self.env.context.get('active_id')
         for line in self.move_line_ids.filtered(lambda l: l.sales_lot_id):
             if self.picking_type_code == 'incoming' and is_intercompany(self.partner_id, companies):
-                name = _('Receipt OK')
-                msg = _('The SN {} has been received by {}').format(line.lot_id.name, self.company_id.partner_id.name_get()[0][1])
+                name = {'no_lang': _('Receipt OK'), 'en_US': 'Receipt OK', 'fr_BE': 'Réception OK'}
+                msg = {
+                    'no_lang': _('The SN {} has been received by {}').format(line.lot_id.name, self.company_id.partner_id.name_get()[0][1]),
+                    'en_US': 'The SN {} has been received by {}'.format(line.lot_id.name, self.company_id.partner_id.name_get()[0][1]),
+                    'fr_BE': 'Le numéro de série {} a été réceptionné par {}'.format(line.lot_id.name, self.company_id.partner_id.name_get()[0][1]),
+                }
                 line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
             elif self.picking_type_code == 'outgoing' and is_intercompany(self.partner_id, companies):
-                name = _('Internal Delivery OK')
-                msg = _('The SN {} is on its way towards {} warehouse').format(line.lot_id.name, self.partner_id.name_get()[0][1])
+                name = {'no_lang': _('Internal Delivery OK'), 'en_US': 'Internal Delivery OK', 'fr_BE': 'Livraison Interne OK'}
+                msg = {
+                    'no_lang': _('The SN {} is on its way towards {} warehouse').format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                    'en_US': 'The SN {} is on its way towards {} warehouse'.format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                    'fr_BE': 'Le numéro de série {} est en chemin vers l\'entrepôt de {}'.format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                }
                 line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
             elif self.picking_type_code == 'outgoing':
-                name = _('Delivery OK')
-                msg = _('The SN {} has been delivered to customer {}').format(line.lot_id.name, self.partner_id.name_get()[0][1])
+                name = {'no_lang': _('Delivery OK'), 'en_US': 'Delivery OK', 'fr_BE': 'Livraison OK'}
+                msg = {
+                    'no_lang': _('The SN {} has been delivered to customer {}').format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                    'en_US': 'The SN {} has been delivered to customer {}'.format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                    'fr_BE': 'Le numéro de série {} a été livré au client {}'.format(line.lot_id.name, self.partner_id.name_get()[0][1]),
+                }
                 line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
         return res
