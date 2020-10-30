@@ -37,17 +37,21 @@ main_attribute_id = int(args.main_attribute_id)
 secondary_attribute_id = int(args.secondary_attribute_id)
 
 logging.info('Start deleting unnecessary variants.')
-product_to_delete = session.env['product.product']
+deleted_product = 0
 for main_attribute in attribute_combinaison:
     product_template_main_attribute = session.env['product.template.attribute.value'].search([('product_attribute_value_id.name', '=', main_attribute), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', main_attribute_id)])
     product_template_secondary_attribute = session.env['product.template.attribute.value'].search([('product_attribute_value_id.name', 'in', attribute_combinaison[main_attribute]), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', secondary_attribute_id)])
+    product_to_delete = session.env['product.product']
     for product in session.env['product.product'].search([('product_tmpl_id', '=', product_tmpl.id), ('product_template_attribute_value_ids', 'in', product_template_main_attribute.ids)]):
         owned_pt_secondary_attributes = product.product_template_attribute_value_ids.filtered(lambda ptav: ptav.attribute_id.id == secondary_attribute_id)
         for ptav in owned_pt_secondary_attributes:
             if ptav not in product_template_secondary_attribute:
                 product_to_delete |= product
                 break
-product_to_delete.write({'active': False})
+    deleted_product += len(product_to_delete)
+    product_to_delete.write({'active': False})
+    session.cr.commit()
+    logging.info('#%s variants deleted' % deleted_product)
 logging.info('Unnecessary product variants deleted')
 
 session.cr.commit()

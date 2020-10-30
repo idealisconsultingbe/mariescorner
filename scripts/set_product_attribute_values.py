@@ -36,13 +36,19 @@ logging.info('%s Product attributes loaded.' % len(attributes.ids))
 
 attribute_values_to_create = []
 logging.info('Start configuring attribute values.')
+i = 0
 for product in products:
+    i += 1
+    print(i)
     for attribute in attributes:
         product_template_attributes_candidate = product.attribute_line_ids.filtered(lambda a: a.attribute_id.id == attribute.id)
         if product_template_attributes_candidate:
             add_missing_values(product_template_attributes_candidate[0], attribute.value_ids)
         else:
             attribute_values_to_create.append({'product_tmpl_id': product.id, 'attribute_id': attribute.id, 'value_ids': [(6, 0, attribute.value_ids.ids)]})
+    if i % 100 == 0:
+        session.cr.commit()
+        logging.info('%s product templates configured' % i)
 session.cr.commit()
 logging.info('%s missing product template attribute lines to create.' % len(attribute_values_to_create))
 batch_of_values = []
