@@ -112,7 +112,7 @@ class ProductAttribute(models.Model):
                     # retrieve record to update
                     v = self.env['product.attribute.value'].browse(value[1])
                     # retrieve updated values
-                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_none_value')}
+                    update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_none_value', 'is_to_be_defined_value')}
                     # update_vals = {key: value for (key, value) in value[2].items() if key in ('name', 'is_custom', 'is_none_value')}
                     if v.product_attribute_value_id:
                         # if record has a parent, update parent values before updating children values
