@@ -87,13 +87,10 @@ class MrpProduction(models.Model):
                     # with product attribute value (product.attribute.value) included in product attribute values related to previous result
                     # and same product template as the one on bom line
                     product_template_attribute_values = self.env['product.template.attribute.value'].search([('product_attribute_value_id', 'in', attribute_values.mapped('product_attribute_value_id').ids), ('product_tmpl_id', '=', bom_line.product_tmpl_id.id)])
-                    # compute a domain to find products with those product template attribute values (product.template.attribute.value)
-                    domain = []
-                    for ptav in product_template_attribute_values:
-                        domain.append(('product_template_attribute_value_ids', '=', ptav.id))
-                    products = self.env['product.product'].search(domain)
+                    # Search for variants corresponding to this product.template.attribute.value combinaition if not found creates it (only if allow dynamic attributes)
+                    products = bom_line.product_tmpl_id._create_product_variant(product_template_attribute_values)
                     # if there is one and one product matching domain, add product to move values else raise an error
-                    if len(products) == 1:
+                    if products and len(products) == 1:
                         res['product_id'] = products.id
                         # if a product is found, check if there is a custom value for this particular attribute value.
                         # if so, try to convert it to a float or do nothing if it is not possible
@@ -104,10 +101,8 @@ class MrpProduction(models.Model):
                             except ValueError:
                                 pass
                     else:
-                        raise ValidationError(_('Cannot produce {}, there is no BoM fabric related to this configuration: {}')
-                                              .format(sale_line_id.product_template_id.name,
-                                                      ', '.join(sale_line_id.product_no_variant_attribute_value_ids
-                                                                .filtered(lambda pnvav: pnvav.attribute_id.has_linear_price).mapped('name'))))
+                        raise ValidationError(_('Cannot produce {}, there is no or several product variant related to this configuration: {}')
+                                              .format(sale_line_id.product_template_id.name, product_template_attribute_values.mapped(lambda ptav: ptav.name_get()[0][1])))
                 else:
                     res['product_tmpl_id'] = bom_line.product_tmpl_id.id
             else:
