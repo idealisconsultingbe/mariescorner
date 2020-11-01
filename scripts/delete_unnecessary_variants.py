@@ -49,7 +49,7 @@ for main_attribute in attribute_combinaison:
                 product_to_delete |= product
                 break
     deleted_product += len(product_to_delete)
-    product_to_delete.write({'active': False})
+    product_to_delete._unlink_or_archive()
     session.cr.commit()
     logging.info('#%s variants deleted' % deleted_product)
 logging.info('Unnecessary product variants deleted')

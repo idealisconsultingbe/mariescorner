@@ -39,7 +39,6 @@ logging.info('Start configuring attribute values.')
 i = 0
 for product in products:
     i += 1
-    print(i)
     for attribute in attributes:
         product_template_attributes_candidate = product.attribute_line_ids.filtered(lambda a: a.attribute_id.id == attribute.id)
         if product_template_attributes_candidate:
@@ -49,6 +48,7 @@ for product in products:
     if i % 100 == 0:
         session.cr.commit()
         logging.info('%s product templates configured' % i)
+logging.info('%s product templates configured' % i)
 session.cr.commit()
 logging.info('%s missing product template attribute lines to create.' % len(attribute_values_to_create))
 batch_of_values = []
