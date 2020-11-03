@@ -79,7 +79,7 @@ logging.info('Product category loaded %s.' % product_category.mapped('name'))
 
 logging.info('Load product templates.')
 products = session.env['product.template'].search([('categ_id', 'in', product_category.ids)])
-logging.info('Product templates loaded %s.' % products.ids)
+logging.info(' %s Product templates loaded.' % len(products.ids))
 
 logging.info('Delete existing description lines.')
 description_lines = session.env['product.configurator.description.line'].search([])

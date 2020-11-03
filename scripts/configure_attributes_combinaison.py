@@ -77,11 +77,11 @@ for product_tmpl in products:
                 else:
                     exclusions_values[exclusion.id] = unallowed_ptav_secondary_attribute.ids
     i += 1
-    logging.info('%s product template attribute exculsion values configured' % (i))
+    logging.info('%s product template attribute exclusion values configured' % (i))
     if i % 50 == 0:
         configure_product_attribute_exclusion(exclusions_values)
         exclusions_values = {}
-logging.info('%s product template attribute exculsion values configured' % (i))
+logging.info('%s product template attribute exclusion values configured' % (i))
 configure_product_attribute_exclusion(exclusions_values)
 
 session.env.cr.commit()
