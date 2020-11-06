@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 23:15+0000\n"
-"PO-Revision-Date: 2020-10-05 01:18+0200\n"
+"POT-Creation-Date: 2020-10-27 12:09+0000\n"
+"PO-Revision-Date: 2020-10-27 13:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,17 @@ msgstr ""
 "ratios."
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
+msgid "Delivery Date"
+msgstr "Date de livraison"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__in_manufacturing
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "In Manufacturing"
+msgstr "En production"
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__show_sale_comment
 msgid "Is Comment Visible"
 msgstr "Commentaire visible"
@@ -110,6 +121,16 @@ msgid "Is None Value"
 msgstr "Valeur nulle"
 
 #. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_production_sales_lot
+msgid "Manufacturing Number"
+msgstr "Numéro de production"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_sale_order__manufacturing_state
+msgid "Manufacturing Status"
+msgstr "État de la production"
+
+#. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__m2o
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__m2o
 msgid "Many to One"
@@ -118,6 +139,7 @@ msgstr ""
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__none
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__none
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__none
 msgid "None"
 msgstr "Aucun"
 
@@ -132,6 +154,23 @@ msgstr ""
 #, python-format
 msgid "Operations"
 msgstr "Opérations"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__delivery_date
+#: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__delivery_date
+msgid "Planned Delivery Date"
+msgstr "Date de livraison prévue"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_production__delivery_date
+msgid ""
+"Planned date for this product to be delivered according to production time"
+msgstr "Date de livraison prévue déterminée par l'équipe de production"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__delivery_date
+msgid "Planned date provided by production team"
+msgstr "Date de livraison fournie par l'équipe de production"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_product_attribute
@@ -254,6 +293,12 @@ msgid "There is already a relationship set on this attribute value ({})."
 msgstr "Il y a déjà une relation définie sur cette valeur d'attribut ({})."
 
 #. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__to_produce
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "To Produce"
+msgstr "À produire"
+
+#. module: mc_mrp
 #: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__product_uom_id
 msgid ""
 "Unit of Measure (Unit of Measure) is the unit of measurement for the "
@@ -272,6 +317,12 @@ msgid "Utility field used in UI."
 msgstr "Champs utilitaire défini dans l'interface"
 
 #. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__validated
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "Validated"
+msgstr "Validé"
+
+#. module: mc_mrp
 #: code:addons/mc_mrp/models/product_attribute.py:0
 #, python-format
 msgid "Warning"
@@ -281,4 +332,4 @@ msgstr "Avertissement"
 #: code:addons/mc_mrp/report/mrp_report_bom_structure.py:0
 #, python-format
 msgid "minutes"
-msgstr "minutes"
+msgstr ""

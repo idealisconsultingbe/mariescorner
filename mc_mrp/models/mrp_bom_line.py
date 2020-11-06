@@ -11,8 +11,7 @@ class MrpBomLine(models.Model):
     product_uom_id = fields.Many2one(
         'uom.uom', domain="[('category_id', 'in', [product_uom_category_id, product_tmpl_uom_category_id])]")
     product_tmpl_uom_category_id = fields.Many2one('uom.category', related='product_tmpl_id.uom_id.category_id', string='Product Tmpl UOM Categ')
-    # should be stored to prevent unwanted related=True behavior
-    product_tmpl_id = fields.Many2one('product.template', store=True)
+    product_tmpl_id = fields.Many2one('product.template', related='', copy=True, check_company=True)
     product_attribute_ids = fields.Many2many('product.attribute', 'bom_line_product_attribute_rel', 'line_id', 'attribute_id', string='Product Attributes')
     allowed_attribute_ids = fields.Many2many('product.attribute', 'allowed_product_attribute_bom_line_rel', 'line_id', 'attribute_id', string='Allowed Product Attributes', compute='_compute_allowed_attribute_ids', help='Used in UI')
 
@@ -30,10 +29,25 @@ class MrpBomLine(models.Model):
             else:
                 line.allowed_attribute_ids = []
 
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        """
+        Use product_tmpl_id uom if product_id is not set
+        Auto-complete product_tmpl_id according to product_id
+        """
+        super(MrpBomLine, self).onchange_product_id()
+        if not self.product_id and self.product_tmpl_id:
+            self.product_uom_id = self.product_tmpl_id.uom_id.id
+        if self.product_id and not self.product_tmpl_id:
+            self.product_tmpl_id = self.product_id.product_tmpl_id
+
     @api.onchange('product_tmpl_id')
     def _onchange_product_tmpl_id(self):
-        """ Clear product field when product_tmpl changes """
-        if self.product_id and self.product_tmpl_id and (self.product_tmpl_id != self.product_id.product_tmpl_id):
-            temp = self.product_tmpl_id
-            self.product_id = False
-            self.update({'product_tmpl_id': temp})
+        """
+        Use product_tmpl_id uom.
+        If product_tmpl_id is not set, use product_id uom instead
+        """
+        if self.product_tmpl_id:
+            self.product_uom_id = self.product_tmpl_id.uom_id.id
+        if self.product_id and not self.product_tmpl_id:
+            self.product_uom_id = self.product_id.uom_id.id

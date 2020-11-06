@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-25 06:37+0000\n"
-"PO-Revision-Date: 2020-09-25 08:55+0200\n"
+"POT-Creation-Date: 2020-10-27 08:27+0000\n"
+"PO-Revision-Date: 2020-10-27 09:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr_BE\n"
+"Language: fr\n"
 "X-Generator: Poedit 2.4.1\n"
 
 #. module: mc_sale_layout
@@ -30,11 +30,11 @@ msgstr "&amp;nbsp;<span>sur</span>&amp;nbsp;"
 #. module: mc_sale_layout
 #: model:ir.actions.report,print_report_name:mc_sale_layout.action_report_saleorder_downpayment
 msgid ""
-"(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - "
-"%s' % (object.name)"
+"(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object."
+"name)"
 msgstr ""
-"(object.state in ('draft', 'sent') and 'Offre de prix - %s' % (object.name)) or 'Bon de "
-"commande - %s' % (object.name)"
+"(object.state in ('draft', 'sent') and 'Offre de prix - %s' % (object.name)) or 'Bon de commande - "
+"%s' % (object.name)"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact_name
@@ -81,126 +81,110 @@ msgstr ""
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
 msgid ""
-"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: "
-"0.7rem;\">Customer No.</span>"
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: 0.7rem;"
+"\">Customer No.</span>"
 msgstr ""
-"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: "
-"0.7rem;\">N° client</span>"
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: 0.7rem;\">N"
+"° client</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
 msgid ""
-"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: "
-"0.7rem;\">Your References</span>"
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: 0.7rem;"
+"\">Your References</span>"
 msgstr ""
-"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: "
-"0.7rem;\">Vos références</span>"
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase\" style=\"font-size: 0.7rem;"
+"\">Vos références</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
 msgid ""
-"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Invoicing "
-"Address</span>"
+"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Invoicing Address</span>"
 msgstr ""
-"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Adresse de "
-"facturation</span>"
+"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Adresse de facturation</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
-msgid ""
-"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Shipping "
-"Address</span>"
+msgid "<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Shipping Address</span>"
 msgstr ""
-"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Adresse de "
-"livraison</span>"
+"<span class=\"text-muted text-uppercase\" style=\"font-size: 0.8rem;\">Adresse de livraison</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Amount</"
-"span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Amount</span>"
 msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Montant</"
-"span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Montant</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;"
-"\">Description</span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Base Price</span>"
 msgstr ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Prix tarif</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Disc.%</"
-"span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Customer Price</span>"
 msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Rem.%</"
-"span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Prix client</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Model</"
-"span>"
-msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Modèle</"
-"span>"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Quantity</"
-"span>"
-msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Quantité</"
-"span>"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Ref</span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Description</span>"
 msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Taxes</"
-"span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Disc.%</span>"
+msgstr ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Rem.%</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Quantity</span>"
+msgstr ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Quantité</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Ref</span>"
+msgstr ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Modèle</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Taxes</span>"
 msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Total "
-"Price</span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Total Price</span>"
 msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Prix "
-"total</span>"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Unit "
-"Price</span>"
-msgstr ""
-"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; "
-"background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Prix /PC</span>"
+"<span class=\"text-uppercase\" style=\"display: inline-block; vertical-align: center; background-"
+"color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;\">Prix total</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
@@ -216,6 +200,16 @@ msgstr "<span>Facture Pro-Forma</span>"
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid "Additional Information"
 msgstr "Informations complémentaires"
+
+#. module: mc_sale_layout
+#: model:ir.model.fields,field_description:mc_sale_layout.field_sale_order_line__base_price_unit
+msgid "Base Unit Price"
+msgstr "Prix tarif"
+
+#. module: mc_sale_layout
+#: model:ir.model.fields,field_description:mc_sale_layout.field_sale_order_line__price_unit
+msgid "Customer Unit Price"
+msgstr "Prix client"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -278,9 +272,23 @@ msgid "Quotation / Order with down payment"
 msgstr "Devis / Commande avec acompte"
 
 #. module: mc_sale_layout
+#: model:ir.model,name:mc_sale_layout.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid "Subtotal"
 msgstr "Sous-total"
+
+#. module: mc_sale_layout
+#: model:ir.model.fields,help:mc_sale_layout.field_sale_order_line__base_price_unit
+msgid ""
+"The sale price is managed from the product template. Click on the 'Configure Variants' button to "
+"set the extra attribute prices."
+msgstr ""
+"Le prix de vente est configuré à partir du modèle de produit. Cliquez sur le bouton \"Configurer "
+"les variantes\" pour définir les prix additionnels des attributs."
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -303,10 +311,8 @@ msgid ""
 "We hope this offer will fulfill your needs and get all your attention.<br/>\n"
 "                                Feel free to contact us for any further information."
 msgstr ""
-"Nous espérons que cette offre répondra à vos besoins et retiendra toute votre attention."
-"<br/>\n"
-"                                Nous restons à votre disposition pour tout complément "
-"d'information."
+"Nous espérons que cette offre répondra à vos besoins et retiendra toute votre attention.<br/>\n"
+"                                Nous restons à votre disposition pour tout complément d'information."
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
@@ -316,17 +322,17 @@ msgstr "Site Web"
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"You are satisfied with this offer and you want to order, you just have to make a "
-"payment of <span>$AMOUNT</span> to our bank account:<br/>"
+"You are satisfied with this offer and you want to order, you just have to make a payment of <span>"
+"$AMOUNT</span> to our bank account:<br/>"
 msgstr ""
-"Cette offre vous satisfait et vous désirez commander, il suffit dès lors de verser la "
-"somme de <span>$AMOUNT</span> sur le compte bancaire indiqué ci-dessous:<br/>"
+"Cette offre vous satisfait et vous désirez commander, il suffit dès lors de verser la somme de "
+"<span>$AMOUNT</span> sur le compte bancaire indiqué ci-dessous:<br/>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
-"You are satisfied with this offer and you want to order, you just have to send it back "
-"to us with your signature for approval."
+"You are satisfied with this offer and you want to order, you just have to send it back to us with "
+"your signature for approval."
 msgstr ""
-"Cette offre vous satisfait et vous désirez commander, il suffit dès lors de nous la "
-"renvoyer signée pour accord."
+"Cette offre vous satisfait et vous désirez commander, il suffit dès lors de nous la renvoyer signée "
+"pour accord."
