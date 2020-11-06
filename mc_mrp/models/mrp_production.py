@@ -3,6 +3,7 @@
 
 from odoo import fields, models, _
 from odoo.exceptions import ValidationError, UserError
+from odoo.tools import float_compare
 
 
 class MrpProduction(models.Model):
@@ -17,12 +18,17 @@ class MrpProduction(models.Model):
     def action_confirm(self):
         """ Overridden method
             If sale order confirmation creates a MO, then this MO is not automatically confirmed
+            Block the confirmation of MO with 'to be defined' components with quantity greater than 0.
         """
         if self.env.context.get('skip_mo_confirmation'):
             return False
         for production in self:
-            if any(production.move_raw_ids.product_id.product_template_attribute_value_ids.product_attribute_value_id.is_to_be_defined_value):
-                raise UserError(_("The manufacturing order %s contains 'To be defined' products, please replace them by 'defined' product." % production.name))
+            moves = production.move_raw_ids
+            to_be_defined_moves = moves.filtered(lambda m: any(m.mapped('product_id.product_template_attribute_value_ids.product_attribute_value_id.is_to_be_defined_value')))
+            to_be_defined_moves = to_be_defined_moves.filtered(lambda m: float_compare(m.product_uom_qty, 0.0,  precision_rounding=m.product_uom.rounding) > 0)
+            if to_be_defined_moves:
+                raise UserError(_("The manufacturing order %s contains 'To be defined' products, with a quantity greater than 0.\n"
+                                  "Please set quantity for those components %s to zero." % (production.name, to_be_defined_moves.mapped(lambda m: m.product_id.name_get()[0][1]))))
         return super(MrpProduction, self).action_confirm()
 
     def _compute_sale_information(self):

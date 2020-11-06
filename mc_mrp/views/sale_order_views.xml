@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="sale_order_form_view" model="ir.ui.view">
-        <field name="name">mc.view.order.form.status</field>
+        <field name="name">mc.view.order.form.manuf.status</field>
         <field name="model">sale.order</field>
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
@@ -10,6 +10,28 @@
             <xpath expr="//field[@name='validity_date']" position="before">
                 <field name="manufacturing_state"/>
             </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_quotation_tree_view" model="ir.ui.view">
+        <field name="name">mc.sale.quotation.tree.manuf.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="manufacturing_state" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_tree_view" model="ir.ui.view">
+        <field name="name">mc.sale.order.tree.manuf.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="manufacturing_state" optional="show"/>
+            </field>
         </field>
     </record>
 
@@ -22,8 +44,12 @@
                 <separator/>
                 <filter string="To Produce" domain="[('manufacturing_state', '=', 'to_produce')]" name="orders_to_produce_filter"/>
                 <filter string="In Manufacturing" domain="[('manufacturing_state', '=', 'in_manufacturing')]" name="orders_in_manufacturing_filter"/>
-                <filter string="Validated" domain="[('manufacturing_state', '=', 'validated')]" name="orders_validated_filter"/>
+                <filter string="Manufacturing Confirmed" domain="[('manufacturing_state', '=', 'confirmed')]" name="orders_validated_filter"/>
+                <filter string="Manufacturing Done" domain="[('manufacturing_state', '=', 'done')]" name="orders_done_filter"/>
                 <separator/>
+            </filter>
+            <filter name="order_month" position="after">
+                <filter string="Manufacturing State" name="order_manuf_state" domain="[]" context="{'group_by': 'manufacturing_state'}"/>
             </filter>
         </field>
     </record>

@@ -11,25 +11,42 @@ class SaleOrder(models.Model):
         ('none', 'None'),
         ('to_produce', 'To Produce'),
         ('in_manufacturing', 'In Manufacturing'),
-        ('validated', 'Validated'),
-    ], string='Manufacturing Status', readonly=True, copy=False, index=True, tracking=True, store=True, compute='_compute_manufacturing_state')
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+    ], string='Manufacturing Status', readonly=True, copy=False, index=True, tracking=True, store=True, compute='_compute_manufacturing_state',
+        help="None: SO is not confirmed or SO does not contain producible products\n"
+             "To Produce: SO is confirmed but has not been send to the manufacturing\n"
+             "In Manufacturing: SO is confirmed and has been send to the manufacturing but some MO are not confirmed yet\n"
+             "Confirmed: SO is confirmed and all its MO are confirmed\n"
+             "Done: SO is confirmed and all its MO are done or cancelled")
 
-    @api.depends('order_line.sales_lot_id', 'state')
+    @api.depends('order_line.sales_lot_id.production_ids.state', 'state')
     def _compute_manufacturing_state(self):
+        """
+        Manuf State = None: for every SO that are in draft or sent (There are nothing to produce)
+                            for every SO that do not contain sale lots
+        Manuf State = To Produce: SO is confirmed but no Manufacturing Order have been created for this SO.
+        Manuf State = In Manufacturing: SO is confirmed, Manufacturing Order Have been created but some of them have not been confirmed.
+        Manuf State = Confirmed: SO is confirmed and all its Manufacturing Order have been confirmed.
+        Manuf State = Done: SO is confirmed and all its Manufacturing Order have been confirmed or cancelled.
+        :return: The manufacturing state of the SO
+        """
         for order in self:
             sales_lots = order.mapped('order_line.sales_lot_id')
-            if not sales_lots or order.state == 'draft':
+            if not sales_lots or order.state in ['draft', 'sent']:
                 order.manufacturing_state = 'none'
-            elif order.state == 'sale':
+            elif order.state in ['sale', 'done']:
                 manuf_orders = sales_lots.mapped('production_ids')
                 if not manuf_orders:
                     order.manufacturing_state = 'to_produce'
                 elif all([mo.state in ['done', 'cancel'] for mo in manuf_orders]):
-                    order.manufacturing_state = 'validated'
+                    order.manufacturing_state = 'done'
+                elif all([mo.state != 'draft' for mo in manuf_orders]):
+                    order.manufacturing_state = 'confirmed'
                 else:
                     order.manufacturing_state = 'in_manufacturing'
             else:
-                order.manufacturing_state = 'validated'
+                order.manufacturing_state = 'none'
 
     def _action_confirm(self):
         """ Overridden Method
