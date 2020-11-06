@@ -15,6 +15,7 @@
             </field>
             <field name="has_linear_price" position="before">
                 <field name="is_none_value"/>
+                <field name="is_to_be_defined_value"/>
             </field>
         </field>
     </record>

@@ -2,7 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class MrpProduction(models.Model):
@@ -19,6 +19,9 @@ class MrpProduction(models.Model):
         """
         if self.env.context.get('skip_mo_confirmation'):
             return False
+        for production in self:
+            if any(production.move_raw_ids.product_id.product_template_attribute_value_ids.product_attribute_value_id.is_to_be_defined_value):
+                raise UserError(_("The manufacturing order %s contains 'To be defined' products, please replace them by 'defined' product." % production.name))
         return super(MrpProduction, self).action_confirm()
 
     def _compute_sale_information(self):
