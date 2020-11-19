@@ -3,6 +3,8 @@
 
 from .tools import to_float
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from odoo.tools import float_round
 from odoo.tools.misc import get_lang
 
 
@@ -13,12 +15,15 @@ class SaleOrderLine(models.Model):
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
+    price_unit = fields.Float(string='Customer Unit Price')
+    list_price_extra = fields.Float(string='Public Price Extra Incl.', compute='_compute_list_price_extra', digits='Product Price',
+                                    help="This is the product public price and the sum of the extra price of all attributes (with custom values)")
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'product_uom_qty')
     def product_id_change(self):
         """
         Overridden method
-        Update short description with product attributes flagged accordingly and description lines on product.template(related(
+        Update short description with product attributes flagged accordingly and description lines on product.template related
         """
         res = super(SaleOrderLine, self).product_id_change()
 
@@ -56,11 +61,17 @@ class SaleOrderLine(models.Model):
                         else:
                             if value.attribute_id in pacvs.mapped('custom_product_template_attribute_value_id').mapped('attribute_id'):
                                 for pacv in pacvs.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id == value.attribute_id):
-                                    # formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).display_name)
-                                    formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name)
+                                    if pacv.custom_value:
+                                        try:
+                                            custom_value = float(pacv.custom_value.replace(',', '.'))
+                                            custom_value = float_round(custom_value * (self.product_uom_qty or 1.0), precision_digits=2)
+                                        except Exception:
+                                            raise UserError(_('Could not convert custom value {} to a number ({}).').format(pacv.custom_value, pacv.with_context(lang=self.order_id.partner_id.lang).display_name))
+                                        formatted_product_values.append('{}m / {}'.format(custom_value, pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name))
+                                    else:
+                                        formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name)
                             elif value.attribute_id in no_custom_ptavs.mapped('attribute_id'):
                                 for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == value.attribute_id):
-                                    # formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).display_name)
                                     formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
                             else:
                                 formatted_product_values.append(_('None'))
@@ -80,12 +91,24 @@ class SaleOrderLine(models.Model):
         self.update({'short_name': '{}\n{}{}'.format(product_description, formatted_product_configuration, product_configuration)})
         return res
 
-    def _get_display_price(self, product):
-        """ Overridden method
+    @api.depends('product_custom_attribute_value_ids',
+                 'product_no_variant_attribute_value_ids',
+                 'product_id.product_template_attribute_value_ids',
+                 'product_id.list_price')
+    def _compute_list_price_extra(self):
+        for line in self:
+            price = line.product_id.list_price
+            extra_prices = line._get_no_variant_attributes_price_extra(line.product_id)
+            if extra_prices:
+                precision = self.env['decimal.precision'].precision_get('Product Price')
+                price += float_round(sum(extra_prices), precision_digits=precision)
+            line.list_price_extra = price
 
-            Compute product price unit according to custom attribute values
-            If there are custom values, then those values should be used
-            to compute correct extra prices (attribute custom value * price unit of attribute value)
+    def _get_no_variant_attributes_price_extra(self, product):
+        """
+        Return a list with extra prices including custom values
+        :param product: product with its context
+        :return: list of extra prices
         """
         if self.product_custom_attribute_value_ids:
             custom_quantities = {value.custom_product_template_attribute_value_id.id: to_float(value.custom_value) for value in self.product_custom_attribute_value_ids}
@@ -109,16 +132,31 @@ class SaleOrderLine(models.Model):
                     ptav not in product.product_template_attribute_value_ids
                 )
             ]
+        else:
+            no_variant_attributes_price_extra = [
+                ptav.price_extra for ptav in self.product_no_variant_attribute_value_ids.filtered(
+                    lambda ptav:
+                    ptav.price_extra and
+                    ptav not in product.product_template_attribute_value_ids
+                )
+            ]
+        return no_variant_attributes_price_extra
+
+    def _get_display_price(self, product):
+        """ Overridden method
+
+            Compute product price unit according to custom attribute values
+            If there are custom values, then those values should be used
+            to compute correct extra prices (attribute custom value * price unit of attribute value)
+        """
+        if self.product_custom_attribute_value_ids:
+            no_variant_attributes_price_extra = self._get_no_variant_attributes_price_extra(product)
             # following code is standard
             if no_variant_attributes_price_extra:
-                product = product.with_context(
-                    no_variant_attributes_price_extra=tuple(no_variant_attributes_price_extra)
-                )
-
+                product = product.with_context(no_variant_attributes_price_extra=tuple(no_variant_attributes_price_extra))
             if self.order_id.pricelist_id.discount_policy == 'with_discount':
                 return product.with_context(pricelist=self.order_id.pricelist_id.id).price
-            product_context = dict(self.env.context, partner_id=self.order_id.partner_id.id, date=self.order_id.date_order,
-                                   uom=self.product_uom.id)
+            product_context = dict(self.env.context, partner_id=self.order_id.partner_id.id, date=self.order_id.date_order, uom=self.product_uom.id)
 
             final_price, rule_id = self.order_id.pricelist_id.with_context(product_context).get_product_price_rule(
                 product or self.product_id, self.product_uom_qty or 1.0, self.order_id.partner_id)

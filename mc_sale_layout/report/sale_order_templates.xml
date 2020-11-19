@@ -104,29 +104,29 @@
                     <thead>
                         <tr>
                             <th name="th_reference" class="text-center" style="padding: 0.5rem 0 0.5rem 0.5rem; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Ref</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Ref</span>
                             </th>
                             <th name="th_description" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Description</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Description</span>
                             </th>
                             <th name="th_quantity" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Quantity</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Quantity</span>
                             </th>
                             <th name="th_pricebase" class="text-center" style="padding: 0.5rem 0 0.5rem 0;height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Base Price</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Base Price</span>
                             </th>
                             <th name="th_priceunit" class="text-center" style="padding: 0.5rem 0 0.5rem 0;height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Customer Price</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Customer Price</span>
                             </th>
                             <th name="th_discount" t-if="display_discount" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;" groups="product.group_discount_per_so_line">
-                                <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Disc.%</span>
+                                <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Disc.%</span>
                             </th>
                             <th name="th_taxes" class="text-center" style="padding: 0.5rem 0 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Taxes</span>
+                              <span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Taxes</span>
                             </th>
                             <th name="th_subtotal" class="text-center" style="padding: 0.5rem 0.5rem 0.5rem 0; height: 2.3rem; line-height: 2.3rem;">
-                                <t groups="account.group_show_line_subtotals_tax_excluded"><span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Amount</span></t>
-                                <t groups="account.group_show_line_subtotals_tax_included"><span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.8rem;">Total Price</span></t>
+                                <t groups="account.group_show_line_subtotals_tax_excluded"><span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Amount</span></t>
+                                <t groups="account.group_show_line_subtotals_tax_included"><span class="text-uppercase" style="display: inline-block; vertical-align: center; background-color: LightGray; width: 100%; height: 100%; font-size: 0.7rem;">Total Price</span></t>
                             </th>
                         </tr>
                     </thead>
@@ -153,7 +153,7 @@
                                         <span t-field="line.product_uom" groups="uom.group_uom"/>
                                     </td>
                                     <td name="td_pricebase" class="text-right" style="padding: 0.5rem;">
-                                        <span t-field="line.base_price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
+                                        <span t-field="line.list_price_extra" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
                                     </td>
                                     <td name="td_priceunit" class="text-right" style="padding: 0.5rem;">
                                         <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
