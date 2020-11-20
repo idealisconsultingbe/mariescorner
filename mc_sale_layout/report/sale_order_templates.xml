@@ -118,10 +118,10 @@
                             <th name="th_quantity" class="text-center">
                               <span class="text-uppercase v-align-mid fs-7">Quantity</span>
                             </th>
-                            <th name="th_pricebase" class="text-center">
+                            <th name="th_pricebase" class="text-center" style="width: 13%">
                               <span class="text-uppercase v-align-mid fs-7">Base Price</span>
                             </th>
-                            <th name="th_priceunit" class="text-center" style="width: 14%">
+                            <th name="th_priceunit" class="text-center" style="width: 13%">
                               <span class="text-uppercase v-align-mid fs-7">Customer Price</span>
                             </th>
                             <th name="th_discount" t-if="display_discount" class="text-center" groups="product.group_discount_per_so_line">

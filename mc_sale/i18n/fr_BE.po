@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 23:13+0000\n"
-"PO-Revision-Date: 2020-10-05 01:14+0200\n"
+"POT-Creation-Date: 2020-11-20 08:58+0000\n"
+"PO-Revision-Date: 2020-11-20 10:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: fr\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_product_attribute_value
@@ -57,6 +57,12 @@ msgid "Confirm Manufacturing"
 msgstr "Confirmer la production"
 
 #. module: mc_sale
+#: code:addons/mc_sale/models/sale_order_line.py:0
+#, python-format
+msgid "Could not convert custom value {} to a number ({})."
+msgstr "Impossible de convertir la valeur personnalisée {} en un nombre ({})."
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__create_uid
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__create_uid
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__create_uid
@@ -71,6 +77,11 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__price_unit
+msgid "Customer Unit Price"
+msgstr "Prix unitaire client"
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute__default_linear_value
 msgid "Default Linear Value"
 msgstr "Valeur linéaire par défaut"
@@ -79,7 +90,7 @@ msgstr "Valeur linéaire par défaut"
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__text
 #: model_terms:ir.ui.view,arch_db:mc_sale.product_template_form_view
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__description_line_id
@@ -123,7 +134,9 @@ msgstr ""
 msgid ""
 "Extra price for the variant with this attribute value on sale price. eg. "
 "200 price extra, 1000 + 200 = 1200."
-msgstr "Prix extra pour la variante avec cette valeur d'attribut."
+msgstr ""
+"Prix supplémentaire pour la variante avec cette valeur d'attribut sur le "
+"prix de vente. par exemple. 200 prix supplémentaire, 1000 + 200 = 1200."
 
 #. module: mc_sale
 #: model:ir.model.fields.selection,name:mc_sale.selection__product_attribute_value_percentage_price__type__amount
@@ -321,6 +334,16 @@ msgstr ""
 "unique."
 
 #. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__list_price_extra
+msgid "Public Price Extra Incl."
+msgstr "Prix public avec extra"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Public Unit Price"
+msgstr "Prix unitaire public"
+
+#. module: mc_sale
 #: model:ir.model,name:mc_sale.model_purchase_order
 #: model:ir.model.fields.selection,name:mc_sale.selection__sale_order__po_state__purchase
 msgid "Purchase Order"
@@ -366,7 +389,7 @@ msgstr "Bon de commande"
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne de bons de commande"
+msgstr "Ligne du bon de commande"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__sequence
@@ -442,6 +465,15 @@ msgstr ""
 "vente ou d'achat après la configuration du produit"
 
 #. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_sale_order_line__list_price_extra
+msgid ""
+"This is the product public price and the sum of the extra price of all "
+"attributes (with custom values)"
+msgstr ""
+"C'est le prix public du produit avec la somme des prix extra de tous les "
+"attributs (et des valeurs personnalisées)."
+
+#. module: mc_sale
 #: model:ir.model.fields.selection,name:mc_sale.selection__sale_order__po_state__to_approve
 msgid "To Approve"
 msgstr "À approuver"
@@ -450,7 +482,7 @@ msgstr "À approuver"
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__type
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__type
 msgid "Type"
-msgstr "Type"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__unit_price
@@ -465,7 +497,7 @@ msgstr "Utilisé pour empêcher le calcul automatique du prix extra"
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_template_attribute_value__price_extra
 msgid "Value Price Extra"
-msgstr "Prix extra de la valeur"
+msgstr "Lignes d'attributs de produit valides"
 
 #. module: mc_sale
 #: model:ir.model.fields,help:mc_sale.field_product_attribute_value_percentage_price__percentage_price
