@@ -1,0 +1,98 @@
+table.border-table-lightgray {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid LightGray;
+}
+
+table.border-table-lightgray-simple {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid LightGray;
+}
+
+table.border-table-lightgray-simple th {
+    padding: 0.5rem;
+}
+
+table.border-table-lightgray-simple td {
+    padding: 0.5rem;
+}
+
+table.border-table-lightgray-full {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid LightGray;
+}
+
+table.border-table-lightgray-full th {
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    height: 1.7rem;
+    background-color: LightGray;
+}
+
+table.border-table-lightgray-full td {
+    padding: 0.5rem;
+}
+
+span.v-align-mid {
+    vertical-align: middle;
+}
+
+span.i-block-100 {
+    display: inline-block;
+    width: 100%;
+}
+
+span.i-block-bottom {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: bottom;
+}
+
+.height-4 {
+    height: 4rem;
+    line-height: 4rem;
+}
+
+.height-2 {
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.height-6 {
+    height: 6rem;
+}
+
+.fs-7 {
+    font-size: 0.7rem;
+}
+
+.fs-8 {
+    font-size: 0.8rem;
+}
+
+.mt-1rem {
+    margin-top: 1rem;
+}
+
+.pos-rel-flex-33 {
+    position: relative;
+    width: 100%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.no-border-bottom {
+    border-bottom: 0px none !important;
+}
+.border-top-lightgray {
+    border-top: 1px solid LightGray !important;
+}
+.border-bottom-lightgray {
+    border-bottom: 1px solid LightGray !important;
+}
+.border-left-lightgray {
+    border-left: 1px solid LightGray !important;
+}
+

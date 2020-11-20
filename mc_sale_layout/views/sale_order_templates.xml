@@ -23,22 +23,22 @@
     <template id="mc_address_layout">
         <div class="address row">
             <div class="col-12">
-                <table class="table-sm" style="width: 100%; border-collapse: collapse; border: 1px solid LightGray;">
+                <table class="table-sm border-table-lightgray-simple">
                     <thead>
                         <tr>
-                            <th style="padding: 0.5rem; width: 50%; border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;"><span class="text-muted text-uppercase" style="font-size: 0.8rem;">Invoicing Address</span>
+                            <th class="border-left-lightgray border-bottom-lightgray" style="width: 50%"><span class="text-muted text-uppercase fs-8">Invoicing Address</span>
                             </th>
-                            <th style="padding: 0.5rem; width: 50%; border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;"><span class="text-muted text-uppercase" style="font-size: 0.8rem;">Shipping Address</span>
+                            <th class="border-left-lightgray border-bottom-lightgray" style="width: 50%"><span class="text-muted text-uppercase fs-8">Shipping Address</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 0.5rem;">
+                            <td>
                                 <t t-raw="invoicing_address"/>
                                 <p t-if="payment_terms"><t t-raw="payment_terms"/></p>
                             </td>
-                            <td style="padding: 0.5rem; border-left: 1px solid LightGray;"><t t-raw="shipping_address"/>
+                            <td class="border-left-lightgray"><t t-raw="shipping_address"/>
                             </td>
                         </tr>
                     </tbody>
@@ -52,21 +52,21 @@
         <div t-attf-class="header o_company_#{company.id}_layout" style="font-size: small;">
             <div class="row">
                 <div class="col-2">
-                    <img src="/mc_sale_layout/static/src/img/logo-maries-corner.png" style="max-height: 6rem;" alt="Maries Corner Logo"/>
+                    <img src="/mc_sale_layout/static/src/img/logo-maries-corner.png" class="height-6" alt="Maries Corner Logo"/>
                 </div>
                 <!--<div class="col-4"'>-->
-                <div style="position: relative; width: 100%; padding: 0px; -ms-flex: 0 0 33.333333%; flex: 0 0 33.333333%; max-width: 33.333333%;">
+                <div class="pos-rel-flex-33 p-0">
                     <t t-if="order_type and order_name">
-                        <h2 class="m-0" style="height: 4rem; line-height: 4rem;">
-                            <span style="display: inline-block; vertical-align: bottom; line-height: normal;"><t t-raw="order_type"/></span>
+                        <h2 class="m-0 height-4">
+                            <span class="i-block-bottom"><t t-raw="order_type"/></span>
                         </h2>
-                        <h3 class="m-0" style="height: 2rem; line-height: 2rem;">
-                          <span style="display: inline-block; vertical-align: bottom; line-height: normal;"><t t-raw="order_name"/></span>
+                        <h3 class="m-0 height-2">
+                          <span class="i-block-bottom"><t t-raw="order_name"/></span>
                         </h3>
                     </t>
                 </div>
                 <div class="col-6">
-                    <table style="width: 100%; height: 6rem; border-collapse: collapse; border: 1px solid LightGray;">
+                    <table class="border-table-lightgray height-6">
                         <tbody>
                             <tr>
                                 <th><span class="mt4 ml8">Date</span></th>
@@ -75,7 +75,7 @@
                                         <span class="m-0"><t t-raw="order_date"/></span>
                                     </t>
                                 </td>
-                                <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Customer No.</span></th>
+                                <th class="border-left-lightgray"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase fs-7">Customer No.</span></th>
                             </tr>
                             <tr>
                                 <th>
@@ -88,7 +88,7 @@
                                         <span class="m-0"><t t-raw="order_validity"/></span>
                                     </t>
                                 </td>
-                                <td class="text-center" style="border-left: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+                                <td class="text-center border-left-lightgray border-bottom-lightgray">
                                     <t t-if="customer_ref">
                                         <span class="m-0 font-weight-bold"><t t-raw="customer_ref"/></span>
                                     </t>
@@ -101,7 +101,7 @@
                                         <span class="m-0"><t t-raw="salesperson"/></span>
                                     </t>
                                 </td>
-                                <th style="border-left: 1px solid LightGray;"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase" style="font-size: 0.7rem;">Your References</span></th>
+                                <th class="border-left-lightgray"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase fs-7">Your References</span></th>
                             </tr>
                             <tr>
                                 <th><span class="mt4 ml8">Tarif</span></th>
@@ -110,7 +110,7 @@
                                         <span class="m-0"><t t-raw="order_pricelist"/></span>
                                     </t>
                                 </td>
-                                <td class="text-center" style="border-left: 1px solid LightGray;">
+                                <td class="text-center border-left-lightgray">
                                     <t t-if="order_ref">
                                         <span class="m-0 font-weight-bold"><t t-raw="order_ref"/></span>
                                     </t>
