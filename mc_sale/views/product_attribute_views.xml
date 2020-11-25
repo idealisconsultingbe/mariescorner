@@ -13,6 +13,9 @@
                     <field name="display_short_description"/>
                 </group>
             </xpath>
+             <xpath expr="//field[@name='value_ids']/tree/field[@name='is_custom']" position="after">
+                <field name="is_none_value"/>
+            </xpath>
             <xpath expr="//field[@name='value_ids']/tree" position="inside">
                 <field name="unit_price" attrs="{'column_invisible': [('parent.has_linear_price', '=', False)]}"/>
             </xpath>

@@ -26,6 +26,9 @@ class DescriptionLineValue(models.Model):
             if record.type == 'text':
                 name = record.text
             else:
-                name = record.attribute_id.name
+                if record.text:
+                    name = "{} {}".format(record.text, record.attribute_id.name)
+                else:
+                    name = record.attribute_id.name
             result.append((record.id, '{}'.format(name)))
         return result

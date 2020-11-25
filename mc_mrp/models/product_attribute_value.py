@@ -13,8 +13,6 @@ class ProductAttributeValue(models.Model):
     related_product_attribute_id = fields.Many2one('product.attribute', string='Related Attribute', related='attribute_id.product_attribute_id')
     related_product_attribute_ids = fields.One2many('product.attribute', 'product_attribute_id', string='Related Attributes', related='attribute_id.product_attribute_ids')
     relationship_type = fields.Selection([('o2m', 'One to Many'), ('m2o', 'Many to One'), ('none', 'None')], string='Relationship Type', compute='_compute_relationship_type', help='Utility field used in UI.')
-    is_none_value = fields.Boolean(string='Is None Value', default=False, help='If a value with this flag is chosen onto a sale order, no component line will be created for this attribute.')
-    is_to_be_defined_value = fields.Boolean(string='Is To Be Defined Value', default=False, help='If a value with this flag is chosen onto a sale order, the MO will be blocked.')
 
     def _compute_relationship_type(self):
         """ Compute relationship type in order to hide unwanted fields

@@ -17,9 +17,6 @@
             <xpath expr="//field[@name='value_ids']/tree" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <xpath expr="//field[@name='value_ids']/tree/field[@name='is_custom']" position="after">
-                <field name="is_none_value"/>
-            </xpath>
             <xpath expr="//field[@name='value_ids']/tree/field[@name='name']" position="after">
                 <field name="attribute_id" invisible="1"/>
                 <field name="relationship_type" invisible="1"/>

@@ -55,27 +55,33 @@ class SaleOrderLine(models.Model):
                 desc_line_attributes = desc_line_ids.mapped('value_ids').mapped('attribute_id')
                 for line in desc_line_ids:
                     formatted_product_values = []
-                    for value in line.value_ids:
-                        if value.type == 'text':
-                            formatted_product_values.append(value.with_context(lang=self.order_id.partner_id.lang).text)
+                    for desc_value in line.value_ids:
+                        if desc_value.type == 'text':
+                            formatted_product_values.append(desc_value.with_context(lang=self.order_id.partner_id.lang).text)
                         else:
-                            if value.attribute_id in pacvs.mapped('custom_product_template_attribute_value_id').mapped('attribute_id'):
-                                for pacv in pacvs.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id == value.attribute_id):
-                                    if pacv.custom_value:
-                                        try:
-                                            custom_value = float(pacv.custom_value.replace(',', '.'))
-                                            custom_value = float_round(custom_value * (self.product_uom_qty or 1.0), precision_digits=2)
-                                        except Exception:
-                                            raise UserError(_('Could not convert custom value {} to a number ({}).').format(pacv.custom_value, pacv.with_context(lang=self.order_id.partner_id.lang).display_name))
+                            if desc_value.attribute_id in pacvs.mapped('custom_product_template_attribute_value_id').mapped('attribute_id'):
+                                # We do not display none value neither attribute that do not match a description line value.
+                                for pacv in pacvs.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id == desc_value.attribute_id and not p.custom_product_template_attribute_value_id.product_attribute_value_id.is_none_value):
+                                    if pacv.custom_value and pacv.custom_product_template_attribute_value_id.attribute_id.has_linear_price:
+                                        custom_value = float(pacv.custom_value)
+                                        custom_value = float_round(custom_value * (self.product_uom_qty or 1.0), precision_digits=2)
                                         formatted_product_values.append('{}m / {}'.format(custom_value, pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name))
                                     else:
-                                        formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name)
-                            elif value.attribute_id in no_custom_ptavs.mapped('attribute_id'):
-                                for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == value.attribute_id):
-                                    formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
-                            else:
-                                formatted_product_values.append(_('None'))
-                    formatted_product_configuration = '{}{}{}'.format(formatted_product_configuration, '\n', ' '.join(formatted_product_values))
+                                        if desc_value.text:
+                                            formatted_product_values.append("{} {}".format(desc_value.with_context(lang=self.order_id.partner_id.lang).text, pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name))
+                                        else:
+                                            formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
+                            elif desc_value.attribute_id in no_custom_ptavs.mapped('attribute_id'):
+                                # We do not display none value neither attribute that do not match a description line value.
+                                for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == desc_value.attribute_id and not p.product_attribute_value_id.is_none_value):
+                                    if desc_value.text:
+                                        formatted_product_values.append("{} {}".format(desc_value.with_context(lang=self.order_id.partner_id.lang).text, ptav.with_context(lang=self.order_id.partner_id.lang).name))
+                                    else:
+                                        formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
+                    if not formatted_product_configuration and formatted_product_values:
+                        formatted_product_configuration = ' '.join(formatted_product_values)
+                    elif formatted_product_values:
+                        formatted_product_configuration = '{}{}{}'.format(formatted_product_configuration, '\n', ' '.join(formatted_product_values))
 
             # display the no_variant attributes, except those that are also
             # displayed by a custom (avoid duplicate description)

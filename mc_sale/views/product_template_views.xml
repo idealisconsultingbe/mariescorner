@@ -33,7 +33,7 @@
                             <field name="value_ids" nolabel="1">
                                 <tree string="Description Values" editable="bottom">
                                     <field name="type"/>
-                                    <field name="text" attrs="{'required': [('type', '=', 'text')], 'readonly': [('type', '=', 'attribute')]}"/>
+                                    <field name="text" attrs="{'required': [('type', '=', 'text')]}"/>
                                     <field name="attribute_id" domain="[('product_tmpl_ids', '=', parent.product_tmpl_id), ('display_short_description', '=', True)]" attrs="{'required': [('type', '=', 'attribute')], 'readonly': [('type', '=', 'text')]}"/>
                                     <field name="description_line_id" invisible="1"/>
                                 </tree>

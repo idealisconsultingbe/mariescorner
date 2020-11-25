@@ -13,10 +13,6 @@
                 <field name="product_attribute_value_id" attrs="{'invisible': [('relationship_type', '=', 'o2m')]}"/>
                 <field name="product_attribute_value_ids" widget="many2many_tags" attrs="{'invisible': [('relationship_type', '=', 'm2o')]}"/>
             </field>
-            <field name="has_linear_price" position="before">
-                <field name="is_none_value"/>
-                <field name="is_to_be_defined_value"/>
-            </field>
         </field>
     </record>
 
