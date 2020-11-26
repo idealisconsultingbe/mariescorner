@@ -111,8 +111,11 @@ class MrpProduction(models.Model):
                             except ValueError:
                                 pass
                     else:
-                        raise ValidationError(_('Cannot produce {}, there is no or several product variant related to this configuration: {}')
-                                              .format(sale_line_id.product_template_id.name, product_template_attribute_values.mapped(lambda ptav: ptav.name_get()[0][1])))
+                        if product_template_attribute_values:
+                            raise ValidationError(_('Cannot produce {}, there is no or several product variant related to this configuration: {}')
+                                                  .format(sale_line_id.product_template_id.name, product_template_attribute_values.mapped(lambda ptav: ptav.name_get()[0][1])))
+                        else:
+                            raise ValidationError(_("There aren't any attributes of the product {} that match attributes of the BOM").format(sale_line_id.product_template_id.name))
                 else:
                     res['product_tmpl_id'] = bom_line.product_tmpl_id.id
             else:

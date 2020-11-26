@@ -34,24 +34,18 @@ def prepare_description_values(description_line, fabric_sequence, attribute_id=F
     else:
         label = foot
     return [
-        {'type': 'text',
-        'text': label['en'],
-        'description_line_id': description_line.id,
-         },
-        {'type': 'attribute' if attribute_id else 'text',
-        'attribute_id': attribute_id if attribute_id else False,
-         'text': 'None' if not attribute_id else False,
-        'description_line_id': description_line.id,
-         },
-        {'type': 'text',
-         'text': color['en'],
-         'description_line_id': description_line.id,
-         },
-        {'type': 'attribute' if attribute_color_id else 'text',
-         'attribute_id': attribute_color_id if attribute_color_id else False,
-         'text': 'None' if not attribute_color_id else False,
-         'description_line_id': description_line.id,
-         },
+        {
+            'type': 'attribute' if attribute_id else 'text',
+            'attribute_id': attribute_id if attribute_id else False,
+            'text': label['en'],
+            'description_line_id': description_line.id,
+        },
+        {
+            'type': 'attribute' if attribute_color_id else 'text',
+            'attribute_id': attribute_color_id if attribute_color_id else False,
+            'text': color['en'],
+            'description_line_id': description_line.id,
+        },
     ]
 
 def translate_values(values, lang):
@@ -83,10 +77,9 @@ logging.info(' %s Product templates loaded.' % len(products.ids))
 
 logging.info('Delete existing description lines.')
 description_lines = session.env['product.configurator.description.line'].search([])
-description_line_values = session.env['product.configurator.description.line.value'].search([])
 description_lines.unlink()
-description_line_values.unlink()
 
+logging.info('Start Creating Short Description Lines.')
 product_not_updated_description_ids = []
 for product in products:
     attributes = product.attribute_line_ids.mapped('attribute_id')
@@ -94,21 +87,12 @@ for product in products:
         first_line = session.env['product.configurator.description.line'].create({'product_tmpl_id': product.id, 'sequence': 1})
         second_line = session.env['product.configurator.description.line'].create({'product_tmpl_id': product.id, 'sequence': 2})
         third_line = session.env['product.configurator.description.line'].create({'product_tmpl_id': product.id, 'sequence': 3})
-        if int(args.primary_fabric_id) in attributes.ids:
-            values = session.env['product.configurator.description.line.value'].create(prepare_description_values(first_line, 1, int(args.primary_fabric_id), int(args.primary_fabric_color_id)))
-            translate_values(values, 'fr_BE')
-        else:
-            session.env['product.configurator.description.line.value'].create(prepare_description_values(first_line, 1))
-        if int(args.secondary_fabric_id) in attributes.ids:
-            values = session.env['product.configurator.description.line.value'].create(prepare_description_values(second_line, 2, int(args.secondary_fabric_id), int(args.secondary_fabric_color_id)))
-            translate_values(values, 'fr_BE')
-        else:
-            session.env['product.configurator.description.line.value'].create(prepare_description_values(second_line, 2))
-        if int(args.foot_id) in attributes.ids:
-            values = session.env['product.configurator.description.line.value'].create(prepare_description_values(third_line, 3, int(args.foot_id), int(args.foot_color_id)))
-            translate_values(values, 'fr_BE')
-        else:
-            session.env['product.configurator.description.line.value'].create(prepare_description_values(third_line, 3))
+        values = session.env['product.configurator.description.line.value'].create(prepare_description_values(first_line, 1, int(args.primary_fabric_id), int(args.primary_fabric_color_id)))
+        translate_values(values, 'fr_BE')
+        values = session.env['product.configurator.description.line.value'].create(prepare_description_values(second_line, 2, int(args.secondary_fabric_id), int(args.secondary_fabric_color_id)))
+        translate_values(values, 'fr_BE')
+        values = session.env['product.configurator.description.line.value'].create(prepare_description_values(third_line, 3, int(args.foot_id), int(args.foot_color_id)))
+        translate_values(values, 'fr_BE')
     else:
         product_not_updated_description_ids.append(product.id)
 

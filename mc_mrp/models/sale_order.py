@@ -31,6 +31,16 @@ class SaleOrder(models.Model):
         Manuf State = Done: SO is confirmed and all its Manufacturing Order have been confirmed or cancelled.
         :return: The manufacturing state of the SO
         """
+        # Manually track "state" and "reservation_state" since tracking doesn't work with computed
+        # fields.
+        tracking = not self._context.get("mail_notrack") and not self._context.get("tracking_disable")
+        initial_values = {}
+        if tracking:
+            initial_values = dict(
+                (order.id, {"manufacturing_state": order.manufacturing_state})
+                for order in self
+            )
+
         for order in self:
             sales_lots = order.mapped('order_line.sales_lot_id')
             if not sales_lots or order.state in ['draft', 'sent']:
@@ -47,6 +57,9 @@ class SaleOrder(models.Model):
                     order.manufacturing_state = 'in_manufacturing'
             else:
                 order.manufacturing_state = 'none'
+
+        if tracking and initial_values:
+            self.message_track(self.fields_get(["manufacturing_state"]), initial_values)
 
     def _action_confirm(self):
         """ Overridden Method
