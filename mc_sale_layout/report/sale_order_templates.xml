@@ -37,7 +37,7 @@
             <t t-set="order_type">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                     <span t-if="doc.state not in ['draft','sent']">Order</span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation</span>
+                    <span t-else="">Quotation</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma Invoice</span>
@@ -94,6 +94,9 @@
                 </t>
             </t>
 
+            <!-- set deposit product from config -->
+            <t t-set="product_deposit" t-value="doc.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')"/>
+
             <!-- main container structure -->
             <div class="page" style="font-size: small;">
 
@@ -105,42 +108,48 @@
 
                 <!-- Is there a discount on at least one line? -->
                 <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+                <!-- Is there a sales lot on at least one line? -->
+                <t t-set="display_sales_lot" t-value="any([l.sales_lot_id for l in doc.order_line])"/>
 
                 <table class="table-sm border-table-lightgray-full">
                     <thead>
                         <tr>
-                            <th name="th_reference" class="text-center" style="width: 13%;">
-                              <span class="text-uppercase v-align-mid fs-7">Ref</span>
+                            <th name="th_reference" class="text-center" style="width: 12%;">
+                              <span class="text-uppercase v-align-mid fs-6">Ref</span>
                             </th>
                             <th name="th_description" class="text-center">
-                              <span class="text-uppercase v-align-mid fs-7">Description</span>
+                              <span class="text-uppercase v-align-mid fs-6">Description</span>
+                            </th>
+                            <th name="th_sales_lot_id" t-if="display_sales_lot" class="text-center" style="width: 12%">
+                              <span class="text-uppercase v-align-mid fs-6">Manuf. No.</span>
                             </th>
                             <th name="th_quantity" class="text-center">
-                              <span class="text-uppercase v-align-mid fs-7">Quantity</span>
+                              <span class="text-uppercase v-align-mid fs-6">Quantity</span>
                             </th>
-                            <th name="th_pricebase" class="text-center" style="width: 13%">
-                              <span class="text-uppercase v-align-mid fs-7">Base Price</span>
+                            <th name="th_pricebase" class="text-center" style="width: 11%">
+                              <span class="text-uppercase v-align-mid fs-6">Base Price</span>
                             </th>
-                            <th name="th_priceunit" class="text-center" style="width: 13%">
-                              <span class="text-uppercase v-align-mid fs-7">Customer Price</span>
+                            <th name="th_priceunit" class="text-center" style="width: 11%">
+                              <span class="text-uppercase v-align-mid fs-6">Customer Price</span>
                             </th>
                             <th name="th_discount" t-if="display_discount" class="text-center" groups="product.group_discount_per_so_line">
-                                <span class="text-uppercase v-align-mid fs-7">Disc.%</span>
+                                <span class="text-uppercase v-align-mid fs-6">Disc.%</span>
                             </th>
                             <th name="th_taxes" class="text-center">
-                              <span class="text-uppercase v-align-mid fs-7">Taxes</span>
+                              <span class="text-uppercase v-align-mid fs-6">Taxes</span>
                             </th>
                             <th name="th_subtotal" class="text-center">
-                                <t groups="account.group_show_line_subtotals_tax_excluded"><span class="text-uppercase v-align-mid fs-7">Amount</span></t>
-                                <t groups="account.group_show_line_subtotals_tax_included"><span class="text-uppercase v-align-mid fs-7">Total Price</span></t>
+                                <t groups="account.group_show_line_subtotals_tax_excluded"><span class="text-uppercase v-align-mid fs-6">Amount</span></t>
+                                <t groups="account.group_show_line_subtotals_tax_included"><span class="text-uppercase v-align-mid fs-6">Total Price</span></t>
                             </th>
                         </tr>
                     </thead>
                     <tbody class="sale_tbody">
 
                         <t t-set="current_subtotal" t-value="0"/>
-
-                        <t t-foreach="doc.order_line" t-as="line">
+                        <t t-set="order_lines_without_deposit" t-value="doc.order_line.filtered(lambda line: int(line.product_id.id) != int(product_deposit))"/>
+                        <!-- do not display downpayments -->
+                        <t t-foreach="order_lines_without_deposit" t-as="line">
 
                             <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                             <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
@@ -149,14 +158,17 @@
                                 <t t-if="not line.display_type">
                                     <td name="td_ref" class="text-center">
                                       <span class="i-block-100"><t t-esc="line.product_id.default_code"/></span>
-                                      <span class="i-block-100" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
+                                      <span class="i-block-100" t-if="line.product_id.image_128" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
                                     </td>
-                                    <td name="td_desc" class="text-left">
+                                    <td name="td_desc" class="text-left fs-8">
                                         <span t-field="line.short_name"/>
+                                    </td>
+                                    <td name="td_sales_lot" t-if="display_sales_lot" class="text-center">
+                                        <span t-field="line.sales_lot_id"/>
                                     </td>
                                     <td name="td_quantity" class="text-right">
                                         <span t-field="line.product_uom_qty"/>
-                                        <span t-field="line.product_uom" groups="uom.group_uom"/>
+<!--                                        <span t-field="line.product_uom" groups="uom.group_uom"/>-->
                                     </td>
                                     <td name="td_pricebase" class="text-right">
                                         <span t-field="line.list_price_extra" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
@@ -215,21 +227,33 @@
                 <table class="table-sm border-table-lightgray-simple mt-1rem">
                     <tr>
                         <td t-att-rowspan="len(doc.amount_by_group)+2" style="width: 65%;">
-                            <p>
-                                We hope this offer will fulfill your needs and get all your attention.<br/>
-                                Feel free to contact us for any further information.
-                            </p>
-                            <h5>To order</h5>
-                            <p t-if="downpayment">
-                                You are satisfied with this offer and you want to order, you just have to make a payment of <span>$AMOUNT</span> to our bank account:<br/>
-                                <t t-if="doc.company_id.bank_ids">
-                                    IBAN: <span t-field="doc.company_id.bank_ids[0].acc_number"/><br/>
-                                    SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
-                                </t>
-                            </p>
-                            <p t-else="">
-                                You are satisfied with this offer and you want to order, you just have to send it back to us with your signature for approval.
-                            </p>
+                            <t t-set="total_deposit" t-value="sum(doc.order_line.filtered(lambda line: int(line.product_id.id) == int(product_deposit)).mapped('price_unit'))"/>
+                            <t t-if="doc.state in ['draft','sent']">
+                                <p>
+                                    We hope this offer will fulfill your needs and get all your attention.<br/>
+                                    Feel free to contact us for any further information.
+                                </p>
+                                <h5>To order</h5>
+                                <p t-if="downpayment">
+                                    You are satisfied with this offer and you want to order, you just have to make a payment of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> to our bank account:<br/>
+                                    <t t-if="doc.company_id.bank_ids">
+                                        IBAN: <span t-field="doc.company_id.bank_ids[0].acc_number"/><br/>
+                                        SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
+                                    </t>
+                                </p>
+                                <p t-else="">
+                                    You are satisfied with this offer and you want to order, you just have to send it back to us with your signature for approval.
+                                </p>
+                            </t>
+                            <t t-else="">
+                                <p t-if="downpayment">
+                                    We would be grateful if you could pay us the amount of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> to our bank account:<br/>
+                                    <t t-if="doc.company_id.bank_ids">
+                                        IBAN: <span t-field="doc.company_id.bank_ids[0].acc_number"/><br/>
+                                        SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
+                                    </t>
+                                </p>
+                            </t>
                         </td>
                         <td name="td_amount_untaxed_label" class="font-weight-bold no-border-bottom border-left-lightgray" style="width: 25%;">Subtotal</td>
                         <td name="td_amount_untaxed" class="text-right no-border-bottom" style="width: 10%;">

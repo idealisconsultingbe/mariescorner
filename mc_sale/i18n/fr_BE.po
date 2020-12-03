@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-20 08:58+0000\n"
-"PO-Revision-Date: 2020-11-20 10:01+0100\n"
+"POT-Creation-Date: 2020-12-03 23:25+0000\n"
+"PO-Revision-Date: 2020-12-04 00:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,12 +57,6 @@ msgid "Confirm Manufacturing"
 msgstr "Confirmer la production"
 
 #. module: mc_sale
-#: code:addons/mc_sale/models/sale_order_line.py:0
-#, python-format
-msgid "Could not convert custom value {} to a number ({})."
-msgstr "Impossible de convertir la valeur personnalisée {} en un nombre ({})."
-
-#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__create_uid
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__create_uid
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__create_uid
@@ -78,8 +72,9 @@ msgstr "Créé le"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__price_unit
-msgid "Customer Unit Price"
-msgstr "Prix unitaire client"
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Customer Price"
+msgstr "Prix client"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute__default_linear_value
@@ -151,11 +146,35 @@ msgid "ID"
 msgstr ""
 
 #. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_none_value
+msgid ""
+"If a value with this flag is chosen onto a sale order, no component line "
+"will be created for this attribute."
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_to_be_defined_value
+msgid ""
+"If a value with this flag is chosen onto a sale order, the MO will be "
+"blocked."
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__is_none_value
+msgid "Is None Value"
+msgstr "Valeur nulle"
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_product__tailor_made
 #: model:ir.model.fields,field_description:mc_sale.field_product_template__tailor_made
 #: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__product_is_tailor_made
 msgid "Is Tailor Made"
 msgstr "Sur mesure"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__is_to_be_defined_value
+msgid "Is To Be Defined Value"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_account_move_line
@@ -235,9 +254,7 @@ msgid "Meterage of fabrics"
 msgstr "Métrage de tissus"
 
 #. module: mc_sale
-#: code:addons/mc_sale/models/sale_order_line.py:0
 #: model:ir.model.fields.selection,name:mc_sale.selection__sale_order__po_state__none
-#, python-format
 msgid "None"
 msgstr "Aucun"
 
@@ -335,13 +352,9 @@ msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__list_price_extra
-msgid "Public Price Extra Incl."
-msgstr "Prix public avec extra"
-
-#. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
-msgid "Public Unit Price"
-msgstr "Prix unitaire public"
+msgid "Public Price"
+msgstr "Prix public"
 
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_purchase_order
@@ -389,7 +402,7 @@ msgstr "Bon de commande"
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr "Ligne de bons de commande"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__sequence
