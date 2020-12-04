@@ -17,6 +17,7 @@ class StockMove(models.Model):
                 - a stock move may have in its next stock moves a Manufacturing Number and then retrieve it
         """
         for move in self:
+            move.sales_lot_id = False
             if move.sale_line_id:
                 move.sales_lot_id = move.sale_line_id.sales_lot_id
             elif move.move_dest_ids:
