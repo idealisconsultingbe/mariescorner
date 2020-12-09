@@ -13,8 +13,13 @@ class StockRule(models.Model):
             Add short description from sale order line to purchase order line
         """
         res = super(StockRule, self)._prepare_purchase_order_line(product_id, product_qty, product_uom, company_id, values, po)
-        move_dest_ids = values.get('move_dest_ids', False)
-        if move_dest_ids:
-            sale_line = move_dest_ids[0]._get_sale_line()
+        sale_line = self.env['sale.order.line']
+        if values.get('sale_line_id', False):
+            sale_line = sale_line.browse(values.get('sale_line_id'))
+        else:
+            move_dest_ids = values.get('move_dest_ids', False)
+            if move_dest_ids:
+                sale_line = move_dest_ids[0]._get_sale_line()
+        if sale_line:
             res['short_name'] = sale_line.short_name or ''
         return res

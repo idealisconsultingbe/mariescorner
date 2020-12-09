@@ -43,3 +43,13 @@ class SaleOrderLine(models.Model):
         if self.sales_lot_id:
             res['sales_lot_ids'] = [(4, self.sales_lot_id.id)]
         return res
+
+    def _prepare_procurement_values(self, group_id=False):
+        """
+        Override standard method -> add the manufacturing number into the procurement.
+        :return:
+        """
+        values = super(SaleOrderLine, self)._prepare_procurement_values(group_id)
+        if self.product_id.sales_lot_activated:
+            values['sales_lot_id'] = self.sales_lot_id
+        return values
