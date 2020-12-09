@@ -227,7 +227,11 @@
                 <table class="table-sm border-table-lightgray-simple mt-1rem">
                     <tr>
                         <td t-att-rowspan="len(doc.amount_by_group)+2" style="width: 65%;">
-                            <t t-set="total_deposit" t-value="sum(doc.order_line.filtered(lambda line: int(line.product_id.id) == int(product_deposit)).mapped('price_unit'))"/>
+                            <t t-set="deposit_lines" t-value="doc.order_line.filtered(lambda line: int(line.product_id.id) == int(product_deposit))"/>
+                            <t t-set="total_deposit" t-value="0"/>
+                            <t t-foreach="deposit_lines" t-as="line">
+                                <t t-set="total_deposit" t-value="total_deposit + line.tax_id.compute_all(line.price_unit)['total_included']"/>
+                            </t>
                             <t t-if="doc.state in ['draft','sent']">
                                 <p>
                                     We hope this offer will fulfill your needs and get all your attention.<br/>
