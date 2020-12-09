@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-20 01:51+0000\n"
-"PO-Revision-Date: 2020-11-20 03:00+0100\n"
+"POT-Creation-Date: 2020-12-03 23:20+0000\n"
+"PO-Revision-Date: 2020-12-04 00:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
 "<br/>\n"
-"                                    SWIFT:"
+"                                        SWIFT:"
 msgstr ""
 
 #. module: mc_sale_layout
@@ -102,47 +102,52 @@ msgstr "<span class=\"text-muted text-uppercase fs-8\">Adresse de livraison</spa
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Amount</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Amount</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Montant</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Base Price</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Base Price</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Prix Tarif</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Customer Price</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Customer Price</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Prix Client</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Description</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Description</span>"
 msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Disc.%</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Disc.%</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Rem.%</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Quantity</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Manuf. No.</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">N° Prod.</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Quantity</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Quantité</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Ref</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Ref</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Modèle</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Taxes</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Taxes</span>"
 msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "<span class=\"text-uppercase v-align-mid fs-7\">Total Price</span>"
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Total Price</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Montant TVAC</span>"
 
 #. module: mc_sale_layout
@@ -244,10 +249,15 @@ msgstr "Mis-à-jour:"
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid ""
 "We hope this offer will fulfill your needs and get all your attention.<br/>\n"
-"                                Feel free to contact us for any further information."
+"                                    Feel free to contact us for any further information."
 msgstr ""
 "Nous espérons que cette offre répondra à vos besoins et retiendra toute votre attention.<br/>\n"
 "                                Nous restons à votre disposition pour tout complément d'information."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "We would be grateful if you could pay us the amount of"
+msgstr "Nous vous remercions de bien vouloir nous verser le montant de"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
@@ -256,12 +266,10 @@ msgstr "Site Web"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid ""
-"You are satisfied with this offer and you want to order, you just have to make a payment of <span>"
-"$AMOUNT</span> to our bank account:<br/>"
+msgid "You are satisfied with this offer and you want to order, you just have to make a payment of"
 msgstr ""
-"Cette offre vous satisfait et vous désirez commander, il suffit dès lors de verser la somme de "
-"<span>$AMOUNT</span> sur le compte bancaire indiqué ci-dessous:<br/>"
+"Si vous êtes satisfait de cette offre et désirez passer commande, vous n'avez qu'à procéder au "
+"paiement de"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -271,3 +279,8 @@ msgid ""
 msgstr ""
 "Cette offre vous satisfait et vous désirez commander, il suffit dès lors de nous la renvoyer signée "
 "pour accord."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "to our bank account:<br/>"
+msgstr "aux coordonnées bancaires suivantes:<br/>"

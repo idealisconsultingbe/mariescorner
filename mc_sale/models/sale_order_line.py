@@ -15,9 +15,9 @@ class SaleOrderLine(models.Model):
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
-    price_unit = fields.Float(string='Customer Unit Price')
-    list_price_extra = fields.Float(string='Public Price Extra Incl.', compute='_compute_list_price_extra', digits='Product Price',
-                                    help="This is the product public price and the sum of the extra price of all attributes (with custom values)")
+    price_unit = fields.Float(string='Customer Price')
+    list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price',
+                                    help='This is the product public price and the sum of the extra price of all attributes (with custom values)')
 
     @api.onchange('product_id', 'product_uom_qty')
     def product_id_change(self):
