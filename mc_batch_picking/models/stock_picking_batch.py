@@ -54,6 +54,8 @@ class StockPickingBatch(models.Model):
         """ Load all pickings with the same picking type/operation type, delivery method (optional), and partner (optional) """
         self.ensure_one()
         if self.picking_type_id:
+            pickings = self.env['stock.picking'].search([('state', 'in', ('waiting', 'confirmed')), ('picking_type_id', '=', self.picking_type_id.id)])
+            pickings.action_assign()
             domain = [('company_id', '=', self.company_id.id), ('state', '=', 'assigned'), ('picking_type_id', '=', self.picking_type_id.id)]
             if self.delivery_carrier_id:
                 domain.extend([('carrier_id', '=', self.delivery_carrier_id.id)])
