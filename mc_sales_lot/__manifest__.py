@@ -23,11 +23,13 @@
         'views/product_category_views.xml',
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
+        'views/purchase_order_views.xml',
         'views/res_config_settings_views.xml',
         'views/stock_picking_views.xml',
         'views/mrp_production_views.xml',
         'views/stock_move_views.xml',
         'views/stock_production_sales_lot_views.xml',
+        'views/stock_production_sales_lot_templates.xml',
         'views/log_sales_lot_status_views.xml',
         'views/account_move_views.xml'
     ],

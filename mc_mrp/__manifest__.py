@@ -14,10 +14,11 @@
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['mrp', 'purchase_stock', 'mc_sale', 'mc_sales_lot'],
+    'depends': ['purchase_stock', 'mc_sale', 'mc_sales_lot'],
     'data': [
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
+        'views/mrp_bom_line_views.xml',
         'views/product_attribute_value_views.xml',
         'views/mrp_production_views.xml',
         'views/stock_production_sales_lot_views.xml',

@@ -21,7 +21,7 @@
             </xpath>
             <xpath expr="//button[@name='action_confirm'][2]" position="after">
                 <field name="po_state" invisible="1"/>
-                <button name="action_confirm_purchase_order" string="Confirm Manufacturing" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
+                <button name="action_confirm_purchase_order" string="Confirm Purchase Order" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
             </xpath>
             <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="after">
