@@ -13,25 +13,28 @@ class SaleOrder(models.Model):
         ('in_manufacturing', 'In Manufacturing'),
         ('confirmed', 'Confirmed'),
         ('done', 'Done'),
+        ('cancel', 'Cancelled')
     ], string='Manufacturing Status', readonly=True, copy=False, index=True, tracking=True, store=True, compute='_compute_manufacturing_state',
         help="None: SO is not confirmed or SO does not contain producible products\n"
-             "To Produce: SO is confirmed but has not been send to the manufacturing\n"
-             "In Manufacturing: SO is confirmed and has been send to the manufacturing but some MO are not confirmed yet\n"
-             "Confirmed: SO is confirmed and all its MO are confirmed\n"
-             "Done: SO is confirmed and all its MO are done or cancelled")
+             "To Produce: at least one manufacturing number is in state 'To Produce'\n"
+             "In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'\n"
+             "Confirmed: all manufacturing numbers are confirmed or done\n"
+             "Done: all manufacturing numbers are done\n"
+             "Cancelled: at least one manufacturing number is cancelled")
 
-    @api.depends('order_line.sales_lot_id.production_ids.state', 'state')
+    @api.depends('order_line.sales_lot_id.manufacturing_state')
     def _compute_manufacturing_state(self):
         """
-        Manuf State = None: for every SO that are in draft or sent (There are nothing to produce)
-                            for every SO that do not contain sale lots
-        Manuf State = To Produce: SO is confirmed but no Manufacturing Order have been created for this SO.
-        Manuf State = In Manufacturing: SO is confirmed, Manufacturing Order Have been created but some of them have not been confirmed.
-        Manuf State = Confirmed: SO is confirmed and all its Manufacturing Order have been confirmed.
-        Manuf State = Done: SO is confirmed and all its Manufacturing Order have been confirmed or cancelled.
-        :return: The manufacturing state of the SO
+        Compute manufacturing state of each sale order
+            Manuf State = None: for every SO that are in draft or sent (There are nothing to produce)
+                                for every SO that do not contain sale lots
+            Manuf State = To Produce: at least one manufacturing number is in state 'To Produce'.
+            Manuf State = In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'.
+            Manuf State = Confirmed: all manufacturing numbers are confirmed or done.
+            Manuf State = Done: all manufacturing numbers are done.
+            Manuf State = Cancelled: at least one manufacturing number is cancelled.
         """
-        # Manually track "state" and "reservation_state" since tracking doesn't work with computed
+        # Manually track "manufacturing_state" since tracking doesn't work with computed
         # fields.
         tracking = not self._context.get("mail_notrack") and not self._context.get("tracking_disable")
         initial_values = {}
@@ -45,25 +48,28 @@ class SaleOrder(models.Model):
             sales_lots = order.mapped('order_line.sales_lot_id')
             if not sales_lots or order.state in ['draft', 'sent']:
                 order.manufacturing_state = 'none'
-            elif order.state in ['sale', 'done']:
-                manuf_orders = sales_lots.mapped('production_ids')
-                if not manuf_orders:
+            elif sales_lots:
+                sales_lots_status = sales_lots.mapped('manufacturing_state')
+                if any([status == 'cancel' for status in sales_lots_status]):
+                    order.manufacturing_state = 'cancel'
+                elif any([status == 'to_produce' for status in sales_lots_status]):
                     order.manufacturing_state = 'to_produce'
-                elif all([mo.state in ['done', 'cancel'] for mo in manuf_orders]):
+                elif any([status == 'in_manufacturing' for status in sales_lots_status]):
+                    order.manufacturing_state = 'in_manufacturing'
+                elif all([status == 'done' for status in sales_lots_status]):
                     order.manufacturing_state = 'done'
-                elif all([mo.state != 'draft' for mo in manuf_orders]):
+                elif all([status in ['confirmed', 'done'] for status in sales_lots_status]):
                     order.manufacturing_state = 'confirmed'
                 else:
-                    order.manufacturing_state = 'in_manufacturing'
-            else:
-                order.manufacturing_state = 'none'
+                    order.manufacturing_state = 'none'
 
         if tracking and initial_values:
             self.message_track(self.fields_get(["manufacturing_state"]), initial_values)
 
     def _action_confirm(self):
-        """ Overridden Method
-            Add context info to skip MO confirmation if this sale order creates a MO
+        """
+        Overridden Method
+        Add context info to skip MO confirmation if this sale order creates a MO
         """
         self = self.with_context(skip_mo_confirmation=True)
         return super(SaleOrder, self)._action_confirm()

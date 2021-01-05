@@ -18,8 +18,8 @@ class MrpBomLine(models.Model):
     @api.depends('product_tmpl_id', 'bom_id.product_tmpl_id')
     def _compute_allowed_attribute_ids(self):
         """
-            Compute allowed attributes.
-            Those attributes should be present in BoM product template and be related to attributes of BoM line product template
+        Compute allowed attributes.
+        Those attributes should be present in BoM product template and be related to attributes of BoM line product template
         """
         for line in self:
             if line.product_tmpl_id:
@@ -36,9 +36,11 @@ class MrpBomLine(models.Model):
         Auto-complete product_tmpl_id according to product_id
         """
         super(MrpBomLine, self).onchange_product_id()
+        # handle UOM
         if not self.product_id and self.product_tmpl_id:
             self.product_uom_id = self.product_tmpl_id.uom_id.id
-        if self.product_id and not self.product_tmpl_id:
+        # handle product template
+        if self.product_id:
             self.product_tmpl_id = self.product_id.product_tmpl_id
 
     @api.onchange('product_tmpl_id')
@@ -46,8 +48,13 @@ class MrpBomLine(models.Model):
         """
         Use product_tmpl_id uom.
         If product_tmpl_id is not set, use product_id uom instead
+        If product_tmpl_id is set, erase product_id
         """
+        # handle UOM
         if self.product_tmpl_id:
             self.product_uom_id = self.product_tmpl_id.uom_id.id
         if self.product_id and not self.product_tmpl_id:
             self.product_uom_id = self.product_id.uom_id.id
+        # handle product variant
+        if self.product_tmpl_id and self.product_id and self.product_tmpl_id != self.product_id.product_tmpl_id:
+            self.product_id = False

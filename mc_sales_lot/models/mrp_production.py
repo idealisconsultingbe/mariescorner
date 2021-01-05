@@ -14,7 +14,8 @@ class MrpProduction(models.Model):
 
     @api.depends('move_dest_ids.sales_lot_id')
     def _compute_sales_lot_id(self):
-        """ Compute M2o relation to Stock Production Manufacturing Number from destination moves
+        """
+        Compute M2o relation to Stock Production Manufacturing Number from destination moves
         """
         for production in self:
             if len(production.move_dest_ids.mapped('sales_lot_id')) == 1 and all(
@@ -83,6 +84,5 @@ class MrpProduction(models.Model):
         Create an entry log in manufacturing number
         """
         self.ensure_one()
-        params = self.env.context.get('params', defaultdict(lambda: False))
-        model = self.env['ir.model'].search([('model', '=', params['model'])])
-        self.sales_lot_id.create_log(name, msg, user=self.env.user, model=model, record=params['id'])
+        model = self.env['ir.model'].search([('model', '=', self._name)])
+        self.sales_lot_id.create_log(name, msg, user=self.env.user, model=model, record=self.id)

@@ -30,7 +30,7 @@ class Picking(models.Model):
         model = self.env['ir.model'].search([('model', '=', self.env.context.get('active_model'))])
         record = self.env.context.get('active_id')
         for line in self.move_line_ids.filtered(lambda l: l.sales_lot_id):
-            if self.picking_type_code == 'incoming' and is_intercompany(self.partner_id, companies):
+            if self.picking_type_code == 'incoming':
                 name = {'no_lang': _('Receipt OK'), 'en_US': 'Receipt OK', 'fr_BE': 'Réception OK'}
                 msg = {
                     'no_lang': _('The SN {} has been received by {}').format(line.lot_id.name, self.company_id.partner_id.name_get()[0][1]),

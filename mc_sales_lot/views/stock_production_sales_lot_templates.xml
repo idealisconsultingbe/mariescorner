@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Portal: manufacturing numbers entry in my account -->
+    <template id="portal_my_home_manufacturing_numbers" name="Portal My Home : manufacturing numbers" inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="sales_lot_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Manufacturing Numbers</t>
+                <t t-set="url" t-value="'/my/manufacturing_numbers'"/>
+                <t t-set="count" t-value="sales_lot_count"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Portal: manufacturing numbers breadcrumb menu management -->
+    <template id="sales_lot_menu_portal" name="Portal My Home : manufacturing numbers breadcrumb menu" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'manufacturing_numbers'" class="breadcrumb-item">Manufacturing Numbers</li>
+            <li t-if="page_name == 'manufacturing_number' or sales_lot" class="breadcrumb-item">
+                <a t-attf-href="/my/manufacturing_numbers?{{ keep_query() }}">Manufacturing Numbers</a>
+            </li>
+            <li t-if="sales_lot" class="breadcrumb-item">
+                <span t-field="sales_lot.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <!-- Portal: list view of manufacturing numbers related to user -->
+    <template id="my_sales_lots_portal" name="My Manufacturing Numbers">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Manufacturing Numbers</t>
+            </t>
+            <t t-if="not sales_lots">
+                <p>There are currently no manufacturing numbers for your account.</p>
+            </t>
+            <t t-if="sales_lots" t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <th>Manufacturing Number</th>
+                        <th class="text-center">Manufacturing State</th>
+                        <th class="text-center">Customer</th>
+                        <th class="text-center">Product</th>
+                        <th class="text-right">Quantity</th>
+                    </tr>
+                </thead>
+                <t t-foreach="sales_lots" t-as="number">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/my/manufacturing_number/#{number.id}?{{ keep_query() }}"><span t-field="number.name"/></a>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-pill badge-info" title="Current stage of the task" t-field="number.external_state" />
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="number.partner_id.name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="number.product_id.name"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="number.product_qty"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Portal: view of a specific manufacturing number related to user -->
+    <template id="my_sales_lot_portal" name="My Manufacturing Number">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_manager,mrp.group_mrp_manager">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=stock.production.sales.lot&amp;id=%s&amp;view_type=form' % (sales_lot.id)"/>
+                </t>
+            </t>
+
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <div class="row no-gutters">
+                        <div class="col-md">
+                            <h5 class="mb-1 mb-md-0">
+                                <span t-field="sales_lot.name"/>
+                                <small class="text-muted"> (#<span t-field="sales_lot.id"/>)</small>
+                                <a role="button" t-attf-href="/my/manufacturing_number/edit/#{sales_lot.id}?{{ keep_query() }}" class="btn btn-sm btn-link"><i class="fa fa-pencil"/> Edit</a>
+                            </h5>
+                        </div>
+                        <div class="col-md text-md-right">
+                            <small class="text-right">Status:</small>
+                            <span t-field="sales_lot.external_state" class="badge badge-pill badge-info" title="Current manufacturing state of this number"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-set="card_body">
+                    <div class="row mb-4">
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Product:</strong> <span t-field="sales_lot.product_id.name"/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Manufacturing Date:</strong> <span t-field="sales_lot.manufacturing_date" t-options='{"widget": "date"}'/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Quantity:</strong> <span t-field="sales_lot.product_qty"/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Shipped Date:</strong> <span t-field="sales_lot.shipped_date" t-options='{"widget": "date"}'/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Customer:</strong> <span t-field="sales_lot.partner_id.name"/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Estimated Delivery Date:</strong> <span t-field="sales_lot.ext_delivery_date"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+
+            <div class="mt32">
+                <h4><strong>Message and communication history</strong></h4>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="sales_lot"/>
+                    <t t-set="token" t-value="sales_lot.access_token"/>
+                    <t t-set="pid" t-value="pid"/>
+                    <t t-set="hash" t-value="hash"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Portal: edition view of a specific manufacturing number related to user -->
+    <template id="edit_sales_lot_portal" name="Edit Manufacturing Number">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Manufacturing Number Details</t>
+            <form t-attf-action="/my/manufacturing_number/edit/#{sales_lot.id}" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="row o_portal_details">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                              <div t-if="error_message" class="alert alert-danger" role="alert">
+                                  <t t-foreach="error_message" t-as="err"><t t-esc="err"/><br /></t>
+                              </div>
+                            </div>
+                            <div class="form-group col-xl-6">
+                                <label class="col-form-label" for="name">Manufacturing Number</label>
+                                <p name="name" class="form-control" readonly="1" t-esc="sales_lot.name"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('external_state') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label" for="external_state">Manufacturing State</label>
+                                <select name="external_state" t-attf-class="form-control #{error.get('external_state') and 'is-invalid' or ''}" data-placeholder="Select a manufacturing status">
+                                    <option value="to_produce" t-att-selected="sales_lot.external_state == 'to_produce'">To Produce</option>
+                                    <option value="in_manufacturing" t-att-selected="sales_lot.external_state == 'in_manufacturing'">In Manufacturing</option>
+                                    <option value="confirmed" t-att-selected="sales_lot.external_state == 'confirmed'">Confirmed</option>
+                                    <option value="done" t-att-selected="sales_lot.external_state == 'done'">Done</option>
+                                    <option value="cancel" t-att-selected="sales_lot.external_state == 'cancel'">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-xl-6">
+                                <label class="col-form-label" for="product_id">Product</label>
+                                <p name="product_id" class="form-control" readonly="1" t-esc="sales_lot.product_id.name"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('manufacturing_date') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label label-optional" for="manufacturing_date">Manufacturing Date</label>
+                                <input type="date" name="manufacturing_date" t-attf-class="form-control #{error.get('manufacturing_date') and 'is-invalid' or ''}" t-att-value="manufacturing_date or sales_lot.manufacturing_date" min="1000-01-01" max="9999-12-31"/>
+                            </div>
+                            <div class="form-group col-xl-6">
+                                <label class="col-form-label" for="product_qty">Quantity</label>
+                                <p name="product_qty" class="form-control" readonly="1" t-esc="sales_lot.product_qty"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('shipped_date') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label label-optional" for="shipped_date">Shipped Date</label>
+                                <input type="date" name="shipped_date" t-attf-class="form-control #{error.get('shipped_date') and 'is-invalid' or ''}" t-att-value="shipped_date or sales_lot.shipped_date" min="1000-01-01" max="9999-12-31"/>
+                            </div>
+                            <div class="form-group col-xl-6">
+                                <label class="col-form-label" for="partner_id">Customer</label>
+                                <p name="partner_id" class="form-control" readonly="1" t-esc="sales_lot.partner_id.name"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('ext_delivery_date') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label label-optional" for="ext_delivery_date">Estimated Delivery Date</label>
+                                <input type="date" name="ext_delivery_date" t-attf-class="form-control #{error.get('ext_delivery_date') and 'is-invalid' or ''}" t-att-value="ext_delivery_date or sales_lot.ext_delivery_date" min="1000-01-01" max="9999-12-31"/>
+                            </div>
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        </div>
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-primary float-right mb32 ">
+                                Confirm
+                                <span class="fa fa-long-arrow-right" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+
+</odoo>
