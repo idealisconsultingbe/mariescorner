@@ -2,6 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models
+from odoo.tools import float_compare
 
 
 class StockMoveLine(models.Model):
@@ -19,9 +20,14 @@ class StockMoveLine(models.Model):
         If line is an outgoing move line and parent move is linked to an inter company transfer
         then try to find candidate move lines to update in related company or create new ones.
         """
-        res = super(StockMoveLine, self)._action_done()
+        ml_to_delete = self.env['stock.move.line']
+        for ml in self:
+            qty_done_float_compared = float_compare(ml.qty_done, 0, precision_rounding=ml.product_uom_id.rounding)
+            if qty_done_float_compared == 0:
+                ml_to_delete |= ml
+        super(StockMoveLine, self)._action_done()
         self = self.sudo()
-        for line in self:
+        for line in (self - ml_to_delete):
             move = line.move_id
             if line in move._get_out_move_lines() and move.sale_line_id.inter_company_po_line_id:
                 po_line = move.sale_line_id.inter_company_po_line_id
@@ -52,5 +58,3 @@ class StockMoveLine(models.Model):
                         })
             if line.inter_company_move_line_id and line.lot_id:
                 line.lot_id.update({'inter_company_lot_id': line.inter_company_move_line_id.lot_id})
-        return res
-

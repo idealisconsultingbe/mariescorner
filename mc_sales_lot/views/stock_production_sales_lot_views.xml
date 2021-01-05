@@ -35,6 +35,13 @@
                     <separator string="Lots/Serial Numbers"/>
                     <field name="lot_ids" nolabel="1"/>
                     <notebook>
+                        <page name="ext_company" string="External Company" attrs="{'invisible': [('supplier_type', '!=', 'external')]}">
+                            <group>
+                                <field name="manufacturing_date" class="oe_inline"/>
+                                <field name="shipped_date" class="oe_inline"/>
+                                <field name="ext_delivery_date" string="Planned Delivery Date" invisible="1"/>
+                            </group>
+                        </page>
                         <page name="status" string="Status">
                             <field name="log_sales_lot_status_ids" readonly="1"/>
                         </page>
@@ -44,18 +51,11 @@
                         <page name="purchase_order" string="Purchase Orders">
                             <field name="purchase_order_ids" context="{'tree_view_ref':'purchase.purchase_order_view_tree'}" readonly="1"/>
                         </page>
-                        <page name="mrp_production" string="Manufacturing Orders">
+                        <page name="mrp_production" string="Manufacturing Orders" attrs="{'invisible': [('supplier_type', '!=', 'internal')]}">
                             <field name="production_ids" readonly="1"/>
                         </page>
                         <page name="stock_picking" string="Pickings">
                             <field name="picking_ids" readonly="1"/>
-                        </page>
-                        <page name="ext_company" string="External Company" attrs="{'invisible': [('supplier_type', '!=', 'external')]}">
-                            <group>
-                                <field name="manufacturing_date" class="oe_inline"/>
-                                <field name="shipped_date" class="oe_inline"/>
-                                <field name="ext_delivery_date" string="Estimated Delivery Date"/>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>

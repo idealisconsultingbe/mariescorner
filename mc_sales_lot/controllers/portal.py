@@ -39,7 +39,7 @@ class CustomerPortal(CustomerPortal):
 
         searchbar_sortings = {
             'date': {'label': _('Newest'), 'order': 'create_date desc'},
-            'name': {'label': _('Manufacturing Number'), 'order': 'name'},
+            'name': {'label': _('Manufacturing Number'), 'order': 'name desc'},
             'state': {'label': _('Manufacturing State'), 'order': 'external_state'},
             'partner': {'label': _('Customer'), 'order': 'partner_id'},
             'manufacturing_date': {'label': _('Manufacturing Date'), 'order': 'manufacturing_date desc'},

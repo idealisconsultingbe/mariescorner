@@ -7,9 +7,9 @@ from odoo import api, fields, models, _
 class ProductionSalesLot(models.Model):
     _inherit = 'stock.production.sales.lot'
 
-    delivery_date = fields.Date(string='Delivery Date', compute='_compute_delivery_date', store=True, help='Estimated delivery date provided by production team')
+    delivery_date = fields.Date(string='Planned Delivery Date', compute='_compute_delivery_date', store=True, help='Estimated delivery date provided by production team')
 
-    @api.depends('production_ids.delivery_date')
+    @api.depends('production_ids.delivery_date', 'ext_delivery_date')
     def _compute_delivery_date(self):
         """
         Compute delivery date from subcontractor if supplier type is external, else select the most distant date from production orders

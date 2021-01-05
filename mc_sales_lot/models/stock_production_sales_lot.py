@@ -16,7 +16,7 @@ class ProductionSalesLot(models.Model):
 
     name = fields.Char(string='Manufacturing Number', required=True)
     manufacturing_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
-    external_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
+    external_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
@@ -37,7 +37,7 @@ class ProductionSalesLot(models.Model):
     sale_order_ids = fields.Many2many('sale.order', 'sales_lot_so_rel', 'sales_lot_id', 'so_id', string='Sale Orders', compute='_compute_sale_orders', store=True)
     purchase_order_line_ids = fields.One2many('purchase.order.line', 'sales_lot_id', string='Purchase Order Lines')
     purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_po_rel', 'sales_lot_id', 'po_id', string='Purchase Orders', compute='_compute_purchase_orders', store=True)
-    lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_lots', store=True)
+    lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_get_lots', store=True)
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
@@ -83,11 +83,18 @@ class ProductionSalesLot(models.Model):
         if initial_values:
             self.message_track(self.fields_get(["manufacturing_state"]), initial_values)
 
-    @api.depends('purchase_order_ids.partner_id')
+    @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids')
     def _compute_supplier_type(self):
-        """ Compute supplier type and partners (sellers) of each manufacturing number """
+        """
+        Compute supplier type and partners (sellers) of each manufacturing number.
+        """
         for sale_lot in self:
-            sale_lot.partner_ids = sale_lot.purchase_order_ids.mapped('partner_id')
+            seller_ids = sale_lot.purchase_order_ids.mapped('partner_id')
+            sale_lot.partner_ids = seller_ids or self.env['res.partner']
+            for seller in seller_ids:
+                if seller.parent_id:
+                    seller = seller.parent_id
+                sale_lot.partner_ids |= self.env['res.partner'].search([('id', 'child_of', seller.id)])
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
             if sale_lot.partner_ids.mapped('commercial_partner_id') in company_partners:
                 sale_lot.supplier_type = 'internal'

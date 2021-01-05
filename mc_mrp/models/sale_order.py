@@ -15,16 +15,19 @@ class SaleOrder(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled')
     ], string='Manufacturing Status', readonly=True, copy=False, index=True, tracking=True, store=True, compute='_compute_manufacturing_state',
-        help="To Produce: at least one manufacturing number is in state 'To Produce'\n"
-            "In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'\n"
-            "Confirmed: all manufacturing numbers are confirmed or done\n"
-            "Done: all manufacturing numbers are done\n"
-            "Cancelled: at least one manufacturing number is cancelled")
+        help="None: SO is not confirmed or SO does not contain producible products\n"
+             "To Produce: at least one manufacturing number is in state 'To Produce'\n"
+             "In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'\n"
+             "Confirmed: all manufacturing numbers are confirmed or done\n"
+             "Done: all manufacturing numbers are done\n"
+             "Cancelled: at least one manufacturing number is cancelled")
 
     @api.depends('order_line.sales_lot_id.manufacturing_state')
     def _compute_manufacturing_state(self):
         """
         Compute manufacturing state of each sale order
+            Manuf State = None: for every SO that are in draft or sent (There are nothing to produce)
+                                for every SO that do not contain sale lots
             Manuf State = To Produce: at least one manufacturing number is in state 'To Produce'.
             Manuf State = In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'.
             Manuf State = Confirmed: all manufacturing numbers are confirmed or done.
