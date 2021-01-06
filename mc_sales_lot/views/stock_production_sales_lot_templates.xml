@@ -44,6 +44,9 @@
                         <th class="text-center">Customer</th>
                         <th class="text-center">Product</th>
                         <th class="text-right">Quantity</th>
+                        <th class="text-right">Manufacturing Date</th>
+                        <th class="text-right">Estimated Delivery Date</th>
+                        <th class="text-right">Shipped Date</th>
                     </tr>
                 </thead>
                 <t t-foreach="sales_lots" t-as="number">
@@ -62,6 +65,15 @@
                         </td>
                         <td class="text-right">
                             <span t-esc="number.product_qty"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="number.manufacturing_date"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="number.delivery_date"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="number.shipped_date"/>
                         </td>
                     </tr>
                 </t>
@@ -106,13 +118,13 @@
                             <strong>Quantity:</strong> <span t-field="sales_lot.product_qty"/>
                         </div>
                         <div class="col-12 col-md-6 mb-1">
-                            <strong>Shipped Date:</strong> <span t-field="sales_lot.shipped_date" t-options='{"widget": "date"}'/>
+                            <strong>Estimated Delivery Date:</strong> <span t-field="sales_lot.ext_delivery_date"/>
                         </div>
                         <div class="col-12 col-md-6 mb-1">
                             <strong>Customer:</strong> <span t-field="sales_lot.partner_id.name"/>
                         </div>
                         <div class="col-12 col-md-6 mb-1">
-                            <strong>Estimated Delivery Date:</strong> <span t-field="sales_lot.ext_delivery_date"/>
+                            <strong>Shipped Date:</strong> <span t-field="sales_lot.shipped_date" t-options='{"widget": "date"}'/>
                         </div>
                     </div>
                 </t>
@@ -152,8 +164,8 @@
                                 <label class="col-form-label" for="external_state">Manufacturing State</label>
                                 <select name="external_state" t-attf-class="form-control #{error.get('external_state') and 'is-invalid' or ''}" data-placeholder="Select a manufacturing status">
                                     <option value="to_produce" t-att-selected="sales_lot.external_state == 'to_produce'">To Produce</option>
-                                    <option value="in_manufacturing" t-att-selected="sales_lot.external_state == 'in_manufacturing'">In Manufacturing</option>
-                                    <option value="confirmed" t-att-selected="sales_lot.external_state == 'confirmed'">Confirmed</option>
+                                    <option value="in_manufacturing" t-att-selected="sales_lot.external_state == 'in_manufacturing'">Demand received by the supplier</option>
+                                    <option value="confirmed" t-att-selected="sales_lot.external_state == 'confirmed'">In Manufacturing</option>
                                     <option value="done" t-att-selected="sales_lot.external_state == 'done'">Done</option>
                                     <option value="cancel" t-att-selected="sales_lot.external_state == 'cancel'">Cancelled</option>
                                 </select>
@@ -170,17 +182,17 @@
                                 <label class="col-form-label" for="product_qty">Quantity</label>
                                 <p name="product_qty" class="form-control" readonly="1" t-esc="sales_lot.product_qty"/>
                             </div>
-                            <div t-attf-class="form-group #{error.get('shipped_date') and 'o_has_error' or ''} col-xl-6">
-                                <label class="col-form-label label-optional" for="shipped_date">Shipped Date</label>
-                                <input type="date" name="shipped_date" t-attf-class="form-control #{error.get('shipped_date') and 'is-invalid' or ''}" t-att-value="shipped_date or sales_lot.shipped_date" min="1000-01-01" max="9999-12-31"/>
+                            <div t-attf-class="form-group #{error.get('ext_delivery_date') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label label-optional" for="ext_delivery_date">Estimated Delivery Date</label>
+                                <input type="date" name="ext_delivery_date" t-attf-class="form-control #{error.get('ext_delivery_date') and 'is-invalid' or ''}" t-att-value="ext_delivery_date or sales_lot.ext_delivery_date" min="1000-01-01" max="9999-12-31"/>
                             </div>
                             <div class="form-group col-xl-6">
                                 <label class="col-form-label" for="partner_id">Customer</label>
                                 <p name="partner_id" class="form-control" readonly="1" t-esc="sales_lot.partner_id.name"/>
                             </div>
-                            <div t-attf-class="form-group #{error.get('ext_delivery_date') and 'o_has_error' or ''} col-xl-6">
-                                <label class="col-form-label label-optional" for="ext_delivery_date">Estimated Delivery Date</label>
-                                <input type="date" name="ext_delivery_date" t-attf-class="form-control #{error.get('ext_delivery_date') and 'is-invalid' or ''}" t-att-value="ext_delivery_date or sales_lot.ext_delivery_date" min="1000-01-01" max="9999-12-31"/>
+                            <div t-attf-class="form-group #{error.get('shipped_date') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label label-optional" for="shipped_date">Shipped Date</label>
+                                <input type="date" name="shipped_date" t-attf-class="form-control #{error.get('shipped_date') and 'is-invalid' or ''}" t-att-value="shipped_date or sales_lot.shipped_date" min="1000-01-01" max="9999-12-31"/>
                             </div>
                             <input type="hidden" name="redirect" t-att-value="redirect"/>
                         </div>

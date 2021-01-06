@@ -33,6 +33,7 @@
         'views/variant_templates.xml',
         'views/purchase_order_views.xml',
         'views/account_move_views.xml',
+        'views/product_category_views.xml',
         'wizard/sale_product_configurator_views.xml',
     ],
     'auto_install': False,

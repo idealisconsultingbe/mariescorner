@@ -202,9 +202,9 @@ class CustomerPortal(CustomerPortal):
                     error['shipped_date'] = 'error'
                 if data.get('manufacturing_date'):
                     error['manufacturing_date'] = 'error'
-        elif shipped_date and delivery_date and shipped_date > delivery_date:
+        elif shipped_date and delivery_date and shipped_date < delivery_date:
             if data.get('shipped_date') or data.get('ext_delivery_date'):
-                error_message.append(_('Shipped date should not be later than delivery date.'))
+                error_message.append(_('Delivery date should not be later than shipped date.'))
                 if data.get('shipped_date'):
                     error['shipped_date'] = 'error'
                 if data.get('ext_delivery_date'):

@@ -90,8 +90,8 @@ class MrpProduction(models.Model):
                     # filter product attribute values (product.attribute.value) from sale line
                     # in order to keep only those which attribute (product.attribute) is present in bom line attributes
                     attribute_values = sale_line_id.product_no_variant_attribute_value_ids.mapped('product_attribute_value_id').filtered(lambda pav: pav.attribute_id in bom_line_attributes)
-                    # if there is a none value in attribute values, move creation should be skipped
-                    if attribute_values.filtered(lambda values: values.is_none_value):
+                    # if all value are none attribute values, move creation should be skipped
+                    if all(attribute_values.mapped(lambda values: values.is_none_value)):
                         return {}
                     # search for product template attribute values (product.template.attribute.value)
                     # with product attribute value (product.attribute.value) included in product attribute values related to previous result

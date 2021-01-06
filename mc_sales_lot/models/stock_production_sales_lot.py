@@ -16,7 +16,7 @@ class ProductionSalesLot(models.Model):
 
     name = fields.Char(string='Manufacturing Number', required=True)
     manufacturing_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
-    external_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
+    external_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
