@@ -33,6 +33,22 @@ class SaleOrderLine(models.Model):
             if line.sales_lot_id_required and not line.sales_lot_id:
                 raise ValidationError(_('Manufacturing Number is mandatory ({} product).').format(line.product_id.name))
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        Overridden method
+        Create automatically a new sales lot for each lines in sale order state with tracking and sales lot activated on product
+        only if there is no sales lot already and automatic creation of sales lot is set
+        """
+        lines = super(SaleOrderLine, self).create(vals_list)
+        if self.user_has_groups('mc_sales_lot.group_automatic_sales_lot'):
+            for line in lines.filtered(lambda l: l.has_tracking and not l.sales_lot_id and l.product_id and l.product_id.sales_lot_activated and l.order_id.state == 'sale'):
+                name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot')
+                sales_lot = self.env['stock.production.sales.lot'].create(
+                    {'name': name, 'product_id': line.product_id.id, 'partner_id': line.order_id.partner_id.id})
+                line.update({'sales_lot_id': sales_lot.id})
+        return lines
+
     def _prepare_invoice_line(self):
         """
         Overridden method

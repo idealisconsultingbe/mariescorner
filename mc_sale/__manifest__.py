@@ -18,7 +18,7 @@
     * If the confirmation of sale order creates a purchase order (for example in the MTO process) than we allow through a new  
       button to validate the PO from the SO.
     """,
-    'author': 'dwa@idealisconsulting - Idealis Consulting',
+    'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['sale_product_configurator', 'sale_management', 'purchase', 'product', 'website_sale_stock', 'inter_company_rules'],
     'data': [

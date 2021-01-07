@@ -5,7 +5,7 @@
     'version': '13.0.0.1',
     'category': 'Sales/Sales',
     'summary': 'Modifications to Sales Orders layout',
-    'author': 'dwa@idealisconsulting - Idealis Consulting',
+    'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['web', 'mc_sale', 'mc_sales_lot'],
     'data': [

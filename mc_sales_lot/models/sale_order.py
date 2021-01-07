@@ -21,3 +21,6 @@ class SaleOrder(models.Model):
                     sales_lot_id = self.env['stock.production.sales.lot'].create({'name': name, 'product_id': line.product_id.id, 'partner_id': order.partner_id.id})
                     line.update({'sales_lot_id': sales_lot_id.id})
         return super(SaleOrder, self)._action_confirm()
+
+    def write(self, values):
+        return super(SaleOrder, self).write(values)

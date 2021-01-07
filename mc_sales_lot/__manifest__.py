@@ -7,13 +7,13 @@
     'category': 'Sales',
     'summary': 'Allow to use Manufacturing Number.',
     'description': """
-    This module add the manufacturing numbers logic.
-    SO line will ask for a manufacturing numbers if their product has a tracking enable and if manufacturing numbers tracking is enable.
-    manufacturing numbers are created on the SO and are propagated in an UP BOTTOM way.
-    It allow the user to easily see which transfer is related to which so line.
-    In the case of an mto flow manufacturing numbers will impose a nomenclature for standard LOT / SN.
+    This module adds manufacturing number logic.
+    SO lines will ask for a manufacturing number if tracking is enabled on products and manufacturing numbers.
+    Manufacturing numbers are created on SOs and are propagated in an UP BOTTOM way.
+    It allows user to easily see which transfer is related to which so line.
+    In case of a mto flow, manufacturing numbers will force a nomenclature for standard LOT / SN.
     """,
-    'author': 'dwa@idealisconsulting - Idealis Consulting',
+    'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['purchase', 'mrp', 'inter_company_rules', 'sale_stock', 'account'],
     'data': [

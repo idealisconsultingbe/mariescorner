@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="print_sales_commissions_view_form" model="ir.ui.view">
+        <field name="name">print.sales.commissions.view.form</field>
+        <field name="model">print.sales.commissions</field>
+        <field name="arch" type="xml">
+            <form string="Print Sales Commissions">
+                <group>
+                    <field name="partner_ids" invisible="1"/>
+                    <field name="start_date" widget="date"/>
+                    <field name="end_date" widget="date"/>
+                </group>
+                <footer>
+                    <button string="Print" name="print_document_action" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        name="Print Commissions Report at specific dates"
+        id="print_commissions_report"
+        res_model="print.sales.commissions"
+        binding_model="res.partner"
+        binding_views="list"
+        view_mode="form"
+        target="new"
+        />
+
+</odoo>
