@@ -17,7 +17,7 @@ class SaleOrder(models.Model):
         if production_lot_enabled and automatic_lot_enabled:
             for order in self:
                 for line in order.order_line.filtered(lambda l: l.has_tracking and not l.sales_lot_id and l.product_id and l.product_id.sales_lot_activated):
-                    name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot')
-                    sales_lot_id = self.env['stock.production.sales.lot'].create({'name': name, 'product_id': line.product_id.id, 'partner_id': order.partner_id.id})
+                    values = line._prepare_sales_lot_id()
+                    sales_lot_id = self.env['stock.production.sales.lot'].create(values)
                     line.update({'sales_lot_id': sales_lot_id.id})
         return super(SaleOrder, self)._action_confirm()

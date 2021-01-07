@@ -5,7 +5,7 @@
         <field name="model">stock.production.sales.lot</field>
         <field name="inherit_id" ref="mc_sales_lot.sales_lot_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_id']" position="after">
+            <xpath expr="//field[@name='product_uom_id']" position="after">
                 <field name="delivery_date" string="Planned Delivery Date"/>
             </xpath>
         </field>

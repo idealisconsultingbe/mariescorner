@@ -33,6 +33,23 @@ class SaleOrderLine(models.Model):
             if line.sales_lot_id_required and not line.sales_lot_id:
                 raise ValidationError(_('Manufacturing Number is mandatory ({} product).').format(line.product_id.name))
 
+    def _prepare_sales_lot_id(self):
+        """
+        Prepare a dictionary for the creation of one sales lot.
+        """
+        self.ensure_one()
+        name = self.env['ir.sequence'].next_by_code('stock.production.sales.lot')
+        values = {
+            'name': name,
+            'product_id': self.product_id.id,
+            'product_uom_id': self.product_uom.id,
+            'partner_id': self.order_id.partner_id.id,
+            'partner_shipping_id': self.order_id.partner_shipping_id.id,
+            'origin_sale_order_id': self.order_id.id,
+            'product_qty': self.product_uom_qty,
+        }
+        return values
+
     def _prepare_invoice_line(self):
         """
         Overridden method

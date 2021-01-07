@@ -41,6 +41,7 @@
                     <tr>
                         <th>Manufacturing Number</th>
                         <th class="text-center">Manufacturing State</th>
+                        <th class="text-center">Sale Order</th>
                         <th class="text-center">Customer</th>
                         <th class="text-center">Product</th>
                         <th class="text-right">Quantity</th>
@@ -56,6 +57,9 @@
                         </td>
                         <td class="text-center">
                             <span class="badge badge-pill badge-info" title="Current stage of the task" t-field="number.external_state" />
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="number.origin_sale_order_id.name"/>
                         </td>
                         <td class="text-center">
                             <span t-esc="number.partner_id.name"/>
@@ -125,6 +129,9 @@
                         </div>
                         <div class="col-12 col-md-6 mb-1">
                             <strong>Shipped Date:</strong> <span t-field="sales_lot.shipped_date" t-options='{"widget": "date"}'/>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Sale Order:</strong> <span t-field="sales_lot.origin_sale_order_id.name"/>
                         </div>
                     </div>
                 </t>

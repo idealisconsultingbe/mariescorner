@@ -21,19 +21,22 @@ class ProductionSalesLot(models.Model):
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
-    product_qty = fields.Float(string='Product Quantity', compute='_compute_product_qty', help='Quantity ordered by customer')
+    product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
+    active = fields.Boolean(string='Active', default=True)
 
     # Relational fields
-    partner_id = fields.Many2one('res.partner', string='Customer')
+    partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
+    partner_shipping_id = fields.Many2one('res.partner', string='Delivery Address', readonly=True)
     partner_ids = fields.Many2many('res.partner', 'sales_lot_partner_rel', 'sales_lot_id', 'partner_id', string='Sellers', compute='_compute_supplier_type', store=True)
     product_id = fields.Many2one(
         'product.product', string='Product',
         domain="[('type', 'in', ['product', 'consu']), ('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', company_id)]", required=True, ondelete='restrict', check_company=True)
-
+    product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure')
     production_ids = fields.One2many('mrp.production', 'sales_lot_id', string='Manufacturing Orders')
     stock_move_ids = fields.One2many('stock.move', 'sales_lot_id', string='Stock Moves')
     stock_move_line_ids = fields.One2many('stock.move.line', 'sales_lot_id', string='Stock Move Lines')
     sale_order_line_ids = fields.One2many('sale.order.line', 'sales_lot_id', string='Sale Order Lines')
+    origin_sale_order_id = fields.Many2one('sale.order', string='Origin Sale Order', help='Sale Order that has trigger the creation of this manufacturing number')
     sale_order_ids = fields.Many2many('sale.order', 'sales_lot_so_rel', 'sales_lot_id', 'so_id', string='Sale Orders', compute='_compute_sale_orders', store=True)
     purchase_order_line_ids = fields.One2many('purchase.order.line', 'sales_lot_id', string='Purchase Order Lines')
     purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_po_rel', 'sales_lot_id', 'po_id', string='Purchase Orders', compute='_compute_purchase_orders', store=True)

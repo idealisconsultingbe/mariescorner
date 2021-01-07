@@ -41,6 +41,7 @@ class CustomerPortal(CustomerPortal):
             'date': {'label': _('Newest'), 'order': 'create_date desc'},
             'name': {'label': _('Manufacturing Number'), 'order': 'name desc'},
             'state': {'label': _('Manufacturing State'), 'order': 'external_state'},
+            'sale_order': {'label': _('Sale Order'), 'order': 'origin_sale_order_id'},
             'partner': {'label': _('Customer'), 'order': 'partner_id'},
             'manufacturing_date': {'label': _('Manufacturing Date'), 'order': 'manufacturing_date desc'},
             'shipped_date': {'label': _('Shipped Date'), 'order': 'shipped_date desc'},
@@ -52,8 +53,9 @@ class CustomerPortal(CustomerPortal):
 
         searchbar_inputs = {
             'message': {'input': 'message', 'label': _('Search in Messages')},
-            'customer': {'input': 'customer', 'label': _('Search in Customer')},
+            # 'customer': {'input': 'customer', 'label': _('Search in Customer')},
             'state': {'input': 'state', 'label': _('Search in States')},
+            # 'sale_order': {'input': 'sale_order', 'label': _('Search in Sales Order')},
             'number': {'input': 'number', 'label': _('Search Numbers')},
             'all': {'input': 'all', 'label': _('Search in All')},
         }
@@ -78,14 +80,15 @@ class CustomerPortal(CustomerPortal):
         if search and search_in:
             search_domain = []
             if search_in in ('number', 'all'):
-                search_domain = OR(
-                    [search_domain, [('name', 'ilike', search)]])
-            if search_in in ('customer', 'all'):
-                search_domain = OR([search_domain, [('partner_id', 'ilike', search)]])
+                search_domain = OR([search_domain, [('name', 'ilike', search)]])
+            # if search_in in ('customer', 'all'):
+            #     search_domain = OR([search_domain, [('partner_id', 'ilike', search)]])
             if search_in in ('message', 'all'):
                 search_domain = OR([search_domain, [('message_ids.body', 'ilike', search)]])
             if search_in in ('state', 'all'):
                 search_domain = OR([search_domain, [('external_state', 'ilike', search)]])
+            # if search_in in ('sale_order', 'all'):
+            #     search_domain = OR([search_domain, [('origin_sale_order_id', 'ilike', search)]])
             domain += search_domain
 
         # count for pager
