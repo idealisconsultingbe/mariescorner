@@ -12,7 +12,7 @@
     
     In order to be able to do this automatic selection of product product we had to linked product attributes between one another.
     """,
-    'author': 'dwa@idealisconsulting - Idealis Consulting',
+    'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['purchase_stock', 'mc_sale', 'mc_sales_lot'],
     'data': [

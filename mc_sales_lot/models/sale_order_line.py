@@ -50,6 +50,21 @@ class SaleOrderLine(models.Model):
         }
         return values
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        Overridden method
+        Create automatically a new sales lot for each lines in sale order state with tracking and sales lot activated on product
+        only if there is no sales lot already and automatic creation of sales lot is set
+        """
+        lines = super(SaleOrderLine, self).create(vals_list)
+        if self.user_has_groups('mc_sales_lot.group_automatic_sales_lot'):
+            for line in lines.filtered(lambda l: l.has_tracking and not l.sales_lot_id and l.product_id and l.product_id.sales_lot_activated and l.order_id.state == 'sale'):
+                values = line._prepare_sales_lot_id()
+                sales_lot = self.env['stock.production.sales.lot'].create(values)
+                line.update({'sales_lot_id': sales_lot.id})
+        return lines
+
     def _prepare_invoice_line(self):
         """
         Overridden method

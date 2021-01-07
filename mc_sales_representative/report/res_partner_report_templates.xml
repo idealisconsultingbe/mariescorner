@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sales_commissions_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.env.context.get('lang')"/>
+                <t t-set="representative_data" t-value="report_data.get(o.id, {})"/>
+                <t t-call="mc_sales_representative.sales_commissions_report_template" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+     <!-- Sales commissions external layout -->
+    <template id="sales_commissions_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <!-- Multicompany -->
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header" style="font-size: small;">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Marie's Corner</h1>
+                    <ul t-if="company" class="list-inline mb-1">
+                        <li class="list-inline-item d-inline"><span t-field="company.street"/></li>
+                        <li class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/></li>
+                    </ul>
+                    <ul t-if="company" class="list-inline">
+                        <li class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/> <span t-field="company.phone"/></li>
+                        <li class="list-inline-item d-inline"><i class='fa fa-envelope' role="img" aria-label="Email"/> <span t-field="company.email"/></li>
+                    </ul>
+                </div>
+                <div class="col-6 text-right">
+                    <div class="d-inline-block text-muted">Date: <span t-esc="datetime.date.today()"/></div>
+                    <div class="d-inline-block text-muted">Page: <span class="page"/> / <span class="topage"/></div>
+                    <h2 class="mt-2 mb-1" style="font-size: 1.6rem;">Commissions Granted</h2>
+                    <div>from <span t-esc="start_date"/> to <span t-esc="end_date"/></div>
+                    <div style="font-weight: bold; font-size: 1.2rem;"><span t-esc="representative_name"/> <span t-esc="representative_ref"/></div>
+                </div>
+            </div>
+            <hr class="mt-1" width="100%" style="border-top: 3px solid #bbb;"/>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="sales_commissions_report_template">
+        <t t-call="mc_sales_representative.sales_commissions_external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+
+            <t t-set="start_date" t-value="start_date if start_date else datetime.date.today().replace(day=1) + relativedelta(months=-1)"/>
+            <t t-set="end_date" t-value="end_date if end_date else datetime.date.today().replace(day=1) + relativedelta(days=-1)"/>
+            <t t-set="representative_name" t-value="o.name"/>
+            <t t-set="representative_ref" t-value="o.representative_ref"/>
+
+            <style type="text/css">
+              table.table-commissions {
+                  width: 100%;
+                  border-collapse: collapse;
+                  border: 1px solid LightGray;
+              }
+              table.table-commissions th {
+                  background-color: LightGray;
+                  padding: 0.3rem;
+              }
+              table.table-commissions td {
+                  padding: 0.3rem;
+              }
+              .fs-11rem {
+                  font-size: 1.1rem;
+              }
+              .no-border-bottom {
+                  border-bottom: 0px !important;
+              }
+              .no-border-top {
+                  border-top: 0px !important;
+              }
+              .border-top-black {
+                  border-top: 1px solid Black !important;
+              }
+            </style>
+
+            <div class="page" style="font-size: 12px;">
+                <table class="table table-sm table-commissions" name="commission_table">
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Customer</span></th>
+                            <th class="text-left"><span>Order No</span></th>
+                            <th class="text-left"><span>Invoice No</span></th>
+                            <th class="text-center"><span>Invoice Date</span></th>
+                            <th class="text-center"><span>Payment Deadline</span></th>
+                            <th class="text-right"><span>Base</span></th>
+                            <th class="text-right"><span>Commission %</span></th>
+                            <th class="text-right"><span>Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="representative_data.get('invoices', [])" t-as="invoice">
+                            <div style="page-break-inside: avoid;">
+                                <tr>
+                                    <td class="text-left fs-11rem no-border-bottom" colspan="8">
+                                        <span t-esc="'{}{}'.format(invoice.get('name', 'None'), ' ({})'.format(invoice.get('ref')) if invoice.get('ref') else '')"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="invoice.get('lines', [])" t-as="line">
+                                    <tr>
+                                        <td class="no-border-top no-border-bottom"><span> </span></td>
+                                        <td class="text-left border-left-lightgray"><span t-esc="line.get('order_no', 'None')"/></td>
+                                        <td class="text-left border-left-lightgray"><span t-esc="line.get('invoice_no', 'None')"/></td>
+                                        <td class="text-center border-left-lightgray"><span t-esc="line.get('invoice_date', 'None')"/></td>
+                                        <td class="text-center border-left-lightgray"><span t-esc="line.get('payment_terms', 'None')"/></td>
+                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('invoice_total', 0.0)"/></td>
+                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % (representative_data.get('commission_percentage', 0.0) * 100)"/></td>
+                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('commission_amount', 0.0)"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="no-border-top"><span> </span></td>
+                                    <td class="text-right border-left-lightgray" colspan="4"><strong>Total</strong></td>
+                                    <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('total', 0.0)"/></strong></td>
+                                    <td class="border-left-lightgray"><span> </span></td>
+                                    <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('commissions', 0.0)"/></strong></td>
+                                </tr>
+                            </div>
+                        </t>
+                        <tr>
+                            <td class="text-right border-top-black" colspan="5"><strong>Total <span t-esc="representative_name"/></strong></td>
+                            <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_invoiced', 0.0)"/></strong></td>
+                            <td class="border-left-lightgray border-top-black"><span> </span></td>
+                            <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_commissions', 0.0)"/></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>

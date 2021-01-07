@@ -4,7 +4,7 @@
     'name': 'MsC Batch Picking',
     'version': '13.0.0.1',
     'category': 'Operations/Inventory',
-    'author': 'dwa@idealisconsulting - Idealis Consulting',
+    'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['stock_picking_batch', 'delivery', 'mc_sales_lot'],
     'data': [

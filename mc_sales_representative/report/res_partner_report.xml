@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+        id="sales_commissions"
+        model="res.partner"
+        string="Sales Commissions Report"
+        report_type="qweb-pdf"
+        name="mc_sales_representative.sales_commissions_report"
+        file="mc_sales_representative.sales_commissions_report"
+        print_report_name="(object._get_report_base_filename())"
+    />
+
+</odoo>

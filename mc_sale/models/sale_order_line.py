@@ -70,7 +70,7 @@ class SaleOrderLine(models.Model):
                                         if desc_value.text:
                                             formatted_product_values.append("{} {}".format(desc_value.with_context(lang=self.order_id.partner_id.lang).text, pacv.with_context(lang=self.order_id.partner_id.lang).custom_product_template_attribute_value_id.name))
                                         else:
-                                            formatted_product_values.append(ptav.with_context(lang=self.order_id.partner_id.lang).name)
+                                            formatted_product_values.append(pacv.with_context(lang=self.order_id.partner_id.lang).name)
                             elif desc_value.attribute_id in no_custom_ptavs.mapped('attribute_id'):
                                 # We do not display none value neither attribute that do not match a description line value.
                                 for ptav in no_custom_ptavs.filtered(lambda p: p.attribute_id == desc_value.attribute_id and not p.product_attribute_value_id.is_none_value):
