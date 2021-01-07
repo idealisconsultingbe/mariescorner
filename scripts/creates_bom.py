@@ -10,8 +10,8 @@ import logging
 def prepare_raw_mat_values():
     return [
         {'product_id': 35843, 'product_tmpl_id': 42728, 'product_qty': 1},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [2, 11])], 'product_qty': 5, 'product_uom_id': 8},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [9, 16])], 'product_qty': 0, 'product_uom_id': 8},
+        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [2, 11, 41])], 'product_qty': 5, 'product_uom_id': 8},
+        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [9, 16, 41])], 'product_qty': 0, 'product_uom_id': 8},
         {'product_tmpl_id': 434, 'product_attribute_ids': [(6, 0, [4, 5])], 'product_qty': 4},
         {'product_id': 553, 'product_tmpl_id': 430, 'product_qty': 4},
         {'product_tmpl_id': 428, 'product_attribute_ids': [(6, 0, [23])], 'product_qty': 1},
@@ -34,9 +34,11 @@ def prepare_bom_values(product):
 parser = argparse.ArgumentParser(description="")
 parser.add_argument('database')
 parser.add_argument('product_category_id')
+parser.add_argument('seller_id')
 args = parser.parse_args()
 
 session.open(db=args.database)
+seller_id = int(args.seller_id)
 
 logging.info('Load product category.')
 product_category = session.env['product.category'].search([('id', 'child_of', int(args.product_category_id))])
@@ -44,6 +46,7 @@ logging.info('Product category loaded %s.' % product_category.mapped('name'))
 
 logging.info('Load product templates.')
 products = session.env['product.template'].search([('categ_id', 'in', product_category.ids)])
+products = products.filtered(lambda p: seller_id in p.seller_ids.mapped('name.id'))
 logging.info('%s Product templates loaded.' % len(products.ids))
 
 values = []
