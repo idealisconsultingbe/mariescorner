@@ -47,7 +47,7 @@ class PartnerCustomReport(models.AbstractModel):
         #                     'invoice_date': value,
         #                     'invoice_amount': value,
         #                     'commission_amount': value,
-        #                     'payment_deadline': value,
+        #                     'invoice_due_date': value,
         #                     } ]
         #             } ]
         #     }
@@ -62,13 +62,24 @@ class PartnerCustomReport(models.AbstractModel):
                 commissionned_invoices |= representative.represented_company_ids.mapped('child_ids.invoice_ids').filtered(
                     lambda inv: inv.state not in ['draft', 'cancel'])
 
-            invoices = commissionned_invoices.filtered(lambda inv: inv.invoice_date >= start_date and inv.invoice_date <= end_date)
+            # create a dictionary with untaxed amount without shipping costs and last payment date for each invoice
+            delivery_products = self.env['delivery.carrier'].search([]).mapped('product_id')
+            invoices_data = dict()
+            for invoice in commissionned_invoices:
+                payment = self.env['account.payment'].search([('invoice_ids', '=', invoice.id)])
+                last_payment_date = max(payment.mapped('payment_date')) if payment else False
+                invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products)
+                untaxed_total = sum(invoice_lines.mapped('price_subtotal'))
+                invoices_data[invoice.id] = {'last_payment': last_payment_date, 'untaxed_total': untaxed_total}
+
             commercial_partners = commissionned_invoices.mapped('partner_id.commercial_partner_id')
+            invoices = commissionned_invoices.filtered(lambda inv:
+                                                       inv.amount_residual == 0.0 and invoices_data[inv.id].get('last_payment')
+                                                       and start_date <= invoices_data[inv.id]['last_payment'] <= end_date)
             percentage = representative.commission_percentage
-            total_invoiced = sum(invoices.mapped('amount_total'))
             invoices_values[representative.id] = {
                 'total_commissions': 0.0,
-                'total_invoiced': total_invoiced,
+                'total_invoiced': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in invoices]),
                 'commission_percentage': percentage,
                 'invoices': []
             }
@@ -77,15 +88,15 @@ class PartnerCustomReport(models.AbstractModel):
                 lines = [{
                     'order_no': ', '.join([order.name for order in inv.invoice_line_ids.mapped('sale_line_ids.order_id')]),
                     'invoice_no': inv.name,
-                    'invoice_date': inv.invoice_date,
-                    'invoice_total': inv.amount_total,
-                    'commission_amount': float_round(inv.amount_total * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
-                    'payment_terms': inv.invoice_payment_term_id.name
+                    'invoice_date': inv.last_payment_date,
+                    'invoice_total': invoices_data[inv.id].get('untaxed_total', 0.0),
+                    'commission_amount': float_round(invoices_data[inv.id].get('untaxed_total', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
+                    'due_date': inv.invoice_date_due
                 } for inv in partner_invoices]
                 invoices_values[representative.id]['invoices'].append({
                     'name': partner.name,
                     'ref': partner.ref,
-                    'total': sum(partner_invoices.mapped('amount_total')),
+                    'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
                     'lines': lines,
                     'commissions': sum([line['commission_amount'] for line in lines])
                 })

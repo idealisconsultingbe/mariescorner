@@ -10,7 +10,7 @@ class Partner(models.Model):
     _inherit = 'res.partner'
 
     is_sales_representative = fields.Boolean(string='Is Sales Representative')
-    sales_representative_id = fields.Many2one('res.partner', string='Sales Representative', domain=[('type', '=', 'contact'), ('is_company', '=', False), ('is_sales_representative', '=', True)])
+    sales_representative_id = fields.Many2one('res.partner', string='Sales Representative', domain=[('type', '=', 'contact'), ('is_sales_representative', '=', True)])
     represented_company_ids = fields.One2many('res.partner', 'sales_representative_id', string='Represented Companies')
     commission_percentage = fields.Float(string='Commission', default=0.1)
     representative_ref = fields.Char(string='Representative Reference')

@@ -20,7 +20,7 @@
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale_product_configurator', 'sale_management', 'purchase', 'product', 'website_sale_stock', 'inter_company_rules'],
+    'depends': ['sale_product_configurator', 'sale_management', 'website_sale_stock', 'inter_company_rules', 'purchase_stock', 'delivery'],
     'data': [
         'security/ir.model.access.csv',
         'views/product_attribute_value_percentage_price_views.xml',
@@ -34,6 +34,7 @@
         'views/purchase_order_views.xml',
         'views/account_move_views.xml',
         'views/product_category_views.xml',
+        'views/stock_picking_views.xml',
         'wizard/sale_product_configurator_views.xml',
     ],
     'auto_install': False,
