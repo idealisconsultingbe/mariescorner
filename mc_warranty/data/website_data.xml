@@ -2,14 +2,14 @@
 <odoo>
 
     <data>
-        <record id="register_products_form" model="ir.ui.view">
+        <record id="register_products" model="ir.ui.view">
             <field name="name">Register Products</field>
             <field name="type">qweb</field>
-            <field name="key">mc_warranty.register_products_form</field>
+            <field name="key">mc_warranty.register_products</field>
             <field name="arch" type="xml">
-                <t name="Register Products" t-name="mc_warranty.register_products_form">
+                <t name="Register Products" t-name="mc_warranty.register_products">
                     <t t-call="website.layout">
-                        <div id="wrap">e
+                        <div id="wrap">
                             <div class="oe_structure">
                                 <section class="pt8 pb8">
                                     <div class="container">
@@ -37,149 +37,7 @@
                                                 </div>
                                             </section>
                                         </div>
-
-<!--                                        <form id="register_products_form" t-ignore="true" action="/register_products" method="post" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-success_page="/contactus-thank-you">-->
-                                        <form id="register_products_form" t-ignore="true" action="/register_products/" method="post" data-model_name="mail.mail" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-success_page="/contactus-thank-you">
-                                            <div class="row">
-                                                <!-- Personal information block -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <h2>Personal Information</h2>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="firstname" required="" placeholder="First Name"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="lastname" required="" placeholder="Last Name"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="address" required="" placeholder="Address"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="zip" required="" placeholder="Zip Code"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="city" required="" placeholder="City"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <select class="form-control o_website_form_input" name="country" required="">
-                                                            <option value="">Country</option>
-                                                            <t t-foreach="request.env['res.country'].search([])" t-as="country">
-                                                                <option t-att-value="country.id">
-                                                                    <t t-esc="country.name" />
-                                                                </option>
-                                                            </t>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="email" class="form-control o_website_form_input" name="email" required="" placeholder="Email"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="phone" class="form-control o_website_form_input" name="phone" required="" placeholder="Phone"/>
-                                                    </div>
-                                                </div>
-                                                <!-- Product information block -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <h2>Product Information</h2>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="text" class="form-control o_website_form_input" name="reseller" required="" placeholder="Your Reseller"/>
-                                                    </div>
-                                                    <span>Delivery date</span>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="date" class="form-control o_website_form_input" name="date" required="" placeholder="Delivery Date"/>
-                                                    </div>
-
-                                                    <span><a href="https://www.mariescorner.com/wp-content/uploads/2019/12/mc-care-find-product-id.png" target="_new">Where to find the warranty number ?</a></span>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <input type="number" class="form-control o_website_form_input" name="warranty" required="" placeholder="Warranty Number (6 digits)"/>
-                                                    </div>
-                                                </div>
-                                                <!-- Survey block -->
-                                                <div class="col-lg-12 col-md-12" style="margin-bottom: 15px;">
-                                                    <div class="p-3" style="background-color: #eee;">
-                                                        <h2 class="text-center">More Information</h2>
-                                                        <div class="oe_structure">
-                                                            <p class="text-center">To help us better understand how our service came to you, please fill out this short form.</p>
-                                                        </div>
-                                                        <div class="form-group form-field o_website_form_custom">
-                                                            <div class="col-lg-7 col-md-8">
-                                                                <span>Did your know Marie's Corner before your purchase ?</span>
-                                                                <div>
-                                                                    <label class="radio-inline"><input type="radio" class="o_website_form_input" name="mc_known" value="1"/> Yes</label>
-                                                                    <label class="radio-inline"><input type="radio" class="o_website_form_input" name="mc_known" value="0"/> No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group form-field o_website_form_custom">
-                                                            <div class="col-lg-7 col-md-8">
-                                                                <span>Did the MC Care warranty influence your purchase ?</span>
-                                                                <select class="form-control o_website_form_input" name="influence">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="not_know">I did not know</option>
-                                                                    <option value="knew_but_no">I knew, but no</option>
-                                                                    <option value="little">A little bit</option>
-                                                                    <option value="moderately">Moderately</option>
-                                                                    <option value="a_lot">A lot</option>
-                                                                    <option value="absolutely">Absolutely</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group form-field o_website_form_custom">
-                                                            <div class="col-lg-7 col-md-8">
-                                                                <span>How did you find out about the MC Care Warranty ?</span>
-                                                                <select class="form-control o_website_form_input" name="find_out">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="unpack">Unpacking the products</option>
-                                                                    <option value="leaflets">Leaflets and brochures</option>
-                                                                    <option value="press">By the press</option>
-                                                                    <option value="social">Via social networks</option>
-                                                                    <option value="store">Via a Store / Reseller</option>
-                                                                    <option value="designer">By my Architect / Designer</option>
-                                                                    <option value="website">Via the website of Marie's Corner</option>
-                                                                    <option value="trade">At a trade show</option>
-                                                                    <option value="event">During an event</option>
-                                                                    <option value="mouth">By word of mouth</option>
-                                                                    <option value="other">Other</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group form-field o_website_form_custom">
-                                                            <div class="col-lg-7 col-md-8">
-                                                                <span>Household Type</span>
-                                                                <select class="form-control o_website_form_input" name="household">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="single">Single</option>
-                                                                    <option value="relationship">In a relationship with</option>
-                                                                    <option value="family_child">Family (w/ child(ren) &lt; 12 years old)</option>
-                                                                    <option value="family_teen">Family (w/ child(ren) &gt; 12 years old)</option>
-                                                                    <option value="retired">Retired(s)</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Submit form and terms-->
-                                                <div>
-                                                    <div class="form-group form-field d-none">
-                                                        <input type="hidden" class="form-control o_website_form_input" name="email_to" t-att-value="res_company.email"/>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-control" style="width: 100%; height: 100%;"><label for="terms"><input type="checkbox" class="o_website_form_input" id="terms" name="terms" required="required"/> By clicking here you agree to the <a href="https://www.mariescorner.com/mc-care-general-sales-conditions/" target="_new">terms and conditions</a> (french version available, other languages coming soon) of the MC Care service.</label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-control" style="width: 100%; height: 100%;"><label for="policy"><input type="checkbox" class="o_website_form_input" id="policy" name="policy" required="required"/> By clicking here you agree that your personal data will be used to manage the service and interventions connected to the MC Care service (see <a href="https://www.mariescorner.com/mc-care-privacy-policy/" target="_new">the MC Care Privacy policy</a>).</label></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-8 col-lg-7">
-                                                            <a href="#" class="btn btn-primary btn-lg o_website_form_send">Submit</a>
-                                                            <span id="o_website_form_result"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <div class="oe_structure" name="form_area">Add your form here</div>
                                     </div>
                                 </div>
                             </div>
@@ -192,12 +50,47 @@
     </data>
 
     <data noupdate="1">
+
+        <record id="warranty_activated" model="website.page">
+            <field name="name">MC Care Warranty Activated</field>
+            <field name="type">qweb</field>
+            <field name="url">/warranty-activated</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">mc_warranty.warranty_activated</field>
+            <field name="arch" type="xml">
+                <t name="MC Care Warranty Activated" t-name="mc_warranty.warranty_activated">
+                    <t t-call="website.layout">
+                      <div id="wrap">
+                        <div class="oe_structure"/>
+                        <div class="container pt-3">
+                            <h1>Activation of your MC Care warranty</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Your warranty has been successfully activated.
+                                        <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <t t-call="website.company_description"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                      </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+
         <record id="register_page" model="website.page">
             <field name="url">/register</field>
             <field name="is_published">True</field>
             <field name="view_id" ref="register_products_form"/>
             <field name="track">True</field>
         </record>
+
         <record id="register_product_menu" model="website.menu">
             <field name="name">Register Products</field>
             <field name="url">/register</field>

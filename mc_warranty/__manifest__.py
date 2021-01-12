@@ -8,7 +8,7 @@
 
     'summary': 'Mc Care Warranty',
     'description': """
-    This module adds a web survey that allows final customers to register their sale order as Mc Care.
+    This module adds a web form that allows final customers to register their Mc Care warranty.
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
@@ -19,7 +19,8 @@
         'views/stock_production_sales_lot_views.xml',
         'views/mrp_production_views.xml',
         'views/sale_order_views.xml',
-        'data/website_data.xml'
+        'data/website_data.xml',
+        'views/website_form_templates.xml'
     ],
     'auto_install': False,
     'installable': True,
