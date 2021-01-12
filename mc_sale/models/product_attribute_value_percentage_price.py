@@ -13,7 +13,7 @@ class PercentagePrice(models.Model):
         ('product_attribute_category_unique', 'UNIQUE(product_attribute_value_id, product_category_id)', _('Product category and attribute value combination must be unique.')),
     ]
 
-    product_attribute_value_id = fields.Many2one('product.attribute.value', string='Product Attribute Value', required=True)
+    product_attribute_value_id = fields.Many2one('product.attribute.value', string='Product Attribute Value', required=True, ondelete='cascade')
     price_extra = fields.Float(string='Extra Price', default=0.0)
     type = fields.Selection([('percentage', 'Percentage'), ('amount', 'Fix Amount')], sting='Type', default='percentage')
     percentage_price = fields.Float(string='Percentage Price', default=0.0, help='Value between 0 and 1 (e.g.: 0.5 = 50%).')
