@@ -14,7 +14,7 @@
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['purchase_stock', 'mc_sale', 'mc_sales_lot'],
+    'depends': ['purchase_stock', 'mc_warranty'],
     'data': [
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',

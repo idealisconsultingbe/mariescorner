@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='sales_person']" position="inside">
-                <field name="mc_care_warranty"/>
+<!--                <field name="mc_care_warranty"/>-->
                 <field name="final_partner_id"/>
             </xpath>
         </field>

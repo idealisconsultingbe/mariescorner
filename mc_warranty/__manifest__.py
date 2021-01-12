@@ -5,18 +5,18 @@
     'name': 'MsC Care Form',
     'version': '13.0.0.1',
     'category': 'Sales',
-    'summary': 'Sales Representative PDF Report',
+    'summary': 'Mc Care Warranty',
     'description': """
-    This module allows creation of a report for sales representatives in order to track their commission.
+    This module add a portal web survey that allows a customer to register is sale order as Mc Care.
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['account'],
+    'depends': ['account', 'mc_sale', 'mc_sales_lot'],
     'data': [
-        'views/res_partner_views.xml',
-        'report/res_partner_report.xml',
-        'report/res_partner_report_templates.xml',
-        'wizard/print_sales_commissions_views.xml'
+        # 'views/res_partner_views.xml',
+        'views/product_attribute_views.xml',
+        'views/stock_production_sales_lot_views.xml',
+        'views/mrp_production_views.xml',
     ],
     'auto_install': False,
     'installable': True,

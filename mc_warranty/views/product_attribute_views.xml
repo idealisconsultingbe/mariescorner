@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_view_form" model="ir.ui.view">
+        <field name="name">mc.product.attribute.view.form.is.fabric</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group>
+                    <field name="is_mc_care"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
