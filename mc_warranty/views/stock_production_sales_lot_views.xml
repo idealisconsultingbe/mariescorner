@@ -1,107 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="sales_lot_tree_view" model="ir.ui.view">
-        <field name="name">mc.sales.lot.tree.view</field>
-        <field name="model">stock.production.sales.lot</field>
-        <field name="arch" type="xml">
-            <tree name="sales_lot_tree" string="Manufacturing Numbers">
-                <field name="supplier_type" invisible="1"/>
-                <field name="name" readonly="1"/>
-                <field name="product_id" readonly="1"/>
-                <field name="partner_id" readonly="1"/>
-                <field name="sale_order_ids" widget="many2many_tags"/>
-                <field name="production_ids" widget="many2many_tags"/>
-                <field name="manufacturing_state" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                <field name="external_state" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="sales_lot_form_view" model="ir.ui.view">
-        <field name="name">mc.sales.lot.form.view</field>
-        <field name="model">stock.production.sales.lot</field>
-        <field name="arch" type="xml">
-            <form name="sales_lot_form">
-                <header>
-                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                    <field name="external_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
-                </header>
-                <sheet>
-                    <h1>
-                        <field name="name" readonly="1"/>
-                    </h1>
-                    <group string="General" name="general_fields">
-                        <field name="partner_id" readonly="1" force_save="1"/>
-                        <field name="partner_shipping_id" readonly="1"/>
-                        <field name="product_id" readonly="1"/>
-                        <field name="product_qty" readonly="1"/>
-                        <field name="product_uom_id" readonly="1"/>
-                        <field name="supplier_type" invisible="1"/>
-                    </group>
-                    <separator string="Lots/Serial Numbers"/>
-                    <field name="lot_ids" nolabel="1"/>
-                    <notebook>
-                        <page name="ext_company" string="External Company" attrs="{'invisible': [('supplier_type', '!=', 'external')]}">
-                            <group>
-                                <field name="manufacturing_date" class="oe_inline"/>
-                                <field name="shipped_date" class="oe_inline"/>
-                                <field name="ext_delivery_date" string="Planned Delivery Date" invisible="1"/>
-                            </group>
-                        </page>
-                        <page name="status" string="Status">
-                            <field name="log_sales_lot_status_ids" readonly="1"/>
-                        </page>
-                        <page name="sale_order" string="Sale Orders">
-                            <field name="sale_order_ids" readonly="1"/>
-                        </page>
-                        <page name="purchase_order" string="Purchase Orders">
-                            <field name="purchase_order_ids" context="{'tree_view_ref':'purchase.purchase_order_view_tree'}" readonly="1"/>
-                        </page>
-                        <page name="mrp_production" string="Manufacturing Orders" attrs="{'invisible': [('supplier_type', '!=', 'internal')]}">
-                            <field name="production_ids" readonly="1"/>
-                        </page>
-                        <page name="stock_picking" string="Pickings">
-                            <field name="picking_ids" readonly="1"/>
-                        </page>
-                    </notebook>
-                </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
-            </form>
-        </field>
-    </record>
 
     <record id="stock_production_sales_lot_view_search" model="ir.ui.view">
-        <field name="name">mc.manufacturing.number.search</field>
+        <field name="name">mc.manufacturing.number.search.inherited.warranty</field>
         <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
         <field name="arch" type="xml">
-            <search string="Manufacturing Numbers">
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="product_id"/>
-                <field name="production_ids"/>
-                <field name="sale_order_ids"/>
-                <separator/>
-                <group expand="0" string="Group By">
-                    <filter string="Customer" name="customer" context="{'group_by':'partner_id'}"/>
-                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
-                </group>
-            </search>
+            <xpath expr="//field[@name='sale_order_ids']" position="after">
+                <filter name="warranty" string="Warranty Activated" domain="[('mc_care_warranty', '=', True)]"/>
+            </xpath>
         </field>
     </record>
 
-    <record id="stock_production_sales_lot_action" model="ir.actions.act_window">
-        <field name="name">Manufacturing Numbers</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">stock.production.sales.lot</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="mc_sales_lot.sales_lot_tree_view"/>
-        <field name="search_view_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
-    </record>
+     <record id="sales_lot_form_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.form.view.inherited.mc.care</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.sales_lot_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='general_fields']" position="after">
+                <group string="Warranty">
+                    <field name="mc_care"/>
+                    <field name="mc_care_warranty" attrs="{'invisible': [('mc_care', '=', False)]}"/>
+                    <field name="final_partner_id" class="oe_inline"/>
+                </group>
+            </xpath>
+        </field>
+     </record>
 
-    <menuitem id="sale_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="sale.sale_order_menu" action="mc_sales_lot.stock_production_sales_lot_action"/>
-    <menuitem id="mrp_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="mrp.menu_mrp_bom" action="mc_sales_lot.stock_production_sales_lot_action"/>
 </odoo>

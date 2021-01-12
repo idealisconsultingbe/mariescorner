@@ -89,6 +89,9 @@
               .border-top-black {
                   border-top: 1px solid Black !important;
               }
+              .border-left-lightgray {
+                  border-left: 1px solid LightGray !important;
+              }
             </style>
 
             <div class="page" style="font-size: 12px;">
