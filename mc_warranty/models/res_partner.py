@@ -9,4 +9,3 @@ class Partner(models.Model):
 
     final_customer = fields.Boolean(string='Is Final Customer')
     final_customer_sale_order_ids = fields.One2many('sale.order', 'final_partner_id', string='Final Customer Sales')
-

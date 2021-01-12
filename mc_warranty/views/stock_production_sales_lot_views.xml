@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="stock_production_sales_lot_view_search" model="ir.ui.view">
-        <field name="name">mc.manufacturing.number.search.inherited.warranty</field>
-        <field name="model">stock.production.sales.lot</field>
-        <field name="inherit_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='sale_order_ids']" position="after">
-                <filter name="warranty" string="Warranty Activated" domain="[('mc_care_warranty', '=', True)]"/>
-            </xpath>
-        </field>
-    </record>
-
-     <record id="sales_lot_form_view" model="ir.ui.view">
+    <record id="sales_lot_form_view" model="ir.ui.view">
         <field name="name">mc.sales.lot.form.view.inherited.mc.care</field>
         <field name="model">stock.production.sales.lot</field>
         <field name="inherit_id" ref="mc_sales_lot.sales_lot_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='general_fields']" position="after">
                 <group string="Warranty">
-                    <field name="mc_care"/>
-                    <field name="mc_care_warranty" attrs="{'invisible': [('mc_care', '=', False)]}"/>
-                    <field name="final_partner_id" class="oe_inline"/>
+                    <field name="mc_care" readonly="1"/>
+                    <field name="mc_care_warranty" readonly="1" attrs="{'invisible': [('mc_care', '=', False)]}"/>
+                    <field name="final_partner_id" readonly="1" class="oe_inline"/>
                 </group>
             </xpath>
         </field>
      </record>
+
+    <record id="stock_production_sales_lot_view_search" model="ir.ui.view">
+        <field name="name">mc.manufacturing.number.mc.care.search</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//separator" position="before">
+                <filter string="Mc Care" name="mc_care" domain="[('mc_care', '=', True)]"/>
+                <filter string="Mc Care Warranty" name="mc_care_warranty" domain="[('mc_care_warranty', '=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
 
 </odoo>
