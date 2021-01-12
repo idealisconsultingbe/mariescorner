@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleslot">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="saleslot">
+                <t t-foreach="saleslot.production_ids" t-as="doc">
+                    <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
+                    <div style="page-break-after: always;"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleslot_labels">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="saleslot">
+                <t t-foreach="saleslot.production_ids" t-as="doc">
+                    <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

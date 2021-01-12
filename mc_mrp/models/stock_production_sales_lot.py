@@ -8,6 +8,7 @@ class ProductionSalesLot(models.Model):
     _inherit = 'stock.production.sales.lot'
 
     delivery_date = fields.Date(string='Planned Delivery Date', compute='_compute_delivery_date', store=True, help='Estimated delivery date provided by production team')
+    sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')
 
     @api.depends('production_ids.delivery_date', 'ext_delivery_date')
     def _compute_delivery_date(self):

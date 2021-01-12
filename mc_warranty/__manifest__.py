@@ -13,6 +13,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['account', 'mc_sale', 'mc_sales_lot'],
     'data': [
+        'report/mrp_production_templates.xml',
         # 'views/res_partner_views.xml',
         'views/product_attribute_views.xml',
         'views/stock_production_sales_lot_views.xml',

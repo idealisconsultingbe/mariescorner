@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mrp_saleslot_manufacturing_document" inherit_id="mc_sales_lot.report_mrp_saleslot_document">
+        <xpath expr="//div[@name='details']" position="inside">
+            <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="doc.sales_lot_id.sale_comment"/></p>
+        </xpath>
+
+        <xpath expr="//div[@name='details']" position="before">
+            <div name="manufacturing">
+                <strong>Article &amp; Quantity To Produce:</strong>
+                <p><strong class="m-0" t-field="doc.sales_lot_id.product_qty"/><strong>X </strong><strong class="m-0" t-field="doc.sales_lot_id.product_id.name"/></p>
+
+                <div class="row mt32 mb32" name="fabrics">
+                    <div class="col-auto mw-100 mb-2">
+                        <strong class="m-0" t-esc="len(doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric))"/> Fabric(s)
+                    </div>
+                    <div class="col-auto mw-100 mb-2">
+                        <table class="table table-sm">
+                            <tbody name="fabrics_tbody">
+                                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+                                    <tr>
+                                        <td>
+                                            <t t-set="total_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
+                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                            <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-esc="total_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row mt32 mb32" t-if="len(doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)) > 0" name="foots">
+                    <div class="col-auto mw-100 mb-2">
+                        <strong>Finish</strong>
+                    </div>
+
+                    <div class="col-auto mw-100 mb-2">
+                        <table class="table table-sm">
+                            <tbody name="fabrics_tbody">
+                                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)" t-as="raw">
+                                    <tr>
+                                        <td>
+                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_saleslot_labels_manufacturing_document" inherit_id="mc_warranty.report_mrp_saleslot_labels_mc_care_document">
+        <xpath expr="//div[@name='label_1']//div[@name='part_left']//div[@name='product']//div[@name='mc_care']" position="before">
+            <strong t-field="doc.product_id.name" style="font-size:14pt"/><br/>
+            <span style="font-size:10pt">Fabric(s):</span>
+
+            <table class="table table-sm" style="font-size:8pt">
+                <tbody name="fabrics_tbody">
+                    <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+                        <tr>
+                            <td>
+                                <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </xpath>
+
+        <xpath expr="//div[@name='label_2']//div[@name='order']" position="after">
+            <div class="row" name="fabrics">
+                <div class="col-auto">
+                    <span>Fabric(s): </span>
+                </div>
+                <div class="col-auto">
+                    <table class="table table-sm" style="font-size:8pt">
+                        <tbody name="fabrics_tbody">
+                            <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+                                <tr>
+                                    <td>
+                                        <t t-set="total_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
+                                        <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                        <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-esc="total_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
