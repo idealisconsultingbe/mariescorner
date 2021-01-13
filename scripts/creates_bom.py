@@ -9,15 +9,10 @@ import logging
 
 def prepare_raw_mat_values():
     return [
-        {'product_id': 35843, 'product_tmpl_id': 42728, 'product_qty': 1},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [2, 11, 41])], 'product_qty': 5, 'product_uom_id': 8},
-        {'product_tmpl_id': 7, 'product_attribute_ids': [(6, 0, [9, 16, 41])], 'product_qty': 0, 'product_uom_id': 8},
-        {'product_tmpl_id': 434, 'product_attribute_ids': [(6, 0, [4, 5])], 'product_qty': 4},
-        {'product_id': 553, 'product_tmpl_id': 430, 'product_qty': 4},
-        {'product_tmpl_id': 428, 'product_attribute_ids': [(6, 0, [23])], 'product_qty': 1},
-        {'product_id': 554, 'product_tmpl_id': 431, 'product_qty': 1},
-        {'product_id': 555, 'product_tmpl_id': 432, 'product_qty': 1.85},
-        {'product_id': 556, 'product_tmpl_id': 433, 'product_qty': 3},
+        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [65, 66, 73])], 'product_qty': 1, 'product_uom_id': 8},
+        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [67, 68, 73])], 'product_qty': 0, 'product_uom_id': 8},
+        {'product_tmpl_id': 15070, 'product_attribute_ids': [(6, 0, [69, 70])], 'product_qty': 4},
+        {'product_tmpl_id': 17094, 'product_attribute_ids': [(6, 0, [74])], 'product_qty': 1},
     ]
 
 
@@ -26,7 +21,7 @@ def prepare_bom_values(product):
         'product_tmpl_id': product.id,
         'product_qty': 1,
         'type': 'normal',
-        'company_id': 2,
+        'company_id': 3,
         'bom_line_ids': [(0, 0, raw_mat_values) for raw_mat_values in prepare_raw_mat_values()],
     }
 

@@ -60,7 +60,7 @@ parser.add_argument('secondary_attribute_id')
 parser.add_argument('xlsx_file')
 args = parser.parse_args()
 
-end_row = 133 #int(input("What is the last line of your xlsx file? "))
+end_row = int(input("What is the last line of your xlsx file? "))
 session.open(db=args.database)
 attribute_combinaison = read_csv(args.xlsx_file)
 attribute_combinaison_inverse = inverse_attribute_combinaison(attribute_combinaison)
