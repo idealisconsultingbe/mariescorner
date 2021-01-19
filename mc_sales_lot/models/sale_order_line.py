@@ -45,6 +45,7 @@ class SaleOrderLine(models.Model):
             'product_uom_id': self.product_uom.id,
             'partner_id': self.order_id.partner_id.id,
             'partner_shipping_id': self.order_id.partner_shipping_id.id,
+            'carrier_id': self.order_id.carrier_id.id,
             'origin_sale_order_line_id': self.id,
             'product_qty': self.product_uom_qty,
         }

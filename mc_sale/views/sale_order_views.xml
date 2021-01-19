@@ -7,6 +7,9 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="carrier_id"/>
+            </xpath>
             <xpath expr="//tree/field[@name='price_unit']" position="attributes">
                 <attribute name="string">Customer Price</attribute>
             </xpath>

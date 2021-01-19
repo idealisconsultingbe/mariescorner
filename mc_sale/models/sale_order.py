@@ -8,6 +8,7 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    carrier_id = fields.Many2one('delivery.carrier', compute='_compute_carrier_id', store=True, help='Automatically filled with the first shipping method available for current delivery address.')
     comment = fields.Html(string="Comment")
     po_state = fields.Selection([
         ('none', 'None'),
@@ -18,6 +19,14 @@ class SaleOrder(models.Model):
         ('done', 'Locked'),
         ('cancel', 'Cancelled')
     ], string='Purchase Order Status', compute='_compute_po_state')
+
+    @api.depends('partner_shipping_id')
+    def _compute_carrier_id(self):
+        """ Compute shipping method according to delivery address """
+        for order in self:
+            carriers = self.env['delivery.carrier'].search(['|', ('company_id', '=', False), ('company_id', '=', order.company_id.id)])
+            available_carriers = carriers.available_carriers(order.partner_shipping_id) if order.partner_shipping_id else carriers
+            order.carrier_id = available_carriers[0] if available_carriers else False
 
     def _compute_po_state(self):
         """ Retrieve Purchase Order Status from related purchase order """

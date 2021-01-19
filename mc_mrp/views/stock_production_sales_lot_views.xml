@@ -8,6 +8,11 @@
             <xpath expr="//field[@name='product_uom_id']" position="after">
                 <field name="delivery_date" string="Planned Delivery Date"/>
             </xpath>
+            <xpath expr="//group[@name='main']" position="inside">
+                <group string="Comment" name="sale_comment">
+                    <field name="sale_comment" readonly="1"/>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>
