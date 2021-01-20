@@ -32,5 +32,6 @@ class StockRule(models.Model):
             if move_dest_ids[0].sales_lot_id:
                 res['sales_lot_id'] = move_dest_ids[0].sales_lot_id.id
         else:
-            res['sales_lot_id'] = values.get('sales_lot_id', False)
+            sales_lot = values.get('sales_lot_id', False)
+            res['sales_lot_id'] = sales_lot.id if sales_lot else False
         return res

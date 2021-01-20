@@ -22,10 +22,6 @@
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
                 <field name="list_price_extra" string="Public Price"/>
             </xpath>
-            <xpath expr="//button[@name='action_confirm'][2]" position="after">
-                <field name="po_state" invisible="1"/>
-                <button name="action_confirm_purchase_order" string="Send To Manufacturing" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
-            </xpath>
             <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="after">
                 <field name="fabrics_meterage_needed" invisible="1"/>

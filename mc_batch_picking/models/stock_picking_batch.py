@@ -55,7 +55,8 @@ class StockPickingBatch(models.Model):
         self.ensure_one()
         if self.picking_type_id:
             pickings = self.env['stock.picking'].search([('state', 'in', ('waiting', 'confirmed')), ('picking_type_id', '=', self.picking_type_id.id)])
-            pickings.action_assign()
+            if pickings:
+                pickings.action_assign()
             domain = [('company_id', '=', self.company_id.id), ('state', '=', 'assigned'), ('picking_type_id', '=', self.picking_type_id.id)]
             if self.delivery_carrier_id:
                 domain.extend([('carrier_id', '=', self.delivery_carrier_id.id)])
@@ -85,7 +86,7 @@ class StockPickingBatch(models.Model):
         res = super(StockPickingBatch, self).done()
 
 
-        if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id :
+        if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id and self.picking_ids.filtered(lambda p: p.state not in ('done', 'cancel')):
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
             company_partners |= self.env['res.partner'].search([('parent_id', 'in', company_partners.ids)])
             company_pickings = self.mapped('picking_ids').filtered(lambda pick: pick.partner_id in company_partners)
