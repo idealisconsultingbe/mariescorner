@@ -16,6 +16,8 @@ class SaleOrderLine(models.Model):
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
     price_unit = fields.Float(string='Customer Price')
+    list_price = fields.Float(string='Base Price', digits='Product Price',
+                              help='This is the product public price')
     list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price',
                                     help='This is the product public price and the sum of the extra price of all attributes (with custom values)')
 
@@ -94,16 +96,17 @@ class SaleOrderLine(models.Model):
             for pacv in self.product_custom_attribute_value_ids.filtered(lambda p: p.custom_product_template_attribute_value_id.attribute_id.display_short_description and p.custom_product_template_attribute_value_id.attribute_id not in desc_line_attributes):
                 product_configuration += '\n' + pacv.with_context(lang=self.order_id.partner_id.lang).display_name
 
-        self.update({'short_name': '{}\n{}{}'.format(product_description, formatted_product_configuration, product_configuration)})
+        self.update({'short_name': '{}\n{}{}'.format(product_description, formatted_product_configuration, product_configuration),
+                     'list_price': product.list_price,})
         return res
 
     @api.depends('product_custom_attribute_value_ids',
                  'product_no_variant_attribute_value_ids',
                  'product_id.product_template_attribute_value_ids',
-                 'product_id.list_price')
+                 'list_price')
     def _compute_list_price_extra(self):
         for line in self:
-            price = line.product_id.list_price
+            price = line.list_price
             extra_prices = line._get_no_variant_attributes_price_extra(line.product_id)
             if extra_prices:
                 precision = self.env['decimal.precision'].precision_get('Product Price')
