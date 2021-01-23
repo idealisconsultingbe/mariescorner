@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mc_report_purchasequotation_document" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//td[@id='product']" position="replace">
+            <td id="product">
+                <span t-field="order_line.short_name"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
