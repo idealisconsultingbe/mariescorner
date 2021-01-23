@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
+
+
 {
-    'name': "MsC Sale Layout",
+    'name': "MsC Purchase Layout",
     'version': '13.0.0.1',
-    'category': 'Sales/Sales',
-    'summary': 'Modifications to Sales Orders layout',
+    'category': 'Operations/Purchase',
+    'summary': 'Modifications to Purchases Orders layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'mc_sale', 'mc_sales_lot'],
+    'depends': ['web', 'purchase'],
     'data': [
-        'report/sale_order_templates.xml',
-        'report/sale_report.xml',
-        'views/sale_order_templates.xml',
-        'views/ir_qweb_widget_templates.xml',
+        'report/purchase_quotation_templates.xml',
+        'report/purchase_order_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
