@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="register_products" model="ir.ui.view">
+            <field name="name">Register Products</field>
+            <field name="type">qweb</field>
+            <field name="key">mc_warranty.register_products</field>
+            <field name="arch" type="xml">
+                <t name="Register Products" t-name="mc_warranty.register_products">
+                    <t t-call="website.layout">
+                        <div id="wrap">
+                            <div class="oe_structure">
+                                <section class="pt8 pb8">
+                                    <div class="container">
+                                        <div class="row s_nb_column_fixed">
+                                            <div class="col-lg-12 s_title pt16 pb16">
+                                                <h1>Register Products</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="container mt-2">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="oe_structure">
+                                            <section class="s_text_block">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <p>
+                                                                Register here your products (if it is not already done). All personal and product information are mandatory.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div class="oe_structure" name="form_area">Add your form here</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oe_structure mt-2"/>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+
+        <record id="warranty_activated" model="website.page">
+            <field name="name">MC Care Warranty Activated</field>
+            <field name="type">qweb</field>
+            <field name="url">/warranty-activated</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">mc_warranty.warranty_activated</field>
+            <field name="arch" type="xml">
+                <t name="MC Care Warranty Activated" t-name="mc_warranty.warranty_activated">
+                    <t t-call="website.layout">
+                      <div id="wrap">
+                        <div class="oe_structure"/>
+                        <div class="container pt-3">
+                            <h1>Activation of your MC Care warranty</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Your warranty has been successfully activated.
+                                        <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <t t-call="website.company_description"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                      </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+        <record id="register_page" model="website.page">
+            <field name="url">/register</field>
+            <field name="is_published">True</field>
+            <field name="view_id" ref="register_products_form"/>
+            <field name="track">True</field>
+        </record>
+
+        <record id="register_product_menu" model="website.menu">
+            <field name="name">Register Products</field>
+            <field name="url">/register</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">61</field>
+        </record>
+    </data>
+
+</odoo>
