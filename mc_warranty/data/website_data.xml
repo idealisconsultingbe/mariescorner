@@ -87,7 +87,7 @@
         <record id="register_page" model="website.page">
             <field name="url">/register</field>
             <field name="is_published">True</field>
-            <field name="view_id" ref="register_products_form"/>
+            <field name="view_id" ref="register_products"/>
             <field name="track">True</field>
         </record>
 

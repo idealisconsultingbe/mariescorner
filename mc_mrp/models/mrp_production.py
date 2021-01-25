@@ -107,7 +107,7 @@ class MrpProduction(models.Model):
                         pcav = custom_attribute_values.filtered(lambda v: v.custom_product_template_attribute_value_id.attribute_id in shared_attributes)
                         if len(pcav) == 1:
                             try:
-                                res['product_uom_qty'] = float(pcav.custom_value)
+                                res['product_uom_qty'] = float(pcav.custom_value) * self.product_qty
                             except ValueError:
                                 pass
                     else:

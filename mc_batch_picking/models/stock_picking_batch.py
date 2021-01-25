@@ -85,8 +85,8 @@ class StockPickingBatch(models.Model):
             raise UserError(_('Nothing to check the availability for. Please update at least one quantity done.'))
         res = super(StockPickingBatch, self).done()
 
-
-        if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id and self.picking_ids.filtered(lambda p: p.state not in ('done', 'cancel')):
+        self.write({'state': 'done'})
+        if self.picking_type_code == 'outgoing' and not self.inter_company_batch_picking_id:
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
             company_partners |= self.env['res.partner'].search([('parent_id', 'in', company_partners.ids)])
             company_pickings = self.mapped('picking_ids').filtered(lambda pick: pick.partner_id in company_partners)
@@ -106,7 +106,7 @@ class StockPickingBatch(models.Model):
                         'picking_ids': [(6, 0, pickings.ids)],
                         'partner_id': self.company_id.partner_id.id,
                         'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
-                        'inter_company_batch_picking_id': self.id
+                        'inter_company_batch_picking_ids': [(4, self.id)]
                     })
                     inter_company_batch.confirm_picking()
         return res

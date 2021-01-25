@@ -21,7 +21,7 @@
         'views/mrp_production_views.xml',
         'views/sale_order_views.xml',
         'data/website_data.xml',
-        'views/website_form_templates.xml'
+        'views/website_form_templates.xml',
     ],
     'auto_install': False,
     'installable': True,
