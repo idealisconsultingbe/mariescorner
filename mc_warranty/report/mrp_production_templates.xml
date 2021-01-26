@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_mrp_saleslot_mc_care_document" inherit_id="mc_sales_lot.report_mrp_saleslot_document">
-        <xpath expr="//div[@class='page']" position="inside">
+        <xpath expr="//div[@name='destination']" position="after">
             <div name="details">
                 <p><strong>Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong></p>
             </div>
@@ -14,11 +14,6 @@
                 <div name="mc_care">
                     <strong >Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong>
                 </div>
-            </div>
-        </xpath>
-        <xpath expr="//div[@name='label_2']" position="inside">
-            <div name="mc_care">
-                <strong>Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care"><span class="m-0" t-field="doc.product_qty"/><span> </span><span class="m-0" t-field="doc.product_uom_id.name"/></strong><strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong>
             </div>
         </xpath>
     </template>

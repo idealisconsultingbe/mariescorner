@@ -1,56 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_mrp_saleslot_manufacturing_document" inherit_id="mc_sales_lot.report_mrp_saleslot_document">
-        <xpath expr="//div[@name='details']" position="inside">
-            <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="doc.sales_lot_id.sale_comment"/></p>
+
+        <xpath expr="//div[@name='barcode']" position="after">
+            <div name="date">
+                <p> <strong>Fabric Date:</strong> <strong class="m-0" t-field="doc.fabric_date"/> </p>
+                <p> <strong>Delivery Date:</strong> <strong class="m-0" t-field="doc.delivery_date"/> </p>
+            </div>
         </xpath>
-
-        <xpath expr="//div[@name='details']" position="before">
-            <div name="manufacturing">
-                <strong>Article &amp; Quantity To Produce:</strong>
-                <p><strong class="m-0" t-field="doc.sales_lot_id.product_qty"/><strong>X </strong><strong class="m-0" t-field="doc.sales_lot_id.product_id.name"/></p>
-
-                <div class="row mt32 mb32" name="fabrics">
-                    <div class="col-auto mw-100 mb-2">
-                        <strong class="m-0" t-esc="len(doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric))"/> Fabric(s)
-                    </div>
-                    <div class="col-auto mw-100 mb-2">
-                        <table class="table table-sm">
-                            <tbody name="fabrics_tbody">
-                                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+        <xpath expr="//div[@name='label_1']" position="after">
+            <div name="label_2">
+                <div t-if="len(doc.move_raw_ids.mapped('move_line_ids').filtered(lambda move_line: move_line.product_id.is_fabric)) > 0" name="fabrics">
+                    <t t-set="move_line_index" t-value="1"/>
+                    <t t-foreach="doc.finished_move_line_ids" t-as="finished_move_line">
+                        <div name="sub_label" style="page-break-inside:avoid;">
+                            <div style="border-bottom: 1px solid black;"/>
+                            <div class="row mt32 mb32" id="secondary_row">
+                                <div class="col-6" name="finished_product_info">
+                                    <strong>Model (Finished Product): </strong><strong class="m-0" t-field="doc.product_id.name"/>
+                                </div>
+                                <div class="col-6" name="quantity_info" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                                    <p><strong>Quantity:</strong> <span t-esc="move_line_index"/> / <span t-field="doc.product_qty"/></p>
+                                    <p><strong>Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong></p>
+                                </div>
+                            </div>
+                            <table class="table table-sm" name="fabrics_table">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <t t-set="total_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
-                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
-                                            <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-esc="total_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/>
-                                        </td>
+                                        <th>Fabrics</th>
+                                        <th>Lot</th>
+                                        <th>Quantity</th>
                                     </tr>
-                                </t>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                </thead>
+                                <tbody name="fabrics_tbody">
+                                    <t t-foreach="doc.move_raw_ids.mapped('move_line_ids').filtered(lambda move_line: move_line.product_id.is_fabric and move_line.lot_produced_ids in finished_move_line.lot_id)" t-as="raw_line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="raw_line.product_id.default_code"/><br/>
+                                            </td>
+                                            <td>
+                                                <span t-field="raw_line.lot_id"/><br/>
+                                            </td>
+                                            <td>
+                                                <span t-field="raw_line.qty_done"/><br/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
 
-                <div class="row mt32 mb32" t-if="len(doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)) > 0" name="foots">
-                    <div class="col-auto mw-100 mb-2">
-                        <strong>Finish</strong>
-                    </div>
+                            <div class="row mt32 mb32" t-if="len(doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)) > 0" name="foots">
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>Legs: </strong>
+                                </div>
 
-                    <div class="col-auto mw-100 mb-2">
-                        <table class="table table-sm">
-                            <tbody name="fabrics_tbody">
-                                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)" t-as="raw">
-                                    <tr>
-                                        <td>
-                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
-                    </div>
+                                <div class="col-auto mw-100 mb-2">
+                                    <table class="table table-sm">
+                                        <tbody name="fabrics_tbody">
+                                            <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_foot)" t-as="raw">
+                                                <tr>
+                                                    <td>
+                                                        <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="doc.sales_lot_id.sale_comment"/></p>
+
+                            <t t-set="move_line_index" t-value="move_line_index + 1"/>
+                        </div>
+                    </t>
                 </div>
             </div>
+
+            <div style="border-bottom: 1px solid black;"/> <br/>
+
+            <div name="label_3" style="page-break-inside:avoid;">
+                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+                    <div class="row" name="order">
+                        <span>ORDER: </span> <span class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/> <span> / </span>
+                        <span>SHEET: </span> <span class="m-0" t-field="doc.sales_lot_id.name"/> <br/>
+                        <span>MODEL: </span> <span class="m-0" t-field="doc.product_id.name"/> <span> / </span>
+                        <span>Quantity: </span> <span class="m-0" t-field="doc.product_qty"/>
+                    </div>
+                    <div class="row" name="fabrics">
+                        <div class="col-auto">
+                            <span>Fabric(s): </span>
+                        </div>
+                        <div class="col-auto">
+                            <table class="table table-sm" style="font-size:8pt">
+                                <tbody name="fabrics_tbody">
+                                    <tr>
+                                        <td>
+                                            <t t-if="doc.product_qty">
+                                                <t t-set="unit_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="unit_meterage_needed" t-value="raw.product_uom_qty * 1.0" />
+                                            </t>
+                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                            <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-esc="unit_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </div> <br/>
         </xpath>
     </template>
 
@@ -70,29 +131,6 @@
                     </t>
                 </tbody>
             </table>
-        </xpath>
-
-        <xpath expr="//div[@name='label_2']//div[@name='order']" position="after">
-            <div class="row" name="fabrics">
-                <div class="col-auto">
-                    <span>Fabric(s): </span>
-                </div>
-                <div class="col-auto">
-                    <table class="table table-sm" style="font-size:8pt">
-                        <tbody name="fabrics_tbody">
-                            <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
-                                <tr>
-                                    <td>
-                                        <t t-set="total_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
-                                        <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
-                                        <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-esc="total_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/>
-                                    </td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </xpath>
     </template>
 </odoo>

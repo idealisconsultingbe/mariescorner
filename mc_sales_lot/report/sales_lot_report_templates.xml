@@ -4,9 +4,14 @@
         <t t-call="web.basic_layout">
             <t t-set="docs" t-value="docs.sudo()"/>
             <t t-foreach="docs" t-as="saleslot">
-                <t t-foreach="saleslot.production_ids" t-as="doc">
-                    <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
-                    <div style="page-break-after: always;"/>
+                <t t-if="saleslot.production_ids">
+                    <t t-foreach="saleslot.production_ids" t-as="doc">
+                        <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.env.lang"/>
+                        <div style="page-break-after: always;"/>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.env.lang"/>
                 </t>
             </t>
         </t>
@@ -17,7 +22,7 @@
             <t t-set="docs" t-value="docs.sudo()"/>
             <t t-foreach="docs" t-as="saleslot">
                 <t t-foreach="saleslot.production_ids" t-as="doc">
-                    <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
+                    <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.env.lang"/>
                 </t>
             </t>
         </t>
