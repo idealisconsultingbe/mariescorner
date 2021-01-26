@@ -3,17 +3,16 @@
 
 
 {
-    'name': "MsC Purchase Layout",
+    'name': "MsC Stock Layout",
     'version': '13.0.0.1',
     'category': 'Operations/Purchase',
-    'summary': 'Modifications to Purchases Orders layout',
+    'summary': 'Modifications to Stock Qweb layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'purchase'],
+    'depends': ['web', 'mc_sales_lot'],
     'data': [
-        'report/purchase_quotation_templates.xml',
-        'report/purchase_order_templates.xml',
-        'views/purchase_order_views.xml',
+        'report/stock_picking_templates.xml',
+        'report/stock_picking_report.xml',
     ],
     'installable': True,
     'auto_install': False,
