@@ -101,8 +101,9 @@ class StockPickingBatch(models.Model):
                         if purchase_line_ids:
                             pickings |= purchase_line_ids.mapped('move_ids').filtered(lambda m: m.state in ['waiting', 'confirmed', 'draft', 'partially_available', 'assigned']).mapped('picking_id')
                 if pickings:
-                    inter_company_batch = self.env['stock.picking.batch'].create({
-                        'company_id': self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False,
+                    inter_company_id = self.env['res.company'].search([('partner_id', '=', partner.id)]).id or False
+                    inter_company_batch = self.env['stock.picking.batch'].with_context(force_company=inter_company_id).create({
+                        'company_id': inter_company_id,
                         'picking_ids': [(6, 0, pickings.ids)],
                         'partner_id': self.company_id.partner_id.id,
                         'picking_type_id': self.env['stock.picking.type'].search([('code', '=', 'incoming')], limit=1).id or False,
