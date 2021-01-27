@@ -11,7 +11,8 @@ class MrpProduction(models.Model):
 
     sale_description = fields.Text(string='Product Description', compute='_compute_sale_information')
     show_sale_description = fields.Boolean(string='Is Description Visible', compute='_compute_sale_information')
-    sale_comment = fields.Text(string='Comment', compute='_compute_sale_information')
+    sale_comment = fields.Text(string='Sale Comment', compute='_compute_sale_information')
+    editable_sale_comment = fields.Text(string='Comment', related='sale_comment', store=True, readonly=False)
     show_sale_comment = fields.Boolean(string='Is Comment Visible', compute='_compute_sale_information')
     delivery_date = fields.Date(string='Planned Delivery Date', help='Planned date for this product to be delivered according to production time')
 
@@ -43,8 +44,11 @@ class MrpProduction(models.Model):
                 if sale_line_id.name:
                     production.sale_description = sale_line_id.name
                     production.show_sale_description = True
-                if sale_line_id.comment:
-                    production.sale_comment = sale_line_id.comment
+                if sale_line_id.comment or production.editable_sale_comment:
+                    if production.editable_sale_comment:
+                        production.sale_comment = production.editable_sale_comment
+                    else:
+                        production.sale_comment = sale_line_id.comment
                     production.show_sale_comment = True
 
     def _get_moves_raw_values(self):

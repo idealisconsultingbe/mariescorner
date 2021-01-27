@@ -6,6 +6,11 @@
             <field name="model">mrp.production</field>
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="inside">
+                    <group string="Sale Order Warning Comment" class="oe_edit_only">
+                        <field name="editable_sale_comment" nolabel="1"/>
+                    </group>
+                </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="Sale Description" attrs="{'invisible': [('show_sale_description', '=', False)]}">
                         <field name="show_sale_description" invisible="1"/>
@@ -18,8 +23,8 @@
                 <xpath expr="//h1/.." position="before">
                     <field name="show_sale_comment" invisible="1"/>
                     <div role="alert" class="alert alert-warning" attrs="{'invisible': [('show_sale_comment', '=', False)]}">
-                        <label for="sale_comment" string="Sale Order Comment" attrs="{'invisible': [('show_sale_comment', '=', False)]}" />
-                        <field name="sale_comment" attrs="{'invisible': [('show_sale_comment', '=', False)]}" />
+                        <label for="sale_comment" string="Sale Order Comment"/>
+                        <field name="sale_comment"/>
                     </div>
                 </xpath>
             </field>

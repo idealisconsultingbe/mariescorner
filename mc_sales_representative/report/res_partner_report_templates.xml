@@ -80,12 +80,6 @@
               .fs-11rem {
                   font-size: 1.1rem;
               }
-              .no-border-bottom {
-                  border-bottom: 0px !important;
-              }
-              .no-border-top {
-                  border-top: 0px !important;
-              }
               .border-top-black {
                   border-top: 1px solid Black !important;
               }
@@ -109,13 +103,13 @@
                         <t t-foreach="representative_data.get('invoices', [])" t-as="invoice">
                             <div style="page-break-inside: avoid;">
                                 <tr>
-                                    <td class="text-left fs-11rem no-border-bottom" colspan="8">
+                                    <td class="text-left fs-11rem border-bottom-0" colspan="8">
                                         <span t-esc="'{}{}'.format(invoice.get('name', 'None'), ' ({})'.format(invoice.get('ref')) if invoice.get('ref') else '')"/>
                                     </td>
                                 </tr>
                                 <t t-foreach="invoice.get('lines', [])" t-as="line">
                                     <tr>
-                                        <td class="no-border-top no-border-bottom"><span> </span></td>
+                                        <td class="border-top-0 border-bottom-0"><span> </span></td>
                                         <td class="text-left border-left-lightgray"><span t-esc="line.get('order_no', 'None')"/></td>
                                         <td class="text-left border-left-lightgray"><span t-esc="line.get('invoice_no', 'None')"/></td>
                                         <td class="text-center border-left-lightgray"><span t-esc="line.get('invoice_date', 'None')"/></td>
@@ -126,7 +120,7 @@
                                     </tr>
                                 </t>
                                 <tr>
-                                    <td class="no-border-top"><span> </span></td>
+                                    <td class="border-top-0"><span> </span></td>
                                     <td class="text-right border-left-lightgray" colspan="4"><strong>Total</strong></td>
                                     <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('total', 0.0)"/></strong></td>
                                     <td class="border-left-lightgray"><span> </span></td>

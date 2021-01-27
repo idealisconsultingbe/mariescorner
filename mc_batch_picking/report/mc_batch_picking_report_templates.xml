@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="packing_list_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <!-- Multicompany -->
+        <t t-if="not company">
+            <t t-if="company_id"><t t-set="company" t-value="company_id"/></t>
+            <t t-elif="o and 'company_id' in o"><t t-set="company" t-value="o.company_id.sudo()"/></t>
+            <t t-else="else"><t t-set="company" t-value="res_company"/></t>
+        </t>
+        <div class="header" style="font-size: small;">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Marie's Corner</h1>
+                    <ul t-if="company" class="list-inline mb-1">
+                        <li class="list-inline-item d-inline"><span t-field="company.street"/></li>
+                        <li class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/></li>
+                    </ul>
+                    <ul t-if="company and (company.phone or company.partner_id.mobile)" class="list-inline mb-1">
+                        <li t-if="company.phone" class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/> <span t-field="company.phone"/></li>
+                        <li t-if="company.partner_id.mobile" class="list-inline-item d-inline"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/> <span t-field="company.partner_id.mobile"/></li>
+                    </ul>
+                    <ul t-if="company and (company.email or company.vat)" class="list-inline">
+                        <li t-if="company.email" class="list-inline-item d-inline"><i class='fa fa-envelope' role="img" aria-label="Email" title="Email"/> <span t-field="company.email"/></li>
+                        <li t-if="company.vat" class="list-inline-item d-inline"><i class='fa fa-building-o' role="img" aria-label="Vat" title="Vat"/> <span t-field="company.vat"/></li>
+                    </ul>
+                </div>
+                <div class="col-6 text-right">
+                    <div class="d-inline-block text-muted">Date: <span t-esc="datetime.date.today()"/></div>
+                    <div class="d-inline-block text-muted">Page: <span class="page"/> / <span class="topage"/></div>
+                    <h2 class="mt-5 mb-1" style="font-size: 1.6rem;">Packing List for Shipment</h2>
+                </div>
+            </div>
+            <hr class="mt-1" width="100%" style="border-top: 3px solid #bbb;"/>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="batch_packing_list_document">
+        <t t-call="web.html_container">
+            <t t-call="mc_batch_picking.packing_list_external_layout">
+
+                <t t-if="not o">
+                    <t t-set="pickings" t-value="docs.sudo().filtered(lambda pick: pick.mapped('move_lines.quantity_done'))"/>
+                    <t t-set="moves_done" t-value="docs.sudo().mapped('move_lines').filtered(lambda m: m.quantity_done)"/>
+                </t>
+                <t t-else="">
+                    <t t-set="pickings" t-value="o.picking_ids.filtered(lambda pick: pick.mapped('move_lines.quantity_done'))"/>
+                    <t t-set="moves_done" t-value="o.picking_ids.mapped('move_lines').filtered(lambda m: m.quantity_done)"/>
+                </t>
+
+                <t t-if="not o">
+                    <t t-set="pickings" t-value="docs.sudo().filtered(lambda pick: any([move.quantity_done > 0 for move in pick.move_lines]))"/>
+                    <t t-set="moves_done" t-value="docs.sudo().mapped('move_lines').filtered(lambda m: m.quantity_done)"/>
+                </t>
+                <t t-else="">
+                    <t t-set="pickings" t-value="o.picking_ids.filtered(lambda pick: any([move.quantity_done > 0 for move in pick.move_lines]))"/>
+                    <t t-set="moves_done" t-value="o.picking_ids.mapped('move_lines').filtered(lambda m: m.quantity_done)"/>
+                </t>
+
+                <style type="text/css">
+                      table.table-lightgray th {
+                          background-color: LightGray;
+                      }
+                      .border-top-black {
+                          border-top: 1px solid Black !important;
+                      }
+                      .border-bottom-black {
+                          border-bottom: 1px solid Black !important;
+                      }
+                </style>
+
+                <div class="page" style="font-size: small;">
+                    <table class="table table-sm table-lightgray">
+                        <t t-foreach="pickings" t-as="pick">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><strong>Picking</strong></th>
+                                    <th t-if="pick.sale_id" class="text-left"><strong>Order</strong></th>
+                                    <th class="text-left"><strong>Name</strong></th>
+                                    <th class="text-center"><strong>Ref</strong></th>
+                                    <th class="text-center"><strong>Street</strong></th>
+                                    <th class="text-center"><strong>City</strong></th>
+                                    <th class="text-center"><strong>Lang</strong></th>
+                                    <th class="text-center"><strong>Phone</strong></th>
+                                    <th class="text-center"><strong>Mobile</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody style="page-break-inside: avoid;">
+                                <tr>
+                                    <td class="text-left"><span t-field="pick.name"/></td>
+                                    <td t-if="pick.sale_id" class="text-left"><span t-field="pick.sale_id.name"/></td>
+                                    <td class="text-left"><span t-field="pick.partner_id.name"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.ref"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.street"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.zip"/> <span t-field="pick.partner_id.city"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.lang"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.phone"/></td>
+                                    <td class="text-center"><span t-field="pick.partner_id.mobile"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="border-top-0"/>
+                                    <td colspan="99" class="border-top-0">
+                                       <t t-set="moves" t-value="pick.move_lines.filtered(lambda m: m.quantity_done)"/>
+                                       <table class="table table-sm mb-0" t-if="moves">
+                                          <thead>
+                                              <tr>
+                                                  <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Origin</strong></th>
+                                                  <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>
+                                                  <th class="text-left border-bottom-black"><strong>Product</strong></th>
+                                                  <th class="text-center border-bottom-black"><strong>Quantity</strong></th>
+                                                  <th class="text-center border-bottom-black"><strong>Volume</strong>(m³)</th>
+                                                  <th class="text-center border-bottom-black"><strong>Weight</strong>(kg)</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr t-foreach="moves" t-as="move">
+                                                  <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id and move.sales_lot_id.origin_sale_order_line_id" t-field="move.sales_lot_id.origin_sale_order_line_id.name"/></td>
+                                                  <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
+                                                  <td class="text-left"><span t-field="move.product_id.name"/></td>
+                                                  <td class="text-right"><span t-field="move.quantity_done"/></td>
+                                                  <td class="text-right"><span t-esc="move.quantity_done * move.product_id.volume"/></td>
+                                                  <td class="text-right"><span t-esc="move.quantity_done * move.product_id.weight"/></td>
+                                              </tr>
+                                              <tr>
+                                                  <td class="border-top-black" t-if="moves.mapped('sales_lot_id')"/>
+                                                  <td class="border-top-black" t-if="moves.mapped('sales_lot_id')"/>
+                                                  <td class="border-top-black"/>
+                                                  <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum(moves.mapped('quantity_done'))"/></strong></td>
+                                                  <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum(moves.mapped(lambda m: m.product_id.volume * m.quantity_done))"/></strong></td>
+                                                  <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum(moves.mapped(lambda m: m.product_id.weight * m.quantity_done))"/></strong></td>
+                                              </tr>
+                                          </tbody>
+                                       </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="99" t-if="pick.sale_id and pick.sale_id.comment" class="border-top-0"><span t-field="pick.sale_id.comment"/></td>
+                                </tr>
+                            </tbody>
+                        </t>
+                    </table>
+                    <div class="clearfix">
+                        <div class="row">
+                            <div class="col-sm-7 col-md-5">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_total">
+                                        <td class="text-right" style="width: 50%;"><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-esc="'%.2f' % sum(moves_done.mapped('quantity_done'))"/> <span>units</span>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-esc="'%.2f' % sum(moves_done.mapped(lambda m: m.product_id.volume * m.quantity_done))"/> <span>m³</span>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span t-esc="'%.2f' % sum(moves_done.mapped(lambda m: m.product_id.weight * m.quantity_done))"/> <span>kg</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+         </t>
+    </template>
+
+    <template id="batch_packing_list_report_template">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="mc_batch_picking.batch_packing_list_document" t-lang="o.company_id.partner_id.lang"/>
+        </t>
+    </template>
+
+</odoo>

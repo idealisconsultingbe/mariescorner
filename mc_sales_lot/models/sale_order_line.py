@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    manufacturing_state = fields.Selection(String='Manufacturing State', related='sales_lot_id.manufacturing_state')
     sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Manufacturing Number', copy=False)
     sales_lot_id_required = fields.Boolean(string='Manufacturing Number Required', compute='_compute_sales_lot_id_required')
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')

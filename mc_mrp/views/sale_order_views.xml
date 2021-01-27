@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_confirm'][2]" position="after">
                 <field name="po_state" invisible="1"/>
-                <button name="action_confirm_purchase_order" string="Send To Manufacturing" type="object" attrs="{'invisible': ['|', ('po_state', '!=', 'draft'), ('state', 'in', ['draft', 'cancel'])]}"/>
+                <button name="action_confirm_purchase_order" string="Send To Manufacturing" type="object" attrs="{'invisible': ['|', ('po_state', 'not in', ['draft', 'multi_draft']), ('state', 'in', ['draft', 'cancel'])]}"/>
             </xpath>
             <xpath expr="//field[@name='validity_date']" position="before">
                 <field name="manufacturing_state"/>
@@ -46,6 +46,7 @@
         <field name="arch" type="xml">
             <filter name="my_sale_orders_filter" position="before">
                 <separator/>
+                <filter string="To Confirm" domain="[('manufacturing_state', '=', 'to_confirm')]" name="orders_to_confirm_filter"/>
                 <filter string="To Produce" domain="[('manufacturing_state', '=', 'to_produce')]" name="orders_to_produce_filter"/>
                 <filter string="In Manufacturing" domain="[('manufacturing_state', '=', 'in_manufacturing')]" name="orders_in_manufacturing_filter"/>
                 <filter string="Manufacturing Confirmed" domain="[('manufacturing_state', '=', 'confirmed')]" name="orders_validated_filter"/>

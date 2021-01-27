@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="confirm_purchase_order_view_form" model="ir.ui.view">
+        <field name="name">confirm.purchase.order.view.form</field>
+        <field name="model">confirm.purchase.order</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Purchase Order">
+                <sheet>
+                    <field name="sale_order_id" invisible="1"/>
+                    <field name="show_confirmation_button" invisible="1"/>
+                    <separator string="Select Purchase Order(s) To Confirm"/>
+                    <field name="purchase_order_ids">
+                        <tree create="false" editable="bottom" delete="false">
+                            <field name="company_id" invisible="1"/>
+                            <field name="to_be_confirmed" states="draft,sent" string="Confirm ?"/>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                            <field name="date_order" readonly="1"/>
+                            <field name="origin" readonly="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button type="object" name="action_confirm" string="Confirm Selected Order(s)" class="btn-primary" attrs="{'invisible': [('show_confirmation_button', '=', False)]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="confirm_purchase_order_action" model="ir.actions.act_window">
+        <field name="name">Confirm Purchase Order</field>
+        <field name="res_model">confirm.purchase.order</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="confirm_purchase_order_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

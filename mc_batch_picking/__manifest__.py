@@ -6,9 +6,11 @@
     'category': 'Operations/Inventory',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['stock_picking_batch', 'delivery', 'mc_sales_lot'],
+    'depends': ['stock_picking_batch', 'delivery', 'mc_sales_lot', 'web'],
     'data': [
-        'views/stock_picking_batch_views.xml'
+        'views/stock_picking_batch_views.xml',
+        'report/mc_batch_picking_report_templates.xml',
+        'report/mc_batch_picking_reports.xml'
     ],
     'auto_install': False,
     'installable': True,
