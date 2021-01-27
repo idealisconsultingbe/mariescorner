@@ -17,6 +17,7 @@
                             <div style="border-bottom: 1px solid black;"/>
                             <div class="row mt32 mb32" id="secondary_row">
                                 <div class="col-6" name="finished_product_info">
+                                    <p><strong>Lot: </strong><strong class="m-0" t-field="finished_move_line.lot_id.name"/></p>
                                     <strong>Model (Finished Product): </strong><strong class="m-0" t-field="doc.product_id.name"/>
                                 </div>
                                 <div class="col-6" name="quantity_info" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
@@ -77,37 +78,23 @@
                 </div>
             </div>
 
-            <div style="border-bottom: 1px solid black;"/> <br/>
-
             <div name="label_3" style="page-break-inside:avoid;">
-                <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
+                <t t-set="lots" t-value="fabrics_lots[doc.id]"/>
+                <t t-foreach="lots" t-as="lot">
+                    <div style="border-bottom: 1px solid black;"/> <br/>
                     <div class="row" name="order">
-                        <span>ORDER: </span> <span class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/> <span> / </span>
-                        <span>SHEET: </span> <span class="m-0" t-field="doc.sales_lot_id.name"/> <br/>
-                        <span>MODEL: </span> <span class="m-0" t-field="doc.product_id.name"/> <span> / </span>
-                        <span>Quantity: </span> <span class="m-0" t-field="doc.product_qty"/>
+                        <span>ORDER: </span> <span class="m-0" t-field="lots[lot]['manuf_num'].origin_sale_order_id.name"/> <span> / </span>
+                        <span>SHEET: </span> <span class="m-0" t-field="lots[lot]['manuf_num'].name"/> <br/>
+                        <span>MODEL: </span> <span class="m-0" t-field="lots[lot]['product'].name"/> <span> / </span>
+                        <span>Quantity: </span> <span class="m-0" t-esc="lots[lot]['qty']"/>
                     </div>
                     <div class="row" name="fabrics">
                         <div class="col-auto">
                             <span>Fabric(s): </span>
                         </div>
                         <div class="col-auto">
-                            <table class="table table-sm" style="font-size:8pt">
-                                <tbody name="fabrics_tbody">
-                                    <tr>
-                                        <td>
-                                            <t t-if="doc.product_qty">
-                                                <t t-set="unit_meterage_needed" t-value="raw.product_uom_qty * doc.product_qty" />
-                                            </t>
-                                            <t t-else="">
-                                                <t t-set="unit_meterage_needed" t-value="raw.product_uom_qty * 1.0" />
-                                            </t>
-                                            <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
-                                            <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-esc="unit_meterage_needed"/> <strong class="m-0" t-field="raw.product_uom"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-field="raw.product_uom_qty"/> <strong class="m-0" t-field="raw.product_uom"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <strong class="m-0" t-field="lots[lot]['fabric'].default_code"/><strong> - </strong><strong>Lot: </strong><strong class="m-0" t-esc="lot"/><br/>
+                            <strong>Unit Meterage Needed:</strong> <strong class="m-0" t-esc="lots[lot]['unit_fabric']"/> <strong class="m-0" t-esc="lots[lot]['fabric_uom']"/> <strong> - Total Meterage Needed:</strong> <strong class="m-0" t-esc="lots[lot]['total_fabric']"/> <strong class="m-0" t-esc="lots[lot]['fabric_uom']"/>
                         </div>
                     </div>
                 </t>
