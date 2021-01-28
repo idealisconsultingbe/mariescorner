@@ -87,6 +87,10 @@
                         </div>
                     </div>
                 </div>
+                <t t-set="current_label_index" t-value="current_label_index + 1"/>
+                <br/>
+                <div style="border-bottom: 1px solid black;"/>
+                <br/>
             </t>
         </div>
     </template>

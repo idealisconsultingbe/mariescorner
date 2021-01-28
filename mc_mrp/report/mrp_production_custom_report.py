@@ -55,3 +55,17 @@ class SalesLotReport(models.Model):
         productions_fabric_lots = get_fabrics_lot_details(productions)
         values.update({'fabrics_lots': productions_fabric_lots,})
         return values
+
+class SalesLotReportLabels(models.Model):
+    _inherit = 'report.mc_sales_lot.report_saleslot_labels'
+
+    def _get_report_values(self, docids, data=None):
+        values = super(SalesLotReportLabels, self)._get_report_values(docids, data)
+        sales_lot = values['docs']
+        short_names = {}
+        for sale_lot in sales_lot:
+            product_tmpl = sale_lot.product_id.product_tmpl_id
+            so_line = sale_lot.origin_sale_order_line_id
+            short_names[sale_lot.id] = product_tmpl.get_product_configurable_description(so_line.product_custom_attribute_value_ids, so_line.product_no_variant_attribute_value_ids, sale_lot.partner_id, product_variant=sale_lot.product_id, display_custom=True)
+        values.update({'short_names': short_names})
+        return values

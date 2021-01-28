@@ -3,7 +3,11 @@
     <template id="report_mrp_saleslot_document">
         <div class="page">
             <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
-
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <div style="border-bottom: 1px solid black;"/>
 
             <div name="label_1" style="page-break-inside:avoid;">
