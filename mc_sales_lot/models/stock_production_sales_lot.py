@@ -15,8 +15,8 @@ class ProductionSalesLot(models.Model):
     ]
 
     name = fields.Char(string='Manufacturing Number', required=True)
-    manufacturing_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
-    external_state = fields.Selection([('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
+    manufacturing_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
+    external_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_confirm', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
@@ -47,12 +47,13 @@ class ProductionSalesLot(models.Model):
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
 
-    @api.depends('production_ids.state', 'supplier_type', 'external_state')
+    @api.depends('production_ids.state', 'supplier_type', 'external_state', 'purchase_order_ids.state')
     def _compute_manufacturing_state(self):
         """
         Compute manufacturing state of each manufacturing number
         if supplier type is internal:
-            Manuf State = To Produce: No Manufacturing Orders have been created for this Manufacturing Number.
+            Manuf State = To Confirm: Purchase Order is not confirmed yet for this Manufacturing Number.
+            Manuf State = To Produce: Purchase Order is confirmed but No Manufacturing Orders have been created for this Manufacturing Number.
             Manuf State = In Manufacturing: At least one MO exists.
             Manuf State = Confirmed: All Manufacturing Orders are Confirmed or Done.
             Manuf State = Done: All Manufacturing Orders are Done.
@@ -62,11 +63,11 @@ class ProductionSalesLot(models.Model):
         """
         # Manually track "state" since tracking doesn't work with computed fields.
         # Retrieve initial values
-        tracking = not self._context.get("mail_notrack") and not self._context.get("tracking_disable")
+        tracking = not self._context.get('mail_notrack') and not self._context.get('tracking_disable')
         initial_values = {}
         if tracking:
             initial_values = dict(
-                (sale_lot.id, {"manufacturing_state": sale_lot.manufacturing_state})
+                (sale_lot.id, {'manufacturing_state': sale_lot.manufacturing_state})
                 for sale_lot in self
             )
         for sale_lot in self:
@@ -74,7 +75,10 @@ class ProductionSalesLot(models.Model):
                 state = sale_lot.external_state
             else:
                 if not sale_lot.production_ids:
-                    state = 'to_produce'
+                    if all([po_state in ['purchase', 'done'] for po_state in sale_lot.purchase_order_ids.mapped('state')]):
+                        state = 'to_produce'
+                    else:
+                        state = 'to_confirm'
                 else:
                     state = 'in_manufacturing'
                     if all([x == 'done' for x in sale_lot.production_ids.mapped('state')]):
@@ -86,7 +90,7 @@ class ProductionSalesLot(models.Model):
             sale_lot.manufacturing_state = state
         # track changing state
         if initial_values:
-            self.message_track(self.fields_get(["manufacturing_state"]), initial_values)
+            self.message_track(self.fields_get(['manufacturing_state']), initial_values)
 
     @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids')
     def _compute_supplier_type(self):

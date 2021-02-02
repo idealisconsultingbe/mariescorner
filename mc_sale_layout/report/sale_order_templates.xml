@@ -34,14 +34,14 @@
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <!-- set a bunch of variables used in external layout -->
             <!-- set doc type -->
-            <t t-set="order_type">
-                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                    <span t-if="doc.state not in ['draft','sent']">Order</span>
-                    <span t-else="">Quotation</span>
-                </t>
-                <t t-if="env.context.get('proforma', False) or is_pro_forma">
-                    <span>Pro-Forma Invoice</span>
-                </t>
+            <t t-set="proforma" t-if="env.context.get('proforma', False) or is_pro_forma">
+                <span>Pro-Forma Invoice</span>
+            </t>
+            <t t-set="quotation" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state in ['draft','sent']">
+                <span>Quotation</span>
+            </t>
+            <t t-set="order" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state not in ['draft','sent']">
+                <span>Order</span>
             </t>
             <!-- set doc name -->
             <t t-set="order_name"><span t-field="doc.name"/></t>

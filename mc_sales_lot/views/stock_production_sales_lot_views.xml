@@ -23,8 +23,8 @@
         <field name="arch" type="xml">
             <form name="sales_lot_form">
                 <header>
-                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                    <field name="external_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
+                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
+                    <field name="external_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
                 </header>
                 <sheet>
                     <h1>

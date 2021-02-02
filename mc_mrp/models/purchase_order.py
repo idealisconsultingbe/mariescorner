@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
+
+    to_be_confirmed = fields.Boolean(string='To Be Confirmed')
 
     @api.model
     def _prepare_sale_order_line_data(self, line, company, sale_id):

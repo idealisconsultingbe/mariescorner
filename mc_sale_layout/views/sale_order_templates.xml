@@ -51,21 +51,27 @@
     <template id="mc_external_layout">
         <div t-attf-class="header o_company_#{company.id}_layout" style="font-size: small;">
             <div class="row">
-                <div class="col-2">
+                <div class="col-custom-13-15 pr-0">
                     <img src="/mc_sale_layout/static/src/img/logo-maries-corner.png" class="height-6" alt="Maries Corner Logo"/>
                 </div>
                 <!--<div class="col-4"'>-->
-                <div class="pos-rel-flex-33 p-0">
-                    <t t-if="order_type and order_name">
-                        <h2 class="m-0 height-4">
-                            <span class="i-block-bottom"><t t-raw="order_type"/></span>
-                        </h2>
-                        <h3 class="m-0 height-2">
-                          <span class="i-block-bottom"><t t-raw="order_name"/></span>
-                        </h3>
-                    </t>
+                <div t-if="quotation" class="col-custom-36-85" style="background-color: LightGray;">
+                    <h2 class="m-0 height-4">
+                        <span class="i-block-bottom"><t t-raw="quotation"/></span>
+                    </h2>
+                    <h3 t-if="order_name" class="m-0 height-2">
+                      <span class="i-block-bottom"><t t-raw="order_name"/></span>
+                    </h3>
                 </div>
-                <div class="col-6">
+                <div t-if="order or proforma" class="col-custom-36-85">
+                    <h2 class="m-0 height-4">
+                        <span class="i-block-bottom"><t t-if="order" t-raw="order"/><t t-if="proforma" t-raw="proforma"/></span>
+                    </h2>
+                    <h3 t-if="order_name" class="m-0 height-2">
+                      <span class="i-block-bottom"><t t-raw="order_name"/></span>
+                    </h3>
+                </div>
+                <div class="col-6 pl-0">
                     <table class="border-table-lightgray height-6">
                         <tbody>
                             <tr>
