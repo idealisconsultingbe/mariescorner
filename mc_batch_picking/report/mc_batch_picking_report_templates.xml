@@ -109,7 +109,7 @@
                                        <table class="table table-sm mb-0" t-if="moves">
                                           <thead>
                                               <tr>
-                                                  <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Origin</strong></th>
+                                                  <th t-if="moves.mapped('sale_line_id')" class="text-left border-bottom-black"><strong>Origin</strong></th>
                                                   <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>
                                                   <th class="text-left border-bottom-black"><strong>Product</strong></th>
                                                   <th class="text-center border-bottom-black"><strong>Quantity</strong></th>
@@ -119,7 +119,7 @@
                                           </thead>
                                           <tbody>
                                               <tr t-foreach="moves" t-as="move">
-                                                  <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id and move.sales_lot_id.origin_sale_order_line_id" t-field="move.sales_lot_id.origin_sale_order_line_id.name"/></td>
+                                                  <td t-if="move.sale_line_id" class="text-left"><span t-if="move.sale_line_id" t-field="move.sale_line_id.short_name"/></td>
                                                   <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
                                                   <td class="text-left"><span t-field="move.product_id.name"/></td>
                                                   <td class="text-right"><span t-field="move.quantity_done"/></td>

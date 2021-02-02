@@ -19,6 +19,7 @@ class SaleOrder(models.Model):
         ('done', 'Locked'),
         ('cancel', 'Cancelled')
     ], string='Purchase Order Status', compute='_compute_po_state')
+
     manufacturing_state = fields.Selection([
         ('none', 'None'),
         ('to_confirm', 'To Confirm'),
