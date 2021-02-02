@@ -17,6 +17,7 @@
     'depends': ['purchase_stock', 'mc_warranty'],
     'data': [
         'report/mrp_production_templates.xml',
+        'report/sales_lot_report_templates.xml',
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_bom_line_views.xml',

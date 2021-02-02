@@ -3,30 +3,37 @@
     <template id="report_mrp_saleslot_document">
         <div class="page">
             <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div style="border-bottom: 1px solid black;"/>
 
-            <span>Factory ID:</span>
-            <span t-field="doc.env.company.partner_id.ref"/>
-
-            <h3>Manufacturing</h3>
-
-            <div class="row mt32 mb32" id="main_ref">
-                <div class="col-auto mw-100 mb-2">
-                    <p><strong>Order:</strong> <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></p>
-                    <p><strong>Sheet:</strong> <strong class="m-0" t-field="doc.sales_lot_id.name"/></p>
-                </div>
-                <div class="col-auto mw-100 mb-2 text-center align-middle">
-                    <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.sales_lot_id.name or ''), 400, 50)" style="width:100%;"/>
-                    <span class="m-0" t-field="doc.sales_lot_id.name" style="font-size:8pt;"/>
-                </div>
-                <div class="col-auto mw-100 mb-2" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                    <strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/>
+            <div name="label_1" style="page-break-inside:avoid;">
+                <strong class="m-0" t-field="doc.name"/>
+                <div class="row mt32 mb32" id="main_row">
+                    <div class="col-6" name="main_info">
+                        <p><h5>Manufacturing Number: <span class="m-0" t-field="doc.sales_lot_id.name"/></h5></p>
+                        <p><strong>Order (Source Document):</strong> <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></p>
+                        <div class="col-auto mw-100 mb-2" name="destination" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                            <p><strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/></p>
+                            <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>
+                        </div>
+                    </div>
+                    <div class="col-6" name="secondary_info">
+                        <div name="barcode" class="text-center align-middle">
+                            <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.sales_lot_id.name or ''), 400, 50)" style="width:100%;"/>
+                            <span class="m-0" t-field="doc.sales_lot_id.name" style="font-size:8pt;"/>
+                        </div>
+                        <div name="customer">
+                            <p> <strong>Customer: [</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <strong>] </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.name"/></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div name="customer">
-                <p><strong>Customer ID:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/></p>
-                <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>
-            </div>
+            <div style="border-bottom: 1px solid black;"/>
 
         </div>
     </template>
@@ -35,7 +42,7 @@
         <t t-call="web.basic_layout">
             <t t-set="docs" t-value="docs.sudo()"/>
             <t t-foreach="docs" t-as="doc">
-                <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
+                <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.env.lang"/>
                 <div style="page-break-after: always;"/>
             </t>
         </t>
@@ -85,24 +92,7 @@
 
                 <t t-set="current_label_index" t-value="current_label_index + 1"/>
                 <br/>
-                <span> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </span>
-                <br/>
-
-                <div name="label_2" style="page-break-inside: avoid;">
-                    <div class="row" name="order">
-                        <div class="col-auto">
-                            <span>ORDER: </span> <span class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/> <br/>
-                            <span>SHEET: </span> <span class="m-0" t-field="doc.sales_lot_id.name"/> <br/>
-                        </div>
-                        <div class="col-auto">
-                            <span>MODEL: </span> <span class="m-0" t-field="doc.product_id.name"/> <br/>
-                            <span>Quantity: </span> <span class="m-0" t-field="doc.product_qty"/>
-                        </div>
-                    </div>
-                </div>
-
-                <br/>
-                <span> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </span>
+                <div style="border-bottom: 1px solid black;"/>
                 <br/>
             </t>
         </div>
@@ -112,7 +102,7 @@
         <t t-call="web.basic_layout">
             <t t-set="docs" t-value="docs.sudo()"/>
             <t t-foreach="docs" t-as="doc">
-                <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.sales_lot_id.partner_id.lang"/>
+                <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.env.lang"/>
             </t>
         </t>
     </template>
