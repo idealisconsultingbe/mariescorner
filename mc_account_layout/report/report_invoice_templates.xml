@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//td[@name='account_invoice_line_name']" position="attributes">
+                <attribute name="t-if">1==0</attribute>
+            </xpath>
+            <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+                <td name="account_invoice_line_short_name"><span t-field="line.short_name" t-options="{'widget': 'text'}"/></td>
+            </xpath>
+            <xpath expr="//th[@name='th_description']" position="after">
+                <th name="th_account_invoice_line_sales_lot">
+                    <span>Manuf N°</span>
+                </th>
+            </xpath>
+            <xpath expr="//td[@name='account_invoice_line_name']" position="after">
+                <td name="account_invoice_line_sales_lot">
+                    <span t-if="line.sales_lot_ids" t-field="line.sales_lot_ids[0].name"/>
+                </td>
+            </xpath>
+            <xpath expr="//div[@id='total']" position="after">
+                <div class="row" name="hs_code_row">
+                    <div name="hs_code" class="col-4">
+                        <table class="table table-sm" style="page-break-inside: avoid; font-size:8pt;">
+                            <thead>
+                                <tr>
+                                    <th name="th_hs_code" class="text-left"><span>HS Code</span></th>
+                                    <th name="th_weight" class="text-left"><span>Weight</span></th>
+                                    <th name="th_qty" class="text-left"><span>Qty</span></th>
+                                    <th name="th_value" class="text-left"><span>Value</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="hs_code_tbody">
+                                <t t-set="hs_code_detail" t-value="hs_code_details[o.id]"/>
+                                <t t-foreach="hs_code_detail" t-as="hs_code">
+                                    <tr>
+                                        <td name="hs_code"><span t-esc="hs_code"/></td>
+                                        <td name="hs_weight"><span t-esc="hs_code_detail[hs_code]['weight']"/></td>
+                                        <td name="hs_qty"><span t-esc="hs_code_detail[hs_code]['qty']"/></td>
+                                        <td name="hs_value"><span t-esc="hs_code_detail[hs_code]['subtotal']"/></td>
+                                    </tr>
+                                </t>
+                                <tr class="border-black o_total">
+                                    <td name="sum_hs_code"></td>
+                                    <td name="sum_hs_weight"><span t-esc="sum_hs_code_details[o.id]['sum_weight']"/></td>
+                                    <td name="sum_hs_qty"><span t-esc="sum_hs_code_details[o.id]['sum_qty']"/></td>
+                                    <td name="sum_hs_value"><span t-esc="sum_hs_code_details[o.id]['sum_subtotal']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
