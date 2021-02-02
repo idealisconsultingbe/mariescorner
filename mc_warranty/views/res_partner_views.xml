@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">mc.view.partner.form.inherited.mc.care</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale']" position="inside">
+                <field name="final_customer"/>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="final_customer_sales" string="Final Customer Sales" attrs="{'invisible': [('final_customer', '=', False)]}">
+                    <field name="final_customer_sale_order_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="name">mc.view.res.partner.filter.inherited.mc.care</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <separator/>
+                <filter string="Final Customer" name="final_customer" domain="[('final_customer', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

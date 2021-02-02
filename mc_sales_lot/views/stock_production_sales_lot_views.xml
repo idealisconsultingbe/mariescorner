@@ -23,21 +23,23 @@
         <field name="arch" type="xml">
             <form name="sales_lot_form">
                 <header>
-                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                    <field name="external_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
+                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
+                    <field name="external_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
                 </header>
                 <sheet>
                     <h1>
                         <field name="name" readonly="1"/>
                     </h1>
-                    <group string="General" name="general_fields">
-                        <field name="partner_id" readonly="1" force_save="1"/>
-                        <field name="partner_shipping_id" readonly="1"/>
-                        <field name="carrier_id" readonly="1"/>
-                        <field name="product_id" readonly="1"/>
-                        <field name="product_qty" readonly="1"/>
-                        <field name="product_uom_id" readonly="1"/>
-                        <field name="supplier_type" invisible="1"/>
+                    <group name="main">
+                        <group string="General" name="general_fields">
+                            <field name="partner_id" readonly="1" force_save="1"/>
+                            <field name="partner_shipping_id" readonly="1"/>
+                            <field name="carrier_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="product_qty" readonly="1"/>
+                            <field name="product_uom_id" readonly="1"/>
+                            <field name="supplier_type" invisible="1"/>
+                        </group>
                     </group>
                     <separator string="Lots/Serial Numbers"/>
                     <field name="lot_ids" nolabel="1"/>

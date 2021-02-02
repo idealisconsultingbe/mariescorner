@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleslot_document">
+        <div class="page">
+            <span>Factory ID:</span>
+            <span t-field="saleslot.env.company.partner_id.ref"/>
+
+            <h3>Manufacturing Number</h3>
+
+            <div class="row mt32 mb32" id="main_ref">
+                <div class="col-auto mw-100 mb-2">
+                    <p><strong>Order:</strong> <strong class="m-0" t-field="saleslot.origin_sale_order_id.name"/></p>
+                    <p><strong>Sheet:</strong> <strong class="m-0" t-field="saleslot.name"/></p>
+                </div>
+                <div class="col-auto mw-100 mb-2 text-center align-middle">
+                    <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(saleslot.name or ''), 400, 50)" style="width:100%;"/>
+                    <span class="m-0" t-field="saleslot.name" style="font-size:8pt;"/>
+                </div>
+                <div class="col-auto mw-100 mb-2" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                    <strong>Destination:</strong> <strong class="m-0" t-field="saleslot.carrier_id.name"/>
+                </div>
+            </div>
+
+            <div name="customer">
+                <p><strong>Customer ID:</strong> <strong class="m-0" t-field="saleslot.partner_id.ref"/></p>
+                <p><strong>Country:</strong> <strong class="m-0" t-field="saleslot.partner_id.country_id.name"/></p>
+            </div>
+
+        </div>
+    </template>
+
+    <template id="report_saleslot">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="saleslot">
+                <t t-if="saleslot.production_ids">
+                    <t t-foreach="saleslot.production_ids" t-as="doc">
+                        <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.env.lang"/>
+                        <div style="page-break-after: always;"/>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-call="mc_sales_lot.report_saleslot_document" t-lang="saleslot.env.lang"/>
+                    <div style="page-break-after: always;"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleslot_labels_document">
+        <div class="page">
+            <t t-set="current_label_index" t-value="1"/>
+            <t t-set="max_label_index" t-value="saleslot.product_qty"/>
+
+            <t t-foreach="serial_numbers[saleslot.id]" t-as="serial_number">
+                <div name="label_1" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;page-break-inside: avoid;">
+                    <div class="row" style="min-height:310px">
+                        <div class="col-6" name="part_left">
+                            <div name="order" style="padding-left:5px;padding-top:10px;">
+                                <strong>ID CUST </strong> <strong class="m-0" t-field="saleslot.partner_id.ref"/> <br/>
+                                <strong class="m-0" t-field="saleslot.origin_sale_order_id.name"/><span> - </span><strong class="m-0" t-field="saleslot.name"/> <br/>
+                                <strong>PACK : </strong> <strong t-esc="current_label_index"/> <strong> / </strong> <strong t-esc="max_label_index"/> <br/>
+                                <strong>Destination:</strong> <strong class="m-0" t-field="saleslot.carrier_id.name"/> <br/>
+                            </div>
+
+                            <div name="product" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-left:4px;min-height:185px;margin-bottom:4px;">
+                                <div class="row">
+                                    <div class="col-4 text-center align-middle" name="image" style="padding-top:5px;">
+                                        <span class="i-block-100" t-if="saleslot.product_id.image_128" t-field="saleslot.product_id.image_128" t-att-title="saleslot.product_id.name" role="img" t-att-aria-label="saleslot.product_id.name" t-options="{'widget': 'image', 'style':'max-width: 60px; display: inline-block'}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6" name="part_right">
+                            <div class="text-center align-middle" name="barcode" style="padding-top:3px;">
+                                <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(serial_number or ''), 400, 50)" style="width:100%;"/>
+                                <span class="m-0" t-esc="serial_number" style="font-size:8pt;"/>
+                            </div>
+                            <div name="delivery" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-right:4px;margin-bottom:4px;">
+                                <div style="padding-left:2px;">
+                                    <p><strong>Delivery To:</strong></p>
+                                    <div t-field="saleslot.partner_shipping_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <t t-set="current_label_index" t-value="current_label_index + 1"/>
+                <br/>
+                <div style="border-bottom: 1px solid black;"/>
+                <br/>
+            </t>
+        </div>
+    </template>
+
+    <template id="report_saleslot_labels">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="saleslot">
+                <t t-if="saleslot.production_ids">
+                    <t t-foreach="saleslot.production_ids" t-as="doc">
+                        <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.env.lang"/>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-call="mc_sales_lot.report_saleslot_labels_document" t-lang="saleslot.env.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

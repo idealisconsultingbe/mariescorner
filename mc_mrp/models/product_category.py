@@ -8,3 +8,4 @@ class ProductCategory(models.Model):
     _inherit = 'product.category'
 
     is_fabric = fields.Boolean(string='Is a Fabric Category', default=False, help='All products of this category will be see as being a fabric')
+    is_foot = fields.Boolean(string='Is a foot Category', default=False,help='All products of this category will be see as being a foot')

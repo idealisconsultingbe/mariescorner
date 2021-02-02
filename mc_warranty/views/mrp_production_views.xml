@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mc.mrp.production.form.view.mc.care</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mc_sales_lot.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sales_lot_id']" position="after">
+                <field name="mc_care"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

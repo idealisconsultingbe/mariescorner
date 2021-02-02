@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mrp_saleslot_mc_care_document" inherit_id="mc_sales_lot.report_mrp_saleslot_document">
+        <xpath expr="//div[@name='destination']" position="after">
+            <div name="details">
+                <p><strong>Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong></p>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_saleslot_labels_mc_care_document" inherit_id="mc_sales_lot.report_mrp_saleslot_labels_document">
+        <xpath expr="//div[@name='label_1']//div[@name='part_left']//div[@name='product']/div" position="inside">
+            <div class="col-8" style="font-size:8pt">
+                <div name="mc_care">
+                    <strong >Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

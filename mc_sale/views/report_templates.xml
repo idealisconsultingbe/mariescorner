@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed" >
+        <!-- support for custom footer -->
+        <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']/div/ul" position="inside">
+            <li t-if="company.eori" class="list-inline-item">EORI: <span t-field="company.eori"/></li>
+            <li t-if="company.eori_uk" class="list-inline-item">EORI UK: <span t-field="company.eori_uk"/></li>
+        </xpath>
+    </template>
+</odoo>

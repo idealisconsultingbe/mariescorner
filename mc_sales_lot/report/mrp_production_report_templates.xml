@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_mrp_saleslot_document">
+        <div class="page">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div style="border-bottom: 1px solid black;"/>
+
+            <div name="label_1" style="page-break-inside:avoid;">
+                <strong class="m-0" t-field="doc.name"/>
+                <div class="row mt32 mb32" id="main_row">
+                    <div class="col-6" name="main_info">
+                        <p><h5>Manufacturing Number: <span class="m-0" t-field="doc.sales_lot_id.name"/></h5></p>
+                        <p><strong>Order (Source Document):</strong> <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></p>
+                        <div class="col-auto mw-100 mb-2" name="destination" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                            <p><strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/></p>
+                            <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>
+                        </div>
+                    </div>
+                    <div class="col-6" name="secondary_info">
+                        <div name="barcode" class="text-center align-middle">
+                            <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.sales_lot_id.name or ''), 400, 50)" style="width:100%;"/>
+                            <span class="m-0" t-field="doc.sales_lot_id.name" style="font-size:8pt;"/>
+                        </div>
+                        <div name="customer">
+                            <p> <strong>Customer: [</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <strong>] </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.name"/></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border-bottom: 1px solid black;"/>
+
+        </div>
+    </template>
+
+    <template id="report_mrp_saleslot">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="mc_sales_lot.report_mrp_saleslot_document" t-lang="doc.env.lang"/>
+                <div style="page-break-after: always;"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_mrp_saleslot_labels_document">
+        <div class="page">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
+            <t t-set="current_label_index" t-value="1"/>
+            <t t-set="max_label_index" t-value="len(doc.finished_move_line_ids)"/>
+
+            <t t-foreach="doc.finished_move_line_ids" t-as="finished_product">
+                <div name="label_1" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;page-break-inside: avoid;">
+                    <div class="row" style="min-height:310px">
+                        <div class="col-6" name="part_left">
+                            <div name="order" style="padding-left:5px;padding-top:10px;">
+                                <strong>ID CUST </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <br/>
+                                <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/><span> - </span><strong class="m-0" t-field="doc.sales_lot_id.name"/> <br/>
+                                <strong>PACK : </strong> <strong t-esc="current_label_index"/> <strong> / </strong> <strong t-esc="max_label_index"/> <br/>
+                                <strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/> <br/>
+                            </div>
+
+                            <div name="product" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-left:4px;min-height:185px;margin-bottom:4px;">
+                                <div class="row">
+                                    <div class="col-4 text-center align-middle" name="image" style="padding-top:5px;">
+                                        <span class="i-block-100" t-if="doc.product_id.image_128" t-field="doc.product_id.image_128" t-att-title="doc.product_id.name" role="img" t-att-aria-label="doc.product_id.name" t-options="{'widget': 'image', 'style':'max-width: 60px; display: inline-block'}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6" name="part_right">
+                            <div class="text-center align-middle" name="barcode" style="padding-top:3px;">
+                                <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(finished_product.lot_id.name or ''), 400, 50)" style="width:100%;"/>
+                                <span class="m-0" t-field="finished_product.lot_id.name" style="font-size:8pt;"/>
+                            </div>
+                            <div name="delivery" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-right:4px;margin-bottom:4px;">
+                                <div style="padding-left:2px;">
+                                    <p><strong>Delivery To:</strong></p>
+                                    <div t-field="doc.sales_lot_id.partner_shipping_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <t t-set="current_label_index" t-value="current_label_index + 1"/>
+                <br/>
+                <div style="border-bottom: 1px solid black;"/>
+                <br/>
+            </t>
+        </div>
+    </template>
+
+    <template id="report_mrp_saleslot_label">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.sudo()"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="mc_sales_lot.report_mrp_saleslot_labels_document" t-lang="doc.env.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
