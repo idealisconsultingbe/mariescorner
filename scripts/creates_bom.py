@@ -9,8 +9,8 @@ import logging
 
 def prepare_raw_mat_values():
     return [
-        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [65, 66, 73])], 'product_qty': 1, 'product_uom_id': 8},
-        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [67, 68, 73])], 'product_qty': 0, 'product_uom_id': 8},
+        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [65, 66])], 'product_qty': 1, 'product_uom_id': 8},
+        {'product_tmpl_id': 14721, 'product_attribute_ids': [(6, 0, [67, 68])], 'product_qty': 0, 'product_uom_id': 8},
         {'product_tmpl_id': 15070, 'product_attribute_ids': [(6, 0, [69, 70])], 'product_qty': 4},
         {'product_tmpl_id': 17094, 'product_attribute_ids': [(6, 0, [74])], 'product_qty': 1},
     ]

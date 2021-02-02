@@ -32,7 +32,6 @@ parser.add_argument('database')
 parser.add_argument('product_template_id')
 parser.add_argument('main_attribute_id')
 parser.add_argument('secondary_attribute_id')
-parser.add_argument('third_attribute_id')
 parser.add_argument('xlsx_file')
 args = parser.parse_args()
 
@@ -43,18 +42,15 @@ product_tmpl = session.env['product.template'].browse(int(args.product_template_
 logging.info('Selected product template: %s.' % product_tmpl.name)
 main_attribute_id = int(args.main_attribute_id)
 secondary_attribute_id = int(args.secondary_attribute_id)
-third_attribute_id = int(args.third_attribute_id)
 
 logging.info('Start creating necessary variants.')
 created_variants = 0
 for main_attribute_value in attribute_combinaison:
     product_template_main_attribute = session.env['product.template.attribute.value'].search([('product_attribute_value_id.name', '=', main_attribute_value), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', main_attribute_id)])
     product_template_secondary_attribute = session.env['product.template.attribute.value'].search([('product_attribute_value_id.name', 'in', attribute_combinaison[main_attribute_value]), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', secondary_attribute_id)])
-    product_template_third_attribute = session.env['product.template.attribute.value'].search([('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', third_attribute_id)])
     for ptsa in product_template_secondary_attribute:
-        for ptta in product_template_third_attribute:
-            product_tmpl._create_product_variant((product_template_main_attribute + ptsa + ptta))
-            created_variants += 1
+        product_tmpl._create_product_variant((product_template_main_attribute + ptsa))
+        created_variants += 1
     session.cr.commit()
     logging.info('#%s variants created' % created_variants)
 logging.info('Necessary product variants created')

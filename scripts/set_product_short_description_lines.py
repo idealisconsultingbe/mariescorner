@@ -22,8 +22,8 @@ color = {
 }
 
 foot = {
-    'en': 'Foot types:',
-    'fr_BE': 'Type de pieds:',
+    'en': '',
+    'fr_BE': '',
 }
 
 mc_care = {
