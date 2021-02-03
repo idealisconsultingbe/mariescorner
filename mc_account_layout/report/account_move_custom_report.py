@@ -2,6 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models, _
+from odoo.tools import float_round
 
 
 def get_hs_code_values(invoices):
@@ -16,11 +17,11 @@ def get_hs_code_values(invoices):
             hs_code = line.product_id.hs_code if line.product_id else False
             if hs_code:
                 if hs_code not in hs_code_detail:
-                    hs_code_detail[hs_code] = {'weight': line.quantity * line.product_id.weight,
+                    hs_code_detail[hs_code] = {'weight': float_round(line.quantity * line.product_id.weight, precision_rounding=0.01),
                                                'qty': line.quantity,
                                                'subtotal': line.price_subtotal, }
                 else:
-                    hs_code_detail[hs_code]['weight'] += line.quantity * line.product_id.weight
+                    hs_code_detail[hs_code]['weight'] += float_round(line.quantity * line.product_id.weight, precision_rounding=0.01)
                     hs_code_detail[hs_code]['qty'] += line.quantity
                     hs_code_detail[hs_code]['subtotal'] += line.price_subtotal
         sum_weight = sum([hs_code_detail[hs_code]['weight'] for hs_code in hs_code_detail])
