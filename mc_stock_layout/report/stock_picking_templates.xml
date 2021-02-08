@@ -172,9 +172,208 @@
         </t>
     </template>
 
+    <!-- CMR external layout -->
+    <template id="cmr_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <!-- Multicompany -->
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="article" style="margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important;" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="report_cmr_document">
+        <t t-call="mc_stock_layout.cmr_external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+
+            <style type="text/css">
+                .cmr-block {
+                  display: table;
+                  position: absolute;
+                  padding: 0 15px;
+                  font-size: 13px;
+                }
+                .cmr-vertical-align {
+                  display: table-cell;
+                  vertical-align: middle;
+                }
+                ul {
+                  list-style-type: none;
+                  margin: 0;
+                  padding: 0;
+                }
+                .table-cmr {
+                  width: 100%;
+                }
+                .table-cmr th
+                .table-cmr td {
+                  padding: 0.3rem;
+                  vertical-align: middle;
+                  text-align: center !important;
+                }
+            </style>
+
+            <div name="sender" class="cmr-block" style="top:175px; left:100px; width:425px; height:90px;">
+                <div class="cmr-vertical-align">
+                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                </div>
+            </div>
+
+            <div t-if="o.partner_id" name="recipient" class="cmr-block" style="top:295px; left:100px; width:425px; height:90px;">
+                <div class="cmr-vertical-align">
+                    <div class="row">
+                        <div class="col-7" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        <div class="col-5">
+                          <ul style="position: absolute; top: 50%;">
+                            <li><span t-if="o.partner_id and o.partner_id.phone" t-field="o.partner_id.phone"/></li>
+                            <li><span t-if="o.partner_id and o.partner_id.mobile" t-field="o.partner_id.mobile"/></li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div name="delivery_from" class="cmr-block" style="top:415px; left:100px; width:425px; height:40px;">
+                <div class="cmr-vertical-align">
+                    <ul class="list-inline">
+                        <li t-if="o.company_id.partner_id.zip" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.zip"/></li>
+                        <li t-if="o.company_id.partner_id.city" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.city"/></li>
+                        <li t-if="o.company_id.partner_id.country_id" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.country_id.name"/></li>
+                        <li class="list-inline-item d-inline"><span t-esc="datetime.date.today()"/></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div t-if="o.partner_id" name="delivery_to" class="cmr-block" style="top:480px; left:100px; width:425px; height:50px;">
+                <div class="cmr-vertical-align">
+                    <ul class="list-inline">
+                        <li t-if="o.partner_id.zip" class="list-inline-item d-inline"><span t-field="o.partner_id.zip"/></li>
+                        <li t-if="o.partner_id.city" class="list-inline-item d-inline"><span t-field="o.partner_id.city"/></li>
+                        <li t-if="o.partner_id.country_id" class="list-inline-item d-inline"><span t-field="o.partner_id.country_id.name"/></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div t-if="o.carrier_id" name="carrier" class="cmr-block" style="top:180px; left:530px; width:430px; height:150px;">
+                <div class="cmr-vertical-align">
+                    <span t-field="o.carrier_id.name"/>
+                </div>
+            </div>
+
+            <div name="origin" class="cmr-block" style="top:1190px; left:100px; width:430px; height:25px;">
+                <div class="cmr-vertical-align">
+                    <span t-field="o.company_id.partner_id.city"/>, <span t-esc="datetime.date.today()"/>
+                </div>
+            </div>
+
+            <div name="sender_sign" class="cmr-block" style="top:1235px; left:100px; width:285px; height:110px;">
+                <div class="cmr-vertical-align">
+                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                </div>
+            </div>
+
+            <div t-if="o.carrier_id" name="carrier_sign" class="cmr-block" style="top:1235px; left:390px; width:285px; height:110px;">
+                <div class="cmr-vertical-align">
+                    <span t-field="o.carrier_id.name"/>
+                </div>
+            </div>
+
+            <div name="content" class="cmr-block" style="top:765px; left:100px; width:865px; height:310px;">
+                <t t-set="moves" t-value="o.move_lines.filtered(lambda m: m.quantity_done)"/>
+                <div t-if="moves" class="row mt-2 ml-0 mb-0 p-0">
+                    <div class="col-4">
+                        <table class="table-cmr">
+                            <tbody>
+                                <t t-set="count" t-value="0"/>
+                                <t t-foreach="moves" t-as="move">
+                                    <t t-if="count%3 == 0">
+                                        <tr>
+                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
+                                            <td><span t-field="move.product_id.name"/></td>
+                                            <td><span t-field="move.quantity_done"/></td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="count" t-value="count+1"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-4">
+                        <table class="table-cmr">
+                            <tbody>
+                                <t t-set="count" t-value="0"/>
+                                <t t-foreach="moves" t-as="move">
+                                    <t t-if="count%3 == 1">
+                                        <tr>
+                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
+                                            <td><span t-field="move.product_id.name"/></td>
+                                            <td><span t-field="move.quantity_done"/></td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="count" t-value="count+1"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-4">
+                        <table class="table-cmr">
+                            <tbody>
+                                <t t-set="count" t-value="0"/>
+                                <t t-foreach="moves" t-as="move">
+                                    <t t-if="count%3 == 2">
+                                        <tr>
+                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
+                                            <td><span t-field="move.product_id.name"/></td>
+                                            <td><span t-field="move.quantity_done"/></td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="count" t-value="count+1"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div t-if="moves" class="row mt-2 mb-0 ml-0 p-0">
+                    <div class="col-4">
+                        <table style="table-cmr">
+                            <tr>
+                                <th><strong>Volume</strong>&amp;nbsp;</th>
+                                <td>
+                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.volume'))"/> m³
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
     <template id="report_deliveryslip">
         <t t-foreach="docs" t-as="o">
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="report_cmr">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.env.context.get('lang')"/>
+                <t t-call="mc_stock_layout.report_cmr_document" t-lang="lang"/>
+            </t>
         </t>
     </template>
 
