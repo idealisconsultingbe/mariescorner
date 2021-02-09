@@ -4,7 +4,7 @@
         <field name="name">mc.sales.lot.tree.view</field>
         <field name="model">stock.production.sales.lot</field>
         <field name="arch" type="xml">
-            <tree name="sales_lot_tree" string="Manufacturing Numbers">
+            <tree name="sales_lot_tree" string="Manufacturing Numbers" create="0">
                 <field name="supplier_type" invisible="1"/>
                 <field name="name" readonly="1"/>
                 <field name="product_id" readonly="1"/>
@@ -21,12 +21,13 @@
         <field name="name">mc.sales.lot.form.view</field>
         <field name="model">stock.production.sales.lot</field>
         <field name="arch" type="xml">
-            <form name="sales_lot_form">
+            <form name="sales_lot_form" create="0">
                 <header>
                     <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
                     <field name="external_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                     <h1>
                         <field name="name" readonly="1"/>
                     </h1>
@@ -39,6 +40,7 @@
                             <field name="product_qty" readonly="1"/>
                             <field name="product_uom_id" readonly="1"/>
                             <field name="supplier_type" invisible="1"/>
+                            <field name="active" invisible="1"/>
                         </group>
                     </group>
                     <separator string="Lots/Serial Numbers"/>

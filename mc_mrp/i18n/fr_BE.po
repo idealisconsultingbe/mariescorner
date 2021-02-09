@@ -6,16 +6,137 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-27 12:09+0000\n"
-"PO-Revision-Date: 2020-10-27 13:11+0100\n"
+"POT-Creation-Date: 2021-02-08 15:52+0000\n"
+"PO-Revision-Date: 2021-02-08 17:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
-"X-Generator: Poedit 2.4.1\n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid ""
+"<br/>\n"
+"                            <strong>Unit Meterage Needed:</strong>"
+msgstr ""
+"<br/>\n"
+"                            <strong>Métrage Unitaire Utilisé:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid ""
+"<br/>\n"
+"                        <span>MODEL: </span>"
+msgstr ""
+"<br/>\n"
+"                        <span>MODELE: </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_labels_manufacturing_document
+msgid ""
+"<br/>\n"
+"            <span style=\"font-size:10pt\">Fabric(s):</span>"
+msgstr ""
+"<br/>\n"
+"            <span style=\"font-size:10pt\">Tissu(s):</span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid ""
+"<span> / </span>\n"
+"                        <span>Quantity: </span>"
+msgstr ""
+"<span> / </span>\n"
+"                        <span>Quantité: </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid ""
+"<span> / </span>\n"
+"                        <span>SHEET: </span>"
+msgstr ""
+"<span> / </span>\n"
+"                        <span>N° PROD: </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<span>Fabric(s): </span>"
+msgstr "<span>Tissu(s): </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<span>ORDER: </span>"
+msgstr "<span>COMMANDE: </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong> - </strong><strong>Lot: </strong>"
+msgstr "<strong> - </strong><strong>Lot: </strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong> - Total Meterage Needed:</strong>"
+msgstr "<strong> - Métrage Total Utilisé:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Delivery Date:</strong>"
+msgstr "<strong>Date de Livraison:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Fabric Date:</strong>"
+msgstr "<strong>Date Tissu:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Legs: </strong>"
+msgstr "<strong>Pieds: </strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Lot: </strong>"
+msgstr "<strong>Lot: </strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Mc Care:</strong>"
+msgstr "<strong>Mc Care:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Model (Finished Product): </strong>"
+msgstr "<strong>Modèle (Produit Fini): </strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_labels_document
+msgid "<strong>Product Details</strong>"
+msgstr "<strong>Produit Détaillé</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Quantity:</strong>"
+msgstr "<strong>Quantité:</strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Special Remarks:</strong>"
+msgstr "<strong>Remarque Spéciale:</strong>"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_product_category__is_fabric
+msgid "All products of this category will be see as being a fabric"
+msgstr "Tous les articles de cette catégorie seront vu comme des tissus"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_product_category__is_foot
+msgid "All products of this category will be see as being a foot"
+msgstr "Tous le produit de cette catégorie seront vu comme des pieds"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__allowed_attribute_ids
@@ -53,12 +174,23 @@ msgid "Bill of Material Line"
 msgstr "Ligne de nomenclature"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
+msgid "Cancel"
+msgstr "Annulé"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__cancel
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__cancel
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mc_mrp
 #: code:addons/mc_mrp/models/mrp_production.py:0
 #, python-format
 msgid ""
-"Cannot produce {}, there is no BoM fabric related to this configuration: {}"
+"Cannot produce {}, {} product(s) variant related to this configuration: {}"
 msgstr ""
-"Impossible de produire {}, il n'y a pas de nomenclature liée à cette "
+"Ne peut pas produire {}, {} les variantes d'articles lié à cette "
 "configuration: {}"
 
 #. module: mc_mrp
@@ -74,15 +206,52 @@ msgstr ""
 "pas sûr de ce que vous faites."
 
 #. module: mc_mrp
-#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_comment
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__editable_sale_comment
 #: model:ir.model.fields,field_description:mc_mrp.field_purchase_order_line__comment
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
 msgid "Comment"
 msgstr "Commentaire"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__company_id
+msgid "Company"
+msgstr "Société"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_id
 msgid "Component"
 msgstr "Composant"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
+msgid "Confirm ?"
+msgstr "Confirmer ?"
+
+#. module: mc_mrp
+#: model:ir.actions.act_window,name:mc_mrp.confirm_purchase_order_action
+#: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
+msgid "Confirm Purchase Order"
+msgstr "Commande fournisseur confirmé"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_confirm_purchase_order
+msgid "Confirm Purchase Order(s) Linked to the same Sale Order"
+msgstr "Confirme les commandes fournisseurs liées à la même commande client"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
+msgid "Confirm Selected Order(s)"
+msgstr "Confirme les commandes sélectionnées"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__show_confirmation_button
+msgid "Confirmation Button Visibility"
+msgstr "Visibilité du bouton de confirmation"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__confirmed
+msgid "Confirmed"
+msgstr "Confirmé"
 
 #. module: mc_mrp
 #: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__product_tmpl_uom_category_id
@@ -95,9 +264,53 @@ msgstr ""
 "ratios."
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
-msgid "Delivery Date"
-msgstr "Date de livraison"
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__create_uid
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__create_date
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_mrp_production__fabric_date
+msgid "Date at which the fabrics for this order have been received"
+msgstr "Date à laquelle le tissu pour cette commande a été reçu"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__display_name
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__done
+msgid "Done"
+msgstr "Fait"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__delivery_date
+msgid "Estimated delivery date provided by production team"
+msgstr "Date de livraison estimé"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__fabric_date
+msgid "Fabric Date"
+msgstr "Date Tissu"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Fabrics"
+msgstr "Tissus"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__id
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__id
+msgid "ID"
+msgstr ""
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__in_manufacturing
@@ -116,14 +329,68 @@ msgid "Is Description Visible"
 msgstr "Description visible"
 
 #. module: mc_mrp
-#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_value__is_none_value
-msgid "Is None Value"
-msgstr "Valeur nulle"
+#: model:ir.model.fields,field_description:mc_mrp.field_product_product__is_fabric
+#: model:ir.model.fields,field_description:mc_mrp.field_product_product__is_foot
+msgid "Is a Fabric"
+msgstr "Est un Tissu"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_category__is_fabric
+msgid "Is a Fabric Category"
+msgstr "Est une catégorie tissu"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_product_category__is_foot
+msgid "Is a foot Category"
+msgstr "Est une catégorie de pied"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order____last_update
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot____last_update
+msgid "Last Modified on"
+msgstr "Dernière mise à jour le"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__write_uid
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__write_date
+#: model:ir.model.fields,field_description:mc_mrp.field_report_mc_sales_lot_report_mrp_saleslot__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__done
+msgid "Locked"
+msgstr "Bloqué"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Lot"
+msgstr "Lot"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "Manufacturing Confirmed"
+msgstr "Production Confirmé"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "Manufacturing Done"
+msgstr "Production Terminé"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_stock_production_sales_lot
 msgid "Manufacturing Number"
 msgstr "Numéro de production"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "Manufacturing State"
+msgstr "État de la production"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_sale_order__manufacturing_state
@@ -137,11 +404,49 @@ msgid "Many to One"
 msgstr ""
 
 #. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__multi_draft
+msgid "Multi w/ Draft"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__multi_not_draft
+msgid "Multi w/o Draft"
+msgstr ""
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "No"
+msgstr "Non"
+
+#. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__none
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__none
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__none
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__none
 msgid "None"
 msgstr "Aucun"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_sale_order__manufacturing_state
+msgid ""
+"None: SO is not confirmed or SO does not contain producible products\n"
+"To Confirm: all manufacturing number are in state 'To Confirm'\n"
+"To Produce: at least one manufacturing number is in state 'To Produce'\n"
+"In Manufacturing: no manufacturing number is in state 'To Produce' and at "
+"least one is in state 'In Manufacturing'\n"
+"Confirmed: all manufacturing numbers are confirmed or done\n"
+"Done: all manufacturing numbers are done\n"
+"Cancelled: at least one manufacturing number is cancelled"
+msgstr ""
+"Aucun: La commande n'est pas confirmé ou ne contient aucun article à "
+"produire\n"
+"A Confirmer: Au moins un numéros de production est 'A Confirmer'\n"
+"To Produce: Au moins un numéros de production est 'A Produire'\n"
+"En Production: Aucun numéro de production est 'A Produire' Et au moins un "
+"est 'En Production'\n"
+"Confirmed: Tous les numéros de production sont confirmés ou terminés.\n"
+"Done: Tous les numéros de production sont terminés\n"
+"Cancelled: Au moins un numéro de production est annulé."
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__o2m
@@ -158,6 +463,7 @@ msgstr "Opérations"
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__delivery_date
 #: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__delivery_date
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
 msgid "Planned Delivery Date"
 msgstr "Date de livraison prévue"
 
@@ -168,9 +474,9 @@ msgid ""
 msgstr "Date de livraison prévue déterminée par l'équipe de production"
 
 #. module: mc_mrp
-#: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__delivery_date
-msgid "Planned date provided by production team"
-msgstr "Date de livraison fournie par l'équipe de production"
+#: model:ir.model,name:mc_mrp.model_product_product
+msgid "Product"
+msgstr "Produit"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_product_attribute
@@ -183,11 +489,17 @@ msgid "Product Attributes"
 msgstr "Attributs de produit"
 
 #. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_product_category
+msgid "Product Category"
+msgstr "Catégorie d'article"
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_description
 msgid "Product Description"
 msgstr "Description du produit"
 
 #. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_product_template
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_tmpl_id
 msgid "Product Template"
 msgstr "Modèle d'article"
@@ -219,6 +531,7 @@ msgstr "Ordre de fabrication"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_purchase_order
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__purchase
 msgid "Purchase Order"
 msgstr "Commande fournisseur"
 
@@ -226,6 +539,31 @@ msgstr "Commande fournisseur"
 #: model:ir.model,name:mc_mrp.model_purchase_order_line
 msgid "Purchase Order Line"
 msgstr "Ligne de commande d'achat"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_sale_order__po_state
+msgid "Purchase Order Status"
+msgstr "État du bon de commande"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__purchase_order_ids
+msgid "Purchase Orders"
+msgstr "Commandes Fournisseurs"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__draft
+msgid "RFQ"
+msgstr "Devis"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__sent
+msgid "RFQ Sent"
+msgstr "Devis envoyé"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_product_attribute__product_attribute_id
@@ -256,14 +594,30 @@ msgid "Relationship Type"
 msgstr "Type de relation"
 
 #. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_comment
+#: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__sale_comment
+msgid "Sale Comment"
+msgstr "Commentaire du Back Office"
+
+#. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.mrp_production_form_view
 msgid "Sale Description"
 msgstr "Descriptif de vente"
 
 #. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__sale_order_id
+msgid "Sale Order"
+msgstr "Commande Client"
+
+#. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.mrp_production_form_view
 msgid "Sale Order Comment"
-msgstr "Commentaire du bon de commande"
+msgstr "Commentaire du Back Office"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.mrp_production_form_view
+msgid "Sale Order Warning Comment"
+msgstr "Commentaire de vente"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_sale_order
@@ -271,14 +625,51 @@ msgid "Sales Order"
 msgstr "Bon de commande"
 
 #. module: mc_mrp
-#: model:ir.model,name:mc_mrp.model_stock_move
-msgid "Stock Move"
-msgstr "Stock déplacer"
+#: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
+msgid "Select Purchase Order(s) To Confirm"
+msgstr "Commande(s) Fournisseurs à confirmer"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_form_view
+msgid "Send To Manufacturing"
+msgstr "Envoyer en Production"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_stock_rule
 msgid "Stock Rule"
 msgstr "Règle de stock minimum"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_product_product__is_foot
+msgid "Technical field that indicates whether a product is a foot."
+msgstr "Champ technique qui indique si oui ou non un article est un pied"
+
+#. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_product_product__is_fabric
+msgid "Technical field that indicates whether a product is a frabic."
+msgstr "Champ Technique qui indique si oui ou non un article est un pied."
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/mrp_production.py:0
+#, python-format
+msgid ""
+"The manufacturing order %s contains 'To be defined' products, with a "
+"quantity greater than 0.\n"
+"Please set quantity for those components %s to zero."
+msgstr ""
+"L'ordre de production %s contient  des articles 'A Définir',  avec une "
+"quantité supérieur à 0.\n"
+"Veuillez mettre une quantité à zéro pour ces composants %s."
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/mrp_production.py:0
+#, python-format
+msgid ""
+"There aren't any attributes of the product {} that match attributes of the "
+"BOM"
+msgstr ""
+"Il n'y a pas d'attribut pour le produit {} qui match les attributs de la "
+"Nomenclature"
 
 #. module: mc_mrp
 #: code:addons/mc_mrp/models/product_attribute.py:0
@@ -291,6 +682,28 @@ msgstr "Il y a déjà une relation définie sur cet attribut ({})."
 #, python-format
 msgid "There is already a relationship set on this attribute value ({})."
 msgstr "Il y a déjà une relation définie sur cette valeur d'attribut ({})."
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/sale_order.py:0
+#, python-format
+msgid "There is no purchase order to confirm for this sale."
+msgstr "Il n'y a pas de demande d'achat à confirmer pour cette vente."
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__to_approve
+msgid "To Approve"
+msgstr "À approuver"
+
+#. module: mc_mrp
+#: model:ir.model.fields,field_description:mc_mrp.field_purchase_order__to_be_confirmed
+msgid "To Be Confirmed"
+msgstr "À confimer"
+
+#. module: mc_mrp
+#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__to_confirm
+#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
+msgid "To Confirm"
+msgstr "À Confirmer"
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__to_produce
@@ -314,13 +727,7 @@ msgstr "Utilisé dans l'interface"
 #: model:ir.model.fields,help:mc_mrp.field_product_attribute__relationship_type
 #: model:ir.model.fields,help:mc_mrp.field_product_attribute_value__relationship_type
 msgid "Utility field used in UI."
-msgstr "Champs utilitaire défini dans l'interface"
-
-#. module: mc_mrp
-#: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__validated
-#: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
-msgid "Validated"
-msgstr "Validé"
+msgstr "Champs utilitaire défini dans l'interface."
 
 #. module: mc_mrp
 #: code:addons/mc_mrp/models/product_attribute.py:0
@@ -329,7 +736,27 @@ msgid "Warning"
 msgstr "Avertissement"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Yes"
+msgstr "Oui"
+
+#. module: mc_mrp
 #: code:addons/mc_mrp/report/mrp_report_bom_structure.py:0
 #, python-format
 msgid "minutes"
+msgstr "minutes"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_report_mc_sales_lot_report_mrp_saleslot
+msgid "report.mc_sales_lot.report_mrp_saleslot"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_report_mc_sales_lot_report_saleslot
+msgid "report.mc_sales_lot.report_saleslot"
+msgstr ""
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_report_mc_sales_lot_report_saleslot_labels
+msgid "report.mc_sales_lot.report_saleslot_labels"
 msgstr ""
