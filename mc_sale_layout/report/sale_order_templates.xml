@@ -41,7 +41,12 @@
                 <span>Quotation</span>
             </t>
             <t t-set="order" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state not in ['draft','sent']">
-                <span>Order</span>
+                <t t-if="downpayment">
+                    <span>Pro Forma</span>
+                </t>
+                <t t-else="">
+                    <span>Order</span>
+                </t>
             </t>
             <!-- set doc name -->
             <t t-set="order_name"><span t-field="doc.name"/></t>
