@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_account_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-08 15:33+0000\n"
+"PO-Revision-Date: 2021-02-08 16:37+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<span>HS Code</span>"
+msgstr "<span>Code SH</span>"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<span>Manuf N°</span>"
+msgstr "<span>N° Prod</span>"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<span>Qty</span>"
+msgstr "<span>Qte</span>"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<span>Value</span>"
+msgstr "<span>Valeur</span>"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<span>Weight</span>"
+msgstr "<span>Poids</span>"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__create_uid
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__create_date
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__display_name
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__display_name
+msgid "Display Name"
+msgstr "Afficher Nom"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__id
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__id
+msgid "ID"
+msgstr ""
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice____last_update
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__write_uid
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mc_account_layout
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__write_date
+#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: mc_account_layout
+#: model:ir.model,name:mc_account_layout.model_report_account_report_invoice
+msgid "report.account.report_invoice"
+msgstr ""
+
+#. module: mc_account_layout
+#: model:ir.model,name:mc_account_layout.model_report_account_report_invoice_with_payments
+msgid "report.account.report_invoice_with_payments"
+msgstr ""

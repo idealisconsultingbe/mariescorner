@@ -43,7 +43,7 @@ class SaleOrder(models.Model):
         Compute manufacturing state of each sale order
             Manuf State = None: for every SO that is in draft or sent state (There is nothing to produce)
                                 for every SO that does not contain sale lots
-            Manuf State = To Confirm: all manufacturing number are in state 'To Confirm'.
+            Manuf State = To Confirm: at least one manufacturing number are in state 'To Confirm'.
             Manuf State = To Produce: at least one manufacturing number is in state 'To Produce'.
             Manuf State = In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'.
             Manuf State = Confirmed: all manufacturing numbers are confirmed or done.
@@ -68,12 +68,12 @@ class SaleOrder(models.Model):
                 sales_lots_status = sales_lots.mapped('manufacturing_state')
                 if any([status == 'cancel' for status in sales_lots_status]):
                     state = 'cancel'
+                elif any([status == 'to_confirm' for status in sales_lots_status]):
+                    state = 'to_confirm'
                 elif any([status == 'to_produce' for status in sales_lots_status]):
                     state = 'to_produce'
                 elif any([status == 'in_manufacturing' for status in sales_lots_status]):
                     state = 'in_manufacturing'
-                elif all([status == 'to_confirm' for status in sales_lots_status]):
-                    state = 'to_confirm'
                 elif all([status == 'done' for status in sales_lots_status]):
                     state = 'done'
                 elif all([status in ['confirmed', 'done'] for status in sales_lots_status]):

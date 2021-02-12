@@ -3,6 +3,26 @@
     <data>
 
         <report
+            id="action_print_planned_batch_packing_list"
+            model="stock.picking.batch"
+            string="Planned Batch Packing List"
+            report_type="qweb-pdf"
+            print_report_name="'Planned Packing List for Shipment - %s' % object.name"
+            name="mc_batch_picking.planned_batch_packing_lst_report"
+            file="mc_batch_picking.planned_batch_packing_lst_report"
+        />
+
+        <report
+            id="action_print_planned_packing_list"
+            model="stock.picking"
+            string="Planned Packing List"
+            report_type="qweb-pdf"
+            print_report_name="'Planned Packing List for Shipment - %s' % object.name"
+            name="mc_batch_picking.planned_batch_packing_lst_document"
+            file="mc_batch_picking.planned_batch_packing_lst_document"
+        />
+
+        <report
             id="action_print_batch_packing_list"
             model="stock.picking.batch"
             string="Batch Packing List"
