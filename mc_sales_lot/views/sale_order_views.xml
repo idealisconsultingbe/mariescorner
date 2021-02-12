@@ -12,11 +12,15 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
                 <field name="sales_lot_id_required" invisible="1"/>
-                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
+                <field name="sales_lot_id_needed" invisible="1"/>
+                <field name="allow_set_sales_lot_id"/>
+                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="sales_lot_id_required" invisible="1"/>
-                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': [('sales_lot_id_required', '=', False)], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
+                <field name="sales_lot_id_needed" invisible="1"/>
+                <field name="allow_set_sales_lot_id" optional="hide" string="Set Manuf N°"/>
+                <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
                 <field name="manufacturing_state" optional="hide"/>
             </xpath>
         </field>

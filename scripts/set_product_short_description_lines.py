@@ -22,8 +22,8 @@ color = {
 }
 
 foot = {
-    'en': False,
-    'fr_BE': False,
+    'en': '',
+    'fr_BE': '',
 }
 
 mc_care = {

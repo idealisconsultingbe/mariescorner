@@ -78,7 +78,7 @@
                                     <td class="text-left"><span t-field="move.picking_id.sale_id.name"/></td>
                                     <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
                                     <td class="text-left"><span t-field="move.product_id.name"/></td>
-                                    <td class="text-right"><span t-field="move.quantity_done"/></td>
+                                    <td class="text-right"><span t-field="move.product_uom_qty"/></td>
                                     <td class="text-right"> </td>
                                 </tr>
                             </tbody>

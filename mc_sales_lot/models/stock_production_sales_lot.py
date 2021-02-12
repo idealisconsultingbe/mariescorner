@@ -57,7 +57,7 @@ class ProductionSalesLot(models.Model):
             Manuf State = In Manufacturing: At least one MO exists.
             Manuf State = Confirmed: All Manufacturing Orders are Confirmed or Done.
             Manuf State = Done: All Manufacturing Orders are Done.
-            Manuf State = Cancel: At least one MO is cancelled.
+            Manuf State = Cancel: At least one MO is cancelled or All PO are cancelled.
         else:
             Manuf state = external state set by external company
         """
@@ -75,10 +75,14 @@ class ProductionSalesLot(models.Model):
                 state = sale_lot.external_state
             else:
                 if not sale_lot.production_ids:
-                    if all([po_state in ['purchase', 'done'] for po_state in sale_lot.purchase_order_ids.mapped('state')]):
+                    if all([po_state in ['purchase', 'done'] for po_state in sale_lot.purchase_order_ids.mapped('state')]) and sale_lot.purchase_order_ids:
                         state = 'to_produce'
-                    else:
+                    elif all([po_state == 'cancel' for po_state in sale_lot.purchase_order_ids.mapped('state')]) and sale_lot.purchase_order_ids:
+                        state = 'cancel'
+                    elif sale_lot.purchase_order_ids:
                         state = 'to_confirm'
+                    else:
+                        state = 'done'
                 else:
                     state = 'in_manufacturing'
                     if all([x == 'done' for x in sale_lot.production_ids.mapped('state')]):
@@ -98,7 +102,7 @@ class ProductionSalesLot(models.Model):
         Compute supplier type and partners (sellers) of each manufacturing number.
         """
         for sale_lot in self:
-            seller_ids = sale_lot.purchase_order_ids.mapped('partner_id')
+            seller_ids = sale_lot.purchase_order_ids.mapped('partner_id') or sale_lot.product_id.mapped('seller_ids.name')
             sale_lot.partner_ids = seller_ids or self.env['res.partner']
             for seller in seller_ids:
                 if seller.parent_id:

@@ -8,10 +8,10 @@ import logging
 
 
 product_attributes_domain = {
-    '[Seats] Primary Fabric Type': {'normal': [], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Colour of primary fabric': {'normal': [], 'tcl': [('name', '=', 'None')]},
-    '[Seats] Secondary Fabric Type': {'normal': [], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Colour of secondary fabric': {'normal': [], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Primary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Colour of primary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Secondary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Colour of secondary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
     '[Seats] Foot Type': {'standard': [('name', '=', 'STANDARD')],
                           'archer': [('name', '=', 'ARCHER')],
                           'burton': [('name', '=', 'BURTON')],
@@ -28,9 +28,7 @@ product_attributes_domain = {
                                     'walnut_specific': ['|', '|', ('name', 'in', ['WALNUT (5)', 'WALNUT WAXED (6)', 'WALNUT EBONY (9)', 'WALNUT SMOKE (14)']), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],},
     '[Seats] Mc Care': {'normal': []},
     '[Seats] Leather covering': {'normal': []},
-    '[Seats] Fireproof treatment of fabric': {'normal': []},
-    '[Seats] Fireproof treatment of foam rubber': {'normal': []},
-    '[Seats] Fireproof treatment of cotton': {'normal': []},
+    '[Seats] Fireproof treatment': {'normal': []},
     '[Seats] Contrast Piping': {'normal': []},
     '[Seats] Contrast fabrics': {'normal': []},
     '[Seats] Contrast pillow': {'normal': []},
