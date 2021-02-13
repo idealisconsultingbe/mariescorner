@@ -15,7 +15,13 @@ class ProductionSalesLot(models.Model):
     ]
 
     name = fields.Char(string='Manufacturing Number', required=True)
-    manufacturing_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'In Manufacturing'), ('confirmed', 'Confirmed'), ('done', 'Done'), ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
+    manufacturing_state = fields.Selection([('to_produce', 'To Produce'),
+                                            ('in_manufacturing', 'In Manufacturing'),
+                                            ('received_by_manufacturer', 'Order Received By The Manufacturer'),
+                                            ('internal_transit', 'Internal Transit'),
+                                            ('internal_receipt', 'Internal Receipt'),
+                                            ('delivered', 'Delivered To The Customer'),
+                                            ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
     external_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_confirm', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
@@ -23,6 +29,9 @@ class ProductionSalesLot(models.Model):
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
     product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
+    internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
+    internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
+    customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
@@ -47,16 +56,19 @@ class ProductionSalesLot(models.Model):
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
 
-    @api.depends('production_ids.state', 'supplier_type', 'external_state', 'purchase_order_ids.state')
+    @api.depends('production_ids.state', 'supplier_type', 'external_state',
+                 'purchase_order_ids.state', 'internal_delivery_done', 'internal_receipt_done',
+                 'customer_delivery_done')
     def _compute_manufacturing_state(self):
         """
         Compute manufacturing state of each manufacturing number
         if supplier type is internal:
-            Manuf State = To Confirm: Purchase Order is not confirmed yet for this Manufacturing Number.
-            Manuf State = To Produce: Purchase Order is confirmed but No Manufacturing Orders have been created for this Manufacturing Number.
-            Manuf State = In Manufacturing: At least one MO exists.
-            Manuf State = Confirmed: All Manufacturing Orders are Confirmed or Done.
-            Manuf State = Done: All Manufacturing Orders are Done.
+            Manuf State = To Produce: At least one Purchase Order is not confirmed for this Manufacturing Number.
+            Manuf State = In Manufacturing: All Purchase Orders are confirmed.
+            Manuf State = Order Received By The Manufacturer: All Manufacturing Orders are Confirmed or Done.
+            Manuf State = Internal Transit: Manufacturing Number is in transit between two companies.
+            Manuf State = Internal Receipt: Manufacturing Number is received from the supplier.
+            Manuf State = Delivered To the Customer: Manufacturing Number is delivered to the customer.
             Manuf State = Cancel: At least one MO is cancelled or All PO are cancelled.
         else:
             Manuf state = external state set by external company
@@ -71,24 +83,28 @@ class ProductionSalesLot(models.Model):
                 for sale_lot in self
             )
         for sale_lot in self:
-            if sale_lot.supplier_type == 'external':
+            if sale_lot.customer_delivery_done:
+                state = 'delivered'
+            elif sale_lot.internal_receipt_done:
+                state = 'internal_receipt'
+            elif sale_lot.internal_delivery_done:
+                state = 'internal_transit'
+            elif sale_lot.supplier_type == 'external':
                 state = sale_lot.external_state
             else:
                 if not sale_lot.production_ids:
                     if all([po_state in ['purchase', 'done'] for po_state in sale_lot.purchase_order_ids.mapped('state')]) and sale_lot.purchase_order_ids:
-                        state = 'to_produce'
+                        state = 'in_manufacturing'
                     elif all([po_state == 'cancel' for po_state in sale_lot.purchase_order_ids.mapped('state')]) and sale_lot.purchase_order_ids:
                         state = 'cancel'
                     elif sale_lot.purchase_order_ids:
-                        state = 'to_confirm'
+                        state = 'to_produce'
                     else:
-                        state = 'done'
+                        state = 'internal_receipt'
                 else:
                     state = 'in_manufacturing'
-                    if all([x == 'done' for x in sale_lot.production_ids.mapped('state')]):
-                        state = 'done'
-                    elif all([x not in ['cancel', 'draft'] for x in sale_lot.production_ids.mapped('state')]):
-                        state = 'confirmed'
+                    if all([x not in ['cancel', 'draft'] for x in sale_lot.production_ids.mapped('state')]):
+                        state = 'received_by_manufacturer'
                     elif any([x == 'cancel' for x in sale_lot.production_ids.mapped('state')]):
                         state = 'cancel'
             sale_lot.manufacturing_state = state

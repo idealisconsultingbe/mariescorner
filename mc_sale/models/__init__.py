@@ -18,3 +18,4 @@ from . import product_config_desc_line
 from . import product_config_desc_line_value
 from . import account_move_line
 from . import res_company
+from . import res_config_settings

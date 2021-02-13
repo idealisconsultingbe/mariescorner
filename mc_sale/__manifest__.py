@@ -23,6 +23,7 @@
     'depends': ['sale_product_configurator', 'sale_management', 'website_sale_stock', 'inter_company_rules', 'purchase_stock', 'delivery', 'account'],
     'data': [
         'security/ir.model.access.csv',
+        'views/res_config_settings_views.xml',
         'views/product_attribute_value_percentage_price_views.xml',
         'views/product_attribute_views.xml',
         'views/product_attribute_value_views.xml',

@@ -22,19 +22,21 @@ class SaleOrder(models.Model):
 
     manufacturing_state = fields.Selection([
         ('none', 'None'),
-        ('to_confirm', 'To Confirm'),
         ('to_produce', 'To Produce'),
         ('in_manufacturing', 'In Manufacturing'),
-        ('confirmed', 'Confirmed'),
-        ('done', 'Done'),
+        ('received_by_manufacturer', 'Order Received By The Manufacturer'),
+        ('internal_transit', 'Internal Transit'),
+        ('internal_receipt', 'Internal Receipt'),
+        ('delivered', 'Delivered To The Customer'),
         ('cancel', 'Cancelled')
     ], string='Manufacturing Status', readonly=True, copy=False, index=True, tracking=True, store=True, compute='_compute_manufacturing_state',
         help="None: SO is not confirmed or SO does not contain producible products\n"
-             "To Confirm: all manufacturing number are in state 'To Confirm'\n"
-             "To Produce: at least one manufacturing number is in state 'To Produce'\n"
+             "To Produce: At least one manufacturing number is in state 'To Produce'\n"
              "In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'\n"
-             "Confirmed: all manufacturing numbers are confirmed or done\n"
-             "Done: all manufacturing numbers are done\n"
+             "Order Received By The Manufacturer: no manufacturing number is in state 'In Manufacturing' and at least one is in state 'Order Received By The Manufacturer'\n"
+             "Internal Transit: no manufacturing number is in state 'Order Received By The Manufacturer' and at least one is in state 'Internal Transit'\n"
+             "Internal Receipt: no manufacturing number is in state 'Internal Transit' and at least one is in state 'Internal Receipt'\n"
+             "Delivered To The Customer: all manufacturing numbers are delivered to the customer\n"
              "Cancelled: at least one manufacturing number is cancelled")
 
     @api.depends('order_line.sales_lot_id.manufacturing_state')
@@ -43,7 +45,6 @@ class SaleOrder(models.Model):
         Compute manufacturing state of each sale order
             Manuf State = None: for every SO that is in draft or sent state (There is nothing to produce)
                                 for every SO that does not contain sale lots
-            Manuf State = To Confirm: at least one manufacturing number are in state 'To Confirm'.
             Manuf State = To Produce: at least one manufacturing number is in state 'To Produce'.
             Manuf State = In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'.
             Manuf State = Confirmed: all manufacturing numbers are confirmed or done.
@@ -68,16 +69,18 @@ class SaleOrder(models.Model):
                 sales_lots_status = sales_lots.mapped('manufacturing_state')
                 if any([status == 'cancel' for status in sales_lots_status]):
                     state = 'cancel'
-                elif any([status == 'to_confirm' for status in sales_lots_status]):
-                    state = 'to_confirm'
                 elif any([status == 'to_produce' for status in sales_lots_status]):
                     state = 'to_produce'
                 elif any([status == 'in_manufacturing' for status in sales_lots_status]):
                     state = 'in_manufacturing'
-                elif all([status == 'done' for status in sales_lots_status]):
-                    state = 'done'
-                elif all([status in ['confirmed', 'done'] for status in sales_lots_status]):
-                    state = 'confirmed'
+                elif any([status == 'received_by_manufacturer' for status in sales_lots_status]):
+                    state = 'received_by_manufacturer'
+                elif any([status == 'internal_transit' for status in sales_lots_status]):
+                    state = 'internal_transit'
+                elif any([status == 'internal_delivery' for status in sales_lots_status]):
+                    state = 'internal_delivery'
+                elif all([status == 'delivered' for status in sales_lots_status]):
+                    state = 'delivered'
                 else:
                     state = 'none'
             else:

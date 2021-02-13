@@ -14,6 +14,14 @@
             <xpath expr="//field[@name='validity_date']" position="before">
                 <field name="manufacturing_state"/>
             </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
+                <field name="list_price" string="Base Price"/>
+                <field name="list_price_extra" string="Public Price"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='price_unit']" position="before">
+                <field name="list_price" string="Base Price" optional="hide"/>
+                <field name="list_price_extra" string="Public Price" optional="show"/>
+            </xpath>
         </field>
     </record>
 

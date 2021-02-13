@@ -11,11 +11,6 @@
                         <group>
                             <field name="name"/>
                             <field name="attribute_id"/>
-                            <label for="unit_price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}"/>
-                            <div class="o_row" name="price" attrs="{'invisible': [('parent.has_linear_price', '=', False)]}">
-                                <field name="unit_price"/>
-                                <span>/<field name="length_uom_name"/></span>
-                            </div>
                         </group>
                         <group>
                             <field name="has_linear_price" invisible="1"/>

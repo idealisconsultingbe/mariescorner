@@ -39,6 +39,7 @@ class Picking(models.Model):
                         'fr_BE': 'Le numéro de série {} a été réceptionné par {}'.format(line.lot_id.name, picking.company_id.partner_id.name_get()[0][1]),
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
+                    line.sales_lot_id.internal_receipt_done = True
                 elif picking.picking_type_code == 'outgoing' and is_intercompany(picking.partner_id, companies):
                     name = {'no_lang': _('Internal Delivery OK'), 'en_US': 'Internal Delivery OK', 'fr_BE': 'Livraison Interne OK'}
                     msg = {
@@ -47,6 +48,7 @@ class Picking(models.Model):
                         'fr_BE': 'Le numéro de série {} est en chemin vers l\'entrepôt de {}'.format(line.lot_id.name, picking.partner_id.name_get()[0][1]),
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
+                    line.sales_lot_id.internal_delivery_done = True
                 elif picking.picking_type_code == 'outgoing':
                     name = {'no_lang': _('Delivery OK'), 'en_US': 'Delivery OK', 'fr_BE': 'Livraison OK'}
                     msg = {
@@ -55,4 +57,5 @@ class Picking(models.Model):
                         'fr_BE': 'Le numéro de série {} a été livré au client {}'.format(line.lot_id.name, picking.partner_id.name_get()[0][1]),
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
+                    line.sales_lot_id.customer_delivery_done = True
         return res

@@ -181,7 +181,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="99" t-if="pick.sale_id and pick.sale_id.comment" class="border-top-0"><span t-field="pick.sale_id.comment"/></td>
+                                        <td colspan="99" t-if="pick.sale_id and pick.sale_id.delivery_comment" class="border-top-0"><span t-field="pick.sale_id.delivery_comment"/></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -26,14 +26,6 @@
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="attributes">
                 <attribute name="string">Customer Price</attribute>
             </xpath>
-            <xpath expr="//tree/field[@name='price_unit']" position="before">
-                <field name="list_price" string="Base Price" optional="hide"/>
-                <field name="list_price_extra" string="Public Price" optional="show"/>
-            </xpath>
-            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="before">
-                <field name="list_price" string="Base Price"/>
-                <field name="list_price_extra" string="Public Price"/>
-            </xpath>
             <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="after">
                 <field name="fabrics_meterage_needed" invisible="1"/>
@@ -48,7 +40,8 @@
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Comment" name="comment">
-                    <field name="comment" nolabel="1"/>
+                    <field name="comment"/>
+                    <field name="delivery_comment"/>
                 </page>
             </xpath>
         </field>

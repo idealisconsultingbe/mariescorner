@@ -18,15 +18,10 @@ class ProductProduct(models.Model):
                     False otherwise.
         """
         for product in self:
-            fabric = False
             foot = False
-            categ = product.categ_id
-            while not fabric and categ:
-                fabric = categ.is_fabric
-                categ = categ.parent_id
             categ = product.categ_id
             while not foot and categ:
                 foot = categ.is_foot
                 categ = categ.parent_id
-            product.is_fabric = fabric
+            product.is_fabric = self.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id') == product.id
             product.is_foot = foot
