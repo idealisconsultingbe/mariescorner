@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">mc.view.quotation.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="effective_date" string="Delivery Date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">mc.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="effective_date" string="Delivery Date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="sale_order_form_view" model="ir.ui.view">
         <field name="name">mc.view.order.form</field>
         <field name="model">sale.order</field>
@@ -51,6 +79,20 @@
                     <field name="comment" nolabel="1"/>
                 </page>
             </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">mc.view.sales.order.filter.inherited.effective.date</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="order_month" position="after">
+                <filter string="Delivery Date" name="effective_date_groupby" domain="[]" context="{'group_by': 'effective_date'}"/>
+            </filter>
+            <filter name="activities_upcoming_all" position="after">
+                <filter string="Delivery Date" name="filter_effective_date" date="effective_date"/>
+            </filter>
         </field>
     </record>
 

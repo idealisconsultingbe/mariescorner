@@ -1,11 +1,23 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import fields, models
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    mandatory_date = fields.Date(string='Mandatory Date', states={'draft': [('readonly', False)], 'sent': [('readonly', False)], 'sale': [('readonly', False)]}, copy=False, readonly=True)
+    editable_mandatory_date = fields.Boolean(string='Editable Mandatory Date', compute='_compute_editable_mandatory_date', help='Used in UI. Prevent user to edit mandatory date if he is not member of the right group.')
+
+    def _compute_editable_mandatory_date(self):
+        """
+        Check if user has rights to edit mandatory date. If not, field is in readonly mode.
+        This prevents user to modify mandatory date and trying to save it.
+        """
+        edit_mandatory_date_group = self.env.user.has_group('mc_sales_lot.group_edit_mandatory_date')
+        for order in self:
+            order.editable_mandatory_date = edit_mandatory_date_group
 
     def _action_confirm(self):
         """ Overridden Method

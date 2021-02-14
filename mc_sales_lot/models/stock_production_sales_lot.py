@@ -23,6 +23,7 @@ class ProductionSalesLot(models.Model):
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
     product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')

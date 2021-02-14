@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
     <record id="sales_lot_form_view" model="ir.ui.view">
         <field name="name">sales.lot.form.view.inherited.delivery.date</field>
         <field name="model">stock.production.sales.lot</field>
         <field name="inherit_id" ref="mc_sales_lot.sales_lot_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_uom_id']" position="after">
+            <xpath expr="//group[@name='general_fields']" position="inside">
                 <field name="delivery_date" string="Planned Delivery Date"/>
+                <field name="fabric_date"/>
             </xpath>
             <xpath expr="//group[@name='main']" position="inside">
                 <group string="Comment" name="sale_comment">
-                    <field name="sale_comment" readonly="1"/>
+                    <field name="sale_comment" nolabel="1" readonly="1"/>
                 </group>
             </xpath>
         </field>
     </record>
+
+    <record id="sales_lot_tree_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.tree.view.inherited.fabric.date</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.sales_lot_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_ids']" position="before">
+                <field name="fabric_date" optional="show"/>
+                <field name="delivery_date" string="Delivery Date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
