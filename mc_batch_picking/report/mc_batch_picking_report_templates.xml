@@ -75,7 +75,7 @@
                             <tbody>
                                 <tr t-foreach="moves" t-as="move">
                                     <td class="text-left"><span t-field="move.picking_id.name"/></td>
-                                    <td class="text-left"><span t-field="move.picking_id.sale_id.name"/></td>
+                                    <td class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/></td>
                                     <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
                                     <td class="text-left"><span t-field="move.product_id.name"/></td>
                                     <td class="text-right"><span t-field="move.product_uom_qty"/></td>
@@ -125,7 +125,6 @@
                                 <thead>
                                     <tr>
                                         <th class="text-left"><strong>Picking</strong></th>
-                                        <th t-if="pick.sale_id" class="text-left"><strong>Order</strong></th>
                                         <th class="text-left"><strong>Name</strong></th>
                                         <th class="text-center"><strong>Ref</strong></th>
                                         <th class="text-center"><strong>Street</strong></th>
@@ -138,7 +137,6 @@
                                 <tbody style="page-break-inside: avoid;">
                                     <tr>
                                         <td class="text-left"><span t-field="pick.name"/></td>
-                                        <td t-if="pick.sale_id" class="text-left"><span t-field="pick.sale_id.name"/></td>
                                         <td class="text-left"><span t-field="pick.partner_id.name"/></td>
                                         <td class="text-center"><span t-field="pick.partner_id.ref"/></td>
                                         <td class="text-center"><span t-field="pick.partner_id.street"/></td>
@@ -154,6 +152,7 @@
                                             <table class="table table-sm mb-0" t-if="moves">
                                                 <thead>
                                                     <tr>
+                                                        <th class="text-left border-bottom-black"><strong>Order</strong></th>
                                                         <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>
                                                         <th class="text-left border-bottom-black"><strong>Product</strong></th>
                                                         <th class="text-center border-bottom-black"><strong>Quantity</strong></th>
@@ -163,6 +162,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr t-foreach="moves" t-as="move">
+                                                        <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/></td>
                                                         <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
                                                         <td class="text-left"><span t-field="move.product_id.name"/></td>
                                                         <td class="text-right"><span t-field="move.quantity_done"/></td>
@@ -170,6 +170,7 @@
                                                         <td class="text-right"><span t-esc="'%.2f' % (move.quantity_done * move.product_id.weight)"/></td>
                                                     </tr>
                                                     <tr>
+                                                        <td class="border-top-black"/>
                                                         <td class="border-top-black" t-if="moves.mapped('sales_lot_id')"/>
                                                         <td class="border-top-black"/>
                                                         <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum(moves.mapped('quantity_done'))"/></strong></td>

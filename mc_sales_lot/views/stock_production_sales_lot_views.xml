@@ -9,7 +9,7 @@
                 <field name="name" readonly="1"/>
                 <field name="product_id" readonly="1"/>
                 <field name="partner_id" readonly="1"/>
-                <field name="sale_order_ids" widget="many2many_tags"/>
+                <field name="so_origin_name"/>
                 <field name="production_ids" widget="many2many_tags"/>
                 <field name="manufacturing_state" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
                 <field name="external_state" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
@@ -35,12 +35,15 @@
                         <group string="General" name="general_fields">
                             <field name="partner_id" readonly="1" force_save="1"/>
                             <field name="partner_shipping_id" readonly="1"/>
-                            <field name="carrier_id" readonly="1"/>
                             <field name="product_id" readonly="1"/>
                             <field name="product_qty" readonly="1"/>
                             <field name="product_uom_id" readonly="1"/>
                             <field name="supplier_type" invisible="1"/>
                             <field name="active" invisible="1"/>
+                        </group>
+                        <group name="secondary_fields">
+                            <field name="so_origin_name"/>
+                            <field name="carrier_id" readonly="1"/>
                         </group>
                     </group>
                     <separator string="Lots/Serial Numbers"/>
@@ -85,6 +88,7 @@
         <field name="arch" type="xml">
             <search string="Manufacturing Numbers">
                 <field name="name"/>
+                <field name="so_origin_name"/>
                 <field name="partner_id"/>
                 <field name="product_id"/>
                 <field name="production_ids"/>

@@ -24,15 +24,14 @@ class MrpProduction(models.Model):
             else:
                 production.sales_lot_id = False
 
-    @api.depends('sales_lot_id.sale_order_ids')
+    @api.depends('sales_lot_id.origin_sale_order_id')
     def _compute_inter_company_origin(self):
         """
         Display the inter company source.
         """
         for production in self:
-            if production.sales_lot_id and production.sales_lot_id.sale_order_ids:
-                so_inter_company = production.sales_lot_id.sale_order_ids.filtered(lambda so: so.company_id != production.company_id)
-                production.inter_company_origin = ','.join(so_inter_company.mapped('name'))
+            if production.sales_lot_id and production.sales_lot_id.origin_sale_order_id:
+                production.inter_company_origin = production.sales_lot_id.origin_sale_order_id.name
             else:
                 production.inter_company_origin = ''
 

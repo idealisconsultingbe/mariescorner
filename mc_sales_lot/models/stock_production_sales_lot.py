@@ -32,6 +32,7 @@ class ProductionSalesLot(models.Model):
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
+    so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
@@ -55,6 +56,17 @@ class ProductionSalesLot(models.Model):
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
+
+    @api.depends('origin_sale_order_id')
+    def _compute_sales_lot_origin(self):
+        """
+        Display the SO name at the origin of the creation of self
+        """
+        for sale_lot in self:
+            if sale_lot.origin_sale_order_id:
+                sale_lot.so_origin_name = sale_lot.origin_sale_order_id.name
+            else:
+                sale_lot.so_origin_name = ''
 
     @api.depends('production_ids.state', 'supplier_type', 'external_state',
                  'purchase_order_ids.state', 'internal_delivery_done', 'internal_receipt_done',
