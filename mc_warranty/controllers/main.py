@@ -13,68 +13,74 @@ from odoo.tools.translate import _
 
 class RegisterProductsForm(http.Controller):
 
-    @http.route('/register_products/<string:model_name>', type='http', auth='public', methods=['POST'], website=True)
-    def register_products(self, model_name, **kwargs):
-        # TODO model seems to be mandatory but we do not use it
+    @http.route('/register_products', type='http', auth='public', methods=['POST'], website=True)
+    def register_products(self, **kwargs):
         try:
             data = self.extract_data(request.params)
         # If we encounter an issue while extracting data, abort registration
-        except ValidationError as e:
-            # TODO How to display this error message in form ?
-            return json.dumps({'error_fields': e.args[0]})
+        except Exception as e:
+            warranty_error = e.args[0]
+            return request.render("mc_warranty.warranty_not_activated", {'error': warranty_error})
 
         sale_order = request.env['sale.order'].search([('name', '=', data['form_fields']['warranty'])])
-        # TODO Sale order name should be unique or there is no point to use it as warranty number
         if not sale_order:
-            # TODO How to display this error message in form ?
-            return json.dumps({'wrong_warranty_number': _('This warranty number is not correct')})
+            warranty_error = _('This warranty number %s is not correct' % data['form_fields']['warranty'])
+            return request.render("mc_warranty.warranty_not_activated", {'error': warranty_error})
+        elif not any(sale_order.order_line.mapped('sales_lot_id.mc_care')):
+            warranty_error = _('This warranty number %s is not related to a Mc Care product' % data['form_fields']['warranty'])
+            return request.render("mc_warranty.warranty_not_activated", {'error': warranty_error})
         elif sale_order.mc_care_warranty:
-            # TODO How to display this error message in form ?
-            return json.dumps({'used_warranty_number': _('This warranty number has been already activated')})
-        # TODO What if we get a sale order with no MC Care subscription ? A flag is required on sale order to prevent this case
+            warranty_error = _('This warranty number %s has already been activated' % data['form_fields']['warranty'])
+            return request.render("mc_warranty.warranty_not_activated", {'error': warranty_error})
 
-        country = request.env['res.country'].browse(data['form_fields']['country'])
-        partner = request.env['res.partner'].search([('email', '=', data['form_fields']['email'])])
-        if not partner:
-            partner = request.env['res.partner'].create({
-                'name': '{} {}'.format(data['form_fields']['lastname'], data['form_fields']['firstname']),
-                'street': data['form_fields']['address'],
-                'city': data['form_fields']['city'],
-                'country_id': country.id if country else False,
-                'zip': data['form_fields']['zip'],
-                'email': data['form_fields']['email'],
-                'phone': data['form_fields']['phone'],
-            })
-        else:
-            # TODO Possible threat: anyone can update those values with a valid sale order name that is not hard to find.
-            # update partner
-            if country:
-                partner.country_id = country
-            partner.write({
-                'name': '{} {}'.format(data['form_fields']['lastname'], data['form_fields']['firstname']),
-                'street': data['form_fields']['address'],
-                'city': data['form_fields']['city'],
-                'zip': data['form_fields']['zip'],
-                'phone': data['form_fields']['phone'],
-            })
-            # post survey on partner record
-            title = _('MC Care Website Survey')
-            q_1 = _('Did your know Marie\'s Corner before your purchase ?')
-            q_2 = _('Did the MC Care warranty influence your purchase ?')
-            q_3 = _('How did you find out about the MC Care Warranty ?')
-            q_4 = _('Household Type')
-            a_1 = data['form_fields']['mc_known']
-            a_2 = data['form_fields']['influence']
-            a_3 = data['form_fields']['find_out']
-            a_4 = data['form_fields']['household']
-            survey_msg = '<p><strong>{}</strong><br/>{} -> {}<br/>{} -> {}<br/>{} -> {}<br/>{} -> {}</p>'.format(title, q_1, a_1, q_2, a_2, q_3, a_3, q_4, a_4)
-            partner.message_post(body=survey_msg, subject=title, message_type='comment', subtype='mail.mt_note')
-        # update sale order
-        sale_order.write({'mc_care_warranty': True, 'final_partner_id': partner.id})
-        # update sales lots
-        sale_order.order_line.mapped('sales_lot_id').write({'mc_care_warranty': True, 'final_partner_id': partner.id})
-
-        # TODO what to return if warranty is correctly activated ?
+        try:
+            country = request.env['res.country'].browse(data['form_fields']['country'])
+            partner = request.env['res.partner'].search([('email', '=', data['form_fields']['email'])])
+            if not partner:
+                partner = request.env['res.partner'].create({
+                    'name': '{} {}'.format(data['form_fields']['lastname'], data['form_fields']['firstname']),
+                    'street': data['form_fields']['address'],
+                    'city': data['form_fields']['city'],
+                    'country_id': country.id if country else False,
+                    'zip': data['form_fields']['zip'],
+                    'email': data['form_fields']['email'],
+                    'phone': data['form_fields']['phone'],
+                })
+            else:
+                # Possible threat: anyone can update those values with a valid sale order name that is not hard to find.
+                # update partner
+                if country:
+                    partner.country_id = country
+                partner.write({
+                    'name': '{} {}'.format(data['form_fields']['lastname'], data['form_fields']['firstname']),
+                    'street': data['form_fields']['address'],
+                    'city': data['form_fields']['city'],
+                    'zip': data['form_fields']['zip'],
+                    'phone': data['form_fields']['phone'],
+                })
+                # post survey on partner record
+                if any([key in data['form_fields'] for key in ['mc_known', 'influence', 'find_out', 'household']]):
+                    title = _('MC Care Website Survey')
+                    q_1 = _('Did your know Marie\'s Corner before your purchase ?')
+                    q_2 = _('Did the MC Care warranty influence your purchase ?')
+                    q_3 = _('How did you find out about the MC Care Warranty ?')
+                    q_4 = _('Household Type')
+                    a_1 = data['form_fields']['mc_known'] if 'mc_known' in data['form_fields']['influence'] else _('No Response')
+                    a_2 = data['form_fields']['influence'] if 'influence' in data['form_fields']['influence'] else _('No Response')
+                    a_3 = data['form_fields']['find_out'] if 'find_out' in data['form_fields']['influence'] else _('No Response')
+                    a_4 = data['form_fields']['household'] if 'household' in data['form_fields']['influence'] else _('No Response')
+                    survey_msg = '<p><strong>{}</strong><br/>{} -> {}<br/>{} -> {}<br/>{} -> {}<br/>{} -> {}</p>'.format(title, q_1, a_1, q_2, a_2, q_3, a_3, q_4, a_4)
+                    partner.message_post(body=survey_msg, subject=title, message_type='comment', subtype='mail.mt_note')
+            # update sale order
+            sale_order.write({'mc_care_warranty': True, 'final_partner_id': partner.id})
+            # update sales lots
+            sale_order.order_line.mapped('sales_lot_id').write({'mc_care_warranty': True, 'final_partner_id': partner.id})
+            # If we encounter an issue while extracting data, abort registration
+        except Exception as e:
+            warranty_error = e.args[0]
+            return request.render("mc_warranty.warranty_not_activated", {'error': warranty_error})
+        # TODO send an email for confirmation!
+        return request.render("mc_warranty.warranty_activated")
 
     def extract_data(self, values):
         """
@@ -93,8 +99,12 @@ class RegisterProductsForm(http.Controller):
                         data['form_fields'][field_name] = self.phone_format(field_name, field_value, country=values.get('country', None))
                     else:
                         input_filter = self._input_filters[self.authorized_fields[field_name]['type']]
-                        data['form_fields'][field_name] = input_filter(self, field_name, field_value)
+                        response = input_filter(self, field_name, field_value)
+                        if response:
+                            data['form_fields'][field_name] = input_filter(self, field_name, field_value)
                 except ValueError:
+                    error_fields.append(field_name)
+                except KeyError:
                     error_fields.append(field_name)
             else:
                 custom_fields.append((field_name, field_value))
@@ -134,6 +144,7 @@ class RegisterProductsForm(http.Controller):
         # TODO: should we handle different languages ?
         lang = request.env['ir.qweb.field'].user_lang()
         values = {
+            '': False,
             'yes': 'Yes',
             'no': 'No',
             'not_know': 'I did not know',
