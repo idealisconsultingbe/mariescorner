@@ -10,6 +10,8 @@
                 <field name="product_id" readonly="1"/>
                 <field name="partner_id" readonly="1"/>
                 <field name="so_origin_name"/>
+                <field name="mandatory_date" optional="show"/>
+                <field name="sale_order_ids" widget="many2many_tags"/>
                 <field name="production_ids" widget="many2many_tags"/>
                 <field name="manufacturing_state" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
                 <field name="external_state" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
@@ -36,8 +38,12 @@
                             <field name="partner_id" readonly="1" force_save="1"/>
                             <field name="partner_shipping_id" readonly="1"/>
                             <field name="product_id" readonly="1"/>
-                            <field name="product_qty" readonly="1"/>
-                            <field name="product_uom_id" readonly="1"/>
+                            <label for="product_qty"/>
+                            <div class="o_row">
+                                <field name="product_qty" readonly="1"/>
+                                <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
+                            </div>
+                            <field name="mandatory_date"/>
                             <field name="supplier_type" invisible="1"/>
                             <field name="active" invisible="1"/>
                         </group>

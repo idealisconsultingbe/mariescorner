@@ -33,6 +33,7 @@ class ProductionSalesLot(models.Model):
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')

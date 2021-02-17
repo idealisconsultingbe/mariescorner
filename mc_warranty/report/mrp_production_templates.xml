@@ -17,4 +17,34 @@
             </div>
         </xpath>
     </template>
+
+    <template id="report_mc_care_sticker">
+        <t t-foreach="docs" t-as="mo">
+            <t t-if="mo.product_uom_id.category_id.measure_type == 'unit'">
+                <t t-set="qty" t-value="int(mo.product_qty)"/>
+            </t>
+            <t t-else="">
+                <t t-set="qty" t-value="1"/>
+            </t>
+            <t t-foreach="range(qty)" t-as="i">
+                <t t-translation="off">
+                ^XA
+
+                ^FX Top section with product reference.
+                ^CF0,30
+                ^FO70,30^FDORDER:^FS
+                ^FO170,30^FD<t t-if="mo.inter_company_origin" t-esc="mo.inter_company_origin"/>^FS
+
+                ^CF0,25
+                ^FO70,100^FD<t t-if="mo.sales_lot_id" t-esc="mo.sales_lot_id.name"/>^FS
+                ^FO250,100^FD<t t-esc="mo.product_id.name"/>^FS
+
+                ^FO500,160^FD<t t-esc="i+1"/>/<t t-esc="qty"/>^FS
+
+                ^XZ
+                </t>
+            </t>
+        </t>
+    </template>
+
 </odoo>
