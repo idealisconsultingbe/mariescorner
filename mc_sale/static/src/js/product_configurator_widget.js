@@ -31,6 +31,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                             default_standard_product_price: product_price,
                             default_product_cost: product_cost,
                             default_comment: self._getComment(),
+                            default_company_id: self._getCompanyId(),
                             // End custom changes
                         },
                         dataPointId
@@ -62,6 +63,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                     default_product_cost: this._getPurchasePrice(),
                     default_standard_product_price: this._getProductSalePrice(),
                     default_comment: this._getComment(),
+                    default_company_id: this._getCompanyId(),
                     // End custom changes
                     default_product_template_attribute_value_ids: this._convertFromMany2Many(
                         this.recordData.product_template_attribute_value_ids
@@ -132,6 +134,16 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          */
         _getComment: function () {
             return this.record.evalContext.comment;
+        },
+
+        /**
+         * Returns the product_price set on the sale_order_line
+         *
+         * @private
+         * @returns {float} product_price's value
+         */
+        _getCompanyId: function () {
+            return this.record.evalContext.current_company_id;
         },
     });
 
