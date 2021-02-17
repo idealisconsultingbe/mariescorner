@@ -58,7 +58,7 @@ class SaleOrderLine(models.Model):
 
             # exclude product_template_attribute_values related to the same attribute than a custom attribute value
             no_variant_attributes_price_extra = [
-                ptav.price_extra for ptav in self.product_no_variant_attribute_value_ids.filtered(
+                ptav.with_context(force_company=self.order_id.company_id.id).price_extra for ptav in self.product_no_variant_attribute_value_ids.filtered(
                     lambda ptav:
                     ptav.price_extra and
                     ptav.attribute_id not in ptav_used.mapped('attribute_id') and

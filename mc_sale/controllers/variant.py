@@ -15,15 +15,16 @@ class CustomVariantController(VariantController):
         Handle the custom values sent by the JS in order to calculate the price depending on the meterage given in input by the user.
         Tailor-made product should not have their price impact since it will be calculated manually by the seller.
         """
+        # Todo force company
         if not kw.get('custom_values'):
-            return super(CustomVariantController, self).get_combination_info(product_template_id, product_id, combination, add_qty, pricelist_id, **kw)
+            return super(CustomVariantController, self).get_combination_info(product_template_id, product_id, combination.with_context(force_company=3), add_qty, pricelist_id, **kw)
         else:
             combination = request.env['product.template.attribute.value'].browse(combination)
             pricelist = self._get_pricelist(pricelist_id)
             ProductTemplate = request.env['product.template']
             if 'context' in kw: ProductTemplate = ProductTemplate.with_context(**kw.get('context'))
             product_template = ProductTemplate.browse(int(product_template_id))
-            res = product_template._get_combination_info(combination, int(product_id or 0), int(add_qty or 1), pricelist, custom_values=kw.get('custom_values'))
+            res = product_template._get_combination_info(combination.with_context(force_company=3), int(product_id or 0), int(add_qty or 1), pricelist, custom_values=kw.get('custom_values'))
             if 'parent_combination' in kw:
                 parent_combination = request.env['product.template.attribute.value'].browse(kw.get('parent_combination'))
                 if not combination.exists() and product_id:

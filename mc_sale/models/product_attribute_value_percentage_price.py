@@ -10,7 +10,7 @@ class PercentagePrice(models.Model):
     _rec_name = 'product_category_id'
     _order = 'product_category_id'
     _sql_constraints = [
-        ('product_attribute_category_unique', 'UNIQUE(product_attribute_value_id, product_category_id)', _('Product category and attribute value combination must be unique.')),
+        ('product_attribute_category_unique', 'UNIQUE(product_attribute_value_id, product_category_id, company_id)', _('Product category and attribute value combination must be unique.')),
     ]
 
     product_attribute_value_id = fields.Many2one('product.attribute.value', string='Product Attribute Value', required=True, ondelete='cascade')
@@ -18,6 +18,7 @@ class PercentagePrice(models.Model):
     type = fields.Selection([('percentage', 'Percentage'), ('amount', 'Fix Amount')], sting='Type', default='percentage')
     percentage_price = fields.Float(string='Percentage Price', default=0.0, help='Value between 0 and 1 (e.g.: 0.5 = 50%).')
     product_category_id = fields.Many2one('product.category', string='Product Category', required=True)
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
 
     @api.onchange('type')
     def onchange_price(self):
