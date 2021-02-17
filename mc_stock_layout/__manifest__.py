@@ -11,6 +11,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['web', 'mc_sales_lot'],
     'data': [
+        'data/data_reports.xml',
         'report/stock_picking_templates.xml',
         'report/stock_picking_report.xml',
     ],
