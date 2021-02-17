@@ -27,6 +27,20 @@ class SaleOrderLine(models.Model):
                 price += float_round(sum(extra_prices), precision_digits=precision)
             line.list_price_extra = price
 
+    @api.model
+    def create(self, values):
+        """
+        Trigger the product_id_change right after the so_line creation if values contains the parameters 'trigger_product_id_onchange'
+        """
+        trigger_product_id_onchange = False
+        if 'trigger_product_id_onchange' in values:
+            trigger_product_id_onchange = values['trigger_product_id_onchange']
+            del values['trigger_product_id_onchange']
+        so_line = super(SaleOrderLine, self).create(values)
+        if trigger_product_id_onchange:
+            so_line.product_id_change()
+        return so_line
+
     def _get_no_variant_attributes_price_extra(self, product):
         """
         Return a list with extra prices including custom values
