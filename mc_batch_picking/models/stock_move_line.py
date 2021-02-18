@@ -9,7 +9,7 @@ class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
     inter_company_move_line_id = fields.Many2one('stock.move.line', string='InterCompany Stock Move Line')
-    inter_company_batch_picking_name = fields.Char(string='Received From', compute='_get_intercompany_batch_name')
+    inter_company_batch_picking_name = fields.Char(string='Received From Batch', compute='_get_intercompany_batch_name', compute_sudo=True)
 
     def _get_intercompany_batch_name(self):
         """

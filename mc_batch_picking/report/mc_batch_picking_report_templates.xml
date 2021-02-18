@@ -64,7 +64,7 @@
                         <table class="table table-sm mb-0" t-if="moves">
                             <thead>
                                 <tr>
-                                    <th class="text-left border-bottom-black"><strong>Received From</strong></th>
+                                    <th class="text-left border-bottom-black"><strong>Received From Batch</strong></th>
                                     <th class="text-left border-bottom-black"><strong>Picking</strong></th>
                                     <th class="text-left border-bottom-black"><strong>Order</strong></th>
                                     <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>

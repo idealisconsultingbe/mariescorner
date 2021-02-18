@@ -103,6 +103,6 @@ class SaleOrderLine(models.Model):
         :return:
         """
         values = super(SaleOrderLine, self)._prepare_procurement_values(group_id)
-        if self.product_id.sales_lot_activated:
-            values['sales_lot_id'] = self.sales_lot_id
+        if self.product_id.sales_lot_activated and self.sales_lot_id:
+            values['sales_lot_id'] = self.sales_lot_id.id
         return values

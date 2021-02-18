@@ -8,6 +8,15 @@ from odoo import api, models
 class StockRule(models.Model):
     _inherit = 'stock.rule'
 
+    def _get_custom_move_fields(self):
+        """
+        Overriden standard method.
+        Add sales_lot_id in order to populate it during mto process.
+        """
+        fields = super(StockRule, self)._get_custom_move_fields()
+        fields += ['sales_lot_id']
+        return fields
+
     @api.model
     def _get_procurements_to_merge_groupby(self, procurement):
         """

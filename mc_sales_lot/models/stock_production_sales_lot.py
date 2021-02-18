@@ -40,7 +40,6 @@ class ProductionSalesLot(models.Model):
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
     mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
-
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
@@ -131,7 +130,8 @@ class ProductionSalesLot(models.Model):
         if initial_values:
             self.message_track(self.fields_get(['manufacturing_state']), initial_values)
 
-    @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids')
+    @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids',
+                 'product_id.seller_ids')
     def _compute_supplier_type(self):
         """
         Compute supplier type and partners (sellers) of each manufacturing number.
@@ -144,7 +144,7 @@ class ProductionSalesLot(models.Model):
                     seller = seller.parent_id
                 sale_lot.partner_ids |= self.env['res.partner'].search([('id', 'child_of', seller.id)])
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
-            if sale_lot.partner_ids.mapped('commercial_partner_id') in company_partners:
+            if sale_lot.partner_ids.mapped('commercial_partner_id') in company_partners or not sale_lot.partner_ids:
                 sale_lot.supplier_type = 'internal'
             else:
                 sale_lot.supplier_type = 'external'

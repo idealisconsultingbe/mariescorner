@@ -8,7 +8,7 @@ from odoo.tools import float_compare
 class StockMoveLine(models.Model):
     _inherit = 'stock.move'
 
-    inter_company_batch_picking_name = fields.Char(string='Received From', compute='_get_intercompany_batch_name')
+    inter_company_batch_picking_name = fields.Char(string='Received From Batch', compute='_get_intercompany_batch_name')
 
     def _get_intercompany_batch_name(self):
         """
@@ -17,5 +17,5 @@ class StockMoveLine(models.Model):
         for sm in self:
             batch_name = ''
             if sm.move_line_ids:
-                batch_name = ', '.join(sm.move_line_ids.mapped('inter_company_batch_picking_name'))
+                batch_name = ', '.join(set(sm.move_line_ids.mapped('inter_company_batch_picking_name')))
             sm.inter_company_batch_picking_name = batch_name

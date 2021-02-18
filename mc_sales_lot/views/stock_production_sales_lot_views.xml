@@ -13,8 +13,7 @@
                 <field name="mandatory_date" optional="show"/>
                 <field name="sale_order_ids" widget="many2many_tags"/>
                 <field name="production_ids" widget="many2many_tags"/>
-                <field name="manufacturing_state" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                <field name="external_state" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
+                <field name="manufacturing_state"/>
             </tree>
         </field>
     </record>
@@ -25,8 +24,8 @@
         <field name="arch" type="xml">
             <form name="sales_lot_form" create="0">
                 <header>
-                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                    <field name="external_state" widget="statusbar" statusbar_visible="to_confirm,to_produce,in_manufacturing,confirmed,done,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
+                    <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,received_by_supplier,internal_transit,internal_receipt,delivered" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
+                    <field name="external_state" widget="statusbar" statusbar_visible="internal_transit,internal_receipt,delivered,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
@@ -36,7 +35,7 @@
                     <group name="main">
                         <group string="General" name="general_fields">
                             <field name="partner_id" readonly="1" force_save="1"/>
-                            <field name="partner_shipping_id" readonly="1"/>
+                            <field name="partner_shipping_id"/>
                             <field name="product_id" readonly="1"/>
                             <label for="product_qty"/>
                             <div class="o_row">

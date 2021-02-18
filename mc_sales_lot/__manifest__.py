@@ -40,7 +40,8 @@
         'views/stock_production_sales_lot_views.xml',
         'views/stock_production_sales_lot_templates.xml',
         'views/log_sales_lot_status_views.xml',
-        'views/account_move_views.xml'
+        'views/account_move_views.xml',
+        'views/stock_inventory_line_views.xml',
     ],
     'auto_install': False,
     'installable': True,
