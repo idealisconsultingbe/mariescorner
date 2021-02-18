@@ -22,7 +22,13 @@ class ProductionSalesLot(models.Model):
                                             ('internal_receipt', 'Internal Receipt'),
                                             ('delivered', 'Delivered To The Customer'),
                                             ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
-    external_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_confirm', help='Manufacturing state of subcontracted products')
+    external_state = fields.Selection([('to_produce', 'To Produce'),
+                                       ('in_manufacturing', 'In Manufacturing'),
+                                       ('received_by_manufacturer', 'Order Received By The Manufacturer'),
+                                       ('internal_transit', 'Internal Transit'),
+                                       ('internal_receipt', 'Internal Receipt'),
+                                       ('delivered', 'Delivered To The Customer'),
+                                       ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')

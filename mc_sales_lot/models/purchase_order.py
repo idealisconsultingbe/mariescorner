@@ -52,6 +52,6 @@ class PurchaseOrder(models.Model):
         """ Set automatically sales lot external state to 'To Produce' of each purchase order line at purchase order confirmation """
         res = super(PurchaseOrder, self).button_confirm()
         for order in self:
-            sales_lots = order.order_line.mapped('sales_lot_id').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_confirm')
-            sales_lots.external_state = 'to_produce'
+            sales_lots = order.order_line.mapped('sales_lot_id').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_produce')
+            sales_lots.external_state = 'in_manufacturing'
         return res

@@ -7,16 +7,19 @@
     'category': 'Sales',
     'summary': 'Modifications to sales processes and products',
     'description': """
-    * Adapt the sale.product.configurator to the need of Maries Corner.
+    *   Adapt the sale.product.configurator to the need of Maries Corner.
         - Add some fields in the product configurator.
         - Those fields could impact the price unit of the so line.
         - Limitations when the user change the product on an existing so line custom fields are not refresh and keeps the values of the previous product.
-    * Add some fields to product.attributes, product.attribute.values and product.template.
+    *   Add some fields to product.attributes, product.attribute.values and product.template.
         - The main purpose of those fields is to automatically calculate the extra price of the product attribute values
             1. depending on the product categories (thanks to a new model product.attribute.value.percentage.price).
-            2. or on the linear length of tissue needed for the product.
-    * If the confirmation of sale order creates a purchase order (for example in the MTO process) than we allow through a new  
-      button to validate the PO from the SO.
+    *   Allow to define the render of the description of an so line thanks to a new model product.config.desc.line availbale on product.template.
+        This rendered description is sent everywhere in Odoo -> so_line, po_line, invoice_line, mto process.
+    *   Add eori fiels on the company.
+    *   Allow to define a fabric product in the sales configuration.
+    *   Automatically compute the carrier on sale.order depending on its delivery address.
+    *   Filter fields delivery address and invoice address on sale.order depending on the selected partner. 
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',

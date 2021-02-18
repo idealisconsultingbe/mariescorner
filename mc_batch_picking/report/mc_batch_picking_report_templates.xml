@@ -64,6 +64,7 @@
                         <table class="table table-sm mb-0" t-if="moves">
                             <thead>
                                 <tr>
+                                    <th class="text-left border-bottom-black"><strong>Received From</strong></th>
                                     <th class="text-left border-bottom-black"><strong>Picking</strong></th>
                                     <th class="text-left border-bottom-black"><strong>Order</strong></th>
                                     <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>
@@ -74,6 +75,7 @@
                             </thead>
                             <tbody>
                                 <tr t-foreach="moves" t-as="move">
+                                    <td class="text-left"><span t-field="move.inter_company_batch_picking_name"/></td>
                                     <td class="text-left"><span t-field="move.picking_id.name"/></td>
                                     <td class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/></td>
                                     <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>

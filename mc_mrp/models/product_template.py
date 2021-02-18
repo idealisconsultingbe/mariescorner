@@ -18,6 +18,9 @@ class ProductTemplate(models.Model):
         return qty
 
     def get_combination_fabric_attributes(self):
+        """
+        Get attributes related to the fabric product.
+        """
         self.ensure_one()
         combination_fabric_attribute = {}
         for attribute_line in self.attribute_line_ids:
