@@ -7,8 +7,13 @@
     'summary': 'Accounting Needs of MsC',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['mc_sales_lot'],
-    'data': [],
+    'depends': ['mc_sales_lot', 'mc_batch_picking', 'mc_sale'],
+    'data': [
+        'security/inter_company_groups.xml',
+        'views/res_config_settings_views.xml',
+        'views/purchase_order_views.xml',
+        'wizard/create_vendor_bill_views.xml'
+    ],
     'installable': True,
     'auto_install': False,
 }

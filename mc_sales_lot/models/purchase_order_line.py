@@ -10,8 +10,8 @@ class PurchaseOrderLine(models.Model):
     sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Manufacturing Number', readonly=True, copy=False)
 
     def _prepare_account_move_line(self, move):
-        """ add maanufacturing numbers to supplier invoice lines values """
+        """ add manufacturing numbers to supplier invoice lines values """
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
-        if self.sales_lot_id:
+        if res and self.sales_lot_id:
             res['sales_lot_ids'] = [(4, self.sales_lot_id.id, 0)]
         return res
