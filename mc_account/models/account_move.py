@@ -77,7 +77,7 @@ class AccountMove(models.Model):
                                             'account_id': new_line._get_computed_account(),
                                             'tax_ids': new_line._get_computed_taxes(),
                                             'product_uom_id': new_line._get_computed_uom(),
-                                            'debit': price_unit * quantity,
+                                            'debit': invoices_sync_destination_company.currency_id.round(price_unit * quantity),
                                         })
                                         new_line._onchange_mark_recompute_taxes()
                                         new_line._set_price_and_tax_after_fpos()

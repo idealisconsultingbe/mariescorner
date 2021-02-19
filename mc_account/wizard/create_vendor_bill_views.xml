@@ -8,13 +8,14 @@
             <form string="Vendor Bill Creation">
                 <group string="Select an Invoicing Type" colspan="1">
                     <field name="purchase_order_id" invisible="1"/>
+                    <field name="block_billing" invisible="1"/>
                     <field name="invoicing_type" widget="radio" nolabel="1"/>
                 </group>
                 <div class="alert alert-info" role="alert" attrs="{'invisible': [('purchase_order_id', '=', False)]}">
-                    <field name="invoicing_type_message" readonly='1' class="oe_inline"/>
+                    <field name="billing_message" readonly='1' class="oe_inline"/>
                 </div>
                 <footer>
-                    <button string="Create" context="{'show_wizard_bill_lines_sync': False, 'bill_synchronization_type': invoicing_type}" name="action_create_vendor_bill" type="object" class="btn-primary"/>
+                    <button string="Create" name="action_create_vendor_bill" context="{'show_wizard_bill_lines_sync': False, 'bill_synchronization_type': invoicing_type}" attrs="{'invisible': [('block_billing', '=', True)]}" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
