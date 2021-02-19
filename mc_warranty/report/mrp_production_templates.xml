@@ -33,11 +33,11 @@
                 ^FX Top section with product reference.
                 ^CF0,30
                 ^FO70,30^FDORDER:^FS
-                ^FO170,30^FD<t t-if="mo.inter_company_origin" t-esc="mo.inter_company_origin"/>^FS
+                ^FO170,30^FD<t t-if="mo.inter_company_origin" t-raw="mo.inter_company_origin"/>^FS
 
                 ^CF0,25
-                ^FO70,100^FD<t t-if="mo.sales_lot_id" t-esc="mo.sales_lot_id.name"/>^FS
-                ^FO250,100^FD<t t-esc="mo.product_id.name"/>^FS
+                ^FO70,100^FD<t t-if="mo.sales_lot_id" t-raw="mo.sales_lot_id.name"/>^FS
+                ^FO250,100^FD<t t-raw="mo.product_id.name"/>^FS
 
                 ^FO500,160^FD<t t-esc="i+1"/>/<t t-esc="qty"/>^FS
 

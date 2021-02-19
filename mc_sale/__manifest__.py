@@ -37,6 +37,8 @@
         'views/res_company_views.xml',
         'views/report_templates.xml',
         'wizard/sale_product_configurator_views.xml',
+        'report/res_partner_templates.xml',
+        'report/res_partner_report_views.xml',
     ],
     'auto_install': False,
     'installable': True,
