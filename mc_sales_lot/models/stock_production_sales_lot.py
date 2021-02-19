@@ -89,8 +89,8 @@ class ProductionSalesLot(models.Model):
                 state = 'internal_receipt'
             elif sale_lot.internal_delivery_done:
                 state = 'internal_transit'
-            elif sale_lot.supplier_type == 'external':
-                state = sale_lot.external_state
+            # elif sale_lot.supplier_type == 'external':
+            #     state = sale_lot.external_state
             else:
                 if not sale_lot.production_ids:
                     if all([po_state in ['purchase', 'done'] for po_state in sale_lot.purchase_order_ids.mapped('state')]) and sale_lot.purchase_order_ids:
