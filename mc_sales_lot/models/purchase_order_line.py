@@ -16,9 +16,9 @@ class PurchaseOrderLine(models.Model):
         return super(PurchaseOrderLine, lines)._find_candidate(product_id, product_qty, product_uom, location_id, name, origin, company_id, values)
 
     def _prepare_account_move_line(self, move):
-        """ add maanufacturing numbers to supplier invoice lines values """
+        """ add manufacturing numbers to supplier invoice lines values """
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
-        if self.sales_lot_id:
+        if res and self.sales_lot_id:
             res['sales_lot_ids'] = [(4, self.sales_lot_id.id, 0)]
         return res
 
