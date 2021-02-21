@@ -40,6 +40,8 @@ class Picking(models.Model):
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
                     line.sales_lot_id.internal_receipt_done = True
+                    if line.sales_lot_id.supplier_type == 'external':
+                        line.sales_lot_id.external_state = 'internal_receipt'
                 elif picking.picking_type_code == 'outgoing' and is_intercompany(picking.partner_id, companies):
                     name = {'no_lang': _('Internal Delivery OK'), 'en_US': 'Internal Delivery OK', 'fr_BE': 'Livraison Interne OK'}
                     msg = {
@@ -49,6 +51,8 @@ class Picking(models.Model):
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
                     line.sales_lot_id.internal_delivery_done = True
+                    if line.sales_lot_id.supplier_type == 'external':
+                        line.sales_lot_id.external_state = 'internal_transit'
                 elif picking.picking_type_code == 'outgoing':
                     name = {'no_lang': _('Delivery OK'), 'en_US': 'Delivery OK', 'fr_BE': 'Livraison OK'}
                     msg = {
@@ -58,4 +62,6 @@ class Picking(models.Model):
                     }
                     line.sales_lot_id.create_log(name, msg, user=user, model=model, record=record)
                     line.sales_lot_id.customer_delivery_done = True
+                    if line.sales_lot_id.supplier_type == 'external':
+                        line.sales_lot_id.external_state = 'delivered'
         return res

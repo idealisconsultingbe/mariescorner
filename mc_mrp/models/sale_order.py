@@ -77,8 +77,8 @@ class SaleOrder(models.Model):
                     state = 'received_by_manufacturer'
                 elif any([status == 'internal_transit' for status in sales_lots_status]):
                     state = 'internal_transit'
-                elif any([status == 'internal_delivery' for status in sales_lots_status]):
-                    state = 'internal_delivery'
+                elif any([status == 'internal_receipt' for status in sales_lots_status]):
+                    state = 'internal_receipt'
                 elif all([status == 'delivered' for status in sales_lots_status]):
                     state = 'delivered'
                 else:

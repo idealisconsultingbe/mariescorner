@@ -14,14 +14,11 @@
         Idem with product.attribute.value
     -   Allow to specify that a category is a category of 'foots'.
     -   Add boolean fields on product.product in order to detect if they are 'foots' or 'fabrics'
-    -   Determine the extra price of a product.attribute.template value combination from the price of its corresponding product.variant.
+    -   Determine the extra price of a product.attribute.template.value combination from the price of its corresponding product.variant.
     -   When creating variant automatically fulfill their default_code.
-    -   During inter company pruchase -> sale creation automatically trigger product_id_on_change on every line of the SO.
+    -   During inter company purchase -> sale creation automatically trigger product_id_on_change on every line of the SO.
     -   Add manufacturing state on SO.
-    -   Allow to validate mto PO from their corresponding SO.
-    -    
-    
-    In order to be able to do this automatic selection of product product we had to linked product attributes between one another.
+    -   Allow to validate mto PO from their corresponding SO.    
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
@@ -29,6 +26,7 @@
     'data': [
         'report/mrp_production_templates.xml',
         'report/sales_lot_report_templates.xml',
+        'report/mrp_production_report_views.xml',
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_bom_line_views.xml',

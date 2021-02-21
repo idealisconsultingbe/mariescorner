@@ -5,7 +5,7 @@
     'version': '13.0.0.1',
     'category': 'Operations/Inventory',
     'description': """
-    -   Keep a link between intercompany po lines and so lines through a new file.
+    -   Keep a link between intercompany po lines and so lines through a new field.
     -   Keep a link between intercompany stock.production.lot.
     -   Keep a link between intercompany stock.move.line.
     -   By pass the reservation for transit location.

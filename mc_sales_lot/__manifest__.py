@@ -13,7 +13,7 @@
         - SO lines will ask for a manufacturing number if tracking is enabled on products and manufacturing numbers.
         - Manufacturing numbers are created on SOs and are propagated in an UP BOTTOM way.
         - It allows user to easily see which model (po_line, stock.move, invoice_line, mrp.production) is related to which so line.
-        - In case of a mto flow, manufacturing numbers will force a nomenclature for standard LOT / SN.
+        - In case of an mto flow, manufacturing numbers will force a nomenclature for standard LOT / SN.
         - Prevent stock.move to be merged if they do not belongs to the same manufacturing number.
     *   Add report for the mrp.production model.
     """,

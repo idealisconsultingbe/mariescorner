@@ -8,8 +8,7 @@ def get_fabrics_lot_details(productions):
     productions_fabric_lots = {}
     for production in productions:
         lots = {}
-        for move_line in production.move_raw_ids.mapped('move_line_ids').filtered(
-                lambda move_line: move_line.product_id.is_fabric):
+        for move_line in production.move_raw_ids.mapped('move_line_ids').filtered(lambda move_line: move_line.product_id.is_fabric):
             if move_line.lot_id and move_line.lot_id.name not in lots:
                 lots[move_line.lot_id.name] = {
                     'product': production.product_id,
