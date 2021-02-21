@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_partner_sticker">
+        <t t-foreach="docs" t-as="partner">
+            <t t-translation="off">
+                ^XA
+
+                ^FX Top section with product reference.
+
+                <t t-if="len(partner.name) &lt;= 10">^CF0,85^FO180,120^FD</t>
+                <t t-elif="len(partner.name) &gt; 10 and len(partner.name) &lt;= 20">^CF0,70^FO50,125^FD</t>
+                <t t-elif="len(partner.name) &gt; 20 and len(partner.name) &lt;= 30">^CF0,50^FO25,125^FD</t>
+                <t t-elif="len(partner.name) &gt; 30 and len(partner.name) &lt;= 40">^CF0,37^FO30,135^FD</t>
+                <t t-else="">^CF0,30^FO25,135^FD</t><t t-raw="partner.name.upper()"/>^FS
+
+                <t t-if="len(partner.name) &lt;= 20">^CF0,40^FO530,240^FD</t>
+                <t t-elif="len(partner.name) &gt; 20 and len(partner.name) &lt;= 30">^CF0,40^FO550,240^FD</t>
+                <t t-elif="len(partner.name) &gt; 30 and len(partner.name) &lt;= 40">^CF0,35^FO570,240^FD</t>
+                <t t-else="">^CF0,30^FO600,250^FD</t><t t-esc="datetime.date.today()"/>^FS
+
+                ^XZ
+            </t>
+        </t>
+    </template>
+
+</odoo>

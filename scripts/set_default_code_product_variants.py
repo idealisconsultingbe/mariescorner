@@ -25,7 +25,7 @@ logging.info('%s Product variants loaded.' % len(products.ids))
 logging.info('Start configuring default code.')
 for product in products:
     default_code = ""
-    if product.product_template_attribute_value_ids and not product.default_code:
+    if product.product_template_attribute_value_ids: # and not product.default_code:
         for pt_attribute in product.product_template_attribute_value_ids:
             default_code = "{}/{}".format(default_code, pt_attribute.product_attribute_value_id.name) if default_code else pt_attribute.product_attribute_value_id.name
         product.write({'default_code': default_code})

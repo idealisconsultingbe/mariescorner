@@ -64,7 +64,7 @@ labels = {
         'fr_BE': 'Lacquered finish base:',
     },
     14: {
-        'en': 'Customer wood color',
+        'en': 'Customer wood color:',
         'fr_BE': 'Customer wood color:',
     },
     15: {
@@ -129,9 +129,9 @@ def prepare_description_values(description_line, fabric_sequence, attribute_id=F
 
 def translate_values(values, lang):
     for value in values:
-        for label in labels:
-            if value.text == label['en']:
-                value.with_context(lang=lang).write({'text': label[lang]})
+        for label_key in labels:
+            if value.text == labels[label_key]['en']:
+                value.with_context(lang=lang).write({'text': labels[label_key][lang]})
 
 parser = argparse.ArgumentParser(description="")
 parser.add_argument('database')
