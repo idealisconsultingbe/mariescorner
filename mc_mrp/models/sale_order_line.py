@@ -27,6 +27,20 @@ class SaleOrderLine(models.Model):
                 price += float_round(sum(extra_prices), precision_digits=precision)
             line.list_price_extra = price
 
+    @api.model
+    def create(self, values):
+        """
+        Trigger the product_id_change right after the so_line creation if values contains the parameters 'trigger_product_id_onchange'
+        """
+        trigger_product_id_onchange = False
+        if 'trigger_product_id_onchange' in values:
+            trigger_product_id_onchange = values['trigger_product_id_onchange']
+            del values['trigger_product_id_onchange']
+        so_line = super(SaleOrderLine, self).create(values)
+        if trigger_product_id_onchange:
+            so_line.product_id_change()
+        return so_line
+
     def _get_no_variant_attributes_price_extra(self, product):
         """
         Return a list with extra prices including custom values
@@ -44,7 +58,7 @@ class SaleOrderLine(models.Model):
 
             # exclude product_template_attribute_values related to the same attribute than a custom attribute value
             no_variant_attributes_price_extra = [
-                ptav.price_extra for ptav in self.product_no_variant_attribute_value_ids.filtered(
+                ptav.with_context(force_company=self.order_id.company_id.id).price_extra for ptav in self.product_no_variant_attribute_value_ids.filtered(
                     lambda ptav:
                     ptav.price_extra and
                     ptav.attribute_id not in ptav_used.mapped('attribute_id') and

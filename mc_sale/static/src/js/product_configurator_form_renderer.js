@@ -11,6 +11,14 @@ odoo.define('mc_sale.ProductConfiguratorFormRenderer', function (require) {
         /**
          * @override
          */
+        init: function () {
+            this._super.apply(this, arguments);
+            this.companyId = this.state.context.default_company_id;
+        },
+
+        /**
+         * @override
+         */
         _onChangeColorAttribute: function (ev) {
             this._super.apply(this, arguments);
             var $parent = $(ev.target).closest('.js_product');
@@ -46,6 +54,7 @@ odoo.define('mc_sale.ProductConfiguratorFormRenderer', function (require) {
                 'parent_combination': parentCombination,
                 // Custom changes
                 'custom_values': customValues,
+                'force_company': this.companyId,
                 // End custom changes
             }).then(function (combinationData) {
                 self._onChangeCombination(ev, $parent, combinationData);

@@ -8,6 +8,7 @@ from odoo import api, fields, models, _
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
+    mandatory_date = fields.Date(string='Mandatory Date', related='sales_lot_id.mandatory_date', help='Mandatory date coming from original sale order')
     inter_company_origin = fields.Text(string='Inter Company Source', compute='_compute_inter_company_origin', store=True)
     sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Manufacturing Number', store=True)
     log_assigned_done = fields.Boolean(string='Log Assigned', default=False, help='Boolean indicating that a msg for the assignation has already been logged on the production number.')
@@ -24,15 +25,14 @@ class MrpProduction(models.Model):
             else:
                 production.sales_lot_id = False
 
-    @api.depends('sales_lot_id.sale_order_ids')
+    @api.depends('sales_lot_id.origin_sale_order_id')
     def _compute_inter_company_origin(self):
         """
         Display the inter company source.
         """
         for production in self:
-            if production.sales_lot_id and production.sales_lot_id.sale_order_ids:
-                so_inter_company = production.sales_lot_id.sale_order_ids.filtered(lambda so: so.company_id != production.company_id)
-                production.inter_company_origin = ','.join(so_inter_company.mapped('name'))
+            if production.sales_lot_id and production.sales_lot_id.origin_sale_order_id:
+                production.inter_company_origin = production.sales_lot_id.origin_sale_order_id.name
             else:
                 production.inter_company_origin = ''
 

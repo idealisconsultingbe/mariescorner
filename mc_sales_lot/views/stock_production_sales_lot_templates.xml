@@ -171,9 +171,9 @@
                                 <label class="col-form-label" for="external_state">Manufacturing State</label>
                                 <select name="external_state" t-attf-class="form-control #{error.get('external_state') and 'is-invalid' or ''}" data-placeholder="Select a manufacturing status">
                                     <option value="to_produce" t-att-selected="sales_lot.external_state == 'to_produce'">To Produce</option>
-                                    <option value="in_manufacturing" t-att-selected="sales_lot.external_state == 'in_manufacturing'">Demand received by the supplier</option>
-                                    <option value="confirmed" t-att-selected="sales_lot.external_state == 'confirmed'">In Manufacturing</option>
-                                    <option value="done" t-att-selected="sales_lot.external_state == 'done'">Done</option>
+                                    <option value="in_manufacturing" t-att-selected="sales_lot.external_state == 'in_manufacturing'">Demand sent by the supplier</option>
+                                    <option value="received_by_manufacturer" t-att-selected="sales_lot.external_state == 'confirmed'">Demand received by the supplier</option>
+                                    <option value="internal_transit" t-att-selected="sales_lot.external_state == 'confirmed'">Shipped</option>
                                     <option value="cancel" t-att-selected="sales_lot.external_state == 'cancel'">Cancelled</option>
                                 </select>
                             </div>

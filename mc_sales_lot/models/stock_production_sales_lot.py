@@ -22,7 +22,13 @@ class ProductionSalesLot(models.Model):
                                             ('internal_receipt', 'Internal Receipt'),
                                             ('delivered', 'Delivered To The Customer'),
                                             ('cancel', 'Cancelled')], String='State', compute='_compute_manufacturing_state', tracking=True, store=True)
-    external_state = fields.Selection([('to_confirm', 'To Confirm'), ('to_produce', 'To Produce'), ('in_manufacturing', 'Demand received by the supplier'), ('confirmed', 'In Manufacturing'), ('done', 'Done'), ('cancel', 'Cancelled')], String='External State', default='to_confirm', help='Manufacturing state of subcontracted products')
+    external_state = fields.Selection([('to_produce', 'To Produce'),
+                                       ('in_manufacturing', 'In Manufacturing'),
+                                       ('received_by_manufacturer', 'Order Received By The Manufacturer'),
+                                       ('internal_transit', 'Internal Transit'),
+                                       ('internal_receipt', 'Internal Receipt'),
+                                       ('delivered', 'Delivered To The Customer'),
+                                       ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
@@ -32,7 +38,8 @@ class ProductionSalesLot(models.Model):
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
-
+    so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
@@ -55,6 +62,17 @@ class ProductionSalesLot(models.Model):
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
+
+    @api.depends('origin_sale_order_id')
+    def _compute_sales_lot_origin(self):
+        """
+        Display the SO name at the origin of the creation of self
+        """
+        for sale_lot in self:
+            if sale_lot.origin_sale_order_id:
+                sale_lot.so_origin_name = sale_lot.origin_sale_order_id.name
+            else:
+                sale_lot.so_origin_name = ''
 
     @api.depends('production_ids.state', 'supplier_type', 'external_state',
                  'purchase_order_ids.state', 'internal_delivery_done', 'internal_receipt_done',
@@ -112,7 +130,8 @@ class ProductionSalesLot(models.Model):
         if initial_values:
             self.message_track(self.fields_get(['manufacturing_state']), initial_values)
 
-    @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids')
+    @api.depends('purchase_order_ids.partner_id', 'purchase_order_ids.partner_id.child_ids', 'purchase_order_ids.partner_id.parent_id', 'purchase_order_ids.partner_id.parent_id.child_ids',
+                 'product_id.seller_ids')
     def _compute_supplier_type(self):
         """
         Compute supplier type and partners (sellers) of each manufacturing number.
@@ -125,7 +144,7 @@ class ProductionSalesLot(models.Model):
                     seller = seller.parent_id
                 sale_lot.partner_ids |= self.env['res.partner'].search([('id', 'child_of', seller.id)])
             company_partners = self.env['res.company'].search([]).mapped('partner_id')
-            if sale_lot.partner_ids.mapped('commercial_partner_id') in company_partners:
+            if sale_lot.partner_ids.mapped('commercial_partner_id') in company_partners or not sale_lot.partner_ids:
                 sale_lot.supplier_type = 'internal'
             else:
                 sale_lot.supplier_type = 'external'

@@ -9,9 +9,9 @@ import logging
 
 product_attributes_domain = {
     '[Seats] Primary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Colour of primary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Color of primary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
     '[Seats] Secondary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Colour of secondary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Color of secondary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
     '[Seats] Foot Type': {'standard': [('name', '=', 'STANDARD')],
                           'archer': [('name', '=', 'ARCHER')],
                           'burton': [('name', '=', 'BURTON')],
@@ -20,7 +20,7 @@ product_attributes_domain = {
                           'mitchell': [('name', '=', 'MITCHELL')],
                           'murray': [('name', '=', 'MURRAY')],
                           'victoria': [('name', '=', 'VICTORIA')]},
-    '[Seats] Colour of the foots': {'beech': ['|', '|', ('name', '=like', 'BEECH%'), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],
+    '[Seats] Color of the foots': {'beech': ['|', '|', ('name', '=like', 'BEECH%'), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],
                                     'metal': ['|', '|', ('name', '=like', 'METAL%'), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],
                                     'oak': ['|', '|', ('name', '=like', 'OAK%'), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],
                                     'walnut': ['|', '|', ('name', '=like', 'WALNUT%'), ('name', '=', 'None'), ('name', '=', 'To Be Defined')],
@@ -33,7 +33,7 @@ product_attributes_domain = {
     '[Seats] Contrast fabrics': {'normal': []},
     '[Seats] Contrast pillow': {'normal': []},
     '[Seats] Cushion configuration': {'normal': []},
-    '[Seats] Colour of the nails': {'normal': [('name', '=', 'None')], 'nails': []},
+    '[Seats] Color of the nails': {'normal': [('name', '=', 'None')], 'nails': []},
     '[Seats] Base in RAL Finish': {'normal': []},
     '[Seats] Lacquered finish base': {'normal': []},
     '[Seats] Customer wood color': {'normal': []},
@@ -93,7 +93,7 @@ def get_product_type(product):
 
 def get_attribute_values_domain(attribute, fabric_type, foot_type, foot_color_type, nails_type):
     domain = []
-    if attribute.name in ('[Seats] Primary Fabric Type', '[Seats] Colour of primary fabric', '[Seats] Secondary Fabric Type', '[Seats] Colour of secondary fabric'):
+    if attribute.name in ('[Seats] Primary Fabric Type', '[Seats] Color of primary fabric', '[Seats] Secondary Fabric Type', '[Seats] Color of secondary fabric'):
         domain_candidates = product_attributes_domain[attribute.name]
         if fabric_type in domain_candidates:
             domain = domain_candidates[fabric_type].copy()
@@ -101,11 +101,11 @@ def get_attribute_values_domain(attribute, fabric_type, foot_type, foot_color_ty
         domain_candidates = product_attributes_domain[attribute.name]
         if foot_type in domain_candidates:
             domain = domain_candidates[foot_type].copy()
-    elif attribute.name == '[Seats] Colour of the foots':
+    elif attribute.name == '[Seats] Color of the foots':
         domain_candidates = product_attributes_domain[attribute.name]
         if foot_color_type in domain_candidates:
             domain = domain_candidates[foot_color_type].copy()
-    elif attribute.name == '[Seats] Colour of the nails':
+    elif attribute.name == '[Seats] Color of the nails':
         domain_candidates = product_attributes_domain[attribute.name]
         if nails_type in domain_candidates:
             domain = domain_candidates[nails_type].copy()

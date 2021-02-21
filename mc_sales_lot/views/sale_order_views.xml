@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">mc.view.quotation.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="mandatory_date" string="Mandatory Date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">mc.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="mandatory_date" string="Mandatory Date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="sale_order_form_view" model="ir.ui.view">
         <field name="name">mc.view.order.form.sales.lot</field>
         <field name="model">sale.order</field>
@@ -23,18 +45,28 @@
                 <field name="sales_lot_id" string='Manuf N°' attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id}"/>
                 <field name="manufacturing_state" optional="hide"/>
             </xpath>
+            <xpath expr="//field[@name='payment_term_id']/.." position="inside">
+                <field name="editable_mandatory_date" invisible="1"/>
+                <field name="mandatory_date" attrs="{'readonly': [('editable_mandatory_date', '=', False)]}"/>
+            </xpath>
         </field>
     </record>
 
     <record id="sale_order_filter_view" model="ir.ui.view">
-            <field name="name">mc.sale.order.list.search</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
-            <field name="arch" type="xml">
-                <field name="team_id" position="after">
-                    <field name="order_line" string="Manufacturing Number" filter_domain="[('order_line.sales_lot_id', 'ilike', self)]"/>
-                </field>
+        <field name="name">mc.sale.order.list.search</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="order_line" string="Manufacturing Number" filter_domain="[('order_line.sales_lot_id', 'ilike', self)]"/>
             </field>
+            <filter name="order_month" position="before">
+                <filter string="Mandatory Date" name="mandatory_date_groupby" domain="[]" context="{'group_by': 'mandatory_date'}"/>
+            </filter>
+            <filter name="activities_upcoming_all" position="after">
+                <filter string="Mandatory Date" name="filter_mandatory_date" date="mandatory_date"/>
+            </filter>
+        </field>
     </record>
 
 </odoo>

@@ -3,28 +3,28 @@
 
     <template id="register_products_form" name="Register Products Form" inherit_id="mc_warranty.register_products" customize_show="True">
         <xpath expr="//div[@name='form_area']" position="replace">
-            <form id="register_products_form" t-ignore="true" action="/register_products/" method="post" data-model_name="mail.mail" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-success_page="/warranty-activated">
+            <form class="mt32 js_website_submit_form" t-attf-action="/register_products" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <!-- Personal information block -->
                     <div class="col-lg-6 col-md-6">
                         <h2>Personal Information</h2>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="firstname" required="" placeholder="First Name"/>
+                            <input type="text" class="form-control o_website_form_input" name="firstname" required="1" placeholder="First Name"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="lastname" required="" placeholder="Last Name"/>
+                            <input type="text" class="form-control o_website_form_input" name="lastname" required="1" placeholder="Last Name"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="address" required="" placeholder="Address"/>
+                            <input type="text" class="form-control o_website_form_input" name="address" required="1" placeholder="Address"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="zip" required="" placeholder="Zip Code"/>
+                            <input type="text" class="form-control o_website_form_input" name="zip" required="1" placeholder="Zip Code"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="city" required="" placeholder="City"/>
+                            <input type="text" class="form-control o_website_form_input" name="city" required="1" placeholder="City"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <select class="form-control o_website_form_input" name="country" required="">
+                            <select class="form-control o_website_form_input" name="country" required="1">
                                 <option value="">Country</option>
                                 <t t-foreach="request.env['res.country'].search([])" t-as="country">
                                     <option t-att-value="country.id">
@@ -34,26 +34,26 @@
                             </select>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="email" class="form-control o_website_form_input" name="email" required="" placeholder="Email"/>
+                            <input type="email" class="form-control o_website_form_input" name="email" required="1" placeholder="Email"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="phone" class="form-control o_website_form_input" name="phone" required="" placeholder="Phone"/>
+                            <input type="phone" class="form-control o_website_form_input" name="phone" required="1" placeholder="Phone"/>
                         </div>
                     </div>
                     <!-- Product information block -->
                     <div class="col-lg-6 col-md-6">
                         <h2>Product Information</h2>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="text" class="form-control o_website_form_input" name="reseller" required="" placeholder="Your Reseller"/>
+                            <input type="text" class="form-control o_website_form_input" name="reseller" required="1" placeholder="Your Reseller"/>
                         </div>
                         <span>Delivery date</span>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="date" class="form-control o_website_form_input" name="date" required="" min="1000-01-01" max="9999-12-31" placeholder="Delivery Date"/>
+                            <input type="date" class="form-control o_website_form_input" name="date" required="1" min="1000-01-01" max="9999-12-31" placeholder="Delivery Date"/>
                         </div>
 
                         <span><a href="https://www.mariescorner.com/wp-content/uploads/2019/12/mc-care-find-product-id.png" target="_new">Where to find the warranty number ?</a></span>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
-                            <input type="char" class="form-control o_website_form_input" name="warranty" required="" placeholder="Warranty Number"/>
+                            <input type="char" class="form-control o_website_form_input" name="warranty" required="1" placeholder="Warranty Number"/>
                         </div>
                     </div>
                     <!-- Survey block -->
@@ -137,8 +137,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-8 col-lg-7">
-                                <a href="#" class="btn btn-primary btn-lg o_website_form_send">Submit</a>
-                                <span id="o_website_form_result"/>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <button type="submit" class="btn btn-primary float-right mb32 ">Submit</button>
                             </div>
                         </div>
                     </div>

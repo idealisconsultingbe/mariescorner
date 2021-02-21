@@ -32,10 +32,26 @@ class PurchaseOrder(models.Model):
             res['sales_lot_id'] = sale_line.sales_lot_id.id
         return res
 
+    def _prepare_sale_order_data(self, name, partner, company, direct_delivery_address):
+        """
+        Overridden method
+
+        Generate the Sales Order values from the PO
+        Add sale order mandatory date to values
+        """
+        res = super(PurchaseOrder, self)._prepare_sale_order_data(name, partner, company, direct_delivery_address)
+        if self.order_line:
+            move_dest_ids = self.order_line.move_dest_ids
+            if move_dest_ids:
+                sale_line = move_dest_ids[0]._get_sale_line()
+                if sale_line:
+                    res['mandatory_date'] = sale_line.order_id.mandatory_date
+        return res
+
     def button_confirm(self):
         """ Set automatically sales lot external state to 'To Produce' of each purchase order line at purchase order confirmation """
         res = super(PurchaseOrder, self).button_confirm()
         for order in self:
-            sales_lots = order.order_line.mapped('sales_lot_id').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_confirm')
-            sales_lots.external_state = 'to_produce'
+            sales_lots = order.order_line.mapped('sales_lot_id').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_produce')
+            sales_lots.external_state = 'in_manufacturing'
         return res

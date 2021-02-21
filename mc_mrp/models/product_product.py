@@ -23,5 +23,7 @@ class ProductProduct(models.Model):
             while not foot and categ:
                 foot = categ.is_foot
                 categ = categ.parent_id
-            product.is_fabric = self.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id') == product.id
+            fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')
+            fabric_product_id = int(fabric_product_id) if fabric_product_id else -1
+            product.is_fabric = fabric_product_id == product.id
             product.is_foot = foot

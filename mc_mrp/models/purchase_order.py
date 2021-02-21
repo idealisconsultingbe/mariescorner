@@ -27,6 +27,7 @@ class PurchaseOrder(models.Model):
                 'name': line.name,
                 'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],
                 'product_custom_attribute_value_ids': [(6, 0, line.product_custom_attribute_value_ids.ids)],
-                'comment': line.comment
+                'comment': line.comment,
             })
+        res['trigger_product_id_onchange'] = True # Used to trigger the product_id_onchange in the create method!
         return res

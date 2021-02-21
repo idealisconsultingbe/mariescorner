@@ -29,6 +29,7 @@
                         <page string="Percentage Prices" attrs="{'invisible': [('is_custom', '=', True)]}">
                             <field name="percentage_price_ids" context="{'default_product_attribute_value_id': active_id}" nolabel="1">
                                 <tree string="Values" editable="bottom">
+                                    <field name="company_id"/>
                                     <field name="product_category_id"/>
                                     <field name="type"/>
                                     <field name="percentage_price" widget="percentage" attrs="{'invisible': [('type', '!=', 'percentage')]}"/>

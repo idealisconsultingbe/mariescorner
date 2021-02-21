@@ -18,6 +18,9 @@ class ProductTemplate(models.Model):
         return qty
 
     def get_combination_fabric_attributes(self):
+        """
+        Get attributes related to the fabric product.
+        """
         self.ensure_one()
         combination_fabric_attribute = {}
         for attribute_line in self.attribute_line_ids:
@@ -80,6 +83,7 @@ class ProductTemplate(models.Model):
             If configurator uses custom values then compute extra prices according to them
             (attribute custom value * price unit of attribute value)
         """
+        combination = combination.with_context(self.env.context)
         self.ensure_one()
         res = super(ProductTemplate, self)._get_combination_info(combination, product_id, add_qty, pricelist, parent_combination, only_template)
 

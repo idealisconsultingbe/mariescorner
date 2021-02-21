@@ -79,7 +79,7 @@ class MrpProduction(models.Model):
         Overridden method
         Add logic to generate move values for bom lines without product.
         If move values are generated from a sale order line, try to find a product matching product configuration
-        If there are attributes values flagged as 'none values', preparation of move values is aborted to prevent creation
+        If all attributes values are flagged as 'none values', preparation of move values is aborted to prevent creation
         of an unnecessary stock move
         """
         res = super(MrpProduction, self)._get_move_raw_values(bom_line, line_data)

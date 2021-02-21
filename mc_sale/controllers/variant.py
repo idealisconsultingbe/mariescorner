@@ -15,6 +15,12 @@ class CustomVariantController(VariantController):
         Handle the custom values sent by the JS in order to calculate the price depending on the meterage given in input by the user.
         Tailor-made product should not have their price impact since it will be calculated manually by the seller.
         """
+        if 'force_company' in kw:
+            if 'context' in kw:
+                context = kw.get('context')
+                context.upadet({'force_company': kw.get('force_company')})
+            else:
+                kw['context'] = {'force_company': kw.get('force_company')}
         if not kw.get('custom_values'):
             return super(CustomVariantController, self).get_combination_info(product_template_id, product_id, combination, add_qty, pricelist_id, **kw)
         else:

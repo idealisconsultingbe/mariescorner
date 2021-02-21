@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherited.synchronize.invoices</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="inter_company_rules.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='intercompany_transaction_message']/.." position='after'>
+                    <div class="text-muted" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}">
+                        <span>One way invoices synchronization between companies</span>
+                    </div>
+                    <div class="content-group mt8" attrs="{'invisible':['|', ('module_inter_company_rules', '=', False), ('rule_type', '!=', 'so_and_po')]}">
+                        <div class="row ml32" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}">
+                            <field name="group_invoices_synchronization" class="col-1 col-lg-1"/>
+                            <label for="group_invoices_synchronization" class="o_light_label"/>
+                        </div>
+                        <div class="row ml16" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}">
+                            <label for="invoices_sync_origin_company_id" string="From" class="col-lg-2 o_light_label"/>
+                            <field name="invoices_sync_origin_company_id" domain="[('id', '!=', invoices_sync_destination_company_id)]" attrs="{'required':[('group_invoices_synchronization', '=', True)]}" options='{"no_open": True, "no_create": True}' style="width: 150px; margin-right: 8px;"/>
+                            <field name="invoices_sync_origin_type" attrs="{'required':[('group_invoices_synchronization', '=', True)]}" class="oe_inline"/>
+                            <label for="invoices_sync_destination_company_id" string="To" class="col-lg-2 o_light_label"/>
+                            <field name="invoices_sync_destination_company_id" domain="[('id', '!=', invoices_sync_origin_company_id)]" attrs="{'required':[('group_invoices_synchronization', '=', True)]}" options='{"no_open": True, "no_create": True}' style="width: 150px; margin-right: 8px;"/>
+                            <field name="invoices_sync_destination_type" attrs="{'required':[('group_invoices_synchronization', '=', True)]}" class="oe_inline"/>
+                        </div>
+                    </div>
+                    <div class="alert alert-info" role="alert" attrs="{'invisible': [('group_invoices_synchronization', '!=', True)]}">
+                        <field name="intercompany_invoice_synchronization_message" readonly='1' class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

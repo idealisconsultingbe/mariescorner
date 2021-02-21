@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class ProductTemplateAttributeValue(models.Model):
     _inherit = 'product.template.attribute.value'
 
-    price_extra = fields.Float(compute='_compute_price_extra', store=True)
+    price_extra = fields.Float(compute='_compute_price_extra')
     manual_price_extra = fields.Float(
         string='Manual Value Price Extra',
         default=0.0,
@@ -15,17 +15,7 @@ class ProductTemplateAttributeValue(models.Model):
         help='Manual extra price for the variant with this attribute value on sale price.')
     is_manual_price_extra = fields.Boolean(string='Manual Price', help='Used to prevent automatic computation of extra price', default=False)
 
-    @api.depends(
-        'product_tmpl_id.linear_length',
-        'product_tmpl_id.list_price',
-        'product_attribute_value_id.is_custom',
-        'product_attribute_value_id.percentage_price_ids',
-        'product_attribute_value_id.percentage_price_ids.percentage_price',
-        'product_attribute_value_id.percentage_price_ids.price_extra',
-        'product_attribute_value_id.percentage_price_ids.type',
-        'attribute_id.has_linear_price',
-        'manual_price_extra',
-        'is_manual_price_extra')
+    @api.depends_context('force_company')
     def _compute_price_extra(self):
         """ compute extra price according to precedence rule:
         * Precedence rule -> manual price > linear price & custom value > percentage price > linear price  >  0.0
@@ -53,7 +43,11 @@ class ProductTemplateAttributeValue(models.Model):
     def _get_percentage_price(self):
         """ Retrieve applicable percentage rule according to matching category """
         # product_attribute_value_id is mandatory
-        for percentage_price in self.product_attribute_value_id.percentage_price_ids.filtered(lambda p: p.percentage_price or p.price_extra):
+        if "force_company" in self.env.context:
+            company_id = self.env.context['force_company']
+        else:
+            company_id = self.env.company.id
+        for percentage_price in self.product_attribute_value_id.percentage_price_ids.filtered(lambda p: (p.percentage_price or p.price_extra) and p.company_id.id == company_id):
             category = self.product_tmpl_id.categ_id
             # search for a matching category through parents
             while category:
