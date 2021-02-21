@@ -64,7 +64,7 @@ labels = {
         'fr_BE': 'Lacquered finish base:',
     },
     14: {
-        'en': 'Customer wood color',
+        'en': 'Customer wood color:',
         'fr_BE': 'Customer wood color:',
     },
     15: {
