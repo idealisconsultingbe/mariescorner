@@ -21,7 +21,7 @@ class AccountMove(models.Model):
                     purchase_line_id = line_values.get('purchase_line_id', False)
                     if purchase_line_id:
                         purchase_line = self.env['purchase.order.line'].browse(purchase_line_id)
-                        if purchase_line.sales_lot_id:
+                        if purchase_line.sales_lot_id and not line_values.get('sales_lot_ids', False):
                             line_values['sales_lot_ids'] = [(4, purchase_line.sales_lot_id.id, 0)]
         res = super(AccountMove, self).create(vals_list)
         return res
