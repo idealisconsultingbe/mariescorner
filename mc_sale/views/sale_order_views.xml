@@ -68,8 +68,10 @@
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Comment" name="comment">
-                    <field name="comment"/>
-                    <field name="delivery_comment"/>
+                    <group name="sale_comment">
+                        <field name="comment"/>
+                        <field name="delivery_comment"/>
+                    </group>
                 </page>
             </xpath>
         </field>
