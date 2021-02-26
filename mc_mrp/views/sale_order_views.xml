@@ -54,11 +54,13 @@
         <field name="arch" type="xml">
             <filter name="my_sale_orders_filter" position="before">
                 <separator/>
-                <filter string="To Confirm" domain="[('manufacturing_state', '=', 'to_confirm')]" name="orders_to_confirm_filter"/>
                 <filter string="To Produce" domain="[('manufacturing_state', '=', 'to_produce')]" name="orders_to_produce_filter"/>
                 <filter string="In Manufacturing" domain="[('manufacturing_state', '=', 'in_manufacturing')]" name="orders_in_manufacturing_filter"/>
-                <filter string="Manufacturing Confirmed" domain="[('manufacturing_state', '=', 'confirmed')]" name="orders_validated_filter"/>
-                <filter string="Manufacturing Done" domain="[('manufacturing_state', '=', 'done')]" name="orders_done_filter"/>
+                <filter string="Order Received" domain="[('manufacturing_state', '=', 'received_by_manufacturer')]" name="orders_received_filter"/>
+                <filter string="Internal Transit" domain="[('manufacturing_state', '=', 'internal_transit')]" name="orders_transit_filter"/>
+                <filter string="Internal Receipt" domain="[('manufacturing_state', '=', 'internal_receipt')]" name="orders_receipt_filter"/>
+                <filter string="Delivered" domain="[('manufacturing_state', '=', 'delivered')]" name="orders_delivered_filter"/>
+                <filter string="Cancelled" domain="[('manufacturing_state', '=', 'cancel')]" name="orders_cancelled_filter"/>
                 <separator/>
             </filter>
             <filter name="order_month" position="after">

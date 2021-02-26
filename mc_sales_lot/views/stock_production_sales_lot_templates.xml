@@ -133,6 +133,9 @@
                         <div class="col-12 col-md-6 mb-1">
                             <strong>Sale Order:</strong> <span t-field="sales_lot.origin_sale_order_id.name"/>
                         </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <strong>Fabric Date:</strong> <span t-field="sales_lot.fabric_date" t-options='{"widget": "date"}'/>
+                        </div>
                     </div>
                 </t>
             </t>
@@ -200,6 +203,10 @@
                             <div t-attf-class="form-group #{error.get('shipped_date') and 'o_has_error' or ''} col-xl-6">
                                 <label class="col-form-label label-optional" for="shipped_date">Shipped Date</label>
                                 <input type="date" name="shipped_date" t-attf-class="form-control #{error.get('shipped_date') and 'is-invalid' or ''}" t-att-value="shipped_date or sales_lot.shipped_date" min="1000-01-01" max="9999-12-31"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('ext_fabric_date') and 'o_has_error' or ''} col-xl-6" style="margin-left: 50%;">
+                                <label class="col-form-label label-optional" for="ext_fabric_date">Fabric Date</label>
+                                <input type="date" name="ext_fabric_date" t-attf-class="form-control #{error.get('ext_fabric_date') and 'is-invalid' or ''}" t-att-value="ext_fabric_date or sales_lot.ext_fabric_date" min="1000-01-01" max="9999-12-31"/>
                             </div>
                             <input type="hidden" name="redirect" t-att-value="redirect"/>
                         </div>

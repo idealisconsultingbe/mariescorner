@@ -33,6 +33,7 @@ class ProductionSalesLot(models.Model):
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
+    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
     product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
@@ -62,6 +63,12 @@ class ProductionSalesLot(models.Model):
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
 
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
+
+    def _compute_access_url(self):
+        """ Overridden portal mixin method in order to handle manufacturing numbers by id in portal view """
+        super(ProductionSalesLot, self)._compute_access_url()
+        for sale_lot in self:
+            sale_lot.access_url = '/my/manufacturing_number/%s' % (sale_lot.id)
 
     @api.depends('origin_sale_order_id')
     def _compute_sales_lot_origin(self):
