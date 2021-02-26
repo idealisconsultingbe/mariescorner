@@ -7,6 +7,17 @@ from odoo import models
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    def _prepare_procurement_values(self):
+        """
+        Override standard method -> add the manufacturing number into the procurement.
+        :return:
+        """
+        values = super(StockMove, self)._prepare_procurement_values()
+        if self.raw_material_production_id and self.raw_material_production_id.inter_company_origin:
+            values['origin'] = self.raw_material_production_id.inter_company_origin
+        return values
+
+
     def _get_purchase_line_id(self):
         """
         Go through the stock move chain in a up bottom way.

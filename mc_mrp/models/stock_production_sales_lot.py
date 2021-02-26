@@ -7,7 +7,7 @@ from odoo import api, fields, models, _
 class ProductionSalesLot(models.Model):
     _inherit = 'stock.production.sales.lot'
 
-    short_name = fields.Text(string='Description', related='origin_sale_order_line_id.short_name')
+    short_name = fields.Text(string='Description', related='origin_sale_order_line_id.short_name', store=True, readonly=True)
     delivery_date = fields.Date(string='Planned Delivery Date', compute='_compute_production_dates', store=True, help='Estimated delivery date provided by production team or subcontractor')
     fabric_date = fields.Date(string='Fabric Date', compute='_compute_production_dates', store=True, help='Fabric date provided by production team')
     sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')

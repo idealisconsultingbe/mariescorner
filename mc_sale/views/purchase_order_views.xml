@@ -15,4 +15,15 @@
         </field>
     </record>
 
+    <record id="pruchase_order_search_view" model="ir.ui.view">
+        <field name="name">mc.purchase.order.search.view.inherited</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="origin"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>

@@ -31,4 +31,15 @@
         </field>
     </record>
 
+    <record id="sales_lot_search_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.search.view.inherited.mrp</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
+        <field name="arch" type="xml">
+            <field name="so_origin_name" position="after">
+                <field name="short_name" string="Fabric Description"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>

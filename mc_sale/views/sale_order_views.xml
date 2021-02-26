@@ -35,6 +35,9 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="down_payment_paid"/>
+            </field>
             <xpath expr="//field[@name='partner_invoice_id']" position="before">
                 <field name="allowed_shipping_address_ids" invisible="1"/>
                 <field name="allowed_invoice_address_ids" invisible="1"/>
@@ -82,6 +85,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_sales_order_filter"/>
         <field name="arch" type="xml">
+            <filter name="my_sale_orders_filter" position="after">
+                <filter string="Down Payment Paid" name="down_payment_paid" domain="[('down_payment_paid', '=', True)]"/>
+            </filter>
             <filter name="order_month" position="after">
                 <filter string="Delivery Date" name="effective_date_groupby" domain="[]" context="{'group_by': 'effective_date'}"/>
             </filter>

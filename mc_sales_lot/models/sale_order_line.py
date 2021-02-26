@@ -22,6 +22,11 @@ class SaleOrderLine(models.Model):
     sales_lot_id_needed = fields.Boolean(string='Manufacturing Number Needed', compute='_compute_sales_lot_id_required')
     allow_set_sales_lot_id = fields.Boolean(string='Manual Manufacturing Number', default=_default_allow_set_sales_lot)
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
+    fabric_purchase_order_ids = fields.One2many('purchase.order', compute='_get_fabric_purchase_orders', string="Fabric Order(s)")
+
+    def _get_fabric_purchase_orders(self):
+        for line in self:
+            line.fabric_purchase_order_ids = line.sales_lot_id.fabric_purchase_order_ids.filtered(lambda po: po.company_id == line.company_id)
 
     @api.depends('product_id', 'has_tracking', 'allow_set_sales_lot_id')
     def _compute_sales_lot_id_required(self):
