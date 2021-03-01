@@ -66,7 +66,7 @@
                             <span t-esc="round(shipping_volume * 100) / 100"/>
                             <span t-field="o.volume_uom_name"/>
                         </div>
-                        <div t-if="partner.vat" class="col-auto">
+                        <div t-if="partner and partner.vat" class="col-auto">
                             <strong>VAT:</strong>
                             <br/>
                             <span t-field="partner.vat"/>
@@ -154,19 +154,25 @@
                     </p>
                     <p>
                         <strong>Control of Products at reception</strong><br/>
-                        <span>The products delivered on .... / .... / .... is in accordance with the order and deliverd in good state.</span>
-                        <div class="row">
-                            <div class="col-6 text-center align-middle" style="min-height:100px;border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                                <span>Customer Signature</span>
-                            </div>
-                            <div class="col-6 text-center align-middle" style="min-height:100px;border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                                <span>Delivery Company Signature</span>
-                            </div>
-                        </div>
-                        <div class="row" style="min-height:30px;border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                            SO Delivery Comment
-                        </div>
+                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state.
                     </p>
+                    <table class="table table-sm table-bordered" name="signature_table">
+                        <thead>
+                            <tr>
+                                <th name="th_customer_signature" class="text-center" style="width: 50%;" ><span>Customer Signature</span></th>
+                                <th name="th_delivery_signature" class="text-center" style="width: 50%;"><span>Delivery Signature</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="pl-2" style="height: 50px !important;;">SO Delivery Comment</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </t>
         </t>

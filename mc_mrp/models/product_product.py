@@ -7,8 +7,8 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    is_fabric = fields.Boolean(string='Is a Fabric', compute='_compute_category_mc_type', help='Technical field that indicates whether a product is a frabic.')
-    is_foot = fields.Boolean(string='Is a Fabric', compute='_compute_category_mc_type', help='Technical field that indicates whether a product is a foot.')
+    is_fabric = fields.Boolean(string='Is a Fabric', compute='_compute_category_mc_type', help='Technical field that indicates whether a product is a fabric or not.')
+    is_foot = fields.Boolean(string='Is a Foot', compute='_compute_category_mc_type', help='Technical field that indicates whether a product is a foot or not.')
 
     def _compute_category_mc_type(self):
         """

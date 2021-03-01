@@ -12,6 +12,8 @@
     'depends': ['web', 'mc_sales_lot'],
     'data': [
         'data/data_reports.xml',
+        'data/mail_data.xml',
+        'views/stock_picking_views.xml',
         'report/stock_picking_templates.xml',
         'report/stock_picking_report.xml',
     ],
