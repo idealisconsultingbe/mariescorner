@@ -40,7 +40,10 @@ class ProductionSalesLot(models.Model):
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
-    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
+    fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
+    fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
+
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
@@ -61,7 +64,6 @@ class ProductionSalesLot(models.Model):
     purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_po_rel', 'sales_lot_id', 'po_id', string='Purchase Orders', compute='_compute_purchase_orders', store=True)
     lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_get_lots', store=True)
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
-
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
 
     def _compute_access_url(self):

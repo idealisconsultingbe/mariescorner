@@ -24,9 +24,17 @@
                         </div>
                     </div>
                     <div class="row mt32 mb32">
+                        <t t-if="fictitious_delivery">
+                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and ((x.sales_lot_id and x.sales_lot_id.fictitious_receipt) or not x.sales_lot_id))"/>
+                        </t>
+                        <t t-elif="any([move.reserved_availability for move in o.move_lines.filtered(lambda x: x.product_uom_qty)])">
+                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and (x.reserved_availability or x.quantity_done))"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        </t>
                         <t t-set="shipping_weight" t-value="0"/>
                         <t t-set="shipping_volume" t-value="0"/>
-                        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                         <t t-foreach="lines" t-as="move">
                             <t t-if="o.state=='done'">
                                 <t t-set="qty_done" t-value="move.quantity_done"/>
@@ -95,6 +103,7 @@
                                     <t t-set="qty_done" t-value="move.quantity_done"/>
                                 </t>
                                 <t t-else="">
+                                    <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
                                 <t t-set="weight" t-value="move.product_id.weight * qty_done"/>
@@ -117,7 +126,7 @@
                                     <span t-field="move.product_id.hs_code"/>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_uom_qty"/>
+                                    <span t-field="move.product_uom_qty" t-options='{"widget": "float", "precision": 1}'/>
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
@@ -370,6 +379,13 @@
 
     <template id="report_deliveryslip">
         <t t-foreach="docs" t-as="o">
+            <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="report_fictitious_deliveryslip">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="fictitious_delivery" t-value="True"/>
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>
