@@ -9,7 +9,7 @@
     'summary': 'Modifications to Stock Qweb layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'mc_sales_lot'],
+    'depends': ['web', 'mc_sales_lot', 'mc_sales_representative'],
     'data': [
         'data/data_reports.xml',
         'data/mail_data.xml',

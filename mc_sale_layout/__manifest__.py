@@ -7,7 +7,7 @@
     'summary': 'Modifications to Sales Orders layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'mc_sale', 'mc_sales_lot'],
+    'depends': ['web', 'mc_sale', 'mc_sales_lot', 'mc_sales_representative'],
     'data': [
         'report/sale_order_templates.xml',
         'report/sale_report.xml',

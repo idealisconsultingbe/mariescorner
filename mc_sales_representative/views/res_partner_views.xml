@@ -14,7 +14,7 @@
                  </div>
                  <field name="representative_ref" attrs="{'invisible': ['|', ('type', '!=', 'contact'), ('is_sales_representative', '=', False)]}"/>
              </xpath>
-             <xpath expr="//group[@name='sale']" position="inside">
+             <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
                  <field name="sales_representative_id" attrs="{'readonly': [('is_company', '=', False)]}"/>
              </xpath>
              <notebook position="inside">

@@ -30,8 +30,8 @@ class StockPicking(models.Model):
         partner_ids = [self.env.user.partner_id.id]
         if self.partner_id:
             partner_ids.append(self.partner_id.id)
-        if self.sudo().sale_id and self.sudo().sale_id.user_id:
-            partner_ids.append(self.sudo().sale_id.user_id.partner_id.id)
+        if self.sudo().sale_id and self.sudo().sale_id.sales_representative_id:
+            partner_ids.append(self.sudo().sale_id.sales_representative_id.id)
 
         ctx = {
             'default_partner_ids': [(6, 0, partner_ids)],
