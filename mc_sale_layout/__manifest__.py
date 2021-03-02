@@ -12,7 +12,6 @@
         'report/sale_order_templates.xml',
         'report/sale_report.xml',
         'views/sale_order_templates.xml',
-        'views/ir_qweb_widget_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
