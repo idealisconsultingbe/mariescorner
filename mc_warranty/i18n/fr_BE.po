@@ -1,0 +1,889 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_warranty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-02 21:29+0000\n"
+"PO-Revision-Date: 2021-03-02 22:31+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_warranty
+#: model:mail.template,subject:mc_warranty.mc_warranty_confirmation_mail
+msgid ""
+"${object.company_id.name} Sale Order (Ref ${object.name or 'n/a' }) "
+"Warranty Activation"
+msgstr ""
+"${object.company_id.name} Commande (Ref ${object.name or 'n/a' }) "
+"Activation de la garantie"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.warranty_activated_ir_ui_view
+#: model_terms:ir.ui.view,arch_db:mc_warranty.warranty_not_activated
+#: model_terms:website.page,arch_db:mc_warranty.warranty_activated
+msgid "&amp;times;"
+msgstr ""
+
+#. module: mc_warranty
+#: model:ir.actions.report,print_report_name:mc_warranty.action_report_mc_care_sticker
+msgid "('MC Care Sticker - %s' % (object.name))"
+msgstr ""
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid ""
+"(french version available, other languages coming soon) of the MC Care "
+"service."
+msgstr ""
+"(version française disponible, prochainement dans d'autres langues) du "
+"service MC Care."
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Delivery date</span>"
+msgstr "<span>Date de livraison</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Did the MC Care warranty influence your purchase ?</span>"
+msgstr "<span>Est-ce que la garantie MC Care a influencé votre achat ?</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Did you know Marie's Corner before your purchase ?</span>"
+msgstr "<span>Connaissiez-vous Marie’s Corner avant votre achat ?</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Dutch</span>"
+msgstr "<span>Néerlandais</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>English</span>"
+msgstr "<span>Anglais</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>French</span>"
+msgstr "<span>Français</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Household Type</span>"
+msgstr "<span>Type de ménage</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>How did you find out about the MC Care Warranty ?</span>"
+msgstr "<span>Comment avez-vous découvert la garantie MC Care ?</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "<span>Spanish</span>"
+msgstr "<span>Espagnol</span>"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_mc_care_document
+msgid "<strong>MC Care:</strong>"
+msgstr ""
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_labels_mc_care_document
+msgid "<strong>Mc Care:</strong>"
+msgstr ""
+
+#. module: mc_warranty
+#: model:mail.template,body_html:mc_warranty.mc_warranty_confirmation_mail
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-"
+"top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-"
+"serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td "
+"align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"padding: 24px; background-color: white; color: "
+"#454748; border-collapse:separate;\">\n"
+"                        % set company = ctx.get('company', object."
+"company_id)\n"
+"                        % set partner = ctx.get('partner', object."
+"partner_id)\n"
+"                        <tbody>\n"
+"                            <!-- HEADER -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px;\">\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"100%\" style=\"background-color: white; padding: "
+"0; border-collapse:separate;\">\n"
+"                                        <tr><td valign=\"middle\">\n"
+"                                            <span style=\"font-size: 10px;"
+"\">Your MC Warranty</span><br/>\n"
+"                                            <span style=\"font-size: 20px; "
+"font-weight: bold;\">\n"
+"                                                ${object.name}\n"
+"                                            </span>\n"
+"                                        </td><td valign=\"middle\" align="
+"\"right\">\n"
+"                                            <img src=\"/logo.png?company="
+"${company.id}\" style=\"padding: 0px; margin: 0px; height: 48px;\" alt="
+"\"${company.name}\"/>\n"
+"                                        </td></tr>\n"
+"                                        <tr><td colspan=\"2\" style=\"text-"
+"align:center;\">\n"
+"                                          <hr width=\"100%\" style="
+"\"background-color:rgb(204,204,204);border:medium none;clear:both;display:"
+"block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"
+"\"/>\n"
+"                                        </td></tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                            <!-- CONTENT -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px;\">\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: "
+"white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                        <tr>\n"
+"                                            <td valign=\"top\" style=\"font-"
+"size: 13px;\">\n"
+"                                                <div>\n"
+"                                                    Dear ${partner.name or "
+"'Madam/Sir'},<br/><br/>\n"
+"\n"
+"                                                    Warranty of your order "
+"${object.name} has been successfully activated.<br/><br/>\n"
+"\n"
+"                                                    Best regards\n"
+"                                                </div>\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                            <!-- FOOTER -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px; padding: 0 8px 0 8px; font-size:11px;\">\n"
+"                                    <hr width=\"100%\" style=\"background-"
+"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
+"size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;\"/>\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: "
+"white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+"\">\n"
+"                                        <tr><td valign=\"middle\" align="
+"\"center\">\n"
+"                                            ${company.name}\n"
+"                                        </td></tr>\n"
+"                                        <tr><td valign=\"middle\" align="
+"\"center\" style=\"opacity: 0.7;\">\n"
+"                                            ${company.phone}\n"
+"                                            % if company.phone and (company."
+"email or company.website)\n"
+"                                            |\n"
+"                                            % endif\n"
+"                                            % if company.email\n"
+"                                            <a href=\"'mailto:%s' % "
+"${company.email}\" style=\"text-decoration:none; color: #454748;\">"
+"${company.email}</a>\n"
+"                                            % endif\n"
+"                                            % if company.email and company."
+"website\n"
+"                                            |\n"
+"                                            % endif\n"
+"                                            % if company.website\n"
+"                                            <a href=\"'%s' % ${company."
+"website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                                            ${company.website}\n"
+"                                            </a>\n"
+"                                            % endif\n"
+"                                        </td></tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                        </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing="
+"\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; "
+"color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: "
+"13px;\">\n"
+"                            Powered by <a target=\"_blank\" href=\"https://"
+"www.odoo.com?utm_source=db&amp;utm_medium=website\" style=\"color: #875A7B;"
+"\">Odoo</a>\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-"
+"top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-"
+"serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td "
+"align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"padding: 24px; background-color: white; color: "
+"#454748; border-collapse:separate;\">\n"
+"                        % set company = ctx.get('company', object."
+"company_id)\n"
+"                        % set partner = ctx.get('partner', object."
+"partner_id)\n"
+"                        <tbody>\n"
+"                            <!-- HEADER -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px;\">\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"100%\" style=\"background-color: white; padding: "
+"0; border-collapse:separate;\">\n"
+"                                        <tr><td valign=\"middle\">\n"
+"                                            <span style=\"font-size: 10px;"
+"\">Votre Garantie MC</span><br/>\n"
+"                                            <span style=\"font-size: 20px; "
+"font-weight: bold;\">\n"
+"                                                ${object.name}\n"
+"                                            </span>\n"
+"                                        </td><td valign=\"middle\" align="
+"\"right\">\n"
+"                                            <img src=\"/logo.png?company="
+"${company.id}\" style=\"padding: 0px; margin: 0px; height: 48px;\" alt="
+"\"${company.name}\"/>\n"
+"                                        </td></tr>\n"
+"                                        <tr><td colspan=\"2\" style=\"text-"
+"align:center;\">\n"
+"                                          <hr width=\"100%\" style="
+"\"background-color:rgb(204,204,204);border:medium none;clear:both;display:"
+"block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"
+"\"/>\n"
+"                                        </td></tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                            <!-- CONTENT -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px;\">\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: "
+"white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                        <tr>\n"
+"                                            <td valign=\"top\" style=\"font-"
+"size: 13px;\">\n"
+"                                                <div>\n"
+"                                                    Cher/Chère ${partner."
+"name or 'Madam/Sir'},<br/><br/>\n"
+"\n"
+"                                                    La garantie de votre "
+"commande ${object.name} a été correctement activée.<br/><br/>\n"
+"\n"
+"                                                    Cordialement\n"
+"                                                </div>\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                            <!-- FOOTER -->\n"
+"                            <tr>\n"
+"                                <td align=\"center\" style=\"min-width: "
+"590px; padding: 0 8px 0 8px; font-size:11px;\">\n"
+"                                    <hr width=\"100%\" style=\"background-"
+"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
+"size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;\"/>\n"
+"                                    <table border=\"0\" cellpadding=\"0\" "
+"cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: "
+"white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;"
+"\">\n"
+"                                        <tr><td valign=\"middle\" align="
+"\"center\">\n"
+"                                            ${company.name}\n"
+"                                        </td></tr>\n"
+"                                        <tr><td valign=\"middle\" align="
+"\"center\" style=\"opacity: 0.7;\">\n"
+"                                            ${company.phone}\n"
+"                                            % if company.phone and (company."
+"email or company.website)\n"
+"                                            |\n"
+"                                            % endif\n"
+"                                            % if company.email\n"
+"                                            <a href=\"'mailto:%s' % "
+"${company.email}\" style=\"text-decoration:none; color: #454748;\">"
+"${company.email}</a>\n"
+"                                            % endif\n"
+"                                            % if company.email and company."
+"website\n"
+"                                            |\n"
+"                                            % endif\n"
+"                                            % if company.website\n"
+"                                            <a href=\"'%s' % ${company."
+"website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                                            ${company.website}\n"
+"                                            </a>\n"
+"                                            % endif\n"
+"                                        </td></tr>\n"
+"                                    </table>\n"
+"                                </td>\n"
+"                            </tr>\n"
+"                        </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing="
+"\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; "
+"color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: "
+"13px;\">\n"
+"                            Powered by <a target=\"_blank\" href=\"https://"
+"www.odoo.com?utm_source=db&amp;utm_medium=website\" style=\"color: #875A7B;"
+"\">Odoo</a>\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "A little bit"
+msgstr "Un peu"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "A lot"
+msgstr "Beaucoup"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Absolutely"
+msgstr "Absolument"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.warranty_activated_ir_ui_view
+#: model_terms:website.page,arch_db:mc_warranty.warranty_activated
+msgid "Activation of your MC Care warranty"
+msgstr "Activation de votre garantie MC Care"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_page_ir_ui_view
+#: model_terms:website.page,arch_db:mc_warranty.register_page
+msgid "Add your form here"
+msgstr "Ajoutez votre formulaire ici"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Address"
+msgstr "Adresse"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "At a trade show"
+msgstr "Lors d'un salon de vente"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid ""
+"By clicking here you agree that your personal data will be used to manage "
+"the service and interventions connected to the MC Care service (see"
+msgstr ""
+"En cliquant ici, vous marquez votre accord pour que vos données "
+"personnelles soient utilisées pour la bonne gestion du service et des "
+"interventions liées à la garantie MC Care (voir"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "By clicking here you agree to the"
+msgstr "En cliquant ici, vous marquez votre accord aux"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "By my Architect / Designer"
+msgstr "Par mon architecte / designer"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "By my Architect/Designer"
+msgstr "Par mon architecte / designer"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "By the press"
+msgstr "Par la presse"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "By word of mouth"
+msgstr "Par le bouche-à-oreille"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Choose"
+msgstr "Choisir"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "City"
+msgstr "Ville"
+
+#. module: mc_warranty
+#: model:ir.model,name:mc_warranty.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Could not convert phone number (wrong country id format: {})"
+msgstr ""
+"Impossible de convertir le numéro de téléphone (mauvais format du pays: {})"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Delivery Date"
+msgstr "Date de livraison"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Did the MC Care warranty influence your purchase ?"
+msgstr "Est-ce que la garantie a influencé votre achat ? "
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Did your know Marie's Corner before your purchase ?"
+msgstr "Connaissez-vous Marie’s Corner avant votre achat ?"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "During an event"
+msgstr "Durant un évènement"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Email"
+msgstr ""
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.warranty_not_activated
+msgid "Error during the activation of your MC Care warranty"
+msgstr "Erreur lors de l'activation de votre garantie MC Care"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Family (w/ child(ren) &gt; 12 years old)"
+msgstr "Famille (avec enfant(s) de plus de 12 ans)"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Family (w/ child(ren) &lt; 12 years old)"
+msgstr "Famille (avec enfant(s) de moins de 12 ans)"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Family (w/ child(ren) < 12 years old)"
+msgstr "Famille (avec enfant(s) de plus de 12 ans)"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Family (w/ child(ren) > 12 years old)"
+msgstr "Famille (avec enfant(s) de plus de 12 ans)"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_sale_order__final_partner_id
+#: model:ir.model.fields,field_description:mc_warranty.field_stock_production_sales_lot__final_partner_id
+#: model_terms:ir.ui.view,arch_db:mc_warranty.view_res_partner_filter
+msgid "Final Customer"
+msgstr "Client final"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_res_partner__final_customer_sale_order_ids
+#: model:ir.model.fields,field_description:mc_warranty.field_res_users__final_customer_sale_order_ids
+#: model_terms:ir.ui.view,arch_db:mc_warranty.view_partner_form
+msgid "Final Customer Sales"
+msgstr "Commandes du client final"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Household Type"
+msgstr "Type de ménage"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "How did you find out about the MC Care Warranty ?"
+msgstr "Comment avez-vous découvert la garantie MC Care ?"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "I did not know"
+msgstr "Je ne savais pas"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "I knew, but no"
+msgstr "Je l'ai su, mais non"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "In a relationship"
+msgstr "Dans une relation"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "In a relationship with"
+msgstr "Dans une relation avec"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_res_partner__final_customer
+#: model:ir.model.fields,field_description:mc_warranty.field_res_users__final_customer
+msgid "Is Final Customer"
+msgstr "Est un client final"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Language"
+msgstr "Langue"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Last Name"
+msgstr "Nom"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Leafleats and brochures"
+msgstr "Dépliants et brochures"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Leaflets and brochures"
+msgstr "Flyer et brochures"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_product_attribute__is_mc_care
+#: model:ir.model.fields,field_description:mc_warranty.field_stock_production_sales_lot__mc_care
+msgid "MC Care"
+msgstr ""
+
+#. module: mc_warranty
+#: model:ir.actions.report,name:mc_warranty.action_report_mc_care_sticker
+msgid "MC Care Sticker (ZPL)"
+msgstr ""
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "MC Care Website Survey"
+msgstr "Enquête website MC Care"
+
+#. module: mc_warranty
+#: model:ir.model,name:mc_warranty.model_stock_production_sales_lot
+msgid "Manufacturing Number"
+msgstr "Numéro de production"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_mrp_production__mc_care
+#: model_terms:ir.ui.view,arch_db:mc_warranty.stock_production_sales_lot_view_search
+msgid "Mc Care"
+msgstr ""
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.stock_production_sales_lot_view_search
+msgid "Mc Care Warranty"
+msgstr "Garantie MC Care"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Moderately"
+msgstr "Modérément"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "More Information"
+msgstr "Plus d'informations"
+
+#. module: mc_warranty
+#: model:ir.model.fields,help:mc_warranty.field_product_attribute__is_mc_care
+msgid ""
+"Must be set if this attribute allows to show whether a product is MC Care."
+msgstr ""
+"Doit être défini si cet attribut permet de montrer si un produit est un "
+"service MC Care."
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_labels_mc_care_document
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_mc_care_document
+#, python-format
+msgid "No"
+msgstr "Non"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "No Response"
+msgstr "Aucune réponse"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Other"
+msgstr "Autre"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Personal Information"
+msgstr "Informations personnelles"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Phone"
+msgstr "Téléphone"
+
+#. module: mc_warranty
+#: model:ir.model,name:mc_warranty.model_product_attribute
+msgid "Product Attribute"
+msgstr "Caractéristique de l'article"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Product Information"
+msgstr "Informations du produit"
+
+#. module: mc_warranty
+#: model:ir.model,name:mc_warranty.model_mrp_production
+msgid "Production Order"
+msgstr "Ordre de fabrication"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_page_ir_ui_view
+#: model:website.menu,name:mc_warranty.register_product_menu
+#: model_terms:website.page,arch_db:mc_warranty.register_page
+msgid "Register Products"
+msgstr "Enregistrer des produits"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_page_ir_ui_view
+#: model_terms:website.page,arch_db:mc_warranty.register_page
+msgid ""
+"Register here your products (if it is not already done). All personal and "
+"product information are mandatory."
+msgstr ""
+"Enregistrer ici vos produits (si ce n'est pas déjà fait). Toutes les "
+"informations personnelles et relatives aux produits sont obligatoires."
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Retired(s)"
+msgstr "Retraité(s)"
+
+#. module: mc_warranty
+#: model:ir.model,name:mc_warranty.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Single"
+msgstr "Célibataire"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Submit"
+msgstr "Soumettre"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "This warranty number %s has already been activated"
+msgstr "Ce numéro de garantie %s a déjà été activé"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "This warranty number %s is not correct"
+msgstr "Ce numéro de garantie %s n'est pas correct"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "This warranty number %s is not related to a Mc Care product"
+msgstr "Ce numéro de garantie %s n'est pas lié à un produit MC Care"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid ""
+"To help us better understand how our service came to you, please fill out "
+"this short form."
+msgstr ""
+"Afin de nous aider à mieux comprendre comment notre service vous est "
+"parvenu, veuillez  remplir  ce court formulaire."
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Unpacking the products"
+msgstr "Déballage des produits"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Via a Store / Reseller"
+msgstr "Via un magasin  / revendeur"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "Via a Store/Reseller"
+msgstr "Via un magasin / revendeur"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Via social networks"
+msgstr "Via les réseaux sociaux"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#, python-format
+msgid "Via the website of Marie's Corner"
+msgstr "Via le site internet de Marie's Corner"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.sales_lot_form_view
+msgid "Warranty"
+msgstr "Garantie"
+
+#. module: mc_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_sale_order__mc_care_warranty
+#: model:ir.model.fields,field_description:mc_warranty.field_stock_production_sales_lot__mc_care_warranty
+msgid "Warranty Activated"
+msgstr "Garantie activée"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Warranty Number"
+msgstr "Numéro de garantie"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Where to find the warranty number ?"
+msgstr "Où trouver le numéro de garantie ?"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_labels_mc_care_document
+#: model_terms:ir.ui.view,arch_db:mc_warranty.report_mrp_saleslot_mc_care_document
+#, python-format
+msgid "Yes"
+msgstr "Oui"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Your Reseller"
+msgstr "Votre revendeur"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.warranty_activated_ir_ui_view
+#: model_terms:website.page,arch_db:mc_warranty.warranty_activated
+msgid "Your warranty has been successfully activated."
+msgstr "Votre garantie a été correctement activée."
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "en_US"
+msgstr ""
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "es_ES"
+msgstr ""
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "fr_BE"
+msgstr ""
+
+#. module: mc_warranty
+#: code:addons/mc_warranty/controllers/main.py:0
+#, python-format
+msgid "nl_BE"
+msgstr ""
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "terms and conditions"
+msgstr "Termes et conditions"
+
+#. module: mc_warranty
+#: model_terms:ir.ui.view,arch_db:mc_warranty.register_products_form
+msgid "the MC Care Privacy policy"
+msgstr "la politique de confidentialité du service MC Care"
