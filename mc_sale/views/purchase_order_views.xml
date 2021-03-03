@@ -12,6 +12,9 @@
             <xpath expr="//tree/field[@name='name']" position="after">
                 <field name="short_name" optional="show"/>
             </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']//field[@name='date_planned']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </xpath>
         </field>
     </record>
 
