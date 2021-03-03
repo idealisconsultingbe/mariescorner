@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
+import base64
+
 from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class ProductionSalesLot(models.Model):
@@ -183,6 +185,26 @@ class ProductionSalesLot(models.Model):
         """ Compute sum of all ordered quantities for each manufacturing number """
         for sale_lot in self:
             sale_lot.product_qty = sum(sale_lot.sale_order_line_ids.mapped('product_uom_qty'))
+
+    def get_sales_lot_attachment(self, reports):
+        results = {}
+        for sales_lot in self:
+            attachments = []
+            for report in reports:
+                if report.report_type in ['qweb-html', 'qweb-pdf']:
+                    result, format = report.sudo().render_qweb_pdf([sales_lot.id])
+                else:
+                    res = report.render([sales_lot.id])
+                    if not res:
+                        raise UserError(_('Unsupported report type %s found.') % report.report_type)
+                    result, format = res
+
+                # TODO in trunk, change return format to binary to match message_post expected format
+                result = base64.b64encode(result)
+
+                attachments.append((report.name, result))
+            results[sales_lot.id] = attachments
+        return results
 
     def create_log(self, name, msg, user=None, model=None, record=None, datetime=None):
         """
