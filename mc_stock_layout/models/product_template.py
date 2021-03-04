@@ -7,7 +7,7 @@ from odoo import models, fields
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    weight_net = fields.Float(string='Weight (net)', default=0.0)
-    height = fields.Float(string='Height', default=0.0)
-    width = fields.Float(string='Width', default=0.0)
-    depth = fields.Float(string='depth', default=0.0)
+    weight_net = fields.Float(string='Weight (net)', default=0.0, help="Weigt net in kilograms")
+    height = fields.Float(string='Height (cm)', default=0.0)
+    width = fields.Float(string='Width (cm)', default=0.0)
+    depth = fields.Float(string='depth (cm)', default=0.0)
