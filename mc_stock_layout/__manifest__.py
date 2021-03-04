@@ -14,6 +14,7 @@
         'data/data_reports.xml',
         'report/stock_picking_templates.xml',
         'report/stock_picking_report.xml',
+        'views/product_template_views.xml',
     ],
     'installable': True,
     'auto_install': False,

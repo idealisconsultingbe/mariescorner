@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
+import base64
+
 from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class ProductionSalesLot(models.Model):
@@ -33,6 +35,8 @@ class ProductionSalesLot(models.Model):
     manufacturing_date = fields.Date(string='Manufacturing Date')
     shipped_date = fields.Date(string='Shipped Date')
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
+    fabric_received_mc = fields.Boolean(string='Fabric Received at MC', default=False)
+    fabric_received_date = fields.Date(string='Fabric Received Date')
     product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
@@ -58,6 +62,7 @@ class ProductionSalesLot(models.Model):
     sale_order_ids = fields.Many2many('sale.order', 'sales_lot_so_rel', 'sales_lot_id', 'so_id', string='Sale Orders', compute='_compute_sale_orders', store=True)
     purchase_order_line_ids = fields.One2many('purchase.order.line', 'sales_lot_id', string='Purchase Order Lines')
     purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_po_rel', 'sales_lot_id', 'po_id', string='Purchase Orders', compute='_compute_purchase_orders', store=True)
+    fabric_purchase_order_ids = fields.One2many('purchase.order', 'sales_lot_id', string='Fabric Purchase Orders')
     lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_get_lots', store=True)
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
 
@@ -180,6 +185,26 @@ class ProductionSalesLot(models.Model):
         """ Compute sum of all ordered quantities for each manufacturing number """
         for sale_lot in self:
             sale_lot.product_qty = sum(sale_lot.sale_order_line_ids.mapped('product_uom_qty'))
+
+    def get_sales_lot_attachment(self, reports):
+        results = {}
+        for sales_lot in self:
+            attachments = []
+            for report in reports:
+                if report.report_type in ['qweb-html', 'qweb-pdf']:
+                    result, format = report.sudo().render_qweb_pdf([sales_lot.id])
+                else:
+                    res = report.render([sales_lot.id])
+                    if not res:
+                        raise UserError(_('Unsupported report type %s found.') % report.report_type)
+                    result, format = res
+
+                # TODO in trunk, change return format to binary to match message_post expected format
+                result = base64.b64encode(result)
+
+                attachments.append((report.name, result))
+            results[sales_lot.id] = attachments
+        return results
 
     def create_log(self, name, msg, user=None, model=None, record=None, datetime=None):
         """

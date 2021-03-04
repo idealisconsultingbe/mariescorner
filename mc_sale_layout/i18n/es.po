@@ -1,0 +1,299 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_sale_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-04 14:25+0000\n"
+"PO-Revision-Date: 2021-03-04 15:37+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact_name
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr "&amp;nbsp;<span>on</span>&amp;nbsp;"
+
+#. module: mc_sale_layout
+#: model:ir.actions.report,print_report_name:mc_sale_layout.action_report_saleorder_downpayment
+msgid ""
+"(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - "
+"%s' % (object.name)"
+msgstr ""
+"(object.state in ('draft', 'sent') and 'Presupuesto - %s' % (object.name)) or 'Pedido - "
+"%s' % (object.name)"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact_name
+msgid ",&amp;nbsp;"
+msgstr ",&amp;nbsp;"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"<br/>\n"
+"                                        SWIFT:"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<i class=\"fa fa-phone fa-fw\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"mr16\">Subtotal</span>"
+msgstr "<span class=\"mr16\">Subtotal</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Date</span>"
+msgstr "<span class=\"mt4 ml8\">Fecha</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Tarif</span>"
+msgstr "<span class=\"mt4 ml8\">Tarifa</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Validity</span>"
+msgstr "<span class=\"mt4 ml8\">Validez</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Zone</span>"
+msgstr "<span class=\"mt4 ml8\">Zona</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Customer No.</"
+"span>"
+msgstr ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Nº de "
+"cliente</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Your "
+"References</span>"
+msgstr ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Su "
+"referencia</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
+msgid "<span class=\"text-muted text-uppercase fs-8\">Invoicing Address</span>"
+msgstr "<span class=\"text-muted text-uppercase fs-8\">Dirección de facturación</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
+msgid "<span class=\"text-muted text-uppercase fs-8\">Shipping Address</span>"
+msgstr "<span class=\"text-muted text-uppercase fs-8\">Dirección de entrega</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Amount</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Importe</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Base Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Precio base</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Customer Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Precio cliente</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Description</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Descripción</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Disc.%</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Dto. %</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Manuf. No.</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Ficha Nº</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Quantity</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Cantidad</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Ref</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Ref</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Taxes</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Impuestos</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Total Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Precio total</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Order</span>"
+msgstr "<span>Pedido</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "<span>Payment Terms: </span>"
+msgstr "<span>Condiciones de pago: </span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Pro Forma</span>"
+msgstr "<span>Proforma</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Pro-Forma Invoice</span>"
+msgstr "<span>Factura Proforma</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Quotation</span>"
+msgstr "<span>Presupuesto</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Additional Information"
+msgstr "Información adicional"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Details"
+msgstr "Detalles"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "Email"
+msgstr "Email"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "Fax"
+msgstr "Fax"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Fiscal Position Remark:"
+msgstr "Observación situación fiscal:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "IBAN:"
+msgstr "IBAN:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Maries Corner Logo"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "Mobile"
+msgstr "Móvil"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Página: <span class=\"page\"/> / <span class=\"topage\"/>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: mc_sale_layout
+#: model:ir.actions.report,name:mc_sale_layout.action_report_saleorder_downpayment
+msgid "Quotation / Order with down payment"
+msgstr "Presupuesto / Pedido con entrega a cuenta"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "To order"
+msgstr "Para formalizar el pedido"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Total"
+msgstr "Total"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Updated:"
+msgstr "Actualizado:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"We hope this offer will fulfill your needs and get all your attention.<br/>\n"
+"                                    Feel free to contact us for any further information."
+msgstr ""
+"Esperamos que esta oferta de precios responderá a sus necesidades.<br/>\n"
+"                                  Quedamos a su entera disposición para cualquier "
+"información adicional."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "We would be grateful if you could pay us the amount of"
+msgstr "Le agradecemos proceda al pago del importe de"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
+msgid "Website"
+msgstr "Sitio web"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"You are satisfied with this offer and you want to order, you just have to make a "
+"payment of"
+msgstr ""
+"Si esta oferta le satisface y desea formalizar el pedido, le rogamos proceda al pago de"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"You are satisfied with this offer and you want to order, you just have to send it back "
+"to us with your signature for approval."
+msgstr ""
+"Si esta oferta le satisface y desea formalizar el pedido, necesita reenviárnosla "
+"firmada como confirmación."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "to our bank account:<br/>"
+msgstr "a nuestra cuenta bancaria:<br/>"
