@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">mc.view.quotation.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="sales_representative_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">mc.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="sales_representative_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_form_view" model="ir.ui.view">
+        <field name="name">mc.view.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="priority">50</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="sales_representative_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">mc.view.sales.order.filter.inherited.effective.date</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="sales_representative_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Sales Representative" name="salesrepresentative" domain="[]" context="{'group_by': 'sales_representative_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">view.picking.form.inherited.confirmation.email</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='do_print_picking']" position="before">
+                <button name="action_confirmation_send" string="Send Email" type="object"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Delivery slip custom external layout -->
+    <template id="mc_delivery_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="mc_stock_layout.mc_external_layout"><t t-raw="0"/></t>
+    </template>
+
+    <!-- Custom address layout -->
+    <template id="mc_address_layout">
+        <div class="address row">
+            <div class="col-7">
+                <strong t-if="invoicing_address">Invoicing Address</strong>
+                <p t-if="invoicing_address"><t t-raw="invoicing_address"/></p>
+            </div>
+            <div class="col-5">
+                <strong t-if="address">Shipping Address</strong>
+                <p t-if="address"><t t-raw="address"/></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- custom external layout -->
+    <template id="mc_external_layout">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="o_boxed_header">
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                </div>
+                <div class="col-6 text-right mb4">
+                    <h4 class="mt0" t-field="company.report_header"/>
+                    <div name="company_address" class="mb4">
+                        <span class="company_address" t-field="company.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_clean o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="mc_stock_layout.mc_address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout" style="font-size: small;">
+            <div class="text-center">
+                <ul class="list-inline mb-1">
+                    <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                         adding d-inline class fixes the problem-->
+                    <li t-if="company.name" class="list-inline-item d-inline"><span t-field="company.name"/></li>
+                    <li t-if="company.name and (company.street or (company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.street" class="list-inline-item d-inline"><span t-field="company.street"/></li>
+                    <li t-if="company.street and ((company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.city and company.country_id" class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/> - <span t-field="company.country_id.name"/></li>
+                    <li t-if="company.city and company.country_id and company.vat" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+                <ul class="list-inline mb-3">
+                    <li t-if="company.phone" class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="company.phone"/></li>
+                    <li t-if="company.phone and (company.email or company.website)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
+                    <li t-if="company.email and company.website" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
+                </ul>
+            </div>
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                <div class="text-center">Page: <span class="page"/> / <span class="topage"/></div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

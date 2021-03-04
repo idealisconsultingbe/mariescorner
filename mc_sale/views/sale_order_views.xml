@@ -12,6 +12,9 @@
             <xpath expr="//field[@name='commitment_date']" position="after">
                 <field name="effective_date" string="Delivery Date" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="origin" optional="hide"/>
+            </xpath>
         </field>
     </record>
 
@@ -26,6 +29,9 @@
             <xpath expr="//field[@name='commitment_date']" position="after">
                 <field name="effective_date" string="Delivery Date" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="origin" optional="hide"/>
+            </xpath>
         </field>
     </record>
 
@@ -38,6 +44,9 @@
             <field name="payment_term_id" position="after">
                 <field name="down_payment_paid"/>
             </field>
+            <xpath expr="//field[@name='validity_date']" position="before">
+                <field name="origin"/>
+            </xpath>
             <xpath expr="//field[@name='partner_invoice_id']" position="before">
                 <field name="allowed_shipping_address_ids" invisible="1"/>
                 <field name="allowed_invoice_address_ids" invisible="1"/>
@@ -94,6 +103,9 @@
             <filter name="activities_upcoming_all" position="after">
                 <filter string="Delivery Date" name="filter_effective_date" date="effective_date"/>
             </filter>
+            <field name="name" position="after">
+                <field name="origin"/>
+            </field>
         </field>
     </record>
 

@@ -89,56 +89,61 @@
             </style>
 
             <div class="page" style="font-size: 12px;">
-                <table class="table table-sm table-commissions" name="commission_table">
-                    <thead>
-                        <tr>
-                            <th class="text-left"><span>Customer</span></th>
-                            <th class="text-left"><span>Order No</span></th>
-                            <th class="text-left"><span>Invoice No</span></th>
-                            <th class="text-center"><span>Invoice Date</span></th>
-                            <th class="text-center"><span>Payment Deadline</span></th>
-                            <th class="text-right"><span>Base</span></th>
-                            <th class="text-right"><span>Commission %</span></th>
-                            <th class="text-right"><span>Amount</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="representative_data.get('invoices', [])" t-as="invoice">
-                            <div style="page-break-inside: avoid;">
-                                <tr>
-                                    <td class="text-left fs-11rem border-bottom-0" colspan="8">
-                                        <span t-esc="'{}{}'.format(invoice.get('name', 'None'), ' ({})'.format(invoice.get('ref')) if invoice.get('ref') else '')"/>
-                                    </td>
-                                </tr>
-                                <t t-foreach="invoice.get('lines', [])" t-as="line">
+                <t t-if="not o.is_sales_representative">
+                    <p style="font-size: 16px;"><span t-field="o.name"/> is not a sales representative.</p>
+                </t>
+                <t t-else="">
+                    <table class="table table-sm table-commissions" name="commission_table">
+                        <thead>
+                            <tr>
+                                <th class="text-left"><span>Customer</span></th>
+                                <th class="text-left"><span>Order No</span></th>
+                                <th class="text-left"><span>Invoice No</span></th>
+                                <th class="text-center"><span>Invoice Date</span></th>
+                                <th class="text-center"><span>Payment Deadline</span></th>
+                                <th class="text-right"><span>Base</span></th>
+                                <th class="text-right"><span>Commission %</span></th>
+                                <th class="text-right"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="representative_data.get('invoices', [])" t-as="invoice">
+                                <div style="page-break-inside: avoid;">
                                     <tr>
-                                        <td class="border-top-0 border-bottom-0"><span> </span></td>
-                                        <td class="text-left border-left-lightgray"><span t-esc="line.get('order_no', 'None')"/></td>
-                                        <td class="text-left border-left-lightgray"><span t-esc="line.get('invoice_no', 'None')"/></td>
-                                        <td class="text-center border-left-lightgray"><span t-esc="line.get('invoice_date', 'None')"/></td>
-                                        <td class="text-center border-left-lightgray"><span t-esc="line.get('due_date', 'None')"/></td>
-                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('invoice_total', 0.0)"/></td>
-                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % (representative_data.get('commission_percentage', 0.0) * 100)"/></td>
-                                        <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('commission_amount', 0.0)"/></td>
+                                        <td class="text-left fs-11rem border-bottom-0" colspan="8">
+                                            <span t-esc="'{}{}'.format(invoice.get('name', 'None'), ' ({})'.format(invoice.get('ref')) if invoice.get('ref') else '')"/>
+                                        </td>
                                     </tr>
-                                </t>
-                                <tr>
-                                    <td class="border-top-0"><span> </span></td>
-                                    <td class="text-right border-left-lightgray" colspan="4"><strong>Total</strong></td>
-                                    <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('total', 0.0)"/></strong></td>
-                                    <td class="border-left-lightgray"><span> </span></td>
-                                    <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('commissions', 0.0)"/></strong></td>
-                                </tr>
-                            </div>
-                        </t>
-                        <tr>
-                            <td class="text-right border-top-black" colspan="5"><strong>Total <span t-esc="representative_name"/></strong></td>
-                            <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_invoiced', 0.0)"/></strong></td>
-                            <td class="border-left-lightgray border-top-black"><span> </span></td>
-                            <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_commissions', 0.0)"/></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    <t t-foreach="invoice.get('lines', [])" t-as="line">
+                                        <tr>
+                                            <td class="border-top-0 border-bottom-0"><span> </span></td>
+                                            <td class="text-left border-left-lightgray"><span t-esc="line.get('order_no', 'None')"/></td>
+                                            <td class="text-left border-left-lightgray"><span t-esc="line.get('invoice_no', 'None')"/></td>
+                                            <td class="text-center border-left-lightgray"><span t-esc="line.get('invoice_date', 'None')"/></td>
+                                            <td class="text-center border-left-lightgray"><span t-esc="line.get('due_date', 'None')"/></td>
+                                            <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('invoice_total', 0.0)"/></td>
+                                            <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % (representative_data.get('commission_percentage', 0.0) * 100)"/></td>
+                                            <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('commission_amount', 0.0)"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td class="border-top-0"><span> </span></td>
+                                        <td class="text-right border-left-lightgray" colspan="4"><strong>Total</strong></td>
+                                        <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('total', 0.0)"/></strong></td>
+                                        <td class="border-left-lightgray"><span> </span></td>
+                                        <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('commissions', 0.0)"/></strong></td>
+                                    </tr>
+                                </div>
+                            </t>
+                            <tr>
+                                <td class="text-right border-top-black" colspan="5"><strong>Total <span t-esc="representative_name"/></strong></td>
+                                <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_invoiced', 0.0)"/></strong></td>
+                                <td class="border-left-lightgray border-top-black"><span> </span></td>
+                                <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_commissions', 0.0)"/></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
             </div>
         </t>
     </template>

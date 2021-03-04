@@ -20,6 +20,20 @@
             <xpath expr="//field[@name='location_dest_id']" position="after">
                 <field name="carrier_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
+            <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                <attribute name="widget">date</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="picking_view_tree" model="ir.ui.view">
+        <field name="name">mc.picking.view.list.inherited.fictitious.date</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                <attribute name="widget">date</attribute>
+            </xpath>
         </field>
     </record>
 

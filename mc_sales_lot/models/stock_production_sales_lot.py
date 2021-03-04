@@ -37,13 +37,17 @@ class ProductionSalesLot(models.Model):
     ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
     fabric_received_mc = fields.Boolean(string='Fabric Received at MC', default=False)
     fabric_received_date = fields.Date(string='Fabric Received Date')
+    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
     product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
-    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', help='Mandatory date coming from original sale order')
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
+    fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
+    fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
+
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
@@ -65,8 +69,13 @@ class ProductionSalesLot(models.Model):
     fabric_purchase_order_ids = fields.One2many('purchase.order', 'sales_lot_id', string='Fabric Purchase Orders')
     lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_get_lots', store=True)
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
-
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')
+
+    def _compute_access_url(self):
+        """ Overridden portal mixin method in order to handle manufacturing numbers by id in portal view """
+        super(ProductionSalesLot, self)._compute_access_url()
+        for sale_lot in self:
+            sale_lot.access_url = '/my/manufacturing_number/%s' % (sale_lot.id)
 
     @api.depends('origin_sale_order_id')
     def _compute_sales_lot_origin(self):

@@ -15,6 +15,7 @@
     'depends': ['account', 'mc_sale', 'mc_sales_lot', 'website_form'],
     'data': [
         'data/website_data.xml',
+        'data/mail_data.xml',
         'report/mrp_production_templates.xml',
         'report/mrp_production_report_views.xml',
         'views/res_partner_views.xml',
