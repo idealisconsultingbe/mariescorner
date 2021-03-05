@@ -9,7 +9,7 @@ class ProductProduct(models.Model):
 
     is_tcl = fields.Boolean(string='Is a TCL Fabric', compute='_compute_is_tcl', help='Technical field that indicates whether a product is a TCL fabric or not.')
 
-    def _compute_category_mc_type(self):
+    def _compute_is_tcl(self):
         """
         :return:    True if a product has at least one attribute marked as TCL.
         """
