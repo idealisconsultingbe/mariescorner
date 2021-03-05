@@ -15,6 +15,7 @@ class ProductAttributeValue(models.Model):
     has_linear_price = fields.Boolean(string='Linear Price', related='attribute_id.has_linear_price')
     is_none_value = fields.Boolean(string='Is None Value', default=False, help='If a value with this flag is chosen onto a sale order, no component line will be created for this attribute.')
     is_to_be_defined_value = fields.Boolean(string='Is To Be Defined Value', default=False, help='If a value with this flag is chosen onto a sale order, the MO will be blocked.')
+    is_tcl_value = fields.Boolean(string='Is TCL Value', default=False, help='Used to detect TCL product in scheduled reports.')
 
     def _compute_length_uom_name(self):
         """ retrieve uom name from product template """

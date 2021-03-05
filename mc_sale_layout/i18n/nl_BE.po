@@ -1,0 +1,263 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_sale_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-05 14:11+0000\n"
+"PO-Revision-Date: 2021-03-05 15:19+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: nl_BE\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr "&amp;nbsp;<span>on</span>&amp;nbsp;"
+
+#. module: mc_sale_layout
+#: model:ir.actions.report,print_report_name:mc_sale_layout.action_report_saleorder_downpayment
+msgid ""
+"(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - "
+"%s' % (object.name)"
+msgstr ""
+"(object.state in ('draft', 'sent') and 'Offerte - %s' % (object.name)) or 'Bestelling - "
+"%s' % (object.name)"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"<br/>\n"
+"                                        SWIFT:"
+msgstr ""
+"<br/>\n"
+"                                        SWIFT:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<i class=\"fa fa-phone fa-fw\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"mr16\">Subtotal</span>"
+msgstr "<span class=\"mr16\">Subtotaal</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Date</span>"
+msgstr "<span class=\"mt4 ml8\">Datum</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Tarif</span>"
+msgstr "<span class=\"mt4 ml8\">Tarief</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Validity</span>"
+msgstr "<span class=\"mt4 ml8\">Geldigheid</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "<span class=\"mt4 ml8\">Zone</span>"
+msgstr "<span class=\"mt4 ml8\">Zone</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Customer No.</"
+"span>"
+msgstr ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Klant Nummer."
+"</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Your "
+"References</span>"
+msgstr ""
+"<span class=\"text-muted font-weight-normal mt2 ml4 text-uppercase fs-7\">Uw "
+"referentie</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
+msgid "<span class=\"text-muted text-uppercase fs-8\">Invoicing Address</span>"
+msgstr "<span class=\"text-muted text-uppercase fs-8\">Facturatie Adres</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_address_layout
+msgid "<span class=\"text-muted text-uppercase fs-8\">Shipping Address</span>"
+msgstr "<span class=\"text-muted text-uppercase fs-8\">Leveringsadres</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Amount</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Bedrag</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Base Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Basis Prijs</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Customer Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Prijs Klant</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Description</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Omschrijving</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Disc.%</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Korting %</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Manuf. No.</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Productie  Num..</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Quantity</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Hoeveelheid</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Ref</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Ref</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Taxes</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">BTW</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span class=\"text-uppercase v-align-mid fs-6\">Total Price</span>"
+msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Totale Prijs</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Order</span>"
+msgstr "<span>Order</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Pro Forma</span>"
+msgstr "<span>Pro Forma</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Pro-Forma Invoice</span>"
+msgstr "<span>Pro-Forma Factuur</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Quotation</span>"
+msgstr "<span>Prijsofferte</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Additional Information"
+msgstr "Bijkomende informatie"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Details"
+msgstr "Details"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Fiscal Position Remark:"
+msgstr "Opmerking over de begrotingspositie:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "IBAN:"
+msgstr "IBAN:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Maries Corner Logo"
+msgstr "Marie's Corner Logo"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Pagina: <span class=\"page\"/> / <span class=\"topage\"/>"
+
+#. module: mc_sale_layout
+#: model:ir.actions.report,name:mc_sale_layout.action_report_saleorder_downpayment
+msgid "Quotation / Order with down payment"
+msgstr "Offerte / Bestelling met aanbetaling"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Subtotal"
+msgstr "Subtotaal"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "To order"
+msgstr "Om te bestellen"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "Total"
+msgstr "Totaal"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Updated:"
+msgstr "Aangapast:"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"We hope this offer will fulfill your needs and get all your attention.<br/>\n"
+"                                    Feel free to contact us for any further information."
+msgstr ""
+"Wij hopen dat deze offerte aan uw behoeften zal voldoen en al uw aandacht zal krijgen."
+"<br/>\n"
+"                                    Neem gerust contact met ons op voor verdere "
+"informatie."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "We would be grateful if you could pay us the amount of"
+msgstr "Wij zouden u dankbaar zijn als u ons het bedrag van"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"You are satisfied with this offer and you want to order, you just have to make a "
+"payment of"
+msgstr ""
+"Als u tevreden bent met deze offerte en dat U deze wil omzetten in een bestelling, "
+"gelieve het bedrag van ………… over te maken"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid ""
+"You are satisfied with this offer and you want to order, you just have to send it back "
+"to us with your signature for approval."
+msgstr ""
+"Als u tevreden bent met deze offerte en dat U deze wil omzetten in een bestelling, "
+"gelieve deze ondertekend terug te zenden."
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "to our bank account:<br/>"
+msgstr "naar onze bankrekening:<br/>"
