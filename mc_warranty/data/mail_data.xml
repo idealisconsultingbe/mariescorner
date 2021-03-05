@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="mc_warranty_confirmation_mail" model="mail.template">
+            <field name="name">Warranty Activation</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">${object.company_id.name} Sale Order (Ref ${object.name or 'n/a' }) Warranty Activation</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+            <field name="email_to">${ctx.get('email_to', object.partner_id.email)}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+                        % set company = ctx.get('company', object.company_id)
+                        % set partner = ctx.get('partner', object.partner_id)
+                        <tbody>
+                            <!-- HEADER -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: white; padding: 0; border-collapse:separate;">
+                                        <tr><td valign="middle">
+                                            <span style="font-size: 10px;">Your MC Warranty</span><br/>
+                                            <span style="font-size: 20px; font-weight: bold;">
+                                                ${object.name}
+                                            </span>
+                                        </td><td valign="middle" align="right">
+                                            <img src="/logo.png?company=${company.id}" style="padding: 0px; margin: 0px; height: 48px;" alt="${company.name}"/>
+                                        </td></tr>
+                                        <tr><td colspan="2" style="text-align:center;">
+                                          <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- CONTENT -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    Dear ${partner.name or 'Madam/Sir'},<br/><br/>
+
+                                                    Warranty of your order ${object.name} has been successfully activated.<br/><br/>
+
+                                                    Best regards
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- FOOTER -->
+                            <tr>
+                                <td align="center" style="min-width: 590px; padding: 0 8px 0 8px; font-size:11px;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;"/>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="middle" align="center">
+                                            ${company.name}
+                                        </td></tr>
+                                        <tr><td valign="middle" align="center" style="opacity: 0.7;">
+                                            ${company.phone}
+                                            % if company.phone and (company.email or company.website)
+                                            |
+                                            % endif
+                                            % if company.email
+                                            <a href="'mailto:%s' % ${company.email}" style="text-decoration:none; color: #454748;">${company.email}</a>
+                                            % endif
+                                            % if company.email and company.website
+                                            |
+                                            % endif
+                                            % if company.website
+                                            <a href="'%s' % ${company.website}" style="text-decoration:none; color: #454748;">
+                                            ${company.website}
+                                            </a>
+                                            % endif
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </td></tr>
+                    <!-- POWERED BY -->
+                    <tr><td align="center" style="min-width: 590px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+                          <tr><td style="text-align: center; font-size: 13px;">
+                            Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=website" style="color: #875A7B;">Odoo</a>
+                          </td></tr>
+                        </table>
+                    </td></tr>
+                </table>
+            </field>
+            <field name="lang">${ctx.get('lang', object.partner_id.lang)}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

@@ -7,12 +7,12 @@ from odoo import api, fields, models, _
 class ProductionSalesLot(models.Model):
     _inherit = 'stock.production.sales.lot'
 
-    short_name = fields.Text(string='Description', related='origin_sale_order_line_id.short_name')
+    short_name = fields.Text(string='Description', related='origin_sale_order_line_id.short_name', store=True, readonly=True)
     delivery_date = fields.Date(string='Planned Delivery Date', compute='_compute_production_dates', store=True, help='Estimated delivery date provided by production team or subcontractor')
     fabric_date = fields.Date(string='Fabric Date', compute='_compute_production_dates', store=True, help='Fabric date provided by production team')
     sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')
 
-    @api.depends('production_ids.delivery_date', 'ext_delivery_date', 'production_ids.fabric_date')
+    @api.depends('production_ids.delivery_date', 'ext_delivery_date', 'ext_fabric_date', 'production_ids.fabric_date')
     def _compute_production_dates(self):
         """
         Compute delivery date from subcontractor if supplier type is external, else select the most distant date from production orders
@@ -22,7 +22,7 @@ class ProductionSalesLot(models.Model):
         """
         for sales_lot in self:
             if sales_lot.supplier_type == 'external':
-                sales_lot.fabric_date = False
+                sales_lot.fabric_date = sales_lot.ext_fabric_date
                 sales_lot.delivery_date = sales_lot.ext_delivery_date
             else:
                 delivery_dates_list = [production.delivery_date for production in sales_lot.production_ids]

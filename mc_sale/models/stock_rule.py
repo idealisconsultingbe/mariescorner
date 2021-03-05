@@ -22,4 +22,6 @@ class StockRule(models.Model):
                 sale_line = move_dest_ids[0]._get_sale_line()
         if sale_line:
             res['short_name'] = sale_line.short_name or ''
+        else:
+            res['short_name'] = product_id.product_tmpl_id.get_product_configurable_description(self.env['product.attribute.custom.value'], self.env['product.template.attribute.value'], po.partner_id, product_variant=product_id)
         return res

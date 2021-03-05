@@ -11,6 +11,9 @@
                 <field name="partner_id" readonly="1"/>
                 <field name="so_origin_name"/>
                 <field name="mandatory_date" optional="show"/>
+                <field name="manufacturing_date" optional="hide"/>
+                <field name="shipped_date" optional="hide"/>
+                <field name="fictitious_receipt_date" readonly="1" optional="hide"/>
                 <field name="sale_order_ids" widget="many2many_tags"/>
                 <field name="production_ids" widget="many2many_tags"/>
                 <field name="manufacturing_state"/>
@@ -32,8 +35,10 @@
                     <h1>
                         <field name="name" readonly="1"/>
                     </h1>
-                    <group name="main">
+                    <group name="main" col="3">
                         <group string="General" name="general_fields">
+                            <field name="active" invisible="1"/>
+                            <field name="supplier_type" invisible="1"/>
                             <field name="partner_id" readonly="1" force_save="1"/>
                             <field name="partner_shipping_id"/>
                             <field name="product_id" readonly="1"/>
@@ -42,13 +47,23 @@
                                 <field name="product_qty" readonly="1"/>
                                 <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
                             </div>
-                            <field name="mandatory_date"/>
-                            <field name="supplier_type" invisible="1"/>
-                            <field name="active" invisible="1"/>
-                        </group>
-                        <group name="secondary_fields">
                             <field name="so_origin_name"/>
                             <field name="carrier_id" readonly="1"/>
+                        </group>
+                        <group name="fabric_mc" string="Fabric MC">
+                            <label for="fabric_received_mc"/>
+                            <div class="o_row">
+                                <field name="fabric_received_mc"/>
+                                <field name="fabric_received_date" attrs="{'invisible': [('fabric_received_mc', '=', False)]}"/>
+                            </div>
+                        </group>
+                        <group string="Dates" name="date_fields">
+                            <label for="fictitious_receipt"/>
+                            <div class="o_row">
+                                <field name="fictitious_receipt" class="oe_edit_only"/>
+                                <field name="fictitious_receipt_date" attrs="{'invisible': [('fictitious_receipt', '=', False)]}"/>
+                            </div>
+                            <field name="mandatory_date"/>
                         </group>
                     </group>
                     <separator string="Lots/Serial Numbers"/>
@@ -59,6 +74,7 @@
                                 <field name="manufacturing_date" class="oe_inline"/>
                                 <field name="shipped_date" class="oe_inline"/>
                                 <field name="ext_delivery_date" string="Planned Delivery Date" invisible="1"/>
+                                <field name="ext_fabric_date" string="Fabric Date" invisible="1"/>
                             </group>
                         </page>
                         <page name="status" string="Status">
@@ -98,10 +114,22 @@
                 <field name="product_id"/>
                 <field name="production_ids"/>
                 <field name="sale_order_ids"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Manufacturing Date" name="manufacturing_date" date="manufacturing_date"/>
+                <filter string="Shipped Date" name="shipped_date" date="shipped_date"/>
+                <filter string="Mandatory Date" name="mandatory_date" date="mandatory_date"/>
+                <filter string="Fictitious Receipt Date" name="fictitious_receipt_date" date="fictitious_receipt_date"/>
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter string="Customer" name="customer" context="{'group_by':'partner_id'}"/>
                     <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Type" name="supplier_type" context="{'group_by': 'supplier_type'}"/>
+                    <separator orientation="vertical" />
+                    <filter string="Manufacturing Date" name="manufacturing_date_groupby" context="{'group_by':'manufacturing_date'}"/>
+                    <filter string="Shipped Date" name="shipped_date_groupby" context="{'group_by':'shipped_date'}"/>
+                    <filter string="Mandatory Date" name="mandatory_date_groupby" context="{'group_by':'mandatory_date'}"/>
+                    <filter string="Fictitious Receipt Date" name="fictitious_receipt_date_groupby" context="{'group_by':'fictitious_receipt_date'}"/>
                 </group>
             </search>
         </field>

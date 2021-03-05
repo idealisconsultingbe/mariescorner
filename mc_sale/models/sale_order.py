@@ -12,6 +12,8 @@ class SaleOrder(models.Model):
     delivery_comment = fields.Html(string='Delivery Comment')
     allowed_invoice_address_ids = fields.Many2many('res.partner', 'sale_order_allowed_invoice_address_rel', 'order_id', 'partner_id', string='Allowed Invoice Addresses', compute='_compute_allowed_addresses')
     allowed_shipping_address_ids = fields.Many2many('res.partner', 'sale_order_allowed_shipping_address_rel', 'order_id', 'partner_id', string='Allowed Shipping Addresses', compute='_compute_allowed_addresses')
+    down_payment_paid = fields.Boolean(string='Down Payment Paid', default=False)
+    date_order = fields.Datetime(states={'draft': [('readonly', False)], 'sent': [('readonly', False),], 'sale': [('readonly', False),]}, tracking=True) # modify standard parameters
 
     @api.depends('partner_id')
     def _compute_allowed_addresses(self):

@@ -103,8 +103,8 @@
                             <tr>
                                 <th><span class="mt4 ml8">Zone</span></th>
                                 <td>
-                                    <t t-if="salesperson">
-                                        <span class="m-0"><t t-raw="salesperson"/></span>
+                                    <t t-if="sales_representative">
+                                        <span class="m-0"><t t-raw="sales_representative"/></span>
                                     </t>
                                 </td>
                                 <th class="border-left-lightgray"><span class="text-muted font-weight-normal mt2 ml4 text-uppercase fs-7">Your References</span></th>
@@ -135,21 +135,22 @@
 
         <div t-attf-class="footer o_company_#{company.id}_layout" style="font-size: small;">
             <div class="text-center">
-                <ul class="list-inline mb-4">
+                <ul class="list-inline mb-1">
                     <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
                          adding d-inline class fixes the problem-->
                     <li t-if="company.name" class="list-inline-item d-inline"><span t-field="company.name"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.name and (company.street or (company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
                     <li t-if="company.street" class="list-inline-item d-inline"><span t-field="company.street"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.street and ((company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
                     <li t-if="company.city and company.country_id" class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/> - <span t-field="company.country_id.name"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.city and company.country_id and company.vat" class="list-inline-item d-inline">|</li>
                     <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                </ul>
+                <ul class="list-inline mb-3">
                     <li t-if="company.phone" class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="company.phone"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.phone and (company.email or company.website)" class="list-inline-item d-inline">|</li>
                     <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
-                    <li t-if="company.name" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.email and company.website" class="list-inline-item d-inline">|</li>
                     <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
                 </ul>
             </div>

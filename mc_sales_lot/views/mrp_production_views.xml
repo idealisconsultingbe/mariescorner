@@ -5,11 +5,17 @@
         <field name="model">mrp.production</field>
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
-            <field name="origin" position="after">
-                <field name="inter_company_origin"/>
+            <field name="name" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="name" position="after">
+                <field name="sales_lot_id"/>
+            </field>
+            <field name="routing_id" position="after">
+                <field name="inter_company_origin" style="font-size:18pt;"/>
             </field>
             <xpath expr="//field[@name='routing_id']" position="after">
-                <field name="sales_lot_id"/>
+                <field name="name"/>
             </xpath>
             <xpath expr="//field[@name='date_deadline']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -26,10 +32,10 @@
         <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="before">
-                <field name="sales_lot_id"/>
+                <field name="sales_lot_id" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='origin']" position="after">
-                <field name="inter_company_origin"/>
+                <field name="inter_company_origin" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='date_planned_start']" position="after">
                 <field name="mandatory_date" optional="show"/>

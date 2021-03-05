@@ -12,6 +12,7 @@ class MrpProduction(models.Model):
     sale_description = fields.Text(string='Product Description', compute='_compute_sale_information')
     show_sale_description = fields.Boolean(string='Is Description Visible', compute='_compute_sale_information')
     sale_comment = fields.Text(string='Sale Comment', compute='_compute_sale_information')
+    short_name = fields.Text(string='MC Description', related='sales_lot_id.short_name', store=True, readonly=True)
     editable_sale_comment = fields.Text(string='Comment', related='sale_comment', store=True, readonly=False)
     show_sale_comment = fields.Boolean(string='Is Comment Visible', compute='_compute_sale_information')
     delivery_date = fields.Date(string='Planned Delivery Date', help='Planned date for this product to be delivered according to production time')
@@ -31,6 +32,8 @@ class MrpProduction(models.Model):
             if to_be_defined_moves:
                 raise UserError(_("The manufacturing order %s contains 'To be defined' products, with a quantity greater than 0.\n"
                                   "Please set quantity for those components %s to zero." % (production.name, to_be_defined_moves.mapped(lambda m: m.product_id.name_get()[0][1]))))
+        if self.sales_lot_id:
+            self = self.with_context(po_sales_lot_id=self.sales_lot_id.id)
         return super(MrpProduction, self).action_confirm()
 
     def _compute_sale_information(self):

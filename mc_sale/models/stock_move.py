@@ -7,6 +7,17 @@ from odoo import models
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    def _prepare_procurement_values(self):
+        """
+        Override standard method -> add the manufacturing number into the procurement.
+        :return:
+        """
+        values = super(StockMove, self)._prepare_procurement_values()
+        if self.raw_material_production_id and self.raw_material_production_id.inter_company_origin:
+            values['origin'] = self.raw_material_production_id.inter_company_origin
+        return values
+
+
     def _get_purchase_line_id(self):
         """
         Go through the stock move chain in a up bottom way.
@@ -27,6 +38,7 @@ class StockMove(models.Model):
     def _get_sale_line(self):
         """
         Retrieve sale line from a stock move
+        Return the sale_line only if it is link to attributes.
         """
         self.ensure_one()
         if self and self.sale_line_id:
@@ -39,6 +51,8 @@ class StockMove(models.Model):
                     return False
                 if order_line.move_dest_ids and len(order_line.move_dest_ids) == 1:
                     return order_line.move_dest_ids[0]._get_sale_line()
+            else:
+                return False
         if self.move_dest_ids and len(self.move_dest_ids) == 1:
             return self.move_dest_ids[0]._get_sale_line()
         return False

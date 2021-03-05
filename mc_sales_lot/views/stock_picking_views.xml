@@ -8,6 +8,36 @@
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
                 <field name="sales_lot_id"/>
             </xpath>
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="fictitious_receipt_date" attrs="{'invisible': ['picking_type_code', '!=', 'incoming']}"/>
+            </xpath>
         </field>
     </record>
+
+    <record id="picking_view_tree" model="ir.ui.view">
+        <field name="name">mc.picking.view.list.inherited.fictitious.date</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="fictitious_receipt_date" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="name">mc.view.picking.internal.search.inherited.fictitious.date</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='late']" position="before">
+                <filter string="Fictitious Receipt Date" name="fictitious_receipt_date" date="fictitious_receipt_date"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//filter[@name='expected_date']" position="after">
+                <filter string="Fictitious Receipt Date" name="fictitious_receipt_date_groupby" context="{'group_by':'fictitious_receipt_date'}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

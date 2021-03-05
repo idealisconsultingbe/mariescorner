@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -31,12 +31,12 @@ class AccountMove(models.Model):
             invoices_sync_destination_company = self.env['res.company'].browse(int(params.get_param('mc_account.invoices_sync_destination')))
             if invoices_sync_destination_company and invoices_sync_origin_company and invoices_sync_origin_type:
                 # retrieve moves that should trigger a synchronization
-                moves = self.filtered(lambda m: m.type == invoices_sync_origin_type and m.company_id == invoices_sync_origin_company)
+                account_moves = self.filtered(lambda m: m.type == invoices_sync_origin_type and m.company_id == invoices_sync_origin_company)
                 # handle synchronization from customer invoices to vendor bills
                 # currently only this synchronization direction is handled
                 if invoices_sync_origin_type == 'out_invoice':
                     # retrieve moves with multi-company transactional lines
-                    moves_with_intercompany_lines = moves.filtered(lambda m: moves.mapped('invoice_line_ids.sale_line_ids.inter_company_po_line_id'))
+                    moves_with_intercompany_lines = account_moves.filtered(lambda m: account_moves.mapped('invoice_line_ids.sale_line_ids.inter_company_po_line_id'))
                     # if there are multi-company transactional lines and there are still quantities to invoice on purchase orders, create vendor bill
                     if moves_with_intercompany_lines and any([sale_line.qty_invoiced - sale_line.inter_company_po_line_id.qty_invoiced for sale_line in moves_with_intercompany_lines.mapped('invoice_line_ids.sale_line_ids') if sale_line.inter_company_po_line_id]):
 
