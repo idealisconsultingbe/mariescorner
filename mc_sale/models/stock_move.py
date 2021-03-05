@@ -38,20 +38,21 @@ class StockMove(models.Model):
     def _get_sale_line(self):
         """
         Retrieve sale line from a stock move
+        Return the sale_line only if it is link to attributes.
         """
         self.ensure_one()
         if self and self.sale_line_id:
-            sale_line = self.sale_line_id
             if self.sale_line_id.product_no_variant_attribute_value_ids:
-                return sale_line
+                return self.sale_line_id
             elif self.sale_line_id.order_id:
                 try:
                     order_line = self.sale_line_id.order_id.auto_purchase_order_id.order_line
                 except Exception:
-                    return sale_line
+                    return False
                 if order_line.move_dest_ids and len(order_line.move_dest_ids) == 1:
-                    sale_line = order_line.move_dest_ids[0]._get_sale_line()
-            return sale_line
+                    return order_line.move_dest_ids[0]._get_sale_line()
+            else:
+                return False
         if self.move_dest_ids and len(self.move_dest_ids) == 1:
             return self.move_dest_ids[0]._get_sale_line()
         return False
