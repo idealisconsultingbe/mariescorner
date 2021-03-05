@@ -8,10 +8,10 @@ import logging
 
 
 product_attributes_domain = {
-    '[Seats] Primary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Color of primary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
-    '[Seats] Secondary Fabric Type': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Color of secondary fabric': {'normal': [('name', '!=', 'To Be Defined')], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Primary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Color of primary fabric': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Secondary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Color of secondary fabric': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', '=', 'None')]},
     '[Seats] Foot Type': {'standard': [('name', '=', 'STANDARD')],
                           'archer': [('name', '=', 'ARCHER')],
                           'burton': [('name', '=', 'BURTON')],

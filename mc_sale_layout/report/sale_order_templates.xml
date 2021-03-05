@@ -86,10 +86,10 @@
                     <span t-field="doc.payment_term_id.note"/>
                 </t>
             </t>
-            <!-- set doc salesperson -->
-            <t t-set="salesperson">
-                <t t-if="doc.user_id">
-                    <span t-field="doc.user_id"/>
+            <!-- set doc sales representative -->
+            <t t-set="sales_representative">
+                <t t-if="doc.sales_representative_id">
+                    <span t-field="doc.sales_representative_id"/>
                 </t>
             </t>
             <!-- set doc last update -->

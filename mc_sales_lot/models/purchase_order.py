@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from odoo import api, models, fields
 
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
+
+    sales_lot_id = fields.Many2one('stock.production.sales.lot', string="Manufacturing Number")
 
     @api.model
     def _prepare_sale_order_line_data(self, line, company, sale_id):

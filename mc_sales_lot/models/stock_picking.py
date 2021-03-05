@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+from odoo import api, fields, models, _
 
 
 class Picking(models.Model):
     _inherit = 'stock.picking'
+
+    fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', compute='_compute_fictitious_receipt_date', store=True, help='The earliest fictitious receipt date set on manufacturing numbers')
+
+    @api.depends('move_lines.sales_lot_id.fictitious_receipt_date')
+    def _compute_fictitious_receipt_date(self):
+        for pick in self:
+            fictitious_receipt_dates = [sales_lot.fictitious_receipt_date for sales_lot in pick.mapped('move_lines.sales_lot_id') if sales_lot.fictitious_receipt_date]
+            pick.fictitious_receipt_date = min(fictitious_receipt_dates) if fictitious_receipt_dates else False
 
     def action_done(self):
         """

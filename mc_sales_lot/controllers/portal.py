@@ -4,7 +4,7 @@
 from collections import OrderedDict
 
 from odoo import fields, http, _
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager, get_records_pager
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
@@ -14,7 +14,7 @@ from odoo.osv.expression import OR
 class CustomerPortal(CustomerPortal):
 
     MANDATORY_FIELDS = ["external_state"]
-    OPTIONAL_FIELDS = ["ext_delivery_date", "shipped_date", "manufacturing_date"]
+    OPTIONAL_FIELDS = ["ext_delivery_date", "shipped_date", "manufacturing_date", "ext_fabric_date"]
 
     def _prepare_portal_layout_values(self):
         """
@@ -97,7 +97,7 @@ class CustomerPortal(CustomerPortal):
 
         # make pager
         pager = portal_pager(
-            url="/my/manufacturing_numbers",
+            url='/my/manufacturing_numbers',
             url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'filterby': filterby, 'search_in': search_in, 'search': search},
             total=sales_lot_count,
             page=page,
@@ -123,7 +123,7 @@ class CustomerPortal(CustomerPortal):
             'searchbar_filters': OrderedDict(sorted(searchbar_filters.items())),
             'filterby': filterby,
         })
-        return request.render("mc_sales_lot.my_sales_lots_portal", values)
+        return request.render('mc_sales_lot.my_sales_lots_portal', values)
 
     @http.route(['/my/manufacturing_number/<int:sales_lot_id>'], type='http', auth="public", website=True)
     def portal_my_sales_lot(self, sales_lot_id, access_token=None, **kw):
@@ -140,7 +140,7 @@ class CustomerPortal(CustomerPortal):
             return request.redirect('/my')
 
         values = self._sales_lot_get_page_view_values(sales_lot_sudo, access_token, **kw)
-        return request.render("mc_sales_lot.my_sales_lot_portal", values)
+        return request.render('mc_sales_lot.my_sales_lot_portal', values)
 
     @http.route(['/my/manufacturing_number/edit/<int:sales_lot_id>'], type='http', auth='user', website=True)
     def edit_sale_lot(self, sales_lot_id, access_token=None, redirect=None, **post):
@@ -176,7 +176,7 @@ class CustomerPortal(CustomerPortal):
                 return request.redirect('/my/manufacturing_numbers')
 
         values['redirect'] = redirect
-        response = request.render("mc_sales_lot.edit_sales_lot_portal", values)
+        response = request.render('mc_sales_lot.edit_sales_lot_portal', values)
         response.headers['X-Frame-Options'] = 'DENY'
         return response
 
@@ -193,10 +193,11 @@ class CustomerPortal(CustomerPortal):
             if not data.get(field_name):
                 error[field_name] = 'missing'
 
-        # dates validation: ext_delivery_date >= shipped_date >= manufacturing_date
+        # dates validation: ext_delivery_date >= shipped_date >= manufacturing_date >= ext_fabric_date
         shipped_date = data.get('shipped_date', sales_lot.shipped_date)
         manufacturing_date = data.get('manufacturing_date', sales_lot.manufacturing_date)
         delivery_date = data.get('ext_delivery_date', sales_lot.ext_delivery_date)
+        ext_fabric_date = data.get('ext_fabric_date', sales_lot.ext_fabric_date)
 
         if shipped_date and manufacturing_date and shipped_date < manufacturing_date:
             if data.get('shipped_date') or data.get('manufacturing_date'):
@@ -217,6 +218,28 @@ class CustomerPortal(CustomerPortal):
                 error_message.append(_('Delivery date should not be earlier than manufacturing date.'))
                 if data.get('ext_delivery_date'):
                     error['ext_delivery_date'] = 'error'
+                if data.get('manufacturing_date'):
+                    error['manufacturing_date'] = 'error'
+
+        elif delivery_date and ext_fabric_date and ext_fabric_date > delivery_date:
+            if data.get('ext_delivery_date') or data.get('ext_fabric_date'):
+                error_message.append(_('Fabric date should not be later than delivery date.'))
+                if data.get('ext_delivery_date'):
+                    error['ext_delivery_date'] = 'error'
+                if data.get('ext_fabric_date'):
+                    error['ext_fabric_date'] = 'error'
+        elif shipped_date and ext_fabric_date and ext_fabric_date > shipped_date:
+            if data.get('shipped_date') or data.get('ext_fabric_date'):
+                error_message.append(_('Fabric date should not be later than shipped date.'))
+                if data.get('shipped_date'):
+                    error['shipped_date'] = 'error'
+                if data.get('ext_fabric_date'):
+                    error['ext_fabric_date'] = 'error'
+        elif manufacturing_date and ext_fabric_date and ext_fabric_date > manufacturing_date:
+            if data.get('manufacturing_date') or data.get('ext_fabric_date'):
+                error_message.append(_('Fabric date should not be later than manufacturing date.'))
+                if data.get('ext_fabric_date'):
+                    error['ext_fabric_date'] = 'error'
                 if data.get('manufacturing_date'):
                     error['manufacturing_date'] = 'error'
 

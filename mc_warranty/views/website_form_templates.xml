@@ -34,6 +34,15 @@
                             </select>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
+                            <select class="form-control o_website_form_input" name="lang" required="1">
+                                <option value="">Language</option>
+                                <option value="en_US"><span>English</span></option>
+                                <option value="fr_BE"><span>French</span></option>
+                                <option value="nl_BE"><span>Dutch</span></option>
+                                <option value="es_ES"><span>Spanish</span></option>
+                            </select>
+                        </div>
+                        <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
                             <input type="email" class="form-control o_website_form_input" name="email" required="1" placeholder="Email"/>
                         </div>
                         <div class="form-group form-field o_website_form_custom o_website_form_required_custom">
@@ -65,7 +74,7 @@
                             </div>
                             <div class="form-group form-field o_website_form_custom">
                                 <div class="col-lg-7 col-md-8">
-                                    <span>Did your know Marie's Corner before your purchase ?</span>
+                                    <span>Did you know Marie's Corner before your purchase ?</span>
                                     <div>
                                         <label class="radio-inline"><input type="radio" class="o_website_form_input" name="mc_known" value="yes"/> Yes</label>
                                         <label class="radio-inline"><input type="radio" class="o_website_form_input" name="mc_known" value="no"/> No</label>

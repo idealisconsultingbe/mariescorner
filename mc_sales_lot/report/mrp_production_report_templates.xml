@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_mrp_saleslot_document">
-        <div class="page">
+        <div class="page" style="font-size:16pt;">
             <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
             <div style="border-bottom: 1px solid black;"/>
 
@@ -9,8 +9,8 @@
                 <strong class="m-0" t-field="doc.name"/>
                 <div class="row mt32 mb32" id="main_row">
                     <div class="col-6" name="main_info">
-                        <p><h5>Manufacturing Number: <span class="m-0" t-field="doc.sales_lot_id.name"/></h5></p>
-                        <p><strong>Order (Source Document):</strong> <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></p>
+                        <p><h1>Manufacturing Number: <span class="m-0" t-field="doc.sales_lot_id.name"/></h1></p>
+                        <p><h2>Order (Source Document): <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></h2></p>
                         <div class="col-auto mw-100 mb-2" name="destination" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
                             <p><strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/></p>
                             <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>

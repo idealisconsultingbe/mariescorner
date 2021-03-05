@@ -11,9 +11,11 @@
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['account'],
+    'depends': ['account', 'sale'],
     'data': [
         'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
+        'views/account_move_views.xml',
         'report/res_partner_report.xml',
         'report/res_partner_report_templates.xml',
         'wizard/print_sales_commissions_views.xml'

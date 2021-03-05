@@ -27,6 +27,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/mc_sale_security_rule.xml',
+        'views/ir_qweb_widget_templates.xml',
         'views/res_config_settings_views.xml',
         'views/product_attribute_value_percentage_price_views.xml',
         'views/product_attribute_views.xml',

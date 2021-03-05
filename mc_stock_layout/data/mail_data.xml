@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="picking_availability_mail" model="mail.template">
+            <field name="name">Picking Availability</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) available for pickup</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.sudo().partner_id.name or 'Madam/Sir'},<br/><br/>
+
+                        Your order (see attachment) is available for shipment. <br/><br/>
+
+                        % if object.picking_type_id.warehouse_id:
+                            Pickup address:<br/>
+                            ${object.picking_type_id.warehouse_id.partner_id.name}<br/>
+                            % if object.picking_type_id.warehouse_id.partner_id.street:
+                                ${object.picking_type_id.warehouse_id.partner_id.street}<br/>
+                            % endif
+                            % if object.picking_type_id.warehouse_id.partner_id.zip:
+                                ${object.picking_type_id.warehouse_id.partner_id.zip}
+                            % endif
+                            % if object.picking_type_id.warehouse_id.partner_id.city:
+                                ${object.picking_type_id.warehouse_id.partner_id.city}
+                            % endif
+                            % if object.picking_type_id.warehouse_id.partner_id.country_id:
+                                ${object.picking_type_id.warehouse_id.partner_id.country_id.name}
+                            % endif
+                            <br/><br/>
+                        % endif
+
+                        From Monday until Thursday<br/>
+                        09:00 - 16:00<br/>
+                        Friday<br/>
+                        09:00 - 14:00<br/><br/>
+
+                        Note:<br/><br/>
+
+                        Best regards<br/>
+                        Logistics Department<br/>
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
+                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        % endif
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="action_report_mc_delivery_slip"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="picking_internal_transfer_mail" model="mail.template">
+            <field name="name">Picking Internal Transfer</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) transfer</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.sudo().partner_id.name or 'Madam/Sir'},<br/><br/>
+
+                        Your order (see attachment) will be handed over to our carrier
+                        % if object.carrier_id:
+                            ${object.carrier_id.name}
+                        % endif
+                        % if object.scheduled_date:
+                            on ${object.scheduled_date.strftime('%B %d, %Y')}.
+                        % endif
+                        <br/><br/>
+
+                        Delivery address:<br/>
+                        ${object.partner_id.name}<br/>
+                        % if object.partner_id.street:
+                            ${object.partner_id.street}<br/>
+                        % endif
+                        % if object.partner_id.zip:
+                            ${object.partner_id.zip}
+                        % endif
+                        % if object.partner_id.city:
+                            ${object.partner_id.city}
+                        % endif
+                        % if object.partner_id.country_id:
+                            ${object.partner_id.country_id.name}
+                        % endif
+                        <br/><br/>
+
+                        Note:<br/><br/>
+
+                        Before signing the delivery note, please check the good state of the packages! In case of problem or damage,
+                        please notify your comments on the transport receipt. <br/>
+                        Without this precaution we will not be able to accept any further claim.<br/><br/>
+
+                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time announced by these contractors.
+                        We decline all responsibilities for any possible delay caused by the transporter.<br/><br/>
+
+                        Best regards<br/>
+                        Logistics Department<br/>
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
+                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        % endif
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="action_report_mc_delivery_slip"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="picking_delivery_mail" model="mail.template">
+            <field name="name">Picking Delivery</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) delivery</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.sudo().partner_id.name or 'Madam/Sir'},<br/><br/>
+
+                        Your order (see attachment) is scheduled for
+                        % if object.scheduled_date:
+                            ${object.scheduled_date.strftime('%B %d, %Y')}.
+                        % endif
+                        <br/><br/>
+
+                        Delivery address:<br/>
+                        ${object.partner_id.name}<br/>
+                        % if object.partner_id.street:
+                            ${object.partner_id.street}<br/>
+                        % endif
+                        % if object.partner_id.zip:
+                            ${object.partner_id.zip}
+                        % endif
+                        % if object.partner_id.city:
+                            ${object.partner_id.city}
+                        % endif
+                        % if object.partner_id.country_id:
+                            ${object.partner_id.country_id.name}
+                        % endif
+                        <br/><br/>
+
+                        Payment upon delivery:<br/><br/>
+
+                        Note:<br/><br/>
+
+                        Before signing the receipt note, please check the good state of the packages! In case of problem or damage,
+                        please notify your comments on the transport receipt. <br/>
+                        Without this precaution we will not be able to accept any further claim.<br/><br/>
+
+                        * Please confirm this appointment. We will not delivery your order without your approval.<br/><br/>
+
+                        Best regards<br/>
+                        Logistics Department<br/>
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
+                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        % endif
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="action_report_mc_delivery_slip"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

@@ -6,12 +6,12 @@
         <field name="model">stock.production.sales.lot</field>
         <field name="inherit_id" ref="mc_sales_lot.sales_lot_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='general_fields']" position="inside">
+            <xpath expr="//group[@name='date_fields']" position="inside">
                 <field name="delivery_date" string="Planned Delivery Date"/>
                 <field name="fabric_date"/>
             </xpath>
             <xpath expr="//group[@name='main']" position="inside">
-                <group string="Comment" name="sale_comment">
+                <group string="Comment" name="sale_comment" colspan="3">
                     <field name="short_name" readonly="1"/>
                     <field name="sale_comment" readonly="1"/>
                 </group>
@@ -28,6 +28,17 @@
                 <field name="fabric_date" optional="show"/>
                 <field name="delivery_date" string="Delivery Date" optional="show"/>
             </xpath>
+        </field>
+    </record>
+
+    <record id="sales_lot_search_view" model="ir.ui.view">
+        <field name="name">mc.sales.lot.search.view.inherited.mrp</field>
+        <field name="model">stock.production.sales.lot</field>
+        <field name="inherit_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
+        <field name="arch" type="xml">
+            <field name="so_origin_name" position="after">
+                <field name="short_name" string="Fabric Description"/>
+            </field>
         </field>
     </record>
 

@@ -24,6 +24,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['purchase_stock', 'mc_warranty'],
     'data': [
+        'data/purchase_mail_templates.xml',
         'report/mrp_production_templates.xml',
         'report/sales_lot_report_templates.xml',
         'report/mrp_production_report_views.xml',

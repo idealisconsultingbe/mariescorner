@@ -5,7 +5,7 @@
         <field name="model">mrp.production</field>
         <field name="inherit_id" ref="mc_sales_lot.mrp_production_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='sales_lot_id']" position="after">
+            <xpath expr="//field[@name='inter_company_origin']" position="after">
                 <field name="mc_care"/>
             </xpath>
         </field>
