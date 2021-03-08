@@ -1,0 +1,664 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mc_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-08 07:38+0000\n"
+"PO-Revision-Date: 2021-03-08 08:49+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: de\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact_name
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.actions.report,print_report_name:mc_sale.action_report_partner_sticker
+msgid "('Contact Sticker - %s' % (object.name))"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact_name
+msgid ",&amp;nbsp;"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Fabric Product</span>"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "<span>Payment Terms: </span>"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__allowed_invoice_address_ids
+msgid "Allowed Invoice Addresses"
+msgstr "Zugelassene Rechnungsadressen"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__allowed_shipping_address_ids
+msgid "Allowed Shipping Addresses"
+msgstr "Zulässige Versandadressen"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_attribute_value
+msgid "Attribute Value"
+msgstr "Attributwert"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_sale_order__carrier_id
+msgid ""
+"Automatically filled with the first shipping method available for current "
+"delivery address."
+msgstr ""
+"Wird automatisch mit der ersten verfügbaren Versandart für die aktuelle "
+"Lieferadresse gefüllt."
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__comment
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__comment
+#: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__comment
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Comment"
+msgstr "Kommentar"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__company_id
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationseinstellungen"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_configurator_description_line
+msgid "Configuration of Product Description"
+msgstr "Konfiguration des Produkts Beschreibung"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_product__description_line_ids
+#: model:ir.model.fields,help:mc_sale.field_product_template__description_line_ids
+msgid ""
+"Configuration of product short description. Helps to configure short "
+"description of product displayed on sale orders lines and purchase orders "
+"lines."
+msgstr ""
+"Konfiguration der Produktkurzbeschreibung. Hilft bei der Konfiguration der "
+"Produktkurzbeschreibung, die in den Zeilen für Verkaufsaufträge und "
+"Bestellungen angezeigt wird."
+
+#. module: mc_sale
+#: model:ir.actions.report,name:mc_sale.action_report_partner_sticker
+msgid "Contact Sticker (ZPL)"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__create_uid
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__create_uid
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__create_date
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__create_date
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_sale_order__date_order
+msgid ""
+"Creation date of draft/sent orders,\n"
+"Confirmation date of confirmed orders."
+msgstr ""
+"Anlagedatum von Angeboten (auch versendeten),\n"
+"Bestätigungsdatum von Aufträgen."
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__price_unit
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Customer Price"
+msgstr "Kundenpreis"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute__default_linear_value
+msgid "Default Linear Value"
+msgstr "Vorgabe linearer Wert"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_res_config_settings__fabric_default_product_id
+msgid "Default product used for fabric features"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__delivery_comment
+msgid "Delivery Comment"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_order_tree
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_quotation_tree
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_sales_order_filter
+msgid "Delivery Date"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__carrier_id
+msgid "Delivery Method"
+msgstr "Auslieferungsmethode"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__text
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_template_form_view
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__description_line_id
+msgid "Description Line"
+msgstr "Beschreibung Linie"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__description_line_ids
+#: model:ir.model.fields,field_description:mc_sale.field_product_template__description_line_ids
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_template_form_view
+msgid "Description Lines"
+msgstr "Beschreibung Linien"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_template_form_view
+msgid "Description Values"
+msgstr "Beschreibungswerte"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__display_name
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__display_name
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__down_payment_paid
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_sales_order_filter
+msgid "Down Payment Paid"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_res_company__eori
+msgid "EORI"
+msgstr "EORI"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_res_company__eori_uk
+msgid "EORI UK"
+msgstr "EORI Großbritannien"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.external_layout_boxed
+msgid "EORI UK:"
+msgstr "EORI Großbritannien:"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.external_layout_boxed
+msgid "EORI:"
+msgstr "EORI:"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "Email"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__price_extra
+msgid "Extra Price"
+msgstr "Mehrpreis"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_attribute_value_percentage_price
+msgid ""
+"Extra Price of an Attribute Value Based on a Percentage of Product Price"
+msgstr ""
+"Aufpreis eines Attributwertes basierend auf einem Prozentsatz des "
+"Produktpreises"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_template_attribute_value__price_extra
+msgid ""
+"Extra price for the variant with this attribute value on sale price. eg. "
+"200 price extra, 1000 + 200 = 1200."
+msgstr ""
+"Aufpreis für die Variante mit diesem Attributwert auf den Verkaufspreis. z."
+"B. 200 Preisaufschlag, 1000 + 200 = 1200."
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.res_config_settings_view_form
+msgid "Fabric"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_res_config_settings__fabric_default_product_id
+msgid "Fabric Product"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "Fax"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields.selection,name:mc_sale.selection__product_attribute_value_percentage_price__type__amount
+msgid "Fix Amount"
+msgstr "Fixbetrag"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__id
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__id
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__id
+msgid "ID"
+msgstr "ID"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_none_value
+msgid ""
+"If a value with this flag is chosen onto a sale order, no component line "
+"will be created for this attribute."
+msgstr ""
+"Wenn ein Wert mit diesem Flag auf einen Verkaufsauftrag gewählt wird, wird "
+"keine Komponentenzeile für dieses Attribut erstellt."
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_to_be_defined_value
+msgid ""
+"If a value with this flag is chosen onto a sale order, the MO will be "
+"blocked."
+msgstr ""
+"Wenn ein Wert mit diesem Flag auf einen Verkaufsauftrag gewählt wird, wird "
+"der MO gesperrt."
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__is_none_value
+msgid "Is None Value"
+msgstr "Ist keine Wert"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__is_tcl_value
+msgid "Is TCL Value"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__tailor_made
+#: model:ir.model.fields,field_description:mc_sale.field_product_template__tailor_made
+#: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__product_is_tailor_made
+msgid "Is Tailor Made"
+msgstr "Wird maßgeschneidert"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__is_to_be_defined_value
+msgid "Is To Be Defined Value"
+msgstr "Ist zu definieren Wert"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__is_tcl
+msgid "Is a TCL Fabric"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_account_move
+msgid "Journal Entries"
+msgstr "Buchungssätze"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_account_move_line
+msgid "Journal Item"
+msgstr "Buchungszeile"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price____last_update
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line____last_update
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__write_uid
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__write_uid
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__write_date
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__write_date
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__length_uom_name
+#: model:ir.model.fields,field_description:mc_sale.field_product_template__length_uom_name
+msgid "Length UoM Label"
+msgstr "Länge UoM Etikett"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__length_uom_name
+msgid "Length UoM Name"
+msgstr "Länge UoM-Name"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__linear_length
+#: model:ir.model.fields,field_description:mc_sale.field_product_template__linear_length
+msgid "Linear Length"
+msgstr "Lineare Länge"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute__has_linear_price
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__has_linear_price
+msgid "Linear Price"
+msgstr "Linearer Preis"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_template_attribute_value__is_manual_price_extra
+msgid "Manual Price"
+msgstr "Manueller Preis"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_template_attribute_value__manual_price_extra
+msgid "Manual Value Price Extra"
+msgstr "Manuell Wert Preis Extra"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_template_attribute_value__manual_price_extra
+msgid ""
+"Manual extra price for the variant with this attribute value on sale price."
+msgstr ""
+"Manueller Aufpreis für die Variante mit diesem Attributwert auf den "
+"Verkaufspreis."
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__fabrics_meterage_needed
+#: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__fabrics_meterage_needed
+msgid "Meterage of fabrics"
+msgstr "Meterangabe der Stoffe"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "Mobile"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__date_order
+msgid "Order Date"
+msgstr "Bestelldatum"
+
+#. module: mc_sale
+#: model:ir.model.fields.selection,name:mc_sale.selection__product_attribute_value_percentage_price__type__percentage
+msgid "Percentage"
+msgstr "Prozent"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value__percentage_price_ids
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__percentage_price
+msgid "Percentage Price"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_attribute_value_percentage_price_view_tree
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_attribute_value_view_form
+msgid "Percentage Prices"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "Phone"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute__default_linear_value
+msgid ""
+"Pre-filled the linear length in the produt configurator with the linear "
+"length defined on the product form view."
+msgstr ""
+"Vorbelegung der linearen Länge im Produktkonfigurator mit der in der "
+"Produktformularansicht definierten linearen Länge."
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_sale_order_line__product_sale_price
+msgid "Price at which the product is sold to customers."
+msgstr "Preis, zu dem das Produkt an Kunden verkauft wird."
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_product
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__product_tmpl_id
+msgid "Product"
+msgstr "Produkt"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_attribute
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__attribute_id
+#: model:ir.model.fields.selection,name:mc_sale.selection__product_configurator_description_line_value__type__attribute
+msgid "Product Attribute"
+msgstr "Produktattribut"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_attribute_custom_value
+msgid "Product Attribute Custom Value"
+msgstr "Produktattribut benutzerdefinierter Wert"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_attribute_value_view_form
+msgid "Product Attribute Lines"
+msgstr "Produkt-Attribut-Linien"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__product_attribute_value_id
+msgid "Product Attribute Value"
+msgstr "Produkt-Attribut Wert"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__product_category_id
+msgid "Product Category"
+msgstr "Produkt-Kategorie"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__product_cost
+msgid "Product Cost"
+msgstr "Kosten für das Produkt"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_template
+msgid "Product Template"
+msgstr "Produktvorlage"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_template_attribute_value
+msgid "Product Template Attribute Value"
+msgstr "Produktvorlage Attributwert"
+
+#. module: mc_sale
+#: code:addons/mc_sale/models/product_attribute_value_percentage_price.py:0
+#: model:ir.model.constraint,message:mc_sale.constraint_product_attribute_value_percentage_price_product_attribute_category_unique
+#, python-format
+msgid "Product category and attribute value combination must be unique."
+msgstr ""
+"Die Kombination aus Produktkategorie und Attributwert muss eindeutig sein."
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.res_config_settings_view_form
+msgid "Product used for fabric features"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_purchase_order
+msgid "Purchase Order"
+msgstr "Beschaffungsauftrag"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Bestellposition"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_product__linear_length
+#: model:ir.model.fields,help:mc_sale.field_product_template__linear_length
+#: model:ir.model.fields,help:mc_sale.field_sale_order_line__fabrics_meterage_needed
+msgid "Quantity of fabric required to upholster furniture"
+msgstr "Menge des zum Polstern von Möbeln benötigten Stoffes"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_purchase_order__date_planned
+msgid "Receipt Date"
+msgstr "Lieferdatum"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_sale_product_configurator
+msgid "Sale Product Configurator"
+msgstr "Verkauf Produktkonfigurator"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Anzahlungsrechnung"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag "
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Kundenauftragszeile"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__sequence
+msgid "Sequence"
+msgstr "Reihenfolge"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_account_move_line__short_name
+#: model:ir.model.fields,field_description:mc_sale.field_purchase_order_line__short_name
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__short_name
+msgid "Short Description"
+msgstr "Kurzbeschreibung"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute__display_short_description
+msgid "Show in Short Description"
+msgstr "In der Kurzbeschreibung zeigen"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__standard_product_price
+msgid "Standard Product Price"
+msgstr "Standard Produktpreis"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__product_sale_price
+msgid "Standard Sale Price"
+msgstr "Standard-Verkaufspreis"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_stock_move
+msgid "Stock Move"
+msgstr "Lagerbuchung"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_stock_rule
+msgid "Stock Rule"
+msgstr "Lagerregel"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_product__is_tcl
+msgid ""
+"Technical field that indicates whether a product is a TCL fabric or not."
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields.selection,name:mc_sale.selection__product_configurator_description_line_value__type__text
+msgid "Text"
+msgstr "Text"
+
+#. module: mc_sale
+#: code:addons/mc_sale/models/product_attribute_custom_value.py:0
+#, python-format
+msgid ""
+"The custom value for the attribute '{}' should be a float like 2.25 or 2,25 "
+"(your input is {})."
+msgstr ""
+"Der benutzerdefinierte Wert für das Attribut '{}' sollte ein Float wie 2.25 "
+"oder 2,25 sein (Ihre Eingabe ist {})."
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute__display_short_description
+msgid ""
+"This information will be visible in short description of a sale order line "
+"or a purchase order line after product configuration"
+msgstr ""
+"Diese Information wird nach der Produktkonfiguration in der "
+"Kurzbeschreibung einer Verkaufs- oder Bestellzeile sichtbar sein"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__type
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__type
+msgid "Type"
+msgstr "Typ"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_tcl_value
+msgid "Used to detect TCL product in scheduled reports."
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_template_attribute_value__is_manual_price_extra
+msgid "Used to prevent automatic computation of extra price"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_template_attribute_value__price_extra
+msgid "Value Price Extra"
+msgstr "Wert Preis Extra"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_attribute_value_percentage_price__percentage_price
+msgid "Value between 0 and 1 (e.g.: 0.5 = 50%)."
+msgstr "Wert zwischen 0 und 1 (z. B.: 0,5 = 50 %)."
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_configurator_description_line_value
+msgid "Value of a Product Description Line"
+msgstr "Wert einer Produktbeschreibungszeile"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__value_ids
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_attribute_value_view_form
+msgid "Values"
+msgstr "Werte"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.contact
+msgid "Website"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_template_attribute_value_view_form
+msgid "manual price"
+msgstr "manueller Preis"
