@@ -150,7 +150,7 @@
 
     <template id="report_mrp_production_sheet_2_document">
         <div name="label_2">
-            <div name="sub_label" style="page-break-inside:avoid;font-size:16pt;">
+            <div name="sub_label" style="page-break-inside:avoid;font-size:14pt;">
                 <div style="border-bottom: 1px solid black;"/>
                 <br/>
                 <br/>
@@ -161,15 +161,25 @@
                 <p><span class="m-0" t-field="doc.name"/></p>
                 <div class="row mt32 mb32" id="secondary_row">
                     <div class="col-6" name="finished_product_info">
-                        <strong>Model: </strong>
-                        <p><strong class="m-0" t-field="doc.product_id.name"/></p>
-                        <p><h1>Manufacturing Number: <strong class="m-0" t-field="doc.sales_lot_id.name"/></h1></p>
-                        <p><h2>Order: <span class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></h2></p>
+                        <h1>Model: </h1>
+                        <p><h3><strong class="m-0" t-field="doc.product_id.name"/></h3></p>
+                        <p><h3>Manufacturing Number: <strong class="m-0" t-field="doc.sales_lot_id.name"/></h3></p>
+                        <p><h4>Order: <span class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></h4></p>
                     </div>
                     <div class="col-6" name="quantity_info" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
                         <p><strong>Quantity:</strong> <span t-field="doc.product_qty"/></p>
                         <p><strong>Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong></p>
                         <p><strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/></p>
+                        <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>
+                    </div>
+                </div>
+                <div class="row mt32 mb32" id="third_row">
+                    <div class="col-6" name="customer_info">
+                        <p><strong>Customer:</strong> <span class="m-0" t-field="doc.sales_lot_id.partner_id.name"/></p>
+                    </div>
+                    <div class="col-6" name="date_info">
+                        <p><strong>Fabric Date:</strong> <span t-field="doc.fabric_date"/></p>
+                        <p><strong>Delivery Date:</strong> <strong class="m-0" t-field="doc.delivery_date"/></p>
                     </div>
                 </div>
                 <table class="table table-sm" name="fabrics_table">

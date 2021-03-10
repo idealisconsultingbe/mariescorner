@@ -2,3 +2,4 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from . import sales_lot_custom_report
+from . import mrp_production_custom_report
