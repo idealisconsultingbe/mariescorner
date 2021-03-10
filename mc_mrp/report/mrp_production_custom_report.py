@@ -23,7 +23,7 @@ def get_fabrics_lot_details(productions):
                 lots[move_line.lot_id.name]['total_fabric'] += move_line.qty_done
                 lots[move_line.lot_id.name]['finished_product'] |= move_line.lot_produced_ids
         for lot in lots:
-            lots[lot]['unit_fabric'] = lots[lot]['total_fabric'] / len(lots[lot]['finished_product']) or 1
+            lots[lot]['unit_fabric'] = lots[lot]['total_fabric'] / (len(lots[lot]['finished_product']) or 1)
         productions_fabric_lots[production.id] = lots
     return productions_fabric_lots
 

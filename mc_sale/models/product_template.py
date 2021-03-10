@@ -17,6 +17,32 @@ class ProductTemplate(models.Model):
     description_line_ids = fields.One2many('product.configurator.description.line', 'product_tmpl_id', string='Description Lines', help='Configuration of product short description. '
                                                                                                                                         'Helps to configure short description of product displayed on sale orders lines and purchase orders lines.')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        Add the hs_code on product variants
+        """
+        templates = super(ProductTemplate, self).create(vals_list)
+
+        # This is needed to set given values to first variant after creation
+        for template, vals in zip(templates, vals_list):
+            related_vals = {}
+            if vals.get('hs_code'):
+                related_vals['hs_code'] = vals['hs_code']
+            if related_vals and len(template.product_variant_ids) == 1:
+                template.product_variant_ids.write(related_vals)
+        return templates
+
+    def write(self, values):
+        """
+        Update the hs code also on product variants.
+        """
+        if values.get('hs_code'):
+            for product in self:
+                if len(product.product_variant_ids) == 1:
+                    self.mapped('product_variant_ids').write({'hs_code': values['hs_code']})
+        return super(ProductTemplate, self).write(values)
+
     def _compute_length_uom_name(self):
         for template in self:
             template.length_uom_name = self.get_length_uom_name()

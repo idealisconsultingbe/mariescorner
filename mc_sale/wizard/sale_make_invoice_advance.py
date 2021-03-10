@@ -10,5 +10,5 @@ class SaleAdvancePaymentInv(models.TransientModel):
     def _prepare_invoice_values(self, order, name, amount, so_line):
         vals = super(SaleAdvancePaymentInv, self)._prepare_invoice_values(order, name, amount, so_line)
         if so_line.product_id:
-            vals['invoice_line_ids'][0][2]['short_name'] = so_line.short_name if self.short_name else so_line.product_id.name
+            vals['invoice_line_ids'][0][2]['short_name'] = so_line.short_name if so_line.short_name else so_line.product_id.name
         return vals

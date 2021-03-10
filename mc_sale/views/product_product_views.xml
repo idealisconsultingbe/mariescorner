@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_product_easy_edit_form_view" model="ir.ui.view">
+        <field name="name">mc.product.product.easy.edit.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='weight']" position="inside">
+                <field name="hs_code" attrs="{'invisible': [('product_variant_count', '&lt;', 2)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

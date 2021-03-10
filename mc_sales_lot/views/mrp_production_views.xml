@@ -14,6 +14,9 @@
             <field name="routing_id" position="after">
                 <field name="inter_company_origin" style="font-size:18pt;"/>
             </field>
+            <field name="origin" position="after">
+                <field name="carrier_id"/>
+            </field>
             <xpath expr="//field[@name='routing_id']" position="after">
                 <field name="name"/>
             </xpath>
@@ -36,6 +39,7 @@
             </xpath>
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="inter_company_origin" optional="show"/>
+                <field name="carrier_id" optional="hide"/>
             </xpath>
             <xpath expr="//field[@name='date_planned_start']" position="after">
                 <field name="mandatory_date" optional="show"/>

@@ -9,6 +9,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     mandatory_date = fields.Date(string='Mandatory Date', related='sales_lot_id.mandatory_date', help='Mandatory date coming from original sale order')
+    carrier_id = fields.Many2one('delivery.carrier', related='sales_lot_id.carrier_id', string='Delivery Method')
     inter_company_origin = fields.Text(string='Inter Company Source', compute='_compute_inter_company_origin', store=True)
     sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Manufacturing Number', store=True)
     log_assigned_done = fields.Boolean(string='Log Assigned', default=False, help='Boolean indicating that a msg for the assignation has already been logged on the production number.')

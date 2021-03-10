@@ -29,7 +29,7 @@ class PurchaseOrder(models.Model):
                                              'mimetype': 'application/pdf',
                                              'datas': attachment[1]}) for attachment in attachments_data]
                 email_values = {'attachment_ids': attachment_values}
-                template.send_mail(order.id, email_values=email_values)
+                template.send_mail(order.id, email_values=email_values, force_send=True)
         return result
 
     @api.model
