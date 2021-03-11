@@ -8,6 +8,7 @@
     'description': """
     - When posting an invoice or a bill, generate automatically an analytic account for line with a manufacturing number.
     - Allow to activate both intercompany synchronization purchase/sale and invoice/bill. 
+    - New status for invoiced sale orders: 'partially invoived'. A sale order is partially invoiced if there is nothing left to invoice and at least one downpayment unpaid
     """,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
