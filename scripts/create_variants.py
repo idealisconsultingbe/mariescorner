@@ -35,7 +35,7 @@ parser.add_argument('secondary_attribute_id')
 parser.add_argument('xlsx_file')
 args = parser.parse_args()
 
-end_row = int(input("What is the last line of your xlsx file? "))
+end_row = 135 #int(input("What is the last line of your xlsx file? "))
 session.open(db=args.database)
 attribute_combinaison = read_csv(args.xlsx_file)
 product_tmpl = session.env['product.template'].browse(int(args.product_template_id))
