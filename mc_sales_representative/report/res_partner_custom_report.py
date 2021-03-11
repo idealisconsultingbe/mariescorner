@@ -54,13 +54,6 @@ class PartnerCustomReport(models.AbstractModel):
         # }
         invoices_values = dict()
         for representative in docs:
-            # retrieve all invoices (from companies and childs) to which current representative is linked
-            # commissionned_invoices = self.env['account.move']
-            # if representative.represented_company_ids:
-            #     commissionned_invoices |= representative.represented_company_ids.mapped('invoice_ids').filtered(
-            #         lambda inv: inv.state not in ['draft', 'cancel'])
-            #     commissionned_invoices |= representative.represented_company_ids.mapped('child_ids.invoice_ids').filtered(
-            #         lambda inv: inv.state not in ['draft', 'cancel'])
             # retrieve all invoices to which current representative is linked
             commissionned_invoices = self.env['account.move'].search([('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
 
