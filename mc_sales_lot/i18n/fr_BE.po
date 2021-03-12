@@ -6,26 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 17:12+0000\n"
-"PO-Revision-Date: 2021-02-09 15:56+0100\n"
+"POT-Creation-Date: 2021-03-11 20:52+0000\n"
+"PO-Revision-Date: 2021-03-11 22:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: mc_sales_lot
 #: model:ir.actions.report,print_report_name:mc_sales_lot.action_report_saleslot
 msgid "('Manufacturing Number - %s' % (object.name))"
 msgstr "('Numéro de Production - %s' % (object.name))"
-
-#. module: mc_sales_lot
-#: model:ir.actions.report,print_report_name:mc_sales_lot.action_report_mrp_saleslot
-msgid "('Manufacturing Number - %s' % (object.sales_lot_id.name))"
-msgstr "('Numéro de Production - %s' % (object.sales_lot_id.name))"
 
 #. module: mc_sales_lot
 #: model:ir.actions.report,print_report_name:mc_sales_lot.action_report_saleslot_label
@@ -37,6 +32,11 @@ msgstr "('Étiquettes des Numéros de Production - %s' % (object.name))"
 msgid "('Manufacturing Number Labels - %s' % (object.sales_lot_id.name))"
 msgstr ""
 "('Étiquettes des Numéros de Production - %s' % (object.sales_lot_id.name))"
+
+#. module: mc_sales_lot
+#: model:ir.actions.report,print_report_name:mc_sales_lot.action_report_production_sheet
+msgid "('Production Sheet - %s' % (object.sales_lot_id.name))"
+msgstr "('Fiche de Production - %s' % (object.sales_lot_id.name))"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_production_sales_lot.py:0
@@ -118,6 +118,11 @@ msgid "<strong>Estimated Delivery Date:</strong>"
 msgstr "<strong>Date de Livraison Prévue:</strong>"
 
 #. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
+msgid "<strong>Fabric Date:</strong>"
+msgstr "<strong>Date Tissu:</strong>"
+
+#. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_labels_document
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_saleslot_labels_document
 msgid "<strong>ID CUST </strong>"
@@ -132,11 +137,6 @@ msgstr "<strong>Date de Production:</strong>"
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
 msgid "<strong>Message and communication history</strong>"
 msgstr "<strong>Message et historique de communication</strong>"
-
-#. module: mc_sales_lot
-#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
-msgid "<strong>Order (Source Document):</strong>"
-msgstr "<strong>Commande (Document Source):</strong>"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_saleslot_document
@@ -229,6 +229,17 @@ msgstr ""
 "production {}, la date plannifiée est {}"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__fictitious_receipt
+msgid "Allow fictitious receipt of manufacturing numbers"
+msgstr "Autorise une réception fictive pour les numéros de production"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_attachment_count
 msgid "Attachment Count"
 msgstr "Nombre de pièces jointes"
@@ -300,12 +311,8 @@ msgstr ""
 "                                <span class=\"fa fa-long-arrow-right\"/>"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__confirmed
-msgid "Confirmed"
-msgstr "Confirmé"
-
-#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__create_uid
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__create_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__create_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__create_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__create_uid
@@ -314,6 +321,7 @@ msgstr "Créé par"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__create_date
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__create_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__create_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__create_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__create_date
@@ -341,6 +349,11 @@ msgid "Customer"
 msgstr "Client"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__customer_delivery_done
+msgid "Customer Delivery Done"
+msgstr "Livraison Client Faite"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__access_url
 msgid "Customer Portal URL"
 msgstr "URL du portail client"
@@ -348,7 +361,18 @@ msgstr "URL du portail client"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__date
 msgid "Date"
-msgstr "Date"
+msgstr ""
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
+msgid "Dates"
+msgstr ""
+
+#. module: mc_sales_lot
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__delivered
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__delivered
+msgid "Delivered To The Customer"
+msgstr "Livré au client"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__partner_shipping_id
@@ -356,6 +380,7 @@ msgid "Delivery Address"
 msgstr "Adresse de Livraison"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_mrp_production__carrier_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__carrier_id
 msgid "Delivery Method"
 msgstr "Méthode de Livraison"
@@ -380,10 +405,14 @@ msgid "Delivery date should not be later than shipped date."
 msgstr ""
 
 #. module: mc_sales_lot
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__in_manufacturing
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 msgid "Demand received by the supplier"
 msgstr "Demande reçue par le client"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
+msgid "Demand sent to the supplier"
+msgstr "Demande envoyé au fournisseur"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__description
@@ -392,6 +421,7 @@ msgstr "Description"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__display_name
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__display_name
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__display_name
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__display_name
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__display_name
@@ -399,11 +429,14 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__done
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__done
-#: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
-msgid "Done"
-msgstr "Terminé"
+#: model:res.groups,name:mc_sales_lot.group_edit_mandatory_date
+msgid "Edit Mandatory Date on Sale Orders"
+msgstr "Mettre à jour la date impérative du SO"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order__editable_mandatory_date
+msgid "Editable Mandatory Date"
+msgstr "Date impérative éditable"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_sale_order_line__has_tracking
@@ -439,9 +472,86 @@ msgid "Extra Serial Digits"
 msgstr "Chiffres additionnels N° série"
 
 #. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
+msgid "Fabric Date"
+msgstr "Date Tissu"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
+msgid "Fabric MC"
+msgstr "Tissu MC"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__fabric_purchase_order_ids
+msgid "Fabric Order(s)"
+msgstr "Commande(s) Tissu"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__fabric_ordered
+msgid "Fabric Ordered"
+msgstr "Tissu commandé"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fabric_purchase_order_ids
+msgid "Fabric Purchase Orders"
+msgstr ""
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fabric_received_date
+msgid "Fabric Received Date"
+msgstr "Date de réception tissu"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fabric_received_mc
+msgid "Fabric Received at MC"
+msgstr "Tissu réceptionné chez MC"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__ext_fabric_date
+msgid "Fabric date provided by subcontractor"
+msgstr ""
+
+#. module: mc_sales_lot
+#: code:addons/mc_sales_lot/controllers/portal.py:0
+#, python-format
+msgid "Fabric date should not be later than delivery date."
+msgstr ""
+
+#. module: mc_sales_lot
+#: code:addons/mc_sales_lot/controllers/portal.py:0
+#, python-format
+msgid "Fabric date should not be later than manufacturing date."
+msgstr ""
+
+#. module: mc_sales_lot
+#: code:addons/mc_sales_lot/controllers/portal.py:0
+#, python-format
+msgid "Fabric date should not be later than shipped date."
+msgstr ""
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fictitious_receipt
+msgid "Fictitious Receipt"
+msgstr "Réception Fictive"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_picking__fictitious_receipt_date
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fictitious_receipt_date
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_picking_internal_search
+msgid "Fictitious Receipt Date"
+msgstr "Date de Réception Fictive"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__fictitious_receipt_date
+msgid "Fictitious receipt date set by user"
+msgstr ""
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_follower_ids
 msgid "Followers"
-msgstr "Followers"
+msgstr ""
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_channel_ids
@@ -466,6 +576,7 @@ msgstr "Groupé par"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__id
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__id
@@ -504,9 +615,8 @@ msgstr ""
 "l'utilisateur devra le faire manuellement"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__confirmed
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__in_manufacturing
 #: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__in_manufacturing
-#: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 msgid "In Manufacturing"
 msgstr "En Production"
 
@@ -521,15 +631,47 @@ msgid "Internal Company"
 msgstr "Société Interne"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__internal_delivery_done
+msgid "Internal Delivery Done"
+msgstr "Livraison Interne Faite"
+
+#. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
 #, python-format
 msgid "Internal Delivery OK"
 msgstr "Livraison interne OK"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__internal_receipt
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__internal_receipt
+msgid "Internal Receipt"
+msgstr "Réception Interne"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__internal_receipt_done
+msgid "Internal Receipt Done"
+msgstr "Réception Interne Faite"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__internal_transit
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__internal_transit
+msgid "Internal Transit"
+msgstr "Départ Usine"
+
+#. module: mc_sales_lot
+#: model:ir.model,name:mc_sales_lot.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Ligne d'inventaire"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_is_follower
 msgid "Is Follower"
 msgstr "Est un Follower"
+
+#. module: mc_sales_lot
+#: model:ir.model,name:mc_sales_lot.model_account_move
+msgid "Journal Entries"
+msgstr "Pièces comptables"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_account_move_line
@@ -538,6 +680,7 @@ msgstr "Écriture comptable"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status____last_update
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label____last_update
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot____last_update
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels____last_update
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot____last_update
@@ -546,6 +689,7 @@ msgstr "Dernière modification le"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__write_uid
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__write_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__write_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__write_uid
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__write_uid
@@ -554,6 +698,7 @@ msgstr "Dernière mise-à-jour par"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__write_date
+#: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_mrp_saleslot_label__write_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot__write_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_report_mc_sales_lot_report_saleslot_labels__write_date
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__write_date
@@ -586,6 +731,28 @@ msgid "Manage Automatic Manufacturing Numbers / Serial Numbers"
 msgstr "Gère les numéros de production / de série"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_mrp_production__mandatory_date
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order__mandatory_date
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__mandatory_date
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sale_order_filter_view
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_order_tree
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_quotation_tree
+msgid "Mandatory Date"
+msgstr "Date Impérative"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_mrp_production__mandatory_date
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__mandatory_date
+msgid "Mandatory date coming from original sale order"
+msgstr ""
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__allow_set_sales_lot_id
+msgid "Manual Manufacturing Number"
+msgstr "Numéro de Production Manuel"
+
+#. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.sale_order_form_view
 msgid "Manuf N°"
 msgstr "Numéro de production"
@@ -595,19 +762,21 @@ msgstr "Numéro de production"
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__manufacturing_date
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
 #, python-format
 msgid "Manufacturing Date"
 msgstr "Date de Production"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/controllers/portal.py:0
-#: model:ir.actions.report,name:mc_sales_lot.action_report_mrp_saleslot
 #: model:ir.actions.report,name:mc_sales_lot.action_report_saleslot
 #: model:ir.model,name:mc_sales_lot.model_stock_production_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_mrp_production__sales_lot_id
+#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__sales_lot_id
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_inventory_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__name
@@ -633,6 +802,11 @@ msgstr "Détails du Numéro de Production"
 #: model:ir.actions.report,name:mc_sales_lot.action_report_saleslot_label
 msgid "Manufacturing Number Labels"
 msgstr "Étiquettes des Numéros de Production"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__sales_lot_id_needed
+msgid "Manufacturing Number Needed"
+msgstr "Numéro de Production Requis"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__sales_lot_id_required
@@ -770,6 +944,17 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
+msgid "Order (Source Document):"
+msgstr "Commande (Document Source):"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__received_by_manufacturer
+#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__received_by_manufacturer
+msgid "Order Received By The Manufacturer"
+msgstr "Commande reçue par l'usine"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__origin_sale_order_id
 msgid "Origin Sale Order"
 msgstr "Commande d'Origine"
@@ -778,6 +963,11 @@ msgstr "Commande d'Origine"
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__origin_sale_order_line_id
 msgid "Origin Sale Order Line"
 msgstr "Ligne de Commande d'Origine"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__so_origin_name
+msgid "Original Sale Order"
+msgstr "Commande d'origine"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.sales_lot_form_view
@@ -832,6 +1022,11 @@ msgstr "Produit avec suivi"
 #: model:ir.model,name:mc_sales_lot.model_mrp_production
 msgid "Production Order"
 msgstr "Ordre de fabrication"
+
+#. module: mc_sales_lot
+#: model:ir.actions.report,name:mc_sales_lot.action_report_production_sheet
+msgid "Production Sheet"
+msgstr "Fiche de Production"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_purchase_order
@@ -918,6 +1113,11 @@ msgid "Sale Orders"
 msgstr "Bons de commande"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_activated
+msgid "Sales Lot Activated"
+msgstr "Numéro de Production Activé"
+
+#. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_sale_order
 msgid "Sales Order"
 msgstr "Bon de commande"
@@ -925,7 +1125,7 @@ msgstr "Bon de commande"
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr "Ligne de bons de commande"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/controllers/portal.py:0
@@ -962,10 +1162,21 @@ msgid "Sellers"
 msgstr "Fournisseurs"
 
 #. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.sale_order_form_view
+msgid "Set Manuf N°"
+msgstr "Sélectionner N° Prod"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
+msgid "Shipped"
+msgstr "Envoyé"
+
+#. module: mc_sales_lot
 #: code:addons/mc_sales_lot/controllers/portal.py:0
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__shipped_date
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
 #, python-format
 msgid "Shipped Date"
 msgstr "Date d'envoie"
@@ -1025,6 +1236,12 @@ msgid "Subcontractor Delivery Date"
 msgstr "Date de livraison de la sous-traitance"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__ext_fabric_date
+msgid "Subcontractor Fabric Date"
+msgstr "Date Tissu du Fournisseur"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_supplier_type
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__supplier_type
 msgid "Supplier Type"
 msgstr "Type de fournisseur"
@@ -1036,6 +1253,7 @@ msgstr "Technique"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_product_product__sales_lot_activated
+#: model:ir.model.fields,help:mc_sales_lot.field_purchase_order_line__sales_lot_activated
 msgid ""
 "Technical field that indicates whether a manufacturing number needs to be "
 "used for this product."
@@ -1062,15 +1280,14 @@ msgid "The SN {} is on its way towards {} warehouse"
 msgstr "Le SN {} est en cours d'acheminement vers l'entrepôt de {}"
 
 #. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_picking__fictitious_receipt_date
+msgid "The earliest fictitious receipt date set on manufacturing numbers"
+msgstr " "
+
+#. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
 msgid "There are currently no manufacturing numbers for your account."
 msgstr "Il n'y a pour l'instant aucun numéro de production pour votre compte."
-
-#. module: mc_sales_lot
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__to_confirm
-#: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__manufacturing_state__to_confirm
-msgid "To Confirm"
-msgstr "À Confirmer"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__to_produce
@@ -1085,7 +1302,6 @@ msgstr "À Produire"
 msgid ""
 "Tous les matériaux ont été réceptionnés par {} pour l'ordre de production {}"
 msgstr ""
-"Tous les matériaux ont été réceptionnés par {} pour l'ordre de production {}"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_stock_picking
@@ -1096,6 +1312,11 @@ msgstr "Transfert"
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__picking_ids
 msgid "Transfers"
 msgstr "Transferts"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
+msgid "Type"
+msgstr ""
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__activity_exception_decoration
@@ -1124,11 +1345,24 @@ msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: mc_sales_lot
+#: code:addons/mc_sales_lot/models/stock_production_sales_lot.py:0
+#, python-format
+msgid "Unsupported report type %s found."
+msgstr "Type de rapport non pris en charge détecté (%s)."
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_product_category__use_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_product_product__use_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_product_template__use_sales_lot
 msgid "Use Manufacturing Numbers"
 msgstr "Utiliser les numéros de production"
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_sale_order__editable_mandatory_date
+msgid ""
+"Used in UI. Prevent user to edit mandatory date if he is not member of the "
+"right group."
+msgstr ""
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__user_id
@@ -1168,6 +1402,11 @@ msgid "extra digits required to compose S/N"
 msgstr "chiffres en plus pour le numéro de série"
 
 #. module: mc_sales_lot
+#: model:ir.model,name:mc_sales_lot.model_report_mc_sales_lot_report_mrp_saleslot_label
+msgid "report.mc_sales_lot.report_mrp_saleslot_label"
+msgstr ""
+
+#. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_report_mc_sales_lot_report_saleslot
 msgid "report.mc_sales_lot.report_saleslot"
 msgstr ""
@@ -1175,6 +1414,11 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_report_mc_sales_lot_report_saleslot_labels
 msgid "report.mc_sales_lot.report_saleslot_labels"
+msgstr ""
+
+#. module: mc_sales_lot
+#: model:res.groups,comment:mc_sales_lot.group_edit_mandatory_date
+msgid "the user will be able to modify mandatory date on sale orders."
 msgstr ""
 
 #. module: mc_sales_lot

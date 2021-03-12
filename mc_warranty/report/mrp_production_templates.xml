@@ -26,20 +26,29 @@
             <t t-else="">
                 <t t-set="qty" t-value="1"/>
             </t>
+            <t t-if="len(mo.product_id.name) > 27">
+                <t t-set="product_name1" t-value="mo.product_id.name[:27]+'-'"/>
+                <t t-set="product_name2" t-value="mo.product_id.name[27:]"/>
+            </t>
+            <t t-else="">
+                <t t-set="product_name1" t-value="mo.product_id.name"/>
+                <t t-set="product_name2" t-value="''"/>
+            </t>
             <t t-foreach="range(qty)" t-as="i">
                 <t t-translation="off">
                 ^XA
 
                 ^FX Top section with product reference.
+                ^CF0,40
+                ^FO150,30^FDORDER:^FS
+                ^FO280,30^FD<t t-if="mo.inter_company_origin" t-raw="mo.inter_company_origin"/>^FS
+
                 ^CF0,30
-                ^FO70,30^FDORDER:^FS
-                ^FO170,30^FD<t t-if="mo.inter_company_origin" t-raw="mo.inter_company_origin"/>^FS
+                ^FO150,100^FD<t t-if="mo.sales_lot_id" t-raw="mo.sales_lot_id.name"/>^FS
+                ^FO280,100^FD<t t-esc="product_name1"/>^FS
+                ^FO280,130^FD<t t-esc="product_name2"/>^FS
 
-                ^CF0,25
-                ^FO70,100^FD<t t-if="mo.sales_lot_id" t-raw="mo.sales_lot_id.name"/>^FS
-                ^FO250,100^FD<t t-raw="mo.product_id.name"/>^FS
-
-                ^FO500,160^FD<t t-esc="i+1"/>/<t t-esc="qty"/>^FS
+                ^FO600,160^FD<t t-esc="i+1"/>/<t t-esc="qty"/>^FS
 
                 ^XZ
                 </t>

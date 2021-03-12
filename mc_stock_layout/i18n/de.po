@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-08 07:50+0000\n"
-"PO-Revision-Date: 2021-03-08 08:55+0100\n"
+"POT-Creation-Date: 2021-03-12 08:51+0000\n"
+"PO-Revision-Date: 2021-03-12 10:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: mc_stock_layout
-#: model:mail.template,report_name:mc_stock_layout.picking_availability_mail
-#: model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
+#: model:mail.template,report_name:mc_stock_layout.picking_availability_mail model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
 #: model:mail.template,report_name:mc_stock_layout.picking_internal_transfer_mail
 msgid "${(object.name or '').replace('/','_')}"
 msgstr ""
@@ -186,8 +185,8 @@ msgid ""
 "                        please notify your comments on the transport receipt. <br/>\n"
 "                        Without this precaution we will not be able to accept any further claim.<br/><br/>\n"
 "\n"
-"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time "
-"announced by these contractors.\n"
+"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time announced by these "
+"contractors.\n"
 "                        We decline all responsibilities for any possible delay caused by the transporter.<br/><br/>\n"
 "\n"
 "                        Best regards<br/>\n"
@@ -199,6 +198,52 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Sehr geerther ${object.sudo().partner_id.name or 'Kunde'},<br/><br/>\n"
+"\n"
+"                        Ihre Bestellung wird versendet (Details im Anhang) mit\n"
+"                        % if object.carrier_id:\n"
+"                            ${object.carrier_id.name}\n"
+"                        % endif\n"
+"                        % if object.scheduled_date:\n"
+"                            am ${object.scheduled_date.strftime('%B %d, %Y')}.\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Delivery address:<br/>\n"
+"                        ${object.partner_id.name}<br/>\n"
+"                        % if object.partner_id.street:\n"
+"                            ${object.partner_id.street}<br/>\n"
+"                        % endif\n"
+"                        % if object.partner_id.zip:\n"
+"                            ${object.partner_id.zip}\n"
+"                        % endif\n"
+"                        % if object.partner_id.city:\n"
+"                            ${object.partner_id.city}\n"
+"                        % endif\n"
+"                        % if object.partner_id.country_id:\n"
+"                            ${object.partner_id.country_id.name}\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Note:<br/><br/>\n"
+"\n"
+"                        Bitte prüfen Sie den Zustand der Pakete nach, bevor Sir für eine Lieferung in Ordnung unterschreiben.\n"
+"                        Falls sie ein problem feststellen, geben Sie es auf dem Transportdokument an. <br/>\n"
+"                        Ohne diese Vorsichtsmassnahme werden  wir keine Reklamation annehmen können.<br/><br/>\n"
+"\n"
+"                        * Das Transportunternehmen ist ein unabhängiges Unternehmen, welches von Mac Ray beauftragt wird, die Lieferungen durch zu führen. Bitte "
+"nehmen Sie die Lieferung in Augenschein und teilen uns schnellstmöglich mit, falls es Grund zur Beanstandung gibt.<br/><br/>\n"
+"\n"
+"                        Freundliche Grüße<br/>\n"
+"                        Logistics Department<br/>\n"
+"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
+"                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_external_layout
@@ -228,7 +273,7 @@ msgstr "<span>Tiefe</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>HS Code</span>"
-msgstr "<span>HS Code</span>"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -277,8 +322,7 @@ msgid ""
 "                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state."
 msgstr ""
 "<strong>Kontrolle der Produkte am Empfang</strong><br/>\n"
-"                        <span>Die Produkte werden auf .... geliefert. / .... / .... sind in Übereinstimmung mit der Bestellung und in "
-"gutem Zustand geliefert.</span>"
+"                        <span>Die Produkte werden auf .... geliefert. / .... / .... sind in Übereinstimmung mit der Bestellung und in gutem Zustand geliefert.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -385,7 +429,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_stock_picking
 msgid "Transfer"
-msgstr "Übertragen"
+msgstr "Lieferung vornehmen"
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_stock_picking__volume_uom_name
@@ -399,8 +443,7 @@ msgid "Weight (net)"
 msgstr "Gewicht (netto)"
 
 #. module: mc_stock_layout
-#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net
-#: model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
+#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
 msgid "Weigt net in kilograms"
 msgstr ""
 
@@ -429,4 +472,4 @@ msgstr "Tiefe (cm)"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
 msgid "m³"
-msgstr "m³"
+msgstr ""

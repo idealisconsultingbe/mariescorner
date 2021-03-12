@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-05 14:21+0000\n"
-"PO-Revision-Date: 2021-03-05 15:28+0100\n"
+"POT-Creation-Date: 2021-03-12 08:34+0000\n"
+"PO-Revision-Date: 2021-03-12 09:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: mc_stock_layout
-#: model:mail.template,report_name:mc_stock_layout.picking_availability_mail
-#: model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
+#: model:mail.template,report_name:mc_stock_layout.picking_availability_mail model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
 #: model:mail.template,report_name:mc_stock_layout.picking_internal_transfer_mail
 msgid "${(object.name or '').replace('/','_')}"
 msgstr ""
@@ -147,6 +146,50 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Beste ${object.sudo().partner_id.name or 'Mevrouw/Meneer'},<br/><br/>\n"
+"\n"
+"                        De levering van uw bestelling (Detail in bijlage) is voorzien op\n"
+"                        % if object.scheduled_date:\n"
+"                            ${object.scheduled_date.strftime('%B %d, %Y')}.\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Leveringsadres:<br/>\n"
+"                        ${object.partner_id.name}<br/>\n"
+"                        % if object.partner_id.street:\n"
+"                            ${object.partner_id.street}<br/>\n"
+"                        % endif\n"
+"                        % if object.partner_id.zip:\n"
+"                            ${object.partner_id.zip}\n"
+"                        % endif\n"
+"                        % if object.partner_id.city:\n"
+"                            ${object.partner_id.city}\n"
+"                        % endif\n"
+"                        % if object.partner_id.country_id:\n"
+"                            ${object.partner_id.country_id.name}\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Rembours bedrag:<br/><br/>\n"
+"\n"
+"                        Note:<br/><br/>\n"
+"\n"
+"                        Gelieve de staat van uw dozen te controleren alvorens de leveringsbon af te tekenen,\n"
+"                        Wanneer u een probleem vaststelt, noteer dit dan op de leveringsbon / transportbewijs. <br/>\n"
+"                        Zonder deze notering, kunnen wij achteraf geen enkele klacht aanvarden.<br/><br/>\n"
+"\n"
+"                        * Gelieve deze afspraak te bevestigen. Wij leveren enkel met uw akkoord.<br/><br/>\n"
+"\n"
+"                        Met vriendelijke groeten<br/>\n"
+"                        Logistics Department<br/>\n"
+"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
+"                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: mc_stock_layout
 #: model:mail.template,body_html:mc_stock_layout.picking_internal_transfer_mail
@@ -186,8 +229,8 @@ msgid ""
 "                        please notify your comments on the transport receipt. <br/>\n"
 "                        Without this precaution we will not be able to accept any further claim.<br/><br/>\n"
 "\n"
-"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time "
-"announced by these contractors.\n"
+"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time announced by these "
+"contractors.\n"
 "                        We decline all responsibilities for any possible delay caused by the transporter.<br/><br/>\n"
 "\n"
 "                        Best regards<br/>\n"
@@ -199,6 +242,53 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dear ${object.sudo().partner_id.name or 'Madam/Sir'},<br/><br/>\n"
+"\n"
+"                        Your order (see attachment) will be handed over to our carrier\n"
+"                        % if object.carrier_id:\n"
+"                            ${object.carrier_id.name}\n"
+"                        % endif\n"
+"                        % if object.scheduled_date:\n"
+"                            on ${object.scheduled_date.strftime('%B %d, %Y')}.\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Delivery address:<br/>\n"
+"                        ${object.partner_id.name}<br/>\n"
+"                        % if object.partner_id.street:\n"
+"                            ${object.partner_id.street}<br/>\n"
+"                        % endif\n"
+"                        % if object.partner_id.zip:\n"
+"                            ${object.partner_id.zip}\n"
+"                        % endif\n"
+"                        % if object.partner_id.city:\n"
+"                            ${object.partner_id.city}\n"
+"                        % endif\n"
+"                        % if object.partner_id.country_id:\n"
+"                            ${object.partner_id.country_id.name}\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"\n"
+"                        Note:<br/><br/>\n"
+"\n"
+"                        Before signing the delivery note, please check the good state of the packages! In case of problem or damage,\n"
+"                        please notify your comments on the transport receipt. <br/>\n"
+"                        Without this precaution we will not be able to accept any further claim.<br/><br/>\n"
+"\n"
+"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time announced by these "
+"contractors.\n"
+"                        We decline all responsibilities for any possible delay caused by the transporter.<br/><br/>\n"
+"\n"
+"                        Best regards<br/>\n"
+"                        Logistics Department<br/>\n"
+"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
+"                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_external_layout
@@ -228,7 +318,7 @@ msgstr "<span>Diepte</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>HS Code</span>"
-msgstr "<span>HS Code</span>"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -248,12 +338,12 @@ msgstr "<span>Bestelde hoeveelheid</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Product</span>"
-msgstr "<span>Product</span>"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Volume</span>"
-msgstr "<span>Volume</span>"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -277,8 +367,7 @@ msgid ""
 "                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state."
 msgstr ""
 "<strong>Controle van producten bij de receptie</strong><br/>\n"
-"                        <span>De producten geleverd op .... / .... / .... zijn in overeenstemming met de bestelling en worden in goede "
-"staat afgeleverd.</span>"
+"                        <span>De producten geleverd op .... / .... / .... zijn in overeenstemming met de bestelling en worden in goede staat afgeleverd.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -314,13 +403,11 @@ msgid ""
 "<strong>Volume:</strong>\n"
 "                            <br/>"
 msgstr ""
-"<strong>Volume:</strong>\n"
-"                            <br/>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
 msgid "<strong>Volume</strong>&amp;nbsp;"
-msgstr "<strong>Volume</strong>&amp;nbsp;"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -399,8 +486,7 @@ msgid "Weight (net)"
 msgstr "Netto gewicht"
 
 #. module: mc_stock_layout
-#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net
-#: model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
+#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
 msgid "Weigt net in kilograms"
 msgstr ""
 
@@ -429,4 +515,4 @@ msgstr "diepte (cm)"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
 msgid "m³"
-msgstr "m³"
+msgstr ""

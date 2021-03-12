@@ -35,16 +35,16 @@
                                 <t t-foreach="hs_code_detail" t-as="hs_code">
                                     <tr>
                                         <td name="hs_code"><span t-esc="hs_code"/></td>
-                                        <td name="hs_weight"><span t-esc="hs_code_detail[hs_code]['weight']"/></td>
-                                        <td name="hs_qty"><span t-esc="hs_code_detail[hs_code]['qty']"/></td>
-                                        <td name="hs_value"><span t-esc="hs_code_detail[hs_code]['subtotal']"/></td>
+                                        <td name="hs_weight"><span t-esc="'%.2f' % hs_code_detail[hs_code]['weight']"/></td>
+                                        <td name="hs_qty"><span t-esc="'%.2f' % hs_code_detail[hs_code]['qty']"/></td>
+                                        <td name="hs_value"><span t-esc="'%.2f' % hs_code_detail[hs_code]['subtotal']"/></td>
                                     </tr>
                                 </t>
                                 <tr class="border-black o_total">
                                     <td name="sum_hs_code"></td>
-                                    <td name="sum_hs_weight"><span t-esc="sum_hs_code_details[o.id]['sum_weight']"/></td>
-                                    <td name="sum_hs_qty"><span t-esc="sum_hs_code_details[o.id]['sum_qty']"/></td>
-                                    <td name="sum_hs_value"><span t-esc="sum_hs_code_details[o.id]['sum_subtotal']"/></td>
+                                    <td name="sum_hs_weight"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_weight']"/></td>
+                                    <td name="sum_hs_qty"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_qty']"/></td>
+                                    <td name="sum_hs_value"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_subtotal']"/></td>
                                 </tr>
                             </tbody>
                         </table>
