@@ -26,7 +26,7 @@ class MrpProduction(models.Model):
             else:
                 production.sales_lot_id = False
 
-    @api.depends('sales_lot_id.origin_sale_order_id')
+    @api.depends('sales_lot_id.origin_sale_order_id.name')
     def _compute_inter_company_origin(self):
         """
         Display the inter company source.
