@@ -8,7 +8,7 @@ from odoo import api, fields, models, _
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    mandatory_date = fields.Date(string='Mandatory Date', related='sales_lot_id.mandatory_date', help='Mandatory date coming from original sale order')
+    mandatory_date = fields.Date(string='Mandatory Date', related='sales_lot_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
     carrier_id = fields.Many2one('delivery.carrier', related='sales_lot_id.carrier_id', string='Delivery Method')
     inter_company_origin = fields.Text(string='Inter Company Source', compute='_compute_inter_company_origin', store=True)
     sales_lot_id = fields.Many2one('stock.production.sales.lot', compute='_compute_sales_lot_id', string='Manufacturing Number', store=True)
