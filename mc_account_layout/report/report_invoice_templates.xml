@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <template id="report_invoice_document_with_payments" inherit_id="account.report_invoice_document_with_payments">
+            <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
+                <p class="mt-2" t-if="o.amount_residual">
+                    We would be grateful if you could pay us the amount of <b><span t-field="o.amount_residual"/></b> to our bank account:<br/>
+                    <t t-if="o.payment_bank_id">
+                        IBAN: <span t-field="o.payment_bank_id.acc_number"/><br/>
+                        SWIFT: <t t-if="o.payment_bank_id.bank_id and o.payment_bank_id.bank_id.bic"><span t-field="o.payment_bank_id.bank_id.bic"/></t>
+                    </t>
+                </p>
+            </xpath>
+        </template>
+
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
             <xpath expr="//td[@name='account_invoice_line_name']" position="attributes">
                 <attribute name="t-if">1==0</attribute>
@@ -18,11 +31,17 @@
                     <span t-if="line.sales_lot_ids" t-field="line.sales_lot_ids[0].name"/>
                 </td>
             </xpath>
-            <xpath expr="//div[@id='total']" position="after">
+
+            <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="attributes">
+                <attribute name="class">mt-2</attribute>
+            </xpath>
+
+            <xpath expr="//div[@id='qrcode']" position="after">
                 <div class="row" name="hs_code_row">
                     <div name="hs_code" class="col-4">
                         <table class="table table-sm" style="page-break-inside: avoid; font-size:8pt;">
-                            <thead>
+                           <thead>
+
                                 <tr>
                                     <th name="th_hs_code" class="text-left"><span>HS Code</span></th>
                                     <th name="th_weight" class="text-left"><span>Weight</span></th>
@@ -52,5 +71,6 @@
                 </div>
             </xpath>
         </template>
+
     </data>
 </odoo>

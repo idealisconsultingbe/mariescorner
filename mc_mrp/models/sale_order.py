@@ -48,8 +48,8 @@ class SaleOrder(models.Model):
             Manuf State = To Produce: at least one manufacturing number is in state 'To Produce'.
             Manuf State = In Manufacturing: no manufacturing number is in state 'To Produce' and at least one is in state 'In Manufacturing'.
             Manuf State = Confirmed: all manufacturing numbers are confirmed or done.
-            Manuf State = Done: all manufacturing numbers are done.
-            Manuf State = Cancelled: at least one manufacturing number is cancelled.
+            Manuf State = Done: all manufacturing numbers are done or cancelled.
+            Manuf State = Cancelled: all manufacturing numbers are cancelled.
         """
         # Manually track "manufacturing_state" since tracking doesn't work with computed
         # fields.
@@ -67,9 +67,7 @@ class SaleOrder(models.Model):
                 state = 'none'
             elif sales_lots:
                 sales_lots_status = sales_lots.mapped('manufacturing_state')
-                if any([status == 'cancel' for status in sales_lots_status]):
-                    state = 'cancel'
-                elif any([status == 'to_produce' for status in sales_lots_status]):
+                if any([status == 'to_produce' for status in sales_lots_status]):
                     state = 'to_produce'
                 elif any([status == 'in_manufacturing' for status in sales_lots_status]):
                     state = 'in_manufacturing'
@@ -79,8 +77,10 @@ class SaleOrder(models.Model):
                     state = 'internal_transit'
                 elif any([status == 'internal_receipt' for status in sales_lots_status]):
                     state = 'internal_receipt'
-                elif all([status == 'delivered' for status in sales_lots_status]):
+                elif all([status in ['delivered', 'cancel'] for status in sales_lots_status]):
                     state = 'delivered'
+                elif all([status == 'cancel' for status in sales_lots_status]):
+                    state = 'cancel'
                 else:
                     state = 'none'
             else:
