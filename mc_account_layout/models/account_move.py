@@ -11,7 +11,8 @@ class AccountMove(models.Model):
                                       store=True, check_company=True, domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
                                       help='Bank account used by customer for payment')
 
-    @api.depends('partner_id.country_id', 'company_id.partner_id.bank_ids', 'company_id.partner_id.country_id')
+    @api.depends('partner_id.country_id', 'company_id.partner_id.bank_ids', 'company_id.partner_id.bank_ids.sequence',
+                 'company_id.partner_id.bank_ids.bank_id.country', 'company_id.partner_id.country_id')
     def _compute_payment_bank_id(self):
         """
         Compute account used for customer payments

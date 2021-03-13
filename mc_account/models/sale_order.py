@@ -19,7 +19,7 @@ class SaleOrder(models.Model):
         """
         super(SaleOrder, self)._get_invoice_status()
         for order in self:
-            if order.invoice_status in ['no', 'to invoice']:
+            if order.invoice_status in ['to invoice']:
                 continue
             if any(line.invoice_status == 'partial' for line in order.order_line):
                 order.invoice_status = 'partial'

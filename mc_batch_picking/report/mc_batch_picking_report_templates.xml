@@ -46,7 +46,7 @@
                 <t t-set="report_name" t-value="'Packing List for Receipt'"/>
                 <t t-foreach="pickings_by_carrier" t-as="carrier_name">
                     <t t-set="moves" t-value="pickings_by_carrier[carrier_name].mapped('move_lines').filtered(lambda m: m.inter_company_batch_picking_name)"/>
-
+                    <t t-set="moves" t-value="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)"/>
                     <style type="text/css">
                         table.table-lightgray th {
                         background-color: LightGray;
@@ -130,7 +130,7 @@
                 <t t-set="report_name" t-value="'Planned Packing List for Shipment'"/>
                 <t t-foreach="pickings_by_carrier" t-as="carrier_name">
                     <t t-set="moves" t-value="pickings_by_carrier[carrier_name].mapped('move_lines').filtered(lambda m: m.state in ['partially_available', 'assigned'])"/>
-
+                    <t t-set="moves" t-value="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)"/>
                     <style type="text/css">
                         table.table-lightgray th {
                         background-color: LightGray;
@@ -273,7 +273,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr t-foreach="moves" t-as="move">
+                                                    <tr t-foreach="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)" t-as="move">
                                                         <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/></td>
                                                         <td t-if="move.sales_lot_id" class="text-left"><span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/></td>
                                                         <td class="text-left"><span t-field="move.product_id.name"/></td>
