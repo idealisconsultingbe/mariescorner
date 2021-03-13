@@ -144,6 +144,7 @@
         <field name="search_view_id" ref="mc_sales_lot.stock_production_sales_lot_view_search"/>
     </record>
 
+    <menuitem id="stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="stock.menu_stock_inventory_control" action="mc_sales_lot.stock_production_sales_lot_action"/>
     <menuitem id="sale_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="sale.sale_order_menu" action="mc_sales_lot.stock_production_sales_lot_action"/>
     <menuitem id="mrp_stock_production_sales_lot_menu" name="Manufacturing Numbers" parent="mrp.menu_mrp_bom" action="mc_sales_lot.stock_production_sales_lot_action"/>
 </odoo>

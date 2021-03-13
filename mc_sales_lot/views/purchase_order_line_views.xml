@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_line_tree" model="ir.ui.view">
+        <field name="name">mc.purchase.order.line.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Order Lines" create="false">
+                <field name="order_id"/>
+                <field name="partner_id" string="Vendor" optional="hide"/>
+                <field name="product_id"/>
+                <field name="name" optional="hide"/>
+                <field name="short_name" optional="show"/>
+                <field name="date_planned"  widget="date" optional="hide"/>
+                <field name="sales_lot_id" optional="show"/>
+                <field name="fabric_ordered" optional="hide"/>
+                <field name="product_qty"/>
+                <field name="qty_received" optional="hide"/>
+                <field name="qty_invoiced" optional="hide"/>
+                <field name="product_uom" groups="uom.group_uom"/>
+                <field name="price_unit"/>
+                <field name="taxes_id" optional="hide"/>
+                <field name="price_subtotal" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_action" model="ir.actions.act_window">
+        <field name="name">Purchase Order Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="mc_sales_lot.purchase_order_line_tree"/>
+    </record>
+
+    <menuitem id="menu_purchase_order_line"
+              name="Purchase Order Lines"
+              parent="purchase.menu_procurement_management"
+              action="mc_sales_lot.purchase_order_line_action"
+              sequence="20"/>
+
+</odoo>
