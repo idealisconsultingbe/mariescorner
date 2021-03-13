@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <template id="report_invoice_document_with_payments" inherit_id="account.report_invoice_document_with_payments">
+            <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
+                <p class="mt-2" t-if="o.amount_residual">
+                    We would be grateful if you could pay us the amount of <b><span t-field="o.amount_residual"/></b> to our bank account:<br/>
+                    <t t-if="o.payment_bank_id">
+                        IBAN: <span t-field="o.payment_bank_id.acc_number"/><br/>
+                        SWIFT: <t t-if="o.payment_bank_id.bank_id and o.payment_bank_id.bank_id.bic"><span t-field="o.payment_bank_id.bank_id.bic"/></t>
+                    </t>
+                </p>
+            </xpath>
+        </template>
+
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
             <xpath expr="//td[@name='account_invoice_line_name']" position="attributes">
                 <attribute name="t-if">1==0</attribute>
@@ -18,11 +31,17 @@
                     <span t-if="line.sales_lot_ids" t-field="line.sales_lot_ids[0].name"/>
                 </td>
             </xpath>
-            <xpath expr="//div[@id='total']" position="after">
+
+            <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="attributes">
+                <attribute name="class">mt-2</attribute>
+            </xpath>
+
+            <xpath expr="//div[@id='qrcode']" position="after">
                 <div class="row" name="hs_code_row">
                     <div name="hs_code" class="col-4">
                         <table class="table table-sm" style="page-break-inside: avoid; font-size:8pt;">
-                            <thead>
+                           <thead>
+
                                 <tr>
                                     <th name="th_hs_code" class="text-left"><span>HS Code</span></th>
                                     <th name="th_weight" class="text-left"><span>Weight</span></th>
@@ -35,16 +54,16 @@
                                 <t t-foreach="hs_code_detail" t-as="hs_code">
                                     <tr>
                                         <td name="hs_code"><span t-esc="hs_code"/></td>
-                                        <td name="hs_weight"><span t-esc="hs_code_detail[hs_code]['weight']"/></td>
-                                        <td name="hs_qty"><span t-esc="hs_code_detail[hs_code]['qty']"/></td>
-                                        <td name="hs_value"><span t-esc="hs_code_detail[hs_code]['subtotal']"/></td>
+                                        <td name="hs_weight"><span t-esc="'%.2f' % hs_code_detail[hs_code]['weight']"/></td>
+                                        <td name="hs_qty"><span t-esc="'%.2f' % hs_code_detail[hs_code]['qty']"/></td>
+                                        <td name="hs_value"><span t-esc="'%.2f' % hs_code_detail[hs_code]['subtotal']"/></td>
                                     </tr>
                                 </t>
                                 <tr class="border-black o_total">
                                     <td name="sum_hs_code"></td>
-                                    <td name="sum_hs_weight"><span t-esc="sum_hs_code_details[o.id]['sum_weight']"/></td>
-                                    <td name="sum_hs_qty"><span t-esc="sum_hs_code_details[o.id]['sum_qty']"/></td>
-                                    <td name="sum_hs_value"><span t-esc="sum_hs_code_details[o.id]['sum_subtotal']"/></td>
+                                    <td name="sum_hs_weight"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_weight']"/></td>
+                                    <td name="sum_hs_qty"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_qty']"/></td>
+                                    <td name="sum_hs_value"><span t-esc="'%.2f' % sum_hs_code_details[o.id]['sum_subtotal']"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -52,5 +71,6 @@
                 </div>
             </xpath>
         </template>
+
     </data>
 </odoo>

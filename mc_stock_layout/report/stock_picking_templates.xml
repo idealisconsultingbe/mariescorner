@@ -43,7 +43,10 @@
                         <t t-set="shipping_weight" t-value="0"/>
                         <t t-set="shipping_volume" t-value="0"/>
                         <t t-foreach="lines" t-as="move">
-                            <t t-if="o.state=='done'">
+                            <t t-if="fictitious_delivery">
+                                <t t-set="qty_done" t-value="move.product_uom_qty"/>
+                            </t>
+                            <t t-elif="o.state=='done'">
                                 <t t-set="qty_done" t-value="move.quantity_done"/>
                             </t>
                             <t t-else="">
@@ -106,7 +109,10 @@
                         </thead>
                         <tbody style="font-size:10pt;">
                             <tr t-foreach="lines" t-as="move">
-                                <t t-if="o.state=='done'">
+                                <t t-if="fictitious_delivery">
+                                    <t t-set="qty_done" t-value="move.product_uom_qty"/>
+                                </t>
+                                <t t-elif="o.state=='done'">
                                     <t t-set="qty_done" t-value="move.quantity_done"/>
                                 </t>
                                 <t t-else="">

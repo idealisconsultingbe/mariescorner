@@ -11,7 +11,7 @@ class ProductionSalesLot(models.Model):
     _name = 'stock.production.sales.lot'
     _description = 'Manufacturing Number'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
-    _order = 'name desc'
+    _order = 'create_date desc, name desc'
     _sql_constraints = [
         ('product_name_unique', 'UNIQUE(product_id, name)', _('You are about to use a lot number that already exists (product and manufacturing number combination must be unique).')),
     ]
@@ -77,7 +77,7 @@ class ProductionSalesLot(models.Model):
         for sale_lot in self:
             sale_lot.access_url = '/my/manufacturing_number/%s' % (sale_lot.id)
 
-    @api.depends('origin_sale_order_id')
+    @api.depends('origin_sale_order_id.name')
     def _compute_sales_lot_origin(self):
         """
         Display the SO name at the origin of the creation of self

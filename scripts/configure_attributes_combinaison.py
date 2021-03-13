@@ -60,7 +60,7 @@ parser.add_argument('secondary_attribute_id')
 parser.add_argument('xlsx_file')
 args = parser.parse_args()
 
-end_row = int(input("What is the last line of your xlsx file? "))
+end_row = 135 #int(input("What is the last line of your xlsx file? "))
 session.open(db=args.database)
 attribute_combinaison = read_csv(args.xlsx_file)
 attribute_combinaison_inverse = inverse_attribute_combinaison(attribute_combinaison)
@@ -89,12 +89,12 @@ for product_tmpl in products:
             exclusion = product_template_secondary_attribute.exclude_for.filtered(lambda ex: ex.product_tmpl_id.id == product_tmpl.id)
             if not exclusion:
                 exclusion = session.env['product.template.attribute.exclusion'].create({'product_template_attribute_value_id': product_template_secondary_attribute.id,'product_tmpl_id': product_tmpl.id})
-            # missing_values = unallowed_ptav_main_attribute - exclusion.value_ids
-            # if missing_values:
-            if exclusions_values.get(exclusion.id, False):
-                exclusions_values[exclusion.id].extend(unallowed_ptav_main_attribute.ids)
-            else:
-                exclusions_values[exclusion.id] = unallowed_ptav_main_attribute.ids
+            missing_values = unallowed_ptav_main_attribute - exclusion.value_ids
+            if missing_values:
+                if exclusions_values.get(exclusion.id, False):
+                    exclusions_values[exclusion.id].extend(unallowed_ptav_main_attribute.ids)
+                else:
+                    exclusions_values[exclusion.id] = unallowed_ptav_main_attribute.ids
     i += 1
     logging.info('%s product template attribute exclusion values configured' % (i))
     if i % 50 == 0:

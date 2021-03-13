@@ -245,9 +245,9 @@
                                 <h5>To order</h5>
                                 <p t-if="downpayment">
                                     You are satisfied with this offer and you want to order, you just have to make a payment of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> to our bank account:<br/>
-                                    <t t-if="doc.company_id.bank_ids">
-                                        IBAN: <span t-field="doc.company_id.bank_ids[0].acc_number"/><br/>
-                                        SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
+                                    <t t-if="doc.payment_bank_id">
+                                        IBAN: <span t-field="doc.payment_bank_id.acc_number"/><br/>
+                                        SWIFT: <t t-if="doc.payment_bank_id.bank_id and doc.payment_bank_id.bank_id.bic"><span t-field="doc.payment_bank_id.bank_id.bic"/></t>
                                     </t>
                                 </p>
                                 <p t-else="">
