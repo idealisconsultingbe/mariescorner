@@ -52,7 +52,7 @@ def get_product_type(product):
     foot_type = 'standard'
     foot_color_type = 'beech'
     nails_type = 'normal'
-    if 'c.o.m.' in product.name.lower() or 'com' in product.name or 'tcl' in product.default_code.lower():
+    if 'c.o.m.' in product.name.lower() or 'com' in product.name.lower() or 'tcl' in product.default_code.lower():
         fabric_type = 'tcl'
     if 'pieds archer' in product.name.lower():
         foot_type = 'archer'
