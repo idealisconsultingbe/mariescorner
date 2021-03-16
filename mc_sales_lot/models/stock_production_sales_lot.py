@@ -51,7 +51,7 @@ class ProductionSalesLot(models.Model):
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
-    partner_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='restrict')
+    partner_id = fields.Many2one('res.partner', string='Customer')
     partner_shipping_id = fields.Many2one('res.partner', string='Delivery Address')
     partner_ids = fields.Many2many('res.partner', 'sales_lot_partner_rel', 'sales_lot_id', 'partner_id', string='Sellers', compute='_compute_supplier_type', store=True)
     product_id = fields.Many2one(
