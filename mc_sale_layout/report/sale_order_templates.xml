@@ -99,9 +99,6 @@
                 </t>
             </t>
 
-            <!-- set deposit product from config -->
-            <t t-set="product_deposit" t-value="doc.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')"/>
-
             <!-- main container structure -->
             <div class="page" style="font-size: small;">
 
@@ -152,7 +149,7 @@
                     <tbody class="sale_tbody">
 
                         <t t-set="current_subtotal" t-value="0"/>
-                        <t t-set="order_lines_without_deposit" t-value="doc.order_line.filtered(lambda line: int(line.product_id.id) != int(product_deposit))"/>
+                        <t t-set="order_lines_without_deposit" t-value="doc.order_line.filtered(lambda line: not line.is_downpayment)"/>
                         <!-- do not display downpayments -->
                         <t t-foreach="order_lines_without_deposit" t-as="line">
 
@@ -232,9 +229,10 @@
                 <table class="table-sm border-table-lightgray-simple mt-1rem">
                     <tr>
                         <td t-att-rowspan="len(doc.amount_by_group)+2" style="width: 65%;">
-                            <t t-set="deposit_lines" t-value="doc.order_line.filtered(lambda line: int(line.product_id.id) == int(product_deposit))"/>
+                            <t t-set="deposit_lines" t-value="doc.order_line.filtered(lambda line: line.is_downpayment and line.invoice_status == 'to invoice')"/>
+                            <t t-set="valid_deposit_lines" t-value="deposit_lines.filtered(lambda line: line.mapped('invoice_lines.move_id.state') != ['cancel'] and line.mapped('invoice_lines.move_id.invoice_payment_state') == ['not_paid'])"/>
                             <t t-set="total_deposit" t-value="0"/>
-                            <t t-foreach="deposit_lines" t-as="line">
+                            <t t-foreach="valid_deposit_lines" t-as="line">
                                 <t t-set="total_deposit" t-value="total_deposit + line.tax_id.compute_all(line.price_unit)['total_included']"/>
                             </t>
                             <t t-if="doc.state in ['draft','sent']">
