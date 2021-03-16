@@ -47,6 +47,7 @@ class ProductionSalesLot(models.Model):
     mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
     fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
     fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
+    sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')

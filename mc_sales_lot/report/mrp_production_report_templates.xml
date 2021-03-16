@@ -47,9 +47,9 @@
         <div class="page">
             <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
             <t t-set="current_label_index" t-value="1"/>
-            <t t-set="max_label_index" t-value="len(serial_numbers[doc.id])"/>
+            <t t-set="max_label_index" t-value="len(serial_numbers[doc.sales_lot_id.id])"/>
 
-            <t t-foreach="serial_numbers[doc.id]" t-as="serial_number">
+            <t t-foreach="serial_numbers[doc.sales_lot_id.id]" t-as="serial_number">
                 <div name="label_1" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;page-break-inside: avoid;">
                     <div class="row" style="min-height:310px">
                         <div class="col-6" name="part_left">

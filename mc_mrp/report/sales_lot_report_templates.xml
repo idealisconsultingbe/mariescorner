@@ -12,6 +12,8 @@
                     </div>
                 </div>
             </div>
+
+            <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="saleslot.sale_comment"/></p>
         </xpath>
     </template>
 
