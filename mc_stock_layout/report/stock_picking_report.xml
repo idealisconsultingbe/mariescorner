@@ -12,6 +12,16 @@
     />
 
     <report
+        id="action_report_mc_planned_delivery_slip"
+        string="[MC] Planned Delivery Slip"
+        model="stock.picking"
+        report_type="qweb-pdf"
+        file="mc_stock_layout.report_planned_deliveryslip"
+        name="mc_stock_layout.report_planned_deliveryslip"
+        print_report_name="'Planned Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+    />
+
+    <report
         id="action_report_mc_fictitious_delivery_slip"
         string="[MC] Fictitious Delivery Slip"
         model="stock.picking"

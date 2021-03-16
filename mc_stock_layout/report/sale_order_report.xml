@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+        id="action_report_mc_so_delivery_slip"
+        string="[MC] Planned Delivery Slip"
+        model="sale.order"
+        report_type="qweb-pdf"
+        file="mc_stock_layout.report_so_planned_deliveryslip"
+        name="mc_stock_layout.report_so_planned_deliveryslip"
+        print_report_name="'Planned Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+    />
+
+</odoo>

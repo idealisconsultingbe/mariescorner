@@ -6,28 +6,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-12 08:12+0000\n"
-"PO-Revision-Date: 2021-03-12 09:16+0100\n"
+"POT-Creation-Date: 2021-03-16 16:56+0000\n"
+"PO-Revision-Date: 2021-03-16 17:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr_BE\n"
+"Language: fr\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#. module: mc_batch_picking
+#: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_receipt_batch_packing_list
+#: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_receipt_packing_list
+msgid "'Packing List for Receipt - %s' % object.name"
+msgstr ""
 
 #. module: mc_batch_picking
 #: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_batch_packing_list
 #: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_packing_list
 msgid "'Packing List for Shipment - %s' % object.name"
-msgstr "'Liste d'emballages - %s' % object.name"
+msgstr "\"Liste d'emballages - %s\" % object.name"
 
 #. module: mc_batch_picking
 #: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_planned_batch_packing_list
 #: model:ir.actions.report,print_report_name:mc_batch_picking.action_print_planned_packing_list
 msgid "'Planned Packing List for Shipment - %s' % object.name"
-msgstr "'Liste d'emballage prévisionnelle - %s' % object.name"
+msgstr "\"Liste d'emballage prévisionnelle - %s\" % object.name"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.packing_list_external_layout
@@ -68,6 +74,7 @@ msgstr "<span>unitées</span>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Check</strong>"
 msgstr ""
 
@@ -84,6 +91,7 @@ msgstr "<strong>Langue</strong>"
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Manuf. Number</strong>"
 msgstr "<strong>Numéro de Production</strong>"
 
@@ -99,7 +107,6 @@ msgstr "<strong>Nom</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
-#: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
 msgid "<strong>Order</strong>"
 msgstr "<strong>Commande</strong>"
 
@@ -110,24 +117,26 @@ msgstr "<strong>Téléphone</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
-#: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
 msgid "<strong>Picking</strong>"
 msgstr "<strong>Transfert</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Product</strong>"
 msgstr "<strong>Article</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Quantity</strong>"
 msgstr "<strong>Quantitée</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
+#: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Received From Batch</strong>"
 msgstr "<strong>Nom de la Livraison</strong>"
 
@@ -192,6 +201,8 @@ msgstr "Confirmer le transfert"
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__create_uid
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__create_uid
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__create_uid
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__create_uid
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -200,6 +211,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__create_date
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__create_date
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__create_date
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__create_date
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__create_date
 msgid "Created on"
 msgstr ""
 
@@ -233,6 +246,8 @@ msgstr "Opérations détaillées"
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__display_name
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__display_name
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__display_name
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__display_name
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -246,6 +261,8 @@ msgstr "Fait"
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__id
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__id
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__id
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__id
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__id
 msgid "ID"
 msgstr ""
 
@@ -294,6 +311,8 @@ msgstr "Emplacements de l'inventaire"
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template____last_update
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document____last_update
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report____last_update
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document____last_update
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -302,6 +321,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__write_uid
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__write_uid
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__write_uid
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__write_uid
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -310,6 +331,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_batch_packing_list_report_template__write_date
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_document__write_date
 #: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_planned_batch_packing_lst_report__write_date
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_document__write_date
+#: model:ir.model.fields,field_description:mc_batch_picking.field_report_mc_batch_picking_receipt_batch_packing_lst_report__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -388,6 +411,16 @@ msgid "Purchase order line that created current sale order line in an intercompa
 msgstr ""
 "Ligne de bon d'achat à l'origine de la ligne de commande actuelle dans une logique inter-"
 "société"
+
+#. module: mc_batch_picking
+#: model:ir.actions.report,name:mc_batch_picking.action_print_receipt_batch_packing_list
+msgid "Receipt Batch Packing List"
+msgstr "Liste d'emballage de réception"
+
+#. module: mc_batch_picking
+#: model:ir.actions.report,name:mc_batch_picking.action_print_receipt_packing_list
+msgid "Receipt Packing List"
+msgstr "Liste de réception"
 
 #. module: mc_batch_picking
 #: model:ir.model.fields,field_description:mc_batch_picking.field_stock_move__inter_company_batch_picking_name
@@ -481,4 +514,14 @@ msgstr ""
 #. module: mc_batch_picking
 #: model:ir.model,name:mc_batch_picking.model_report_mc_batch_picking_planned_batch_packing_lst_report
 msgid "report.mc_batch_picking.planned_batch_packing_lst_report"
+msgstr ""
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_report_mc_batch_picking_receipt_batch_packing_lst_document
+msgid "report.mc_batch_picking.receipt_batch_packing_lst_document"
+msgstr ""
+
+#. module: mc_batch_picking
+#: model:ir.model,name:mc_batch_picking.model_report_mc_batch_picking_receipt_batch_packing_lst_report
+msgid "report.mc_batch_picking.receipt_batch_packing_lst_report"
 msgstr ""

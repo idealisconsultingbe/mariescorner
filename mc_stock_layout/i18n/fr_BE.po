@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-02 21:33+0000\n"
-"PO-Revision-Date: 2021-03-02 22:55+0100\n"
+"POT-Creation-Date: 2021-03-16 16:46+0000\n"
+"PO-Revision-Date: 2021-03-16 17:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: mc_stock_layout
@@ -41,19 +41,26 @@ msgstr "${object.company_id.name} Transfert interne de l'ordre (Ref ${object.nam
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "&amp;nbsp;"
 msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.actions.report,print_report_name:mc_stock_layout.action_report_mc_cmr_document
 msgid "'CMR - %s - %s' % (object.partner_id.name or '', object.name)"
-msgstr ""
+msgstr "\"CMR - %s - %s\" % (object.partner_id.name or '', object.name)"
 
 #. module: mc_stock_layout
 #: model:ir.actions.report,print_report_name:mc_stock_layout.action_report_mc_delivery_slip
 #: model:ir.actions.report,print_report_name:mc_stock_layout.action_report_mc_fictitious_delivery_slip
 msgid "'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
-msgstr "'Bon de livraison - %s - %s' % (object.partner_id.name or '', object.name)"
+msgstr "\"Bon de livraison - %s - %s\" % (object.partner_id.name or '', object.name)"
+
+#. module: mc_stock_layout
+#: model:ir.actions.report,print_report_name:mc_stock_layout.action_report_mc_planned_delivery_slip
+#: model:ir.actions.report,print_report_name:mc_stock_layout.action_report_mc_so_delivery_slip
+msgid "'Planned Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+msgstr "\"Bon de livraison prévisionnelle - %s - %s\" % (object.partner_id.name or '', object.name)"
 
 #. module: mc_stock_layout
 #: model:mail.template,body_html:mc_stock_layout.picking_availability_mail
@@ -338,6 +345,7 @@ msgstr "<i class=\"fa fa-phone fa-fw\" role=\"img\" aria-label=\"Téléphone\" t
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Customer Signature</span>"
 msgstr "<span>Signature client</span>"
 
@@ -348,61 +356,73 @@ msgstr "<span>Qté livrée</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Delivery Signature</span>"
 msgstr "<span>Signature de livraison</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Depth</span>"
 msgstr "<span>Profondeur</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>HS Code</span>"
 msgstr "<span>Code HS</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Height</span>"
 msgstr "<span>Hauteur</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Manuf N°</span>"
 msgstr "<span>N° Manuf</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Ord. Qty</span>"
 msgstr "<span>Qté commandée</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Product</span>"
 msgstr "<span>Produit</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Volume</span>"
 msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Weight</span>"
 msgstr "<span>Poids</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Width</span>"
 msgstr "<span>Largeur</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<strong>Carrier:</strong>"
 msgstr "<strong>Transporteur:</strong>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>Control of Products at reception</strong><br/>\n"
 "                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state."
@@ -412,6 +432,7 @@ msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>Customer Number:</strong>\n"
 "                            <br/>"
@@ -421,6 +442,13 @@ msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
+msgid "<strong>Delivery Comment</strong>"
+msgstr "<strong>Commentaire pour la livraison</strong>"
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<strong>Order:</strong>"
 msgstr "<strong>Commande:</strong>"
 
@@ -431,6 +459,7 @@ msgstr "<strong>Date d'expédition:</strong>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>VAT:</strong>\n"
 "                            <br/>"
@@ -440,6 +469,7 @@ msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>Volume:</strong>\n"
 "                            <br/>"
@@ -452,6 +482,7 @@ msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>Weight:</strong>\n"
 "                            <br/>"
@@ -472,8 +503,8 @@ msgstr "Document CMR"
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__height
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__height
-msgid "Height"
-msgstr "Hauteur"
+msgid "Height (cm)"
+msgstr "Hauteur (cm)"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_address_layout
@@ -496,9 +527,9 @@ msgid "Product Template"
 msgstr "Modèle d'article"
 
 #. module: mc_stock_layout
-#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
-msgid "SO Delivery Comment"
-msgstr "Commentaire lié à la livraison"
+#: model:ir.model,name:mc_stock_layout.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.view_picking_form
@@ -516,6 +547,7 @@ msgid "Transfer"
 msgstr "Transfert"
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_sale_order__volume_uom_name
 #: model:ir.model.fields,field_description:mc_stock_layout.field_stock_picking__volume_uom_name
 msgid "Volume unit of measure label"
 msgstr "Étiquette d'unité de mesure de volume"
@@ -527,10 +559,21 @@ msgid "Weight (net)"
 msgstr "Poids (net)"
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_sale_order__weight_uom_name
+msgid "Weight unit of measure label"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net
+#: model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
+msgid "Weigt net in kilograms"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__width
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__width
-msgid "Width"
-msgstr "Largeur"
+msgid "Width (cm)"
+msgstr "Largeur (cm)"
 
 #. module: mc_stock_layout
 #: model:ir.actions.report,name:mc_stock_layout.action_report_mc_delivery_slip
@@ -543,10 +586,16 @@ msgid "[MC] Fictitious Delivery Slip"
 msgstr "[MC] Bon de livraison fictif"
 
 #. module: mc_stock_layout
+#: model:ir.actions.report,name:mc_stock_layout.action_report_mc_planned_delivery_slip
+#: model:ir.actions.report,name:mc_stock_layout.action_report_mc_so_delivery_slip
+msgid "[MC] Planned Delivery Slip"
+msgstr "[MC] Bon de livraison prévisionnelle"
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__depth
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__depth
-msgid "depth"
-msgstr "profondeur"
+msgid "depth (cm)"
+msgstr "profondeur (cm)"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document

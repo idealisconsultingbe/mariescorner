@@ -29,10 +29,16 @@
                             <br/>
                             <span t-field="partner.ref"/>
                         </div>
+                        <div t-if="o.sale_id and o.sale_id.payment_term_id and o.sale_id.payment_term_id.note" class="col-auto">
+                            <span t-field="o.sale_id.payment_term_id.note"/>
+                        </div>
                     </div>
                     <div class="row mt32 mb32">
                         <t t-if="fictitious_delivery">
                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and ((x.sales_lot_id and x.sales_lot_id.fictitious_receipt) or not x.sales_lot_id))"/>
+                        </t>
+                        <t t-elif="planned_delivery">
+                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                         </t>
                         <t t-elif="any([move.reserved_availability for move in o.move_lines.filtered(lambda x: x.product_uom_qty)])">
                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and (x.reserved_availability or x.quantity_done))"/>
@@ -48,6 +54,9 @@
                             </t>
                             <t t-elif="o.state=='done'">
                                 <t t-set="qty_done" t-value="move.quantity_done"/>
+                            </t>
+                            <t t-elif="planned_delivery">
+                                <t t-set="qty_done" t-value="move.product_uom_qty"/>
                             </t>
                             <t t-else="">
                                 <t t-set="qty_done" t-value="move.reserved_availability"/>
@@ -114,6 +123,9 @@
                                 </t>
                                 <t t-elif="o.state=='done'">
                                     <t t-set="qty_done" t-value="move.quantity_done"/>
+                                </t>
+                                <t t-elif="planned_delivery">
+                                    <t t-set="qty_done" t-value="move.product_uom_qty"/>
                                 </t>
                                 <t t-else="">
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
@@ -190,8 +202,11 @@
                                 <td style="line-height: 100px !important;">&amp;nbsp;</td>
                                 <td style="line-height: 100px !important;">&amp;nbsp;</td>
                             </tr>
-                            <tr>
-                                <td colspan="2" class="pl-2" style="height: 50px !important;;">SO Delivery Comment</td>
+                            <tr t-if="o.sale_id and o.sale_id.delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><strong>Delivery Comment</strong></td>
+                            </tr>
+                            <tr t-if="o.sale_id and o.sale_id.delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><span t-field="o.sale_id.delivery_comment"/></td>
                             </tr>
                         </tbody>
                     </table>
@@ -226,28 +241,28 @@
 
             <style type="text/css">
                 .cmr-block {
-                  display: table;
-                  position: absolute;
-                  padding: 0 15px;
-                  font-size: 13px;
+                display: table;
+                position: absolute;
+                padding: 0 15px;
+                font-size: 13px;
                 }
                 .cmr-vertical-align {
-                  display: table-cell;
-                  vertical-align: middle;
+                display: table-cell;
+                vertical-align: middle;
                 }
                 ul {
-                  list-style-type: none;
-                  margin: 0;
-                  padding: 0;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
                 }
                 .table-cmr {
-                  width: 100%;
+                width: 100%;
                 }
                 .table-cmr th
                 .table-cmr td {
-                  padding: 0.3rem;
-                  vertical-align: middle;
-                  text-align: center !important;
+                padding: 0.3rem;
+                vertical-align: middle;
+                text-align: center !important;
                 }
             </style>
 
@@ -262,10 +277,10 @@
                     <div class="row">
                         <div class="col-7" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                         <div class="col-5">
-                          <ul style="position: absolute; top: 50%;">
-                            <li><span t-if="o.partner_id and o.partner_id.phone" t-field="o.partner_id.phone"/></li>
-                            <li><span t-if="o.partner_id and o.partner_id.mobile" t-field="o.partner_id.mobile"/></li>
-                          </ul>
+                            <ul style="position: absolute; top: 50%;">
+                                <li><span t-if="o.partner_id and o.partner_id.phone" t-field="o.partner_id.phone"/></li>
+                                <li><span t-if="o.partner_id and o.partner_id.mobile" t-field="o.partner_id.mobile"/></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -392,6 +407,13 @@
 
     <template id="report_deliveryslip">
         <t t-foreach="docs" t-as="o">
+            <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="report_planned_deliveryslip">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="planned_delivery" t-value="True"/>
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>

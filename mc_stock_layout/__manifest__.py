@@ -14,6 +14,8 @@
         'data/data_reports.xml',
         'data/mail_data.xml',
         'views/stock_picking_views.xml',
+        'report/sale_order_templates.xml',
+        'report/sale_order_report.xml',
         'report/stock_picking_templates.xml',
         'report/stock_picking_report.xml',
         'views/product_template_views.xml',

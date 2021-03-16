@@ -26,6 +26,11 @@
                 <p><strong>Country:</strong> <strong class="m-0" t-field="saleslot.partner_id.country_id.name"/></p>
             </div>
 
+            <div name="product_and_quantity">
+                <strong>Article &amp; Quantity to produce:</strong>
+                <p><strong class="m-0" t-field="saleslot.product_qty"/> <span> X </span> <strong class="m-0" t-field="saleslot.product_id.name"/></p>
+            </div>
+
         </div>
     </template>
 

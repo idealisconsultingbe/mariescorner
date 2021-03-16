@@ -15,7 +15,7 @@ class SalesLotReportLabels(models.Model):
             serial_numbers[production.id] = []
             if production.sales_lot_id:
                 for i in range(1, int(production.product_qty) + 1):
-                    serial_numbers[production.id].append("{}{}".format(production.sales_lot_id.name, f"{i:02d}"))
+                    serial_numbers[production.sales_lot_id.id].append("{}{}".format(production.sales_lot_id.name, f"{i:02d}"))
         return {
             'doc_ids': self._ids,
             'doc_model': report.model,
