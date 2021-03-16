@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_so_delivery_document">
+        <t t-call="web.html_container">
+            <t t-call="mc_stock_layout.mc_delivery_external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                <t t-set="partner" t-value="o.partner_shipping_id or (o.partner_id) or False"/>
+                <!-- set shipping address -->
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                        <div t-esc="partner"
+                             t-options='{"widget": "contact", "fields": ["address", "title", "name", "phone", "mobile", "email"], "no_marker": True, "no_contact_marker": False}'/>
+                    </t>
+                </t>
+                <!-- set invoicing address -->
+                <t name="invoicing_partner_header">
+                    <t t-set="invoicing_address">
+                        <div t-field="o.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True, "no_contact_marker": False}'/>
+                    </t>
+                </t>
+
+                <div class="page">
+                    <h2>
+                        <span t-field="o.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div t-if="partner" class="col-auto">
+                            <strong>Customer Number:</strong>
+                            <br/>
+                            <span t-field="partner.ref"/>
+                        </div>
+                        <div t-if="o.payment_term_id and o.payment_term_id.note" class="col-auto">
+                            <span t-field="o.payment_term_id.note"/>
+                        </div>
+                    </div>
+                    <div class="row mt32 mb32">
+                        <t t-set="lines" t-value="o.order_line.filtered(lambda l: l.product_id.type != 'service')"/>
+                        <t t-set="shipping_weight" t-value="0"/>
+                        <t t-set="shipping_volume" t-value="0"/>
+                        <t t-foreach="lines" t-as="l">
+                            <t t-set="shipping_weight" t-value="shipping_weight + (l.product_id.weight * l.product_uom_qty)"/>
+                            <t t-set="shipping_volume" t-value="shipping_volume + (l.product_id.volume * l.product_uom_qty)"/>
+                        </t>
+                        <div class="col-auto" name="div_origin">
+                            <strong>Order:</strong>
+                            <p t-field="o.name"/>
+                        </div>
+                        <div t-if="o.carrier_id" class="col-auto">
+                            <strong>Carrier:</strong>
+                            <p t-field="o.carrier_id"/>
+                        </div>
+                        <div t-if="shipping_weight" class="col-auto">
+                            <strong>Weight:</strong>
+                            <br/>
+                            <span t-esc="round(shipping_weight * 100) / 100"/>
+                            <span t-field="o.weight_uom_name"/>
+                        </div>
+                        <div t-if="shipping_volume" class="col-auto">
+                            <strong>Volume:</strong>
+                            <br/>
+                            <span t-esc="round(shipping_volume * 100) / 100"/>
+                            <span t-field="o.volume_uom_name"/>
+                        </div>
+                        <div t-if="partner and partner.vat" class="col-auto">
+                            <strong>VAT:</strong>
+                            <br/>
+                            <span t-field="partner.vat"/>
+                        </div>
+                        <t t-set="has_hs_code" t-value="o.order_line.filtered(lambda l: l.product_id.hs_code)"/>
+                        <t t-set="has_sales_lot" t-value="o.order_line.filtered(lambda l: l.sales_lot_id)"/>
+                    </div>
+                    <table class="table table-sm" name="stock_move_table">
+                        <thead style="font-size:10pt;">
+                            <tr>
+                                <th name="th_sm_product"><span>Product</span></th>
+                                <th t-if="has_sales_lot"><span>Manuf N°</span></th>
+                                <th t-if="has_hs_code"><span>HS Code</span></th>
+                                <th name="th_sm_ord_quantity"><span>Ord. Qty</span></th>
+                                <th name="th_sm_deliv_quantity"><span>Volume</span></th>
+                                <th name="th_sm_deliv_quantity"><span>Weight</span></th>
+                                <th name="th_sm_deliv_quantity"><span>Width</span></th>
+                                <th name="th_sm_deliv_quantity"><span>Height</span></th>
+                                <th name="th_sm_deliv_quantity"><span>Depth</span></th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size:10pt;">
+                            <tr t-foreach="lines" t-as="l">
+                                <t t-set="weight" t-value="l.product_id.weight * l.product_uom_qty"/>
+                                <t t-set="volume" t-value="l.product_id.volume * l.product_uom_qty"/>
+                                <td>
+                                    <t t-if="l.short_name">
+                                        <span t-field="l.short_name"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-field="l.product_id"/>
+                                    </t>
+                                </td>
+                                <td t-if="has_sales_lot">
+                                    <span t-field="l.sales_lot_id.name"/>
+                                </td>
+                                <td t-if="has_hs_code">
+                                    <span t-field="l.product_id.hs_code"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.product_uom_qty" t-options='{"widget": "float", "precision": 1}'/>
+                                    <span t-field="l.product_uom"/>
+                                </td>
+                                <td>
+                                    <span t-esc="round(volume * 100) /100"/>
+                                    <span t-field="o.volume_uom_name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="round(weight * 100) /100"/>
+                                    <span t-field="o.weight_uom_name"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.product_id.width"/>
+                                    <span>m</span>
+                                </td>
+                                <td>
+                                    <span t-field="l.product_id.height"/>
+                                    <span>m</span>
+                                </td>
+                                <td>
+                                    <span t-field="l.product_id.depth"/>
+                                    <span>m</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>Control of Products at reception</strong><br/>
+                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state.
+                    </p>
+                    <table class="table table-sm table-bordered" name="signature_table">
+                        <thead>
+                            <tr>
+                                <th name="th_customer_signature" class="text-center" style="width: 50%;" ><span>Customer Signature</span></th>
+                                <th name="th_delivery_signature" class="text-center" style="width: 50%;"><span>Delivery Signature</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                            </tr>
+                            <tr t-if="o.delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><strong>Delivery Comment</strong></td>
+                            </tr>
+                            <tr t-if="o.delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><span t-field="o.delivery_comment"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_so_planned_deliveryslip">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="mc_stock_layout.report_so_delivery_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+</odoo>
