@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.tools import float_round
+from odoo.tools.misc import get_lang
 
 
 class ProductTemplate(models.Model):
@@ -89,6 +90,12 @@ class ProductTemplate(models.Model):
         Return short description with product attributes flagged accordingly and description lines set on the product.template
         """
         self.ensure_one()
+        if partner:
+            product_variant = product_variant.with_context(
+                lang=get_lang(self.env, partner.lang).code,
+                partner_id=partner.id,
+                company_id=self.company_id.id,
+            )
         product_description = product_variant.get_product_multiline_description_sale() if product_variant and product_variant.get_product_multiline_description_sale() else ""
         product_configuration = formatted_product_configuration = ""
         if product_custom_attribute_values and product_no_variant_attribute_values:
