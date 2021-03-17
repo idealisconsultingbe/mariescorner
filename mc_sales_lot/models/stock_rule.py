@@ -24,7 +24,7 @@ class StockRule(models.Model):
         Prevent procurement with different manufacturing numbers to be merged together!
         """
         if procurement.product_id.sales_lot_activated:
-            key = procurement.product_id, procurement.product_uom, procurement.values['propagate_date'], procurement.values['propagate_date_minimum_delta'], procurement.values['propagate_cancel'], procurement.values['sales_lot_id']
+            key = procurement.product_id, procurement.product_uom, procurement.values.get('propagate_date'), procurement.values.get('propagate_date_minimum_delta'), procurement.values.get('propagate_cancel'), procurement.values.get('sales_lot_id')
         else:
             key = super(StockRule, self)._get_procurements_to_merge_groupby(procurement)
         return key
