@@ -30,7 +30,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
-                <attribute name="attrs">{'readonly': [('manufacturing_state', 'not in', (False, 'to_produce', 'cancel'))]}</attribute>
+                <attribute name="attrs">{'readonly': [('manufacturing_state', 'not in', (False, 'to_produce', 'cancel')), ('allow_set_sales_lot_id', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
                 <field name="sales_lot_id_required" invisible="1"/>
@@ -41,7 +41,7 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="sales_lot_id_required" invisible="1"/>
                 <field name="sales_lot_id_needed" invisible="1"/>
-                <field name="allow_set_sales_lot_id" optional="hide" string="Set Manuf N°"/>
+                <field name="allow_set_sales_lot_id" optional="hide" string="Set Manuf N°" attrs="{'readonly': [('state', 'in', ['sale', 'done'])]}"/>
                 <field name="sales_lot_id" string='Manuf N°' domain="[('product_id', '=', product_id)]" attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id, 'default_product_id': product_id}"/>
                 <field name="fabric_purchase_order_ids" widget="many2many_tags" optional="hide"/>
                 <field name="manufacturing_state" optional="hide"/>
