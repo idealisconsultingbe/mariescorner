@@ -4,6 +4,7 @@
 from odoo import api, fields, models, _
 from odoo.tools import float_round
 from odoo.tools.misc import get_lang
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -119,7 +120,10 @@ class ProductTemplate(models.Model):
                                     attribute_value_name = pacv.with_context(lang=partner.lang).custom_product_template_attribute_value_id.name
                                     if pacv.custom_value and pacv.custom_product_template_attribute_value_id.attribute_id.has_linear_price:
                                         if display_custom:
-                                            custom_value = float(pacv.custom_value)
+                                            try:
+                                                custom_value = float(pacv.custom_value.replace(',', '.'))
+                                            except ValueError:
+                                                raise ValidationError(_("The custom value for the attribute '{}' should be a float like 2.25 or 2,25 (your input is {}).".format(pacv.custom_product_template_attribute_value_id.attribute_id.name, pacv.custom_value)))
                                             custom_value = float_round(custom_value * (product_qty or 1.0), precision_digits=2)
                                             formatted_text = '{}m / {}'.format(custom_value, attribute_value_name)
                                         else:
