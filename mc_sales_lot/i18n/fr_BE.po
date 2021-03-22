@@ -407,12 +407,12 @@ msgstr ""
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 msgid "Demand received by the supplier"
-msgstr "Demande reçue par le client"
+msgstr "Demande reçue par le fournisseur"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.edit_sales_lot_portal
 msgid "Demand sent to the supplier"
-msgstr "Demande envoyé au fournisseur"
+msgstr "Demande envoyée au fournisseur"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__description

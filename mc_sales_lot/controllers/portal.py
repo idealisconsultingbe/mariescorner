@@ -24,9 +24,11 @@ class CustomerPortal(CustomerPortal):
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
         partner = request.env.user.partner_id
 
-        sales_lot_count = request.env['stock.production.sales.lot'].search_count([('partner_ids', '=', partner.id)])
+        in_progress_sales_lot_count = request.env['stock.production.sales.lot'].search_count([('partner_ids', '=', partner.id), ('manufacturing_state', 'in', ['in_manufacturing', 'received_by_manufacturer', 'internal_transit', 'cancel'])])
+        sales_lot_count = request.env['stock.production.sales.lot'].search_count([('partner_ids', '=', partner.id), ('manufacturing_state', 'in', ['internal_receipt', 'delivered'])])
 
         values.update({
+            'in_progress_sales_lot_count': in_progress_sales_lot_count,
             'sales_lot_count': sales_lot_count,
         })
         return values
@@ -69,6 +71,7 @@ class CustomerPortal(CustomerPortal):
         if not filterby:
             filterby = 'all'
         domain = searchbar_filters.get(filterby, searchbar_filters.get('all'))['domain']
+        domain += [('manufacturing_state', 'in', ['in_manufacturing', 'received_by_manufacturer', 'internal_transit', 'cancel'])]
 
         # in case we could archive manufacturing numbers
         archive_groups = self._get_archive_groups('stock.production.sales.lot', domain)
