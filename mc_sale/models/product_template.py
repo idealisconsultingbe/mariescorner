@@ -124,7 +124,7 @@ class ProductTemplate(models.Model):
                                                 custom_value = float(pacv.custom_value.replace(',', '.'))
                                             except ValueError:
                                                 raise ValidationError(_("The custom value for the attribute '{}' should be a float like 2.25 or 2,25 (your input is {}).".format(pacv.custom_product_template_attribute_value_id.attribute_id.name, pacv.custom_value)))
-                                            custom_value = float_round(custom_value * (product_qty or 1.0), precision_digits=2)
+                                            custom_value = f"{(custom_value * (product_qty or 1.0)):.2f}"
                                             formatted_text = '{}m / {}'.format(custom_value, attribute_value_name)
                                         else:
                                             formatted_text = attribute_value_name
