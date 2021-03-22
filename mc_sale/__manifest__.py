@@ -23,7 +23,7 @@
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale_product_configurator', 'sale_management', 'website_sale_stock', 'inter_company_rules', 'purchase_stock', 'delivery', 'account'],
+    'depends': ['sale_product_configurator', 'sale_management', 'inter_company_rules', 'purchase_stock', 'delivery', 'account'],
     'data': [
         'security/ir.model.access.csv',
         'security/mc_sale_security_rule.xml',
