@@ -9,7 +9,7 @@
     'summary': 'Modifications to Purchases Orders layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'purchase'],
+    'depends': ['purchase'],
     'data': [
         'report/purchase_quotation_templates.xml',
         'report/purchase_order_templates.xml',

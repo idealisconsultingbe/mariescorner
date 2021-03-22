@@ -7,7 +7,7 @@
     'summary': 'Modifications to Invoice layout',
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['web', 'mc_sale', 'mc_sales_lot'],
+    'depends': ['mc_sale', 'mc_sales_lot'],
     'data': [
         'report/report_invoice_templates.xml',
     ],
