@@ -12,7 +12,7 @@ class SalesLotReportLabels(models.Model):
         productions = self.env[report.model].browse(docids)
         serial_numbers = {}
         for production in productions:
-            serial_numbers[production.id] = []
+            serial_numbers[production.sales_lot_id.id] = []
             if production.sales_lot_id:
                 for i in range(1, int(production.product_qty) + 1):
                     serial_numbers[production.sales_lot_id.id].append("{}{}".format(production.sales_lot_id.name, f"{i:02d}"))

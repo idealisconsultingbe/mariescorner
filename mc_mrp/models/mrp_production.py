@@ -13,7 +13,7 @@ class MrpProduction(models.Model):
     show_sale_description = fields.Boolean(string='Is Description Visible', compute='_compute_sale_information')
     sale_comment = fields.Text(string='Sale Comment', compute='_compute_sale_information')
     short_name = fields.Text(string='MC Description', related='sales_lot_id.short_name', store=True, readonly=True)
-    editable_sale_comment = fields.Text(string='Comment', related='sale_comment', store=True, readonly=False)
+    editable_sale_comment = fields.Text(string='Comment')
     show_sale_comment = fields.Boolean(string='Is Comment Visible', compute='_compute_sale_information')
     delivery_date = fields.Date(string='Planned Delivery Date', help='Planned date for this product to be delivered according to production time')
     fabric_date = fields.Date(string='Fabric Date', help='Date at which the fabrics for this order have been received')
@@ -43,7 +43,7 @@ class MrpProduction(models.Model):
             production.sale_comment = False
             production.show_sale_comment = False
             production.show_sale_description = False
-            sale_line_id = production.sales_lot_id.origin_sale_order_line_id
+            sale_line_id = production.sudo().sales_lot_id.origin_sale_order_line_id
             if sale_line_id:
                 if sale_line_id.name:
                     production.sale_description = sale_line_id.name
