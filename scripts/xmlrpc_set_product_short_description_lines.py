@@ -4,7 +4,7 @@ Configure the short description for every product belonging to a specific catego
 """
 
 import argparse
-import logging
+import xmlrpc.client
 
 labels = {
     1: {
@@ -104,27 +104,25 @@ labels = {
 attribute_ids = {4: 71, 5: 72, 6: 75, 7: 76, 8: 77, 9: 78, 10: 79, 11: 80,
                  12: 81, 13: 82, 14: 83, 15: 84, 16: 85, 17: 86, 18: 87, 19: 88, 20: 89, 21: 90, 22: 91,}
 
-def prepare_description_values(description_line, fabric_sequence, attribute_id=False, attribute_color_id=False):
+def prepare_description_values(description_line_values, attribute_id=False, attribute_color_id=False):
     need_color = True
-    if fabric_sequence not in [1, 2, 3]:
+    if description_line_values['sequence'] not in [1, 2]:
         need_color = False
     color = labels['color']
-    label = labels[fabric_sequence]
-    values = [
-        {
-            'type': 'attribute' if attribute_id else 'text',
-            'attribute_id': attribute_id if attribute_id else False,
-            'text': label['en'],
-            'description_line_id': description_line.id,
-        }
-    ]
+    label = labels[description_line_values['sequence']]
+    values = [(0, 0,
+               {
+                   'type': 'attribute' if attribute_id else 'text',
+                   'attribute_id': attribute_id if attribute_id else False,
+                   'text': label['en'],
+               })
+              ]
     if need_color:
-        values.append({
+        values.append((0, 0, {
             'type': 'attribute' if attribute_color_id else 'text',
             'attribute_id': attribute_color_id if attribute_color_id else False,
             'text': color['en'],
-            'description_line_id': description_line.id,
-        })
+        }))
     return values
 
 def translate_values(values, lang):
@@ -134,55 +132,59 @@ def translate_values(values, lang):
                 value.with_context(lang=lang).write({'text': labels[label_key][lang]})
 
 parser = argparse.ArgumentParser(description="")
+parser.add_argument('url')
 parser.add_argument('database')
-parser.add_argument('product_category')
+parser.add_argument('user')
+parser.add_argument('password')
+parser.add_argument('product_category_id')
 parser.add_argument('primary_fabric_id')
 parser.add_argument('primary_fabric_color_id')
 parser.add_argument('secondary_fabric_id')
 parser.add_argument('secondary_fabric_color_id')
-parser.add_argument('foot_id')
 parser.add_argument('foot_color_id')
 args = parser.parse_args()
 
-session.open(db=args.database)
+db =args.database
+password = args.password
 
-logging.info('Load product category.')
-product_category = session.env['product.category'].search([('id', 'child_of', int(args.product_category))])
-logging.info('Product category loaded %s.' % product_category.mapped('name'))
+common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(args.url))
+uid = common.authenticate(db, args.user, password, {})
+models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(args.url))
 
-logging.info('Load product templates.')
-products = session.env['product.template'].search([('categ_id', 'in', product_category.ids)])
-logging.info(' %s Product templates loaded.' % len(products.ids))
+print('Load product category.')
+product_category_ids = models.execute_kw(db, uid, password, 'product.category', 'search', [[('id', 'child_of', int(args.product_category_id))]])
+print('%s Product category loaded.' % len(product_category_ids))
 
-logging.info('Delete existing description lines.')
-description_lines = session.env['product.configurator.description.line'].search([])
-description_lines.unlink()
+print('Load product templates.')
+products_tmpl_info = models.execute_kw(db, uid, password, 'product.template', 'search_read', [[('categ_id', 'in', product_category_ids)]], {'fields': ['name', 'default_code', 'attribute_line_ids']})
+print('%s Product templates loaded.' % len(products_tmpl_info))
 
-logging.info('Start Creating Short Description Lines.')
+print('Delete existing description lines.')
+description_line_ids = models.execute_kw(db, uid, password, 'product.configurator.description.line', 'search', [[]])
+models.execute_kw(db, uid, password, 'product.configurator.description.line', 'unlink', [description_line_ids])
+
+print('Start Creating Short Description Lines.')
 product_not_updated_description_ids = []
-for product in products:
-    if not product.description_line_ids:
-        lines = session.env['product.configurator.description.line']
-        for i in range(1, 23):
-            lines |= session.env['product.configurator.description.line'].create({'product_tmpl_id': product.id, 'sequence': i})
-        for line in lines:
-            if line.sequence == 1:
-                values = session.env['product.configurator.description.line.value'].create(prepare_description_values(line, line.sequence, int(args.primary_fabric_id), int(args.primary_fabric_color_id)))
-                translate_values(values, 'fr_BE')
-            elif line.sequence == 2:
-                values = session.env['product.configurator.description.line.value'].create(prepare_description_values(line, line.sequence, int(args.secondary_fabric_id), int(args.secondary_fabric_color_id)))
-                translate_values(values, 'fr_BE')
-            elif line.sequence == 3:
-                values = session.env['product.configurator.description.line.value'].create(prepare_description_values(line, line.sequence, int(args.foot_id), int(args.foot_color_id)))
-                translate_values(values, 'fr_BE')
-            else:
-                values = session.env['product.configurator.description.line.value'].create(prepare_description_values(line, line.sequence, attribute_ids[line.sequence]))
-                translate_values(values, 'fr_BE')
-    else:
-        product_not_updated_description_ids.append(product.id)
+for product in products_tmpl_info:
+    lines_values = []
+    for i in range(1, 23):
+        lines_values.append({'product_tmpl_id': product['id'], 'sequence': i})
+    for line_values in lines_values:
+        if line_values['sequence'] == 1:
+            line_values.update({'value_ids': prepare_description_values(line_values, int(args.primary_fabric_id), int(args.primary_fabric_color_id))})
+            # translate_values(values, 'fr_BE')
+        elif line_values['sequence'] == 2:
+            line_values.update({'value_ids': prepare_description_values(line_values, int(args.secondary_fabric_id), int(args.secondary_fabric_color_id))})
+            # translate_values(values, 'fr_BE')
+        elif line_values['sequence'] == 3:
+            line_values.update({'value_ids': prepare_description_values(line_values, int(args.foot_color_id))})
+            # translate_values(values, 'fr_BE')
+        else:
+            line_values.update({'value_ids': prepare_description_values(line_values, attribute_ids[line_values['sequence']])})
+            # translate_values(values, 'fr_BE')
+    models.execute_kw(db, uid, password, 'product.configurator.description.line', 'create', [lines_values])
 
-logging.info('No description created for %s.' % product_not_updated_description_ids)
-session.cr.commit()
-session.close()
-logging.info('Done')
+
+print('No description created for %s.' % product_not_updated_description_ids)
+print('Done')
 

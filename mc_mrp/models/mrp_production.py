@@ -43,7 +43,7 @@ class MrpProduction(models.Model):
             production.sale_comment = False
             production.show_sale_comment = False
             production.show_sale_description = False
-            sale_line_id = production.move_dest_ids[0]._get_sale_line() if production.move_dest_ids else False
+            sale_line_id = production.sales_lot_id.origin_sale_order_line_id
             if sale_line_id:
                 if sale_line_id.name:
                     production.sale_description = sale_line_id.name
