@@ -22,11 +22,20 @@ class SaleOrderLine(models.Model):
     sales_lot_id_needed = fields.Boolean(string='Manufacturing Number Needed', compute='_compute_sales_lot_id_required')
     allow_set_sales_lot_id = fields.Boolean(string='Manual Manufacturing Number', default=_default_allow_set_sales_lot)
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
-    fabric_purchase_order_ids = fields.One2many('purchase.order', compute='_get_fabric_purchase_orders', string="Fabric Order(s)")
+    fabric_purchase_order_description = fields.Text(compute='_get_fabric_purchase_orders_description', compute_sudo=True, string="Fabric Order(s)")
 
-    def _get_fabric_purchase_orders(self):
+    def _get_fabric_purchase_orders_description(self):
+        """
+        Display po fabrics name + receipt date on corresponding so line.
+        """
         for line in self:
-            line.fabric_purchase_order_ids = line.sales_lot_id.fabric_purchase_order_ids.filtered(lambda po: po.company_id == line.company_id)
+            fabric_purchase_orders = line.sales_lot_id.fabric_purchase_order_ids
+            line.fabric_purchase_order_description = ''
+            for po in fabric_purchase_orders:
+                if po.date_planned:
+                    line.fabric_purchase_order_description += "{}, {}\n".format(po.name, po.date_planned.strftime("%d/%m/%Y"))
+                else:
+                    line.fabric_purchase_order_description += "{}\n".format(po.name)
 
     @api.depends('product_id', 'has_tracking', 'allow_set_sales_lot_id')
     def _compute_sales_lot_id_required(self):
