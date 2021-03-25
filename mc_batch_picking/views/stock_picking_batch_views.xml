@@ -6,9 +6,16 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//button[@name='print_picking']" position="after">
+                <button name="%(mc_batch_picking.batch_picking_import_action)d" string="Import File" type="action" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            </xpath>
             <xpath expr="//field[@name='user_id']/.." position="inside">
                 <field name="inter_company_batch_picking_id" string="Related Batch Picking" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
-                <field name="inter_company_batch_picking_ids" string="Related Batch Pickings" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']/../.." position="after">
+                <group string="Related Batch Picking" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
+                    <field name="inter_company_batch_picking_ids" nolabel="1" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
+                </group>
             </xpath>
             <xpath expr="//field[@name='user_id']/.." position="after">
                 <group>
@@ -17,8 +24,11 @@
                     <field name="immediate_transfer" invisible="1"/>
                     <field name="delivery_carrier_id"/>
                     <field name="partner_id"/>
-                    <field name="picking_type_id"/>
-                    <button name="button_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', '=', 'done')]}" icon="fa-refresh" class="oe_link oe_inline"/>
+                    <label for="picking_type_id"/>
+                    <div class="o_row">
+                      <field name="picking_type_id"/>
+                      <button name="button_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', '=', 'done')]}" icon="fa-refresh" class="oe_link oe_inline"/>
+                    </div>
                 </group>
             </xpath>
             <xpath expr="//separator" position="replace"/>
