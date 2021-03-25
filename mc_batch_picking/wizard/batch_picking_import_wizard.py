@@ -16,9 +16,12 @@ class BatchPickingImportWizard(models.TransientModel):
 
     @api.onchange('text_file')
     def _onchange_text_file(self):
+        """
+        When uploading a text file, update import lines in order to highlight missing lots in detailed operations (stock move lines)
+        """
         if self.text_file:
             file_lines = self._strings_from_binary_txt_file(self.text_file)
-            lot_names = self.batch_picking_id.mapped('move_line_ids.lot_name')
+            lot_names = self.batch_picking_id.mapped('move_line_ids.lot_id.name')
             list_line_values = []
             for line in file_lines:
                 if line in lot_names:
@@ -29,16 +32,21 @@ class BatchPickingImportWizard(models.TransientModel):
             self.batch_picking_import_line_ids = list_line_values
 
     def import_file_action(self):
+        """
+        Set move lines quantity to 1.0 unit if lot name is present in uploaded text files.
+        Move lines without a lot or which lot name does not appear in text file should not have a quantity done
+        """
         self.ensure_one()
         if self.text_file:
             file_lines = self._strings_from_binary_txt_file(self.text_file)
-            lot_names = self.batch_picking_id.mapped('move_line_ids.lot_name')
+            move_lines_to_update = self.batch_picking_id.move_line_ids.filtered(lambda ml: ml.lot_id and ml.lot_id.name in file_lines)
+            (self.batch_picking_id.move_line_ids - move_lines_to_update).qty_done = 0.0
             for line in file_lines:
-                if line in lot_names:
-                    move_lines = self.batch_picking_id.move_line_ids.filtered(lambda ml: ml.lot_name == line)
-                    move_lines.qty_done = 1.0
+                move_lines = move_lines_to_update.filtered(lambda ml: ml.lot_id.name == line)
+                move_lines.qty_done = 1.0
 
     def _strings_from_binary_txt_file(self, binary):
+        """ Split text file in a list of lot names """
         if not binary:
             return False
         file_content = base64.decodestring(binary)

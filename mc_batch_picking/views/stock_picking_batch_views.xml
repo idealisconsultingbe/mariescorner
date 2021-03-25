@@ -6,14 +6,14 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='print_picking']" position="after">
-                <button name="%(mc_batch_picking.batch_picking_import_action)d" string="Import File" type="action" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            <xpath expr="//button[@name='done']" position="after">
+                <button name="%(mc_batch_picking.batch_picking_import_action)d" string="Import File" type="action" attrs="{'invisible': [('state', 'not in', ['draft', 'in_progress'])]}"/>
             </xpath>
             <xpath expr="//field[@name='user_id']/.." position="inside">
                 <field name="inter_company_batch_picking_id" string="Related Batch Picking" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
             </xpath>
             <xpath expr="//field[@name='user_id']/../.." position="after">
-                <group string="Related Batch Picking" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
+                <group string="Related Batch Pickings" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
                     <field name="inter_company_batch_picking_ids" nolabel="1" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"/>
                 </group>
             </xpath>
