@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="picking_availability_mail" model="mail.template">
             <field name="name">Picking Availability</field>
@@ -71,7 +71,7 @@
                             ${object.carrier_id.name}
                         % endif
                         % if object.scheduled_date:
-                            on ${object.scheduled_date.strftime('%B %d, %Y')}.
+                            on ${object.scheduled_date.strftime('%d/%m/%Y')}.
                         % endif
                         <br/><br/>
 
@@ -128,7 +128,7 @@
 
                         Your order (see attachment) is scheduled for
                         % if object.scheduled_date:
-                            ${object.scheduled_date.strftime('%B %d, %Y')}.
+                            ${object.scheduled_date.strftime('%d/%m/%Y')}.
                         % endif
                         <br/><br/>
 

@@ -57,7 +57,7 @@
                 <!--<div class="col-4"'>-->
                 <div t-if="quotation" class="col-custom-36-85" style="background-color: LightGray;">
                     <h2 class="m-0 height-4">
-                        <span class="i-block-bottom"><t t-raw="quotation"/></span>
+                        <span class="i-block-bottom" style="font-size:35px;"><t t-raw="quotation"/></span>
                     </h2>
                     <h3 t-if="order_name" class="m-0 height-2">
                       <span class="i-block-bottom"><t t-raw="order_name"/></span>

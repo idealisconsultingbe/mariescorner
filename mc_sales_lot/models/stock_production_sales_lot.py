@@ -102,7 +102,7 @@ class ProductionSalesLot(models.Model):
             Manuf State = Internal Transit: Manufacturing Number is in transit between two companies.
             Manuf State = Internal Receipt: Manufacturing Number is received from the supplier.
             Manuf State = Delivered To the Customer: Manufacturing Number is delivered to the customer.
-            Manuf State = Cancel: At least one MO is cancelled or All PO are cancelled.
+            Manuf State = Cancel: All MO are cancelled or All PO are cancelled.
         else:
             Manuf state = external state set by external company
         """
@@ -138,7 +138,7 @@ class ProductionSalesLot(models.Model):
                     state = 'in_manufacturing'
                     if all([x not in ['cancel', 'draft'] for x in sale_lot.production_ids.mapped('state')]):
                         state = 'received_by_manufacturer'
-                    elif any([x == 'cancel' for x in sale_lot.production_ids.mapped('state')]):
+                    elif all([x == 'cancel' for x in sale_lot.production_ids.mapped('state')]):
                         state = 'cancel'
             sale_lot.manufacturing_state = state
         # track changing state

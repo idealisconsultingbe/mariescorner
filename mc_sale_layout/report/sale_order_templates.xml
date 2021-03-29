@@ -240,7 +240,7 @@
                                     We hope this offer will fulfill your needs and get all your attention.<br/>
                                     Feel free to contact us for any further information.
                                 </p>
-                                <h5>To order</h5>
+                                <h5>To place an order</h5>
                                 <p t-if="downpayment">
                                     You are satisfied with this offer and you want to order, We thank you to settle the amount of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> at the below bank details:<br/>
                                     <t t-if="doc.payment_bank_id">
