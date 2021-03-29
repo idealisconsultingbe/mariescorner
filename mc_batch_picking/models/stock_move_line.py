@@ -8,6 +8,7 @@ from odoo.tools import float_compare
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
+    carrier_id = fields.Many2one('delivery.carrier', string='Carrier', related='picking_id.carrier_id')
     inter_company_move_line_id = fields.Many2one('stock.move.line', string='InterCompany Stock Move Line')
     inter_company_batch_picking_name = fields.Char(string='Received From Batch', compute='_get_intercompany_batch_name', compute_sudo=True)
 

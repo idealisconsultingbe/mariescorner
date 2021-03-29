@@ -93,7 +93,7 @@ msgstr "<strong>Langue</strong>"
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Manuf. Number</strong>"
-msgstr "<strong>Numéro de Production</strong>"
+msgstr "<strong>Num. Prod.</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document

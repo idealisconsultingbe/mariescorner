@@ -41,12 +41,14 @@
                     <page string="Detailed Operations">
                         <!-- copy of view_stock_move_line_detailed_operation_tree with modifications -->
                         <field name="move_line_ids">
-                            <tree delete="false" create="false" editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id">
+                            <tree delete="false" create="false" editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id" default_order="carrier_id,sales_lot_id,product_id">
                                 <field name="product_id" required="1" attrs="{'readonly': ['|', ('state', '=', 'done'), ('move_id', '!=', False)]}"/>
                                 <field name="company_id" invisible="1"/>
                                 <field name="move_id" invisible="1"/>
                                 <field name="picking_id" invisible="1"/>
+                                <field name="sales_lot_id" invisible="1"/>
                                 <field name="inter_company_batch_picking_name"/>
+                                <field name="carrier_id"/>
                                 <field name="location_id" options="{'no_create': True}" attrs="{'column_invisible': [('parent.picking_type_code', '=', 'incoming')]}" groups="stock.group_stock_multi_locations" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
                                 <field name="location_dest_id" options="{'no_create': True}" attrs="{'column_invisible': [('parent.picking_type_code', '=', 'outgoing')]}" groups="stock.group_stock_multi_locations" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
                                 <field name="package_id" groups="stock.group_tracking_lot"/>

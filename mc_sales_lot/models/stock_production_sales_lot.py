@@ -212,7 +212,7 @@ class ProductionSalesLot(models.Model):
                 # TODO in trunk, change return format to binary to match message_post expected format
                 result = base64.b64encode(result)
 
-                attachments.append((report.name, result))
+                attachments.append(("{} - {}.pdf".format(report.name, sales_lot.name), result))
             results[sales_lot.id] = attachments
         return results
 
