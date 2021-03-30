@@ -41,6 +41,16 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//group[@name='note_group']" position="before">
+                <div class="oe_right">
+                    <button
+                        string="Recompute Pricelist Discounts"
+                        name="action_compute_pricelist_discount"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    />
+                </div>
+            </xpath>
             <field name="payment_term_id" position="after">
                 <field name="down_payment_paid"/>
             </field>

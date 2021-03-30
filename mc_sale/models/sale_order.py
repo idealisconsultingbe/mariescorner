@@ -2,6 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.tools.misc import get_lang
 
 
 class SaleOrder(models.Model):
@@ -33,3 +34,27 @@ class SaleOrder(models.Model):
             carriers = self.env['delivery.carrier'].search(['|', ('company_id', '=', False), ('company_id', '=', order.company_id.id)])
             available_carriers = carriers.available_carriers(order.partner_shipping_id) if order.partner_shipping_id else carriers
             order.carrier_id = available_carriers[0] if available_carriers else False
+
+    def action_compute_pricelist_discount(self):
+        """
+        Compute pricelist discounts on current sale order
+        This action is only possible in draft state to prevent side effects
+        """
+        self.ensure_one()
+        if self.state == 'draft':
+            # Remove delivery products from the sales order because prices may have changed
+            self._remove_delivery_line()
+            for line in self.order_line:
+                if self.pricelist_id.discount_policy == 'with_discount':
+                    line.discount = 0.0
+                product = line.product_id.with_context(
+                    lang=get_lang(self.env, line.order_id.partner_id.lang).code,
+                    partner=line.order_id.partner_id,
+                    quantity=line.product_uom_qty,
+                    date=line.order_id.date_order,
+                    pricelist=line.order_id.pricelist_id.id,
+                    uom=line.product_uom.id
+                )
+                if line.order_id.pricelist_id and line.order_id.partner_id:
+                    line.price_unit = self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), product.taxes_id, line.tax_id, line.company_id)
+                line._onchange_discount()
