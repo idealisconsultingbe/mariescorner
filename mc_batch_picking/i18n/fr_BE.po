@@ -70,7 +70,7 @@ msgstr ""
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.batch_packing_list_document
 msgid "<span>units</span>"
-msgstr "<span>unitées</span>"
+msgstr "<span>unités</span>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
@@ -132,7 +132,7 @@ msgstr "<strong>Article</strong>"
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.receipt_batch_packing_lst_document
 msgid "<strong>Quantity</strong>"
-msgstr "<strong>Quantitée</strong>"
+msgstr "<strong>Quantité</strong>"
 
 #. module: mc_batch_picking
 #: model_terms:ir.ui.view,arch_db:mc_batch_picking.planned_batch_packing_lst_document

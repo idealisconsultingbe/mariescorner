@@ -109,11 +109,12 @@
                                 <th t-if="has_hs_code"><span>HS Code</span></th>
                                 <th name="th_sm_ord_quantity"><span>Ord. Qty</span></th>
                                 <th name="th_sm_deliv_quantity"><span>Deliv. Qty</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Volume</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Weight</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Width</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Height</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Depth</span></th>
+                                <th name="th_sm_volume"><span>Volume</span></th>
+                                <th name="th_sm_weight"><span>Weight</span></th>
+                                <th name="th_sm_width"><span>Width</span></th>
+                                <th name="th_sm_heigth"><span>Height</span></th>
+                                <th name="th_sm_depth"><span>Depth</span></th>
+                                <th name="th_sm_location"><span>Location</span></th>
                             </tr>
                         </thead>
                         <tbody style="font-size:10pt;">
@@ -177,6 +178,9 @@
                                 <td>
                                     <span t-field="move.product_id.depth"/>
                                     <span>m</span>
+                                </td>
+                                <td>
+                                    <span t-esc="', '.join(move.move_line_ids.mapped('location_id.name'))"/>
                                 </td>
                             </tr>
                         </tbody>
