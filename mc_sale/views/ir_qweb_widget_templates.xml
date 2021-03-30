@@ -6,9 +6,9 @@
         <xpath expr="//div" position="replace">
             <div t-if="'name' in fields and 'title' in fields">
                 <t t-if="object.name">
-                    <t t-if="object.parent_name">
-                        <span itemprop="name" t-esc="object.parent_name"/>,&amp;nbsp;
-                    </t>
+<!--                    <t t-if="object.parent_name">-->
+<!--                        <span itemprop="name" t-esc="object.parent_name"/>,&amp;nbsp;-->
+<!--                    </t>-->
                     <t t-if="object.title">
                         <span itemprop="title" t-esc="object.title.name"/>&amp;nbsp;
                     </t>
@@ -23,7 +23,7 @@
             </div>
             <div t-elif="'name' in fields">
                 <t t-if="object.name">
-                    <span itemprop="name" t-esc="name"/>
+                    <span itemprop="name" t-esc="object.name"/>
                 </t>
                 <t t-if="not object.name and object.parent_name">
                     <span itemprop="name" t-esc="object.parent_name"/>
