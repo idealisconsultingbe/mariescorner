@@ -7,10 +7,10 @@ from odoo import models, fields
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    def _get_default_volume_uom(self):
+    def _get_default_volume_uom_name(self):
         return self.env['product.template']._get_volume_uom_name_from_ir_config_parameter()
 
-    volume_uom_name = fields.Char(string='Volume unit of measure label', readonly=True, default=_get_default_volume_uom)
+    volume_uom_name = fields.Char(string='Volume unit of measure label', readonly=True, default=_get_default_volume_uom_name)
 
     def _find_mail_template(self):
         # TODO select the right template according to picking state/picking type/?

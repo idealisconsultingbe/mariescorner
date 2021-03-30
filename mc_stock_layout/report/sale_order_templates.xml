@@ -85,8 +85,8 @@
                         </thead>
                         <tbody style="font-size:10pt;">
                             <tr t-foreach="lines" t-as="l">
-                                <t t-set="weight" t-value="l.product_id.weight * l.product_uom_qty"/>
-                                <t t-set="volume" t-value="l.product_id.volume * l.product_uom_qty"/>
+<!--                                <t t-set="weight" t-value="l.product_id.weight * l.product_uom_qty"/>-->
+<!--                                <t t-set="volume" t-value="l.product_id.volume * l.product_uom_qty"/>-->
                                 <td>
                                     <t t-if="l.short_name">
                                         <span t-field="l.short_name"/>
@@ -106,24 +106,26 @@
                                     <span t-field="l.product_uom"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(volume * 100) /100"/>
+<!--                                    <span t-esc="round(volume * 100) /100"/>-->
+                                    <span t-field="l.product_id.volume"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(weight * 100) /100"/>
+<!--                                    <span t-esc="round(weight * 100) /100"/>-->
+                                    <span t-field="l.product_id.weight"/>
                                     <span t-field="o.weight_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.width"/>
-                                    <span>m</span>
+                                    <span t-field="l.product_id.length_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.height"/>
-                                    <span>m</span>
+                                    <span t-field="l.product_id.length_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.depth"/>
-                                    <span>m</span>
+                                    <span t-field="l.product_id.length_uom_name"/>
                                 </td>
                             </tr>
                         </tbody>

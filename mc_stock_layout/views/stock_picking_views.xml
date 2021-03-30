@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="stock_picking_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.inherited.custom.product.info</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="product_volume" string="Volume(m³)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_weight" string="Weight(kg)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_height" string="Height(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_width" string="Width(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_depth" string="Depth(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/form" position="inside">
+                <group>
+                    <label for="product_volume"/>
+                    <div class="o_row">
+                        <field name="product_volume"/>
+                        <field name="volume_uom_name"/>
+                    </div>
+                    <label for="product_weight"/>
+                    <div class="o_row">
+                        <field name="product_weight"/>
+                        <field name="weight_uom_name"/>
+                    </div>
+                    <label for="product_height"/>
+                    <div class="o_row">
+                        <field name="product_height"/>
+                        <field name="length_uom_name"/>
+                    </div>
+                    <label for="product_width"/>
+                    <div class="o_row">
+                        <field name="product_width"/>
+                        <field name="length_uom_name"/>
+                    </div>
+                    <label for="product_depth"/>
+                    <div class="o_row">
+                        <field name="product_depth"/>
+                        <field name="length_uom_name"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_picking_form" model="ir.ui.view">
         <field name="name">view.picking.form.inherited.confirmation.email</field>
         <field name="model">stock.picking</field>
