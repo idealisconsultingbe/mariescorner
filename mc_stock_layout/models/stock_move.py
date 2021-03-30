@@ -14,8 +14,10 @@ class StockMove(models.Model):
         return self.env['product.template']._get_weight_uom_name_from_ir_config_parameter()
 
     def _default_length_uom_name(self):
-        uom = self.env.ref('uom.product_uom_meter', False) or self.env['uom.uom'].search(
-            [('measure_type', '=', 'length'), ('uom_type', '=', 'reference')], limit=1)
+        uom = self.env.ref('uom.product_uom_cm', raise_if_not_found=False)
+        if not uom:
+            categ = self.env.ref('uom.uom_categ_length')
+            uom = self.env['uom.uom'].search([('category_id', '=', categ.id), ('uom_type', '=', 'smaller')], limit=1)
         return uom.name
 
     product_weight = fields.Float(string='Product Weight', compute='_compute_product_info', store=True, readonly=False)

@@ -9,9 +9,9 @@
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="product_volume" string="Volume(m³)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
                 <field name="product_weight" string="Weight(kg)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_height" string="Height(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_width" string="Width(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_depth" string="Depth(m)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_height" string="Height(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_width" string="Width(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_depth" string="Depth(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
             </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/form" position="inside">
                 <group>

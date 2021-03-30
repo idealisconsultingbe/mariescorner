@@ -16,17 +16,17 @@
                 <label for="height"/>
                 <div class="o_row">
                     <field name="height"/>
-                    <field name="length_uom_name"/>
+                    <field name="cms_uom_name"/>
                 </div>
                 <label for="width"/>
                 <div class="o_row">
                     <field name="width"/>
-                    <field name="length_uom_name"/>
+                    <field name="cms_uom_name"/>
                 </div>
                 <label for="depth"/>
                 <div class="o_row">
                     <field name="depth"/>
-                    <field name="length_uom_name"/>
+                    <field name="cms_uom_name"/>
                 </div>
             </xpath>
         </field>

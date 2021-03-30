@@ -117,15 +117,15 @@
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.width"/>
-                                    <span t-field="l.product_id.length_uom_name"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.height"/>
-                                    <span t-field="l.product_id.length_uom_name"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-field="l.product_id.depth"/>
-                                    <span t-field="l.product_id.length_uom_name"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
                                 </td>
                             </tr>
                         </tbody>
