@@ -103,7 +103,7 @@ class SaleOrderLine(models.Model):
     def _prepare_invoice_line(self):
         """
         Overridden method
-        Add manufactuing number information to invoice line
+        Add manufacturing number information to invoice line
         """
         self.ensure_one()
         res = super(SaleOrderLine, self)._prepare_invoice_line()

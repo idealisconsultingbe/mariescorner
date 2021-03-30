@@ -9,7 +9,7 @@ class StockMove(models.Model):
 
     def _prepare_procurement_values(self):
         """
-        Overridde standard method -> add the manufacturing number into the procurement.
+        Override standard method -> add the manufacturing number into the procurement.
         :return:
         """
         values = super(StockMove, self)._prepare_procurement_values()

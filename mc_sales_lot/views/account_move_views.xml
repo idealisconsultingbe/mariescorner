@@ -6,8 +6,21 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='analytic_tag_ids']" position="after">
-                <field name="sales_lot_ids" optional="show" widget="many2many_tags"/>
+                <field name="sales_lot_ids" invisible="1"/>
+                <field name="sale_lot_id" optional="show"/>
             </xpath>
         </field>
     </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">mc.view.account.invoice.filter.inherited.sales.lot</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="invoice_line_ids" string="Manufacturing Number" filter_domain="[('invoice_line_ids.sale_lot_id', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
