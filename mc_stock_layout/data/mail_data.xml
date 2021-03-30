@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- Set noupdate to False -->
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'mail_template_data_delivery_confirmation')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <!-- Overridde partner_to of mail.template -->
+    <record id="stock.mail_template_data_delivery_confirmation" model="mail.template">
+        <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
+    </record>
+
+    <!-- Set the previously noupdate False to True again -->
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'mail_template_data_delivery_confirmation')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
     <data noupdate="1">
 
         <record id="picking_availability_mail" model="mail.template">
@@ -7,7 +29,7 @@
             <field name="model_id" ref="stock.model_stock_picking"/>
             <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) available for pickup</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
@@ -60,7 +82,7 @@
             <field name="model_id" ref="stock.model_stock_picking"/>
             <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) transfer</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
@@ -120,7 +142,7 @@
             <field name="model_id" ref="stock.model_stock_picking"/>
             <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) delivery</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">

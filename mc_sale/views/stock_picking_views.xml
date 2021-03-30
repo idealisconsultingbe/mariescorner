@@ -7,8 +7,12 @@
         <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='carrier_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'cancel')]}</attribute>
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <field name="carrier_tracking_ref" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'cancel')]}</attribute>
+            </field>
         </field>
     </record>
 
@@ -18,7 +22,7 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='location_dest_id']" position="after">
-                <field name="carrier_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" options="{'no_create': True, 'no_open': True}"/>
+                <field name="carrier_id" attrs="{'readonly': [('state', '=', 'cancel')]}" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
             <xpath expr="//field[@name='scheduled_date']" position="attributes">
                 <attribute name="widget">date</attribute>
