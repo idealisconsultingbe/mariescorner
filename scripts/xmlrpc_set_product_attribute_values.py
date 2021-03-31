@@ -169,7 +169,7 @@ for product in products_tmpl_info:
             product_template_attributes_to_delete_ids = product_template_attributes_candidate_ids[0:len(product_template_attributes_candidate_ids) - 1]
             product_template_attributes_candidate_ids = product_template_attributes_candidate_ids[-1]
             models.execute_kw(db, uid, password, 'product.template.attribute.line', 'unlink', [product_template_attributes_to_delete_ids])
-        product_template_attributes_candidate_id = product_template_attributes_candidate_ids[0]
+        product_template_attributes_candidate_id = product_template_attributes_candidate_ids[0] if product_template_attributes_candidate_ids else []
         fabric_type, foot_type, foot_color_type, nails_type = get_product_type(product)
         domain = get_attribute_values_domain(attribute, fabric_type, foot_type, foot_color_type, nails_type)
         domain.append(('attribute_id', '=', attribute['id']))
