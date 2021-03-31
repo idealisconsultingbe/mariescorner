@@ -8,10 +8,10 @@ import xmlrpc.client
 
 
 product_attributes_domain = {
-    '[Seats] Primary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Color of primary fabric': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', '=', 'None')]},
-    '[Seats] Secondary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
-    '[Seats] Color of secondary fabric': {'normal': [('name', 'not in', ['To Be Defined', 'TCL'])], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Primary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Color of primary fabric': {'normal': [('name', 'not in', ['To Be Defined'])], 'tcl': [('name', '=', 'None')]},
+    '[Seats] Secondary Fabric Type': {'normal': [('name', 'not in', ['To Be Defined'])], 'tcl': [('name', 'in', ['None', 'TCL', 'TISSU À DEFINIR GRADE A', 'TISSU À DEFINIR GRADE B', 'TISSU À DEFINIR GRADE C', 'TISSU À DEFINIR GRADE D', 'TISSU À DEFINIR GRADE E', 'TISSU À DEFINIR GRADE F'])]},
+    '[Seats] Color of secondary fabric': {'normal': [('name', 'not in', ['To Be Defined'])], 'tcl': [('name', '=', 'None')]},
     '[Seats] Foot Type': {'standard': [('name', '=', 'STANDARD')],
                           'archer': [('name', '=', 'ARCHER')],
                           'burton': [('name', '=', 'BURTON')],
@@ -76,7 +76,7 @@ def get_product_type(product):
         foot_color_type = 'metal'
     elif 'collin' in product['name'].lower():
         foot_color_type = 'beech_9'
-    elif 'hamlet' in product['name'].lower() or 'fillmore' in product['name'].lower() or 'foley' in product['name'].lower() or 'rockland' in product['name'].lower():
+    elif 'hamlet' in product['name'].lower() or 'fillmore' in product['name'].lower() or 'foley' in product['name'].lower() or 'rockland' in product['name'].lower() or 'garland' in product['name'].lower():
         foot_color_type = 'oak'
     elif 'ashton' in product['name'].lower() and 'walnut' in product['name'].lower():
         foot_color_type = 'walnut_specific'
@@ -84,7 +84,7 @@ def get_product_type(product):
         foot_color_type = 'walnut'
     elif 'brentwood' in product['name'].lower() or 'carmel' in product['name'].lower() or 'pierson' in product['name'].lower():
         foot_color_type = 'oak'
-    elif 'virginia' in product['name'].lower() and 'metal' in product['name'].lower():
+    elif 'virginia' in product['name'].lower():
         foot_color_type = 'metal'
     if 'pierson' in product['name'].lower():
         nails_type = 'nails'
@@ -159,7 +159,7 @@ print('Start configuring attribute values.')
 i = 0
 for product in products_tmpl_info:
     i += 1
-    # if product.default_code == 'PANCHETTA CON BRACC TCL':
+    # if product.default_code == 'VIRGINIA 200':
     #     print('test')
     for attribute in attributes_info:
         product_template_attributes_candidate_info = models.execute_kw(db, uid, password, 'product.template.attribute.line', 'search_read', [[('id', 'in', product['attribute_line_ids']), ('attribute_id', '=', attribute['id'])]], {'fields': ['value_ids']})
