@@ -1,12 +1,14 @@
 odoo.define('mc_sale.product_configurator_widget', function (require) {
+    var FieldsRegistry = require('web.field_registry');
     var ProductConfiguratorWidget = require('sale_product_configurator.product_configurator');
 
     /**
      * Overwrite the standard method in order to load values for the custom fields (create mode).
      */
-    ProductConfiguratorWidget.include({
+    var MCProductConfiguratorWidget = ProductConfiguratorWidget.extend({
         _openConfigurator: function (result, productTemplateId, dataPointId) {
             var self = this;
+            var mode = result.mode;
             this._rpc({
                 model: 'product.template',
                 method: 'search_read',
@@ -147,6 +149,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
         },
     });
 
-    return ProductConfiguratorWidget;
+    FieldsRegistry.add('mc_product_configurator', MCProductConfiguratorWidget);
+    return MCProductConfiguratorWidget;
 
 });
