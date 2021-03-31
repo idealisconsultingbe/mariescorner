@@ -24,6 +24,8 @@
         'views/mrp_production_views.xml',
         'views/sale_order_views.xml',
         'views/website_form_templates.xml',
+        'report/sales_lot_templates.xml',
+        'report/sales_lot_report_views.xml'
     ],
     'auto_install': False,
     'installable': True,
