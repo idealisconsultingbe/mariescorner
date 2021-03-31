@@ -168,15 +168,15 @@
                                 </td>
                                 <td>
                                     <span t-field="move.product_id.width"/>
-                                    <span>m</span>
+                                    <span>cm</span>
                                 </td>
                                 <td>
                                     <span t-field="move.product_id.height"/>
-                                    <span>m</span>
+                                    <span>cm</span>
                                 </td>
                                 <td>
                                     <span t-field="move.product_id.depth"/>
-                                    <span>m</span>
+                                    <span>cm</span>
                                 </td>
                             </tr>
                         </tbody>
