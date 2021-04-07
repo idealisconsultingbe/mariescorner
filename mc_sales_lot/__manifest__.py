@@ -3,7 +3,7 @@
 
 {
     'name': 'MsC Manufacturing Number',
-    'version': '13.0.0.1',
+    'version': '13.0.0.2',
     'category': 'Sales',
     'summary': 'Allow to use Manufacturing Number.',
     'description': """

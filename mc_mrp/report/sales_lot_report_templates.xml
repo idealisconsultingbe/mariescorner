@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_saleslot_document" inherit_id="mc_sales_lot.report_saleslot_document">
-        <xpath expr="//div[@class='page']" position="inside">
-            <div name="product_details">
-                <div class="row mt32 mb32" id="title">
-                    <div class="col-auto mw-100 mb-2">
-                        <strong>Product Details</strong>
-                    </div>
-                    <div class="col-auto mw-100 mb-2">
-                        <strong class="m-0" t-field="saleslot.origin_sale_order_line_id.short_name"/>
+        <xpath expr="//div[@name='barcode']" position="after">
+            <div name="date">
+                <p> <strong>Fabric Date:</strong> <strong class="m-0" t-field="saleslot.fabric_date"/> </p>
+                <p> <strong>Delivery Date:</strong> <strong class="m-0" t-field="saleslot.delivery_date"/> </p>
+                <p> <strong>Mandatory Date:</strong> <strong class="m-0" t-field="saleslot.mandatory_date"/> </p>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@name='label_1']" position="after">
+            <div name="label_3" style="page-break-inside:avoid;">
+                <div style="border-bottom: 1px solid black;"/> <br/>
+                <div class="row" name="order">
+                    <span>ORDER: </span> <span class="m-0" t-field="saleslot.origin_sale_order_id.name"/> <span> / </span>
+                    <span>SHEET: </span> <span class="m-0" t-field="saleslot.name"/> <br/>
+                    <span>MODEL: </span> <span class="m-0" t-field="saleslot.product_id.name"/> <span> / </span>
+                    <span>Quantity: </span> <span class="m-0" t-esc="saleslot.product_qty"/>
+                </div>
+                <div class="row" name="fabrics">
+                    <div class="col-auto">
+                        <span>Fabric(s): </span>
                     </div>
                 </div>
             </div>
+        </xpath>
 
-            <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="saleslot.sale_comment"/></p>
+         <xpath expr="//div[@name='label_1']/div[@id='main_row']" position="after">
+            <div class="row mt32 mb32" id="secondary_row" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                <div class="col-6" name="finished_product_info">
+                    <strong>Model (Finished Product): </strong>
+                    <p><strong class="m-0" t-field="saleslot.product_id.name"/></p>
+                </div>
+                <div class="col-6" name="quantity_info">
+                    <p><strong>Quantity:</strong> <span t-field="saleslot.product_qty"/></p>
+                </div>
+            </div>
+            <div id="production_details">
+                <div name="manuf_number_details" style="font-size:12pt;">
+                    <strong>Details</strong>
+                    <span t-field="saleslot.short_name"/>
+                </div>
+                <p style="color:red;"><strong>Special Remarks:</strong> <strong class="m-0" t-field="saleslot.sale_comment"/></p>
+            </div>
         </xpath>
     </template>
 

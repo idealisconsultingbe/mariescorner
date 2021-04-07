@@ -2,7 +2,7 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 {
     'name': 'MsC BoM Product Template',
-    'version': '13.0.0.1',
+    'version': '13.0.0.2',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Allow usage of product templates as BoM components.',
     'description': """
