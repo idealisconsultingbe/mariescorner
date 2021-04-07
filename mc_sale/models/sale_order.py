@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import api, fields, exceptions, models, _
 
 
 class SaleOrder(models.Model):
@@ -33,3 +33,14 @@ class SaleOrder(models.Model):
             carriers = self.env['delivery.carrier'].search(['|', ('company_id', '=', False), ('company_id', '=', order.company_id.id)])
             available_carriers = carriers.available_carriers(order.partner_shipping_id) if order.partner_shipping_id else carriers
             order.carrier_id = available_carriers[0] if available_carriers else False
+
+    def action_cancel(self):
+        """
+        Cancel the PO linked.
+        """
+        for rec in self:
+            po_id = rec._get_purchase_order()
+            if po_id:
+                po_id.button_cancel()
+        res = super(SaleOrder, self).action_cancel()
+        return res
