@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="mc_manufacturing_order_external_layout">
+        <t t-if="not o" t-set="o" t-value="sale_order"/>
+        <t t-set="company" t-value="env.company"/>
+
+        <div t-attf-class="header o_company_#{company.id}_layout" style="font-size: small;">
+            <div class="row">
+                <div class="col-custom-13-15 pr-0">
+                    <img src="/mc_mrp_layout/static/src/img/logo-maries-corner.png" class="height-6" alt="Maries Corner Logo"/>
+                </div>
+                <div t-if="order" class="col-custom-36-85" style="background-color: LightGray;">
+                    <h2 class="m-0 height-4">
+                        <span class="i-block-bottom" style="font-size:35px;">Sale Order</span>
+                    </h2>
+                    <h3 class="m-0 height-2">
+                        <span class="i-block-bottom"><t t-raw="order"/></span>
+                    </h3>
+                </div>
+                <div class="col-6">
+                    <div class="text-right text-muted"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></div>
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_company_#{company.id}_layout" style="font-size: small;" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+        <div t-attf-class="footer o_company_#{company.id}_layout" style="font-size: small;">
+            <div class="text-center">
+                <ul class="list-inline mb-1">
+                    <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                         adding d-inline class fixes the problem-->
+                    <li t-if="company.name" class="list-inline-item d-inline"><span t-field="company.name"/></li>
+                    <li t-if="company.name and (company.street or (company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.street" class="list-inline-item d-inline"><span t-field="company.street"/></li>
+                    <li t-if="company.street and ((company.city and company.country_id) or company.vat)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.city and company.country_id" class="list-inline-item d-inline"><span t-field="company.zip"/>  <span t-field="company.city"/> - <span t-field="company.country_id.name"/></li>
+                    <li t-if="company.city and company.country_id and company.vat" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+                <ul class="list-inline mb-3">
+                    <li t-if="company.phone" class="list-inline-item d-inline"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="company.phone"/></li>
+                    <li t-if="company.phone and (company.email or company.website)" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
+                    <li t-if="company.email and company.website" class="list-inline-item d-inline">|</li>
+                    <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
+                </ul>
+            </div>
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                <div class="text-center">Page: <span class="page"/> / <span class="topage"/></div>
+            </div>
+        </div>
+    </template>
+
+</odoo>
