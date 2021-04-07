@@ -299,10 +299,13 @@
                         </tr>
                     </t>
                     <tr>
-                        <td name="td_amount_total_label" class="font-weight-bold text-uppercase border-left-lightgray border-bottom-lightgray border-top-lightgray">Total</td>
-                        <td name="td_amount_total" class="text-right border-top-lightgray border-bottom-lightgray">
+                        <td name="td_amount_total_label" rowspan="2" class="font-weight-bold text-uppercase border-left-lightgray border-bottom-lightgray border-top-lightgray">Total</td>
+                        <td name="td_amount_total" rowspan="2" class="text-right border-top-lightgray border-bottom-lightgray">
                             <span t-field="doc.amount_total"/>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
                     </tr>
                 </table>
 
