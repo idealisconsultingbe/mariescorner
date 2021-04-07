@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_saleslot_document" inherit_id="mc_sales_lot.report_saleslot_document">
+            <xpath expr="//div[@name='destination']" position="after">
+                <div name="details">
+                    <p><strong>MC Care:</strong> <strong class="m-0" t-if="saleslot.mc_care">Yes</strong> <strong class="m-0" t-if="not saleslot.mc_care">No</strong></p>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

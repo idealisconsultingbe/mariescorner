@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_saleslot_document">
-        <div class="page">
-            <span>Factory ID:</span>
-            <span t-field="saleslot.env.company.partner_id.ref"/>
-
-            <h3>Manufacturing Number</h3>
-
-            <div class="row mt32 mb32" id="main_ref">
-                <div class="col-auto mw-100 mb-2">
-                    <p><strong>Order:</strong> <strong class="m-0" t-field="saleslot.origin_sale_order_id.name"/></p>
-                    <p><strong>Sheet:</strong> <strong class="m-0" t-field="saleslot.name"/></p>
+        <div class="page" style="font-size: 16pt;">
+            <div style="border-bottom: 1px solid black;" />
+            <div name="label_1" style="page-break-inside: avoid;">
+                <strong class="m-0" t-raw="' '"/> 
+                <div class="row mt32 mb32" id="main_row">
+                    <div class="col-6" name="main_info">
+                        <p><h1>Manufacturing Number: <span class="m-0" t-field="saleslot.name"/></h1></p>
+                        <p><h2>Order (Source Document): <strong class="m-0" t-field="saleslot.origin_sale_order_id.name" /></h2></p>
+                        <div class="col-auto mw-100 mb-2" name="destination" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                            <p><strong>Destination:</strong> <strong class="m-0" t-field="saleslot.carrier_id.name"/></p>
+                            <p><strong>Country:</strong> <strong class="m-0" t-field="saleslot.partner_id.country_id.name"/></p>
+                        </div>
+                    </div>
+                    <div class="col-6" name="secondary_info">
+                        <div name="barcode" class="text-center align-middle">
+                            <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(saleslot.name or ''), 400, 50)" style="width:100%;"/>
+                            <span class="m-0" t-field="saleslot.name" style="font-size:8pt;"/>
+                        </div>
+                        <div name="customer">
+                            <p> <strong>Customer: [</strong> <strong class="m-0" t-field="saleslot.partner_id.ref"/> <strong>] </strong> <strong class="m-0" t-field="saleslot.partner_id.name"/></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto mw-100 mb-2 text-center align-middle">
-                    <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(saleslot.name or ''), 400, 50)" style="width:100%;"/>
-                    <span class="m-0" t-field="saleslot.name" style="font-size:8pt;"/>
-                </div>
-                <div class="col-auto mw-100 mb-2" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                    <strong>Destination:</strong> <strong class="m-0" t-field="saleslot.carrier_id.name"/>
-                </div>
-            </div>
+            </div> 
 
-            <div name="customer">
-                <p><strong>Customer ID:</strong> <strong class="m-0" t-field="saleslot.partner_id.ref"/></p>
-                <p><strong>Country:</strong> <strong class="m-0" t-field="saleslot.partner_id.country_id.name"/></p>
-            </div>
-
-            <div name="product_and_quantity">
-                <strong>Article &amp; Quantity to produce:</strong>
-                <p><strong class="m-0" t-field="saleslot.product_qty"/> <span> X </span> <strong class="m-0" t-field="saleslot.product_id.name"/></p>
-            </div>
+            <div style="border-bottom: 1px solid black;" />
+            
 
         </div>
     </template>
