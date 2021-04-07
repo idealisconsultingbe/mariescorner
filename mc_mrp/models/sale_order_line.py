@@ -13,6 +13,8 @@ class SaleOrderLine(models.Model):
                               help='This is the product public price')
     list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price',
                                     help='This is the product public price and the sum of the extra price of all attributes (with custom values)')
+    delivery_date = fields.Date(related='sales_lot_id.delivery_date')
+    fabric_date = fields.Date(related='sales_lot_id.fabric_date')
 
     @api.depends('product_custom_attribute_value_ids',
                  'product_no_variant_attribute_value_ids',

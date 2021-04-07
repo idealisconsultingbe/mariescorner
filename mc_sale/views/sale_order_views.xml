@@ -10,7 +10,7 @@
                 <attribute name="invisible">True</attribute>
             </xpath>
             <xpath expr="//field[@name='commitment_date']" position="after">
-                <field name="effective_date" string="Delivery Date" optional="show"/>
+                <field name="effective_date" string="Effective Date" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="before">
                 <field name="origin" optional="hide"/>
