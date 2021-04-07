@@ -47,7 +47,7 @@
                         string="Recompute Pricelist Discounts"
                         name="action_compute_pricelist_discount"
                         type="object"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"
                     />
                 </div>
             </xpath>

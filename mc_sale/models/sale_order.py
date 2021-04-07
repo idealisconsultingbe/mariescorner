@@ -41,7 +41,7 @@ class SaleOrder(models.Model):
         This action is only possible in draft state to prevent side effects
         """
         self.ensure_one()
-        if self.state == 'draft':
+        if self.state in ['draft', 'sent']:
             # Remove delivery products from the sales order because prices may have changed
             self._remove_delivery_line()
             for line in self.order_line:
