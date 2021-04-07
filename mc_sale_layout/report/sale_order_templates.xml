@@ -38,11 +38,19 @@
                 <span>Pro-Forma Invoice</span>
             </t>
             <t t-set="quotation" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state in ['draft','sent']">
-                <span>Quotation</span>
+                <t t-if="doc.is_rental_order">
+                    <span>Rental Quotation</span>
+                </t>
+                <t t-else="">
+                    <span>Quotation</span>
+                </t>
             </t>
             <t t-set="order" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state not in ['draft','sent']">
                 <t t-if="downpayment">
                     <span>Pro Forma</span>
+                </t>
+                <t t-elif="doc.is_rental_order">
+                    <span>Rental Order</span>
                 </t>
                 <t t-else="">
                     <span>Order</span>
