@@ -299,14 +299,70 @@
                         </tr>
                     </t>
                     <tr>
-                        <td name="td_amount_total_label" rowspan="2" class="font-weight-bold text-uppercase border-left-lightgray border-bottom-lightgray border-top-lightgray">Total</td>
-                        <td name="td_amount_total" rowspan="2" class="text-right border-top-lightgray border-bottom-lightgray">
+                        <td name="td_amount_total_label" class="font-weight-bold text-uppercase border-left-lightgray border-bottom-lightgray border-top-lightgray">Total</td>
+                        <td name="td_amount_total" class="text-right border-top-lightgray border-bottom-lightgray">
                             <span t-field="doc.amount_total"/>
                         </td>
                     </tr>
-                    <tr>
-                        <td>test</td>
-                    </tr>
+                    <t t-if="order and downpayment">
+                        <tr>
+                            <td class="border-right-lightgray">
+                                <div name="hs_code" style="page-break-inside: avoid;">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th name="th_hs_code" class="text-center">
+                                                    <span>HS Code</span>
+                                                </th>
+                                                <th name="th_weight" class="text-center">
+                                                    <span>Weight</span>
+                                                </th>
+                                                <th name="th_qty" class="text-center">
+                                                    <span>Qty</span>
+                                                </th>
+                                                <th name="th_value" class="text-center">
+                                                    <span>Value</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="hs_code_tbody">
+                                            <t t-set="hs_code_detail" t-value="hs_code_details[doc.id]"/>
+                                            <t t-foreach="hs_code_detail" t-as="hs_code">
+                                                <tr>
+                                                    <td name="hs_code" class="text-center">
+                                                        <span t-esc="hs_code"/>
+                                                    </td>
+                                                    <td name="hs_weight" class="text-right">
+                                                        <span t-esc="'%.2f' % hs_code_detail[hs_code]['weight']"/>
+                                                    </td>
+                                                    <td name="hs_qty" class="text-right">
+                                                        <span t-esc="'%.2f' % hs_code_detail[hs_code]['qty']"/>
+                                                    </td>
+                                                    <td name="hs_value" class="text-right">
+                                                        <span t-esc="'%.2f' % hs_code_detail[hs_code]['subtotal']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <tr class="border-black o_total">
+                                                <td name="sum_hs_code" class="text-center">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td name="sum_hs_weight" class="text-right">
+                                                    <span t-esc="'%.2f' % sum_hs_code_details[doc.id]['sum_weight']"/>
+                                                </td>
+                                                <td name="sum_hs_qty" class="text-right">
+                                                    <span t-esc="'%.2f' % sum_hs_code_details[doc.id]['sum_qty']"/>
+                                                </td>
+                                                <td name="sum_hs_value" class="text-right">
+                                                    <span t-esc="'%.2f' % sum_hs_code_details[doc.id]['sum_subtotal']"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
                 </table>
 
                 <t t-if="doc.note or (doc.fiscal_position_id and doc.fiscal_position_id.sudo().note)">
