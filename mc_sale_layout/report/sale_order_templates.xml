@@ -159,8 +159,8 @@
                             <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                 <t t-if="not line.display_type">
                                     <td name="td_ref" class="text-center">
-                                      <span class="i-block-100"><t t-esc="line.product_id.default_code"/></span>
-                                      <span class="i-block-100" t-if="line.product_id.image_128" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
+                                        <span class="i-block-100"><t t-esc="line.product_id.default_code"/></span>
+                                        <span class="i-block-100" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
                                     </td>
                                     <td name="td_desc" class="text-left fs-8">
                                         <span t-field="line.short_name"/>
@@ -255,9 +255,9 @@
                             <t t-else="">
                                 <p t-if="downpayment">
                                     We thank you to settle the amount of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> at the below bank details in order to enable us to start the production.<br/>
-                                    <t t-if="doc.company_id.bank_ids">
+                                    <t t-if="doc.payment_bank_id">
                                         IBAN: <span t-field="doc.payment_bank_id.acc_number"/><br/>
-                                        SWIFT: <t t-if="doc.company_id.bank_ids[0].bank_id and doc.company_id.bank_ids[0].bank_id.bic"><span t-field="doc.company_id.bank_ids[0].bank_id.bic"/></t>
+                                        SWIFT: <t t-if="doc.payment_bank_id.bank_id and doc.payment_bank_id.bank_id.bic"><span t-field="doc.payment_bank_id.bank_id.bic"/></t>
                                     </t>
                                 </p>
                             </t>

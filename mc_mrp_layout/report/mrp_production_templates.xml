@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_manufacturing_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs.mapped('sales_lot_id.origin_sale_order_id')" t-as="sale_order">
+                <t t-set="productions" t-value="docs.filtered(lambda mo: mo.sales_lot_id and mo.sales_lot_id.origin_sale_order_id == sale_order)"/>
+                <t t-call="mc_mrp_layout.report_manufacturing_order_document" t-lang="env.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_manufacturing_order_document">
+        <t t-call="mc_mrp_layout.mc_manufacturing_order_external_layout">
+            <t t-set="order"><span t-field="sale_order.sudo().name"/></t>
+            <div class="page">
+
+                <div class="oe_structure"/>
+
+                <div class="row mt16 mb8">
+                    <div class="col-4"><h4>Manufacturing Details</h4></div>
+                </div>
+                <table class="table-sm border-table-lightgray-full">
+                    <thead>
+                        <tr>
+                            <th name="th_reference" class="text-center">
+                              <span class="text-uppercase v-align-mid">Ref</span>
+                            </th>
+                            <th name="th_description" class="text-center" width="40%">
+                              <span class="text-uppercase v-align-mid">Description</span>
+                            </th>
+                            <th name="th_sales_lot_id" class="text-center">
+                              <span class="text-uppercase v-align-mid">Manuf. No.</span>
+                            </th>
+                            <th name="th_quantity" class="text-center">
+                              <span class="text-uppercase v-align-mid">Quantity</span>
+                            </th>
+                            <th name="th_state" class="text-center">
+                              <span class="text-uppercase v-align-mid">State</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <tr t-foreach="productions" t-as="line">
+                            <t t-set="line" t-value="line.with_context(lang=env.lang)"/>
+                            <td name="td_ref" class="text-center">
+                                <span class="i-block-100"><t t-esc="line.product_id.default_code"/></span>
+                                <span class="i-block-100" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
+                            </td>
+                            <td name="td_desc" class="text-left fs-8">
+                                <span t-field="line.short_name"/>
+                            </td>
+                            <td name="td_sales_lot" class="text-center">
+                                <span t-field="line.sales_lot_id"/>
+                            </td>
+                            <td name="td_quantity" class="text-center">
+                                <span t-field="line.product_qty"/>
+                            </td>
+                            <td name="td_state" class="text-center">
+                                <span t-field="line.state"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="oe_structure"/>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

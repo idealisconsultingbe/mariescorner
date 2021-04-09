@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_manufacturing_order"
+            string="[MC] Manufacturing Order"
+            model="mrp.production"
+            report_type="qweb-pdf"
+            file="mc_mrp_layout.report_manufacturing_order"
+            name="mc_mrp_layout.report_manufacturing_order"
+            print_report_name="'Manufacturing Order - %s' % (object.name)"
+        />
+
+    </data>
+</odoo>
