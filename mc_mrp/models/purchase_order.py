@@ -25,7 +25,7 @@ class PurchaseOrder(models.Model):
                 attachments_data = []
                 for sales_lot_id in attachments:
                     attachments_data += attachments[sales_lot_id]
-                attachment_values =  [(0, 0, {'name': attachment[0],
+                attachment_values = [(0, 0, {'name': attachment[0],
                                              'mimetype': 'application/pdf',
                                              'datas': attachment[1]}) for attachment in attachments_data]
                 email_values = {'attachment_ids': attachment_values}

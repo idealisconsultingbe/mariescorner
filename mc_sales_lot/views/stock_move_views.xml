@@ -12,4 +12,15 @@
         </field>
     </record>
 
+    <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.inherited.sales.lot</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="before">
+                <field name="sales_lot_id"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>

@@ -17,6 +17,9 @@ class ProductionSalesLot(models.Model):
     ]
 
     name = fields.Char(string='Manufacturing Number', required=True)
+    so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
+    sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')
+    product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     manufacturing_state = fields.Selection([('to_produce', 'To Produce'),
                                             ('in_manufacturing', 'In Manufacturing'),
                                             ('received_by_manufacturer', 'Order Received By The Manufacturer'),
@@ -32,22 +35,21 @@ class ProductionSalesLot(models.Model):
                                        ('delivered', 'Delivered To The Customer'),
                                        ('cancel', 'Cancelled')], String='External State', default='to_produce', help='Manufacturing state of subcontracted products')
     supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], string='Supplier Type', compute='_compute_supplier_type', store=True)
-    manufacturing_date = fields.Date(string='Manufacturing Date')
-    shipped_date = fields.Date(string='Shipped Date')
-    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
     fabric_received_mc = fields.Boolean(string='Fabric Received at MC', default=False)
-    fabric_received_date = fields.Date(string='Fabric Received Date')
-    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
-    product_qty = fields.Float(string='Product Quantity', help='Quantity ordered by customer')
     active = fields.Boolean(string='Active', default=True)
     internal_delivery_done = fields.Boolean(String='Internal Delivery Completed')
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
-    so_origin_name = fields.Text(string='Original Sale Order', compute='_compute_sales_lot_origin', store=True)
-    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
-    fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
     fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
-    sale_comment = fields.Text(string='Sale Comment', related='origin_sale_order_line_id.comment')
+
+    # Dates
+    fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
+    mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
+    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
+    fabric_received_date = fields.Date(string='Fabric Received Date')
+    shipped_date = fields.Date(string='Shipped Date')
+    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
+    manufacturing_date = fields.Date(string='Manufacturing Date')
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')

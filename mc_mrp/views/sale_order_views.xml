@@ -37,6 +37,10 @@
                 <field name="list_price" string="Base Price" optional="hide"/>
                 <field name="list_price_extra" string="Public Price" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="delivery_date" optional="hide"/>
+                <field name="fabric_date" optional="hide"/>
+            </xpath>
         </field>
     </record>
 

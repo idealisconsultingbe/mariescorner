@@ -18,7 +18,7 @@
                     <field name="delivery_carrier_id"/>
                     <field name="partner_id"/>
                     <field name="picking_type_id"/>
-                    <button name="button_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', '=', 'done')]}" icon="fa-refresh" class="oe_link oe_inline"/>
+                    <button name="action_load_picking" string="Load Available Pickings" type="object" attrs="{'invisible': ['|', ('picking_type_id', '=', False), ('state', 'in', ['done', 'cancel'])]}" icon="fa-refresh" class="oe_link oe_inline"/>
                 </group>
             </xpath>
             <xpath expr="//separator" position="replace"/>
@@ -39,6 +39,10 @@
                         </field>
                     </page>
                     <page string="Detailed Operations">
+                        <div class="oe_right">
+                            <button string="Pre-fill Quantities" name="action_prefill_quantities" type="object" attrs="{'invisible': [('state', 'in', ['cancel', 'done'])]}"/>
+                            <button string="Empty Quantities" name="action_prefill_quantities" type="object" context="{'empty_done_quantities': True}" attrs="{'invisible': [('state', 'in', ['cancel', 'done'])]}"/>
+                        </div>
                         <!-- copy of view_stock_move_line_detailed_operation_tree with modifications -->
                         <field name="move_line_ids">
                             <tree delete="false" create="false" editable="bottom" decoration-muted="(state == 'done' and is_locked == True)" decoration-danger="qty_done&gt;product_uom_qty and state!='done' and parent.picking_type_code != 'incoming'" decoration-success="qty_done==product_uom_qty and state!='done' and not result_package_id" default_order="carrier_id,sales_lot_id,product_id">

@@ -50,7 +50,7 @@ class StockPickingBatch(models.Model):
             else:
                 batch.show_lots_text = False
 
-    def button_load_picking(self):
+    def action_load_picking(self):
         """ Load all pickings with the same picking type/operation type, delivery method (optional), and partner (optional) """
         self.ensure_one()
         if self.picking_type_id:
@@ -68,6 +68,15 @@ class StockPickingBatch(models.Model):
             })
         else:
             raise UserError(_('An operation type is required before loading available pickings'))
+
+    def action_prefill_quantities(self):
+        """ Pre-fill all stock move lines done quantities with reserved quantities or empty all quantities """
+        self.ensure_one()
+        if self.env.context.get('empty_done_quantities'):
+            self.move_line_ids.qty_done = 0.0
+        else:
+            for line in self.move_line_ids:
+                line.qty_done = line.product_uom_qty
 
     def done(self):
         """

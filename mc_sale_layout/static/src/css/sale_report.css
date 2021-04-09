@@ -111,4 +111,6 @@ span.i-block-bottom {
 .border-left-lightgray {
     border-left: 1px solid LightGray !important;
 }
-
+.border-right-lightgray {
+    border-right: 1px solid LightGray !important;
+}
