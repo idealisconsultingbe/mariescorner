@@ -9,13 +9,25 @@
                 <label for="weight_net"/>
                 <div class="o_row" name="weight_net">
                     <field name="weight_net"/>
-                    <span><field name="weight_uom_name"/></span>
+                    <field name="weight_uom_name"/>
                 </div>
             </xpath>
             <xpath expr="//div[@name='volume']" position="after">
-                <field name="height"/>
-                <field name="width"/>
-                <field name="depth"/>
+                <label for="height"/>
+                <div class="o_row">
+                    <field name="height"/>
+                    <field name="cms_uom_name"/>
+                </div>
+                <label for="width"/>
+                <div class="o_row">
+                    <field name="width"/>
+                    <field name="cms_uom_name"/>
+                </div>
+                <label for="depth"/>
+                <div class="o_row">
+                    <field name="depth"/>
+                    <field name="cms_uom_name"/>
+                </div>
             </xpath>
         </field>
     </record>

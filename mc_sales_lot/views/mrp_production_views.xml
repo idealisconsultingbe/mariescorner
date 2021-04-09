@@ -12,7 +12,7 @@
                 <field name="sales_lot_id"/>
             </field>
             <field name="routing_id" position="after">
-                <field name="inter_company_origin" style="font-size:18pt;"/>
+                <field name="inter_company_origin"/>
             </field>
             <field name="origin" position="after">
                 <field name="carrier_id"/>

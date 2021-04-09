@@ -13,7 +13,7 @@ class AccountMove(models.Model):
         Add manufacturing numbers on vendor invoice lines
 
         invoice lines (line_ids) are autocompleted and several fields are recomputed which may lead to a loss of information about manufacturing numbers.
-        To prevent this, we add manufacturing numbers to values dictionnary of invoice lines.
+        To prevent this, we add manufacturing numbers to values dictionary of invoice lines.
         """
         for vals in vals_list:
             for line in vals.get('line_ids', []):

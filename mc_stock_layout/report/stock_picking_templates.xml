@@ -61,8 +61,8 @@
                             <t t-else="">
                                 <t t-set="qty_done" t-value="move.reserved_availability"/>
                             </t>
-                            <t t-set="shipping_weight" t-value="shipping_weight + (move.product_id.weight * qty_done)"/>
-                            <t t-set="shipping_volume" t-value="shipping_volume + (move.product_id.volume * qty_done)"/>
+                            <t t-set="shipping_weight" t-value="shipping_weight + ((move.product_weight if move.product_weight else move.product_id.weight) * qty_done)"/>
+                            <t t-set="shipping_volume" t-value="shipping_volume + ((move.product_volume if move.product_volume else move.product_id.volume) * qty_done)"/>
                         </t>
                         <div t-if="o.origin" class="col-auto" name="div_origin">
                             <strong>Order:</strong>
@@ -109,11 +109,12 @@
                                 <th t-if="has_hs_code"><span>HS Code</span></th>
                                 <th name="th_sm_ord_quantity"><span>Ord. Qty</span></th>
                                 <th name="th_sm_deliv_quantity"><span>Deliv. Qty</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Volume</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Weight</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Width</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Height</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Depth</span></th>
+                                <th name="th_sm_volume"><span>Volume</span></th>
+                                <th name="th_sm_weight"><span>Weight</span></th>
+                                <th name="th_sm_width"><span>Width</span></th>
+                                <th name="th_sm_height"><span>Height</span></th>
+                                <th name="th_sm_depth"><span>Depth</span></th>
+                                <th name="th_sm_location"><span>Location</span></th>
                             </tr>
                         </thead>
                         <tbody style="font-size:10pt;">
@@ -131,8 +132,13 @@
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
-                                <t t-set="weight" t-value="move.product_id.weight * qty_done"/>
-                                <t t-set="volume" t-value="move.product_id.volume * qty_done"/>
+<!--                                <t t-set="weight" t-value="move.product_id.weight * qty_done"/>-->
+<!--                                <t t-set="volume" t-value="move.product_id.volume * qty_done"/>-->
+                                <t t-set="weight" t-value="move.product_weight if move.product_weight else move.product_id.weight"/>
+                                <t t-set="volume" t-value="move.product_volume if move.product_volume else move.product_id.volume"/>
+                                <t t-set="height" t-value="move.product_height if move.product_height else move.product_id.height"/>
+                                <t t-set="width" t-value="move.product_width if move.product_width else move.product_id.width"/>
+                                <t t-set="depth" t-value="move.product_depth if move.product_depth else move.product_id.depth"/>
                                 <td>
                                     <t t-if="move.sale_line_id and move.sale_line_id.short_name">
                                         <span t-field="move.sale_line_id.short_name"/>
@@ -159,24 +165,29 @@
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(volume * 100) /100"/>
+<!--                                    <span t-esc="round(volume * 100) /100"/>-->
+                                    <span t-esc="volume"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(weight * 100) /100"/>
+<!--                                    <span t-esc="round(weight * 100) /100"/>-->
+                                    <span t-esc="weight"/>
                                     <span t-field="o.weight_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_id.width"/>
-                                    <span>cm</span>
+                                    <span t-esc="width"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_id.height"/>
-                                    <span>cm</span>
+                                    <span t-esc="height"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_id.depth"/>
-                                    <span>cm</span>
+                                    <span t-esc="depth"/>
+                                    <span t-field="l.product_id.cms_uom_name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="', '.join(move.move_line_ids.mapped('location_id.name'))"/>
                                 </td>
                             </tr>
                         </tbody>
