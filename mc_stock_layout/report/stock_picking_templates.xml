@@ -176,15 +176,15 @@
                                 </td>
                                 <td>
                                     <span t-esc="width"/>
-                                    <span t-field="l.product_id.cms_uom_name"/>
+                                    <span t-field="move.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-esc="height"/>
-                                    <span t-field="l.product_id.cms_uom_name"/>
+                                    <span t-field="move.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-esc="depth"/>
-                                    <span t-field="l.product_id.cms_uom_name"/>
+                                    <span t-field="move.product_id.cms_uom_name"/>
                                 </td>
                                 <td>
                                     <span t-esc="', '.join(move.move_line_ids.mapped('location_id.name'))"/>
