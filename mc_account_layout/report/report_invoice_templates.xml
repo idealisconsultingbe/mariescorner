@@ -2,6 +2,17 @@
 <odoo>
     <data>
 
+        <template id="l10n_be_intrastat.report_invoice_document_intrastat_2019" inherit_id="account.report_invoice_document">
+            <xpath expr="//th[@name='th_quantity']" position="before">
+              <th class="text-right">Origin Country</th>
+            </xpath>
+            <xpath expr="//span[@t-field='line.quantity']/.." position="before">
+              <td class="text-right">
+                <span t-field="line.intrastat_product_origin_country_id"/>
+              </td>
+            </xpath>
+        </template>
+
         <template id="report_invoice_document_with_payments" inherit_id="account.report_invoice_document_with_payments">
             <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
                 <p class="mt-2" t-if="o.amount_residual">
