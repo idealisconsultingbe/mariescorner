@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-26 09:11+0000\n"
-"PO-Revision-Date: 2021-03-26 10:21+0100\n"
+"POT-Creation-Date: 2021-04-12 17:04+0000\n"
+"PO-Revision-Date: 2021-04-12 19:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -105,35 +105,39 @@ msgid ""
 msgstr ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"                    Beste ${object.sudo().partner_id.name of 'Madam/Sir'},<br/><br/>\n"
+"                    Geachte ${object.sudo().partner_id.name or 'meneer of mevrouw'},<br/><br/>\n"
 "\n"
 "                    Uw bestelling (zie bijlage) is beschikbaar voor verzending. <br/><br/>\n"
 "\n"
 "                        % if object.picking_type_id.warehouse_id:\n"
-"                            Afhaaladres:<br/>${object.picking_type_id.warehouse_id.partner_id.name}<br/>\n"
+"                            Afhaaladres:<br/>\n"
+"                            ${object.picking_type_id.warehouse_id.partner_id.name}<br/>\n"
 "                            % if object.picking_type_id.warehouse_id.partner_id.street:\n"
 "                                ${object.picking_type_id.warehouse_id.partner_id.street}<br/>\n"
 "                            % endif\n"
 "                            % if object.picking_type_id.warehouse_id.partner_id.zip:\n"
-"                                $ {object.picking_type_id.warehouse_id.partner_id.zip} % e ndif\n"
+"                                ${object.picking_type_id.warehouse_id.partner_id.zip}\n"
+"                            % endif\n"
 "                            % if object.picking_type_id.warehouse_id.partner_id.city:\n"
-"                                $ {object.picking_type_id.warehouse_id.partner_id.city} % e ndif\n"
+"                                ${object.picking_type_id.warehouse_id.partner_id.city}\n"
+"                            % endif\n"
 "                            % if object.picking_type_id.warehouse_id.partner_id.country_id:\n"
-"                                $ {object.picking_type_id.warehouse_id.partner_id.country_id.name} % endif\n"
+"                                ${object.picking_type_id.warehouse_id.partner_id.country_id.name}\n"
+"                            % endif\n"
 "                            <br/><br/>\n"
 "                        % endif\n"
 "\n"
 "                           Van maandag tot en met donderdag<br/>\n"
 "                           09:00 - 16:00<br/>\n"
 "                            Vrijdag<br/>\n"
-"                            09:00 - 14:00<br/>\n"
+"                            09:00 - 14:00<br/><br/>\n"
 "\n"
-"                        Nota:<br/>\n"
+"                        Nota:<br/><br/>\n"
 "\n"
 "                         Hartelijke groeten<br/>\n"
 "                         Logistieke afdeling<br/>\n"
-"                        % if object.picking_type_id.warehouse_id en object.picking_type_id.warehouse_id.partner_id.phone:\n"
-"                            Telefoon: $ {object.picking_type_id.warehouse_id.partner_id.phone} \n"
+"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
+"                            Telefoon: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
 "                         % endif\n"
 "                        </p>\n"
 "                </div>\n"
@@ -148,7 +152,7 @@ msgid ""
 "\n"
 "                        Your order (see attachment) is scheduled for\n"
 "                        % if object.scheduled_date:\n"
-"                            ${object.scheduled_date.strftime('%B %d, %Y')}.\n"
+"                            ${object.scheduled_date.strftime('%d/%m/%Y')}.\n"
 "                        % endif\n"
 "                        <br/><br/>\n"
 "\n"
@@ -187,50 +191,6 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
-"<div style=\"margin: 0px; padding: 0px;\">\n"
-"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"                        Beste ${object.sudo().partner_id.name or 'Mevrouw/Meneer'},<br/><br/>\n"
-"\n"
-"                        De levering van uw bestelling (Detail in bijlage) is voorzien op\n"
-"                        % if object.scheduled_date:\n"
-"                            ${object.scheduled_date.strftime('%d/%m/%Y')}.\n"
-"                        % endif\n"
-"                        <br/><br/>\n"
-"\n"
-"                        Leveringsadres:<br/>\n"
-"                        ${object.partner_id.name}<br/>\n"
-"                        % if object.partner_id.street:\n"
-"                            ${object.partner_id.street}<br/>\n"
-"                        % endif\n"
-"                        % if object.partner_id.zip:\n"
-"                            ${object.partner_id.zip}\n"
-"                        % endif\n"
-"                        % if object.partner_id.city:\n"
-"                            ${object.partner_id.city}\n"
-"                        % endif\n"
-"                        % if object.partner_id.country_id:\n"
-"                            ${object.partner_id.country_id.name}\n"
-"                        % endif\n"
-"                        <br/><br/>\n"
-"\n"
-"                        Rembours bedrag:<br/><br/>\n"
-"\n"
-"                        Nota:<br/><br/>\n"
-"\n"
-"                        Gelieve de staat van uw dozen te controleren alvorens de leveringsbon af te tekenen,\n"
-"                        Wanneer u een probleem vaststelt, noteer dit dan op de leveringsbon / transportbewijs. <br/>\n"
-"                        Zonder een nota hierover, kunnen wij achteraf geen enkele klacht aanvaarden.<br/><br/>\n"
-"\n"
-"                        * Gelieve deze afspraak te bevestigen. Wij leveren enkel met uw akkoord.<br/><br/>\n"
-"\n"
-"                        Met vriendelijke groeten<br/>\n"
-"                        Logistics Department<br/>\n"
-"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
-"                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
-"                        % endif\n"
-"                    </p>\n"
-"                </div>\n"
-"            "
 
 #. module: mc_stock_layout
 #: model:mail.template,body_html:mc_stock_layout.picking_internal_transfer_mail
@@ -283,53 +243,6 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
-"<div style=\"margin: 0px; padding: 0px;\">\n"
-"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"                        Dear ${object.sudo().partner_id.name or 'Madam/Sir'},<br/><br/>\n"
-"\n"
-"                        Your order (see attachment) will be handed over to our carrier\n"
-"                        % if object.carrier_id:\n"
-"                            ${object.carrier_id.name}\n"
-"                        % endif\n"
-"                        % if object.scheduled_date:\n"
-"                            on ${object.scheduled_date.strftime('%d/%m/%Y')}.\n"
-"                        % endif\n"
-"                        <br/><br/>\n"
-"\n"
-"                        Delivery address:<br/>\n"
-"                        ${object.partner_id.name}<br/>\n"
-"                        % if object.partner_id.street:\n"
-"                            ${object.partner_id.street}<br/>\n"
-"                        % endif\n"
-"                        % if object.partner_id.zip:\n"
-"                            ${object.partner_id.zip}\n"
-"                        % endif\n"
-"                        % if object.partner_id.city:\n"
-"                            ${object.partner_id.city}\n"
-"                        % endif\n"
-"                        % if object.partner_id.country_id:\n"
-"                            ${object.partner_id.country_id.name}\n"
-"                        % endif\n"
-"                        <br/><br/>\n"
-"\n"
-"                        Note:<br/><br/>\n"
-"\n"
-"                        Before signing the delivery note, please check the good state of the packages! In case of problem or damage,\n"
-"                        please notify your comments on the transport receipt. <br/>\n"
-"                        Without this precaution we will not be able to accept any further claim.<br/><br/>\n"
-"\n"
-"                        * The delivery of our products is made by independent contractors of the Mac Ray company and within the time announced by these "
-"contractors.\n"
-"                        We decline all responsibilities for any possible delay caused by the transporter.<br/><br/>\n"
-"\n"
-"                        Best regards<br/>\n"
-"                        Logistics Department<br/>\n"
-"                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:\n"
-"                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}\n"
-"                        % endif\n"
-"                    </p>\n"
-"                </div>\n"
-"            "
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_external_layout
@@ -365,6 +278,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Height</span>"
 msgstr "<span>Hoogte</span>"
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
+msgid "<span>Location</span>"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -475,14 +393,41 @@ msgid "CMR Document"
 msgstr "Hoogte"
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__cms_uom_name
+#: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__cms_uom_name
+msgid "Centimeters UoM Label"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__depth
+#: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__depth
+msgid "Depth"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Depth(cm)"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__height
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__height
-msgid "Height (cm)"
-msgstr "Hoogte (cm)"
+msgid "Height"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Height(cm)"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_address_layout
 msgid "Invoicing Address"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__length_uom_name
+msgid "Length UoM Label"
 msgstr ""
 
 #. module: mc_stock_layout
@@ -491,14 +436,44 @@ msgid "Logo"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
+msgid "Net weight net in kilograms"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_external_layout
 msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr "Pagina: <span class=\"page\"/> / <span class=\"topage\"/>"
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_depth
+msgid "Product Depth"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_height
+msgid "Product Height"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_product_template
 msgid "Product Template"
 msgstr "Productsjabloon"
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_volume
+msgid "Product Volume"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_weight
+msgid "Product Weight"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_width
+msgid "Product Width"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_sale_order
@@ -516,9 +491,19 @@ msgid "Shipping Address"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model:ir.model,name:mc_stock_layout.model_stock_move
+msgid "Stock Move"
+msgstr "Voorraadmutatie"
+
+#. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_stock_picking
 msgid "Transfer"
 msgstr "Verplaatsing"
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__volume_uom_name
+msgid "Volume UoM Label"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_sale_order__volume_uom_name
@@ -527,10 +512,20 @@ msgid "Volume unit of measure label"
 msgstr "Label met volume-eenheid"
 
 #. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Volume(m³)"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__weight_net
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__weight_net
 msgid "Weight (net)"
 msgstr "Netto gewicht"
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__weight_uom_name
+msgid "Weight UoM Label"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_sale_order__weight_uom_name
@@ -538,15 +533,20 @@ msgid "Weight unit of measure label"
 msgstr ""
 
 #. module: mc_stock_layout
-#: model:ir.model.fields,help:mc_stock_layout.field_product_product__weight_net model:ir.model.fields,help:mc_stock_layout.field_product_template__weight_net
-msgid "Weigt net in kilograms"
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Weight(kg)"
 msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__width
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__width
-msgid "Width (cm)"
-msgstr "Breedte (cm)"
+msgid "Width"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Width(cm)"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.actions.report,name:mc_stock_layout.action_report_mc_delivery_slip
@@ -563,12 +563,6 @@ msgstr ""
 #: model:ir.actions.report,name:mc_stock_layout.action_report_mc_so_delivery_slip
 msgid "[MC] Planned Delivery Slip"
 msgstr ""
-
-#. module: mc_stock_layout
-#: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__depth
-#: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__depth
-msgid "depth (cm)"
-msgstr "diepte (cm)"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
