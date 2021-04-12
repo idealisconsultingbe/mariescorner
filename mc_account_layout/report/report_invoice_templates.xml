@@ -48,6 +48,7 @@
 
             <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="attributes">
                 <attribute name="class">mt-2</attribute>
+                <attribute name="t-if">o.type in ('out_invoice', 'in_refund') and o.invoice_payment_ref</attribute>
             </xpath>
 
             <xpath expr="//div[@id='qrcode']" position="after">

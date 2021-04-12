@@ -37,6 +37,7 @@ class SaleOrder(models.Model):
 
     def action_cancel(self):
         """
+        Overridden method
         Cancel the PO linked.
         """
         for rec in self:

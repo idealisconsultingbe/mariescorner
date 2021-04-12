@@ -6,21 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 23:20+0000\n"
-"PO-Revision-Date: 2020-12-04 00:25+0100\n"
+"POT-Creation-Date: 2021-04-12 14:46+0000\n"
+"PO-Revision-Date: 2021-04-12 16:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 2.4.2\n"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact_name
-msgid "&amp;nbsp;"
-msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -35,11 +30,6 @@ msgid ""
 msgstr ""
 "(object.state in ('draft', 'sent') and 'Offre de prix - %s' % (object.name)) or 'Bon de commande - "
 "%s' % (object.name)"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact_name
-msgid ",&amp;nbsp;"
-msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -151,9 +141,29 @@ msgid "<span class=\"text-uppercase v-align-mid fs-6\">Total Price</span>"
 msgstr "<span class=\"text-uppercase v-align-mid fs-7\">Montant TVAC</span>"
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "<span>Payment Terms: </span>"
-msgstr "<span>Conditions de paiement: </span>"
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Consignment Quotation</span>"
+msgstr "<span>Devis de consignation</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Consignment</span>"
+msgstr "<span>Consignation</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>HS Code</span>"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Order</span>"
+msgstr "<span>Commande</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Pro Forma</span>"
+msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -162,8 +172,43 @@ msgstr "<span>Facture Pro-Forma</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Qty</span>"
+msgstr "<span>Qté</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Quotation</span>"
+msgstr "<span>Offre de prix</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Value</span>"
+msgstr "<span>Valeur</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<span>Weight</span>"
+msgstr "<span>Poids</span>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid "Additional Information"
 msgstr "Informations complémentaires"
+
+#. module: mc_sale_layout
+#: model:ir.model.fields,field_description:mc_sale_layout.field_sale_order__payment_bank_id
+msgid "Bank Account for Payment"
+msgstr "Compte bancaire pour paiement"
+
+#. module: mc_sale_layout
+#: model:ir.model.fields,help:mc_sale_layout.field_sale_order__payment_bank_id
+msgid "Bank account used by customer for payment"
+msgstr "Compte bancaire utilisé par le client pour les paiements"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -171,14 +216,10 @@ msgid "Details"
 msgstr "Détails"
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "Email"
-msgstr "Courriel"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "Fax"
-msgstr ""
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_mc_sale_layout_report_saleorder_downpayment__display_name
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_sale_report_saleorder__display_name
+msgid "Display Name"
+msgstr "Nom Affiché"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -191,19 +232,21 @@ msgid "IBAN:"
 msgstr ""
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
-msgid "Maries Corner Logo"
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_mc_sale_layout_report_saleorder_downpayment__id
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_sale_report_saleorder__id
+msgid "ID"
 msgstr ""
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "Mobile"
-msgstr "GSM"
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_mc_sale_layout_report_saleorder_downpayment____last_update
+#: model:ir.model.fields,field_description:mc_sale_layout.field_report_sale_report_saleorder____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "Order"
-msgstr "Bon de commande"
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
+msgid "Maries Corner Logo"
+msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_external_layout
@@ -211,19 +254,14 @@ msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 
 #. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "Phone"
-msgstr "Téléphone"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "Quotation"
-msgstr "Offre de prix"
-
-#. module: mc_sale_layout
 #: model:ir.actions.report,name:mc_sale_layout.action_report_saleorder_downpayment
 msgid "Quotation / Order with down payment"
 msgstr "Devis / Commande avec acompte"
+
+#. module: mc_sale_layout
+#: model:ir.model,name:mc_sale_layout.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -232,7 +270,7 @@ msgstr "Sous-total"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "To order"
+msgid "To place an order"
 msgstr "Pour commander"
 
 #. module: mc_sale_layout
@@ -256,20 +294,15 @@ msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "We would be grateful if you could pay us the amount of"
-msgstr "Nous vous remercions de bien vouloir nous verser le montant de"
-
-#. module: mc_sale_layout
-#: model_terms:ir.ui.view,arch_db:mc_sale_layout.contact
-msgid "Website"
-msgstr "Site Web"
+msgid "We thank you to settle the amount of"
+msgstr "Nous vous remercions de bien vouloir nous transférer le montant de"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "You are satisfied with this offer and you want to order, you just have to make a payment of"
+msgid "You are satisfied with this offer and you want to order, We thank you to settle the amount of"
 msgstr ""
-"Si vous êtes satisfait de cette offre et désirez passer commande, vous n'avez qu'à procéder au "
-"paiement de"
+"Cette offre vous satisfait et vous désirez commander, nous vous remercions dès lors de bien vouloir "
+"nous transférer le montant de"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
@@ -282,5 +315,20 @@ msgstr ""
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
-msgid "to our bank account:<br/>"
-msgstr "aux coordonnées bancaires suivantes:<br/>"
+msgid "at the below bank details in order to enable us to start the production.<br/>"
+msgstr "aux coordonnées bancaires ci-dessous ce qui nous permettera de démarrer la production.<br/>"
+
+#. module: mc_sale_layout
+#: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
+msgid "at the below bank details:<br/>"
+msgstr "aux coordonnées bancaires ci-dessous:<br/>"
+
+#. module: mc_sale_layout
+#: model:ir.model,name:mc_sale_layout.model_report_mc_sale_layout_report_saleorder_downpayment
+msgid "report.mc_sale_layout.report_saleorder_downpayment"
+msgstr ""
+
+#. module: mc_sale_layout
+#: model:ir.model,name:mc_sale_layout.model_report_sale_report_saleorder
+msgid "report.sale.report_saleorder"
+msgstr ""

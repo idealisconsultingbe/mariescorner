@@ -25,7 +25,7 @@ class StockPicking(models.Model):
         template = self.env['mail.template'].browse(template_id)
         if template.lang:
             lang = template._render_template(template.lang, 'stock.picking', self.ids[0])
-
+        self = self.with_context(lang=lang)
         # Email to -> picking partner, user and sale representative
         partner_ids = [self.env.user.partner_id.id]
         if self.partner_id:
@@ -42,7 +42,7 @@ class StockPicking(models.Model):
             'default_composition_mode': 'comment',
             'custom_layout': 'mail.mail_notification_light',
             'force_email': True,
-            'model_description': 'Delivery Order',
+            'model_description': self.with_context(lang=lang)._description,
         }
         return {
             'type': 'ir.actions.act_window',

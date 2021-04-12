@@ -119,7 +119,7 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             purchase_order_lines = self.env['purchase.order.line'].search([('sale_line_id', '=', line.id)])
             if purchase_order_lines:
-                purchase_order_ids = purchase_order_lines.mapped('order_id')
+                purchase_order_ids |= purchase_order_lines.mapped('order_id')
             if line.move_ids:
                 move = line.move_ids[0]
                 purchase_order_line = move._get_purchase_line_id()
