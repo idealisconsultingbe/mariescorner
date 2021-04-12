@@ -35,6 +35,16 @@ class SaleOrder(models.Model):
             available_carriers = carriers.available_carriers(order.partner_shipping_id) if order.partner_shipping_id else carriers
             order.carrier_id = available_carriers[0] if available_carriers else False
 
+    def unlink(self):
+        """
+        Overridden method
+        Unlink purchase orders created by MTO process.
+        """
+        sales_lots = self.order_line.mapped('sales_lot_id')
+        purchase_order_lines = self.env['purchase.order.line'].search([('sales_lot_id', 'in', sales_lots.ids)])
+        purchase_order_lines.mapped('order_id').unlink()
+        return super().unlink()
+
     def action_cancel(self):
         """
         Overridden method

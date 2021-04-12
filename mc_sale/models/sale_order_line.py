@@ -47,6 +47,16 @@ class SaleOrderLine(models.Model):
                      'list_price': product.list_price,})
         return res
 
+    def unlink(self):
+        """
+        Overridden method
+        Unlink purchase order lines created by MTO process.
+        """
+        sales_lots = self.mapped('sales_lot_id')
+        purchase_order_lines = self.env['purchase.order.line'].search([('sales_lot_id', 'in', sales_lots.ids)])
+        purchase_order_lines.unlink()
+        return super().unlink()
+
     def _prepare_invoice_line(self):
         """
         Overridden method
