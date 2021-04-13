@@ -39,7 +39,7 @@
             </t>
             <t t-set="quotation" t-if="not (env.context.get('proforma', False) or is_pro_forma) and doc.state in ['draft','sent']">
                 <t t-if="doc.is_rental_order">
-                    <span>Consignment Quotation</span>
+                    <span style="font-size: 1.7rem;">Lending Quotation</span>
                 </t>
                 <t t-else="">
                     <span>Quotation</span>
@@ -50,7 +50,7 @@
                     <span>Pro Forma</span>
                 </t>
                 <t t-elif="doc.is_rental_order">
-                    <span>Consignment</span>
+                    <span style="font-size: 1.7rem;">Lending Confirmation</span>
                 </t>
                 <t t-else="">
                     <span>Order</span>
