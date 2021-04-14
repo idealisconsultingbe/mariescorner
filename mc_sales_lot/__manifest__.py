@@ -29,6 +29,8 @@
         'report/mrp_production_report_views.xml',
         'report/sales_lot_report_templates.xml',
         'report/sales_lot_report_views.xml',
+        'report/stock_picking_report_templates.xml',
+        'report/stock_picking_report_views.xml',
         'views/product_category_views.xml',
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
