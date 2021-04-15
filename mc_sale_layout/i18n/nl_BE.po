@@ -149,12 +149,12 @@ msgstr "<span class=\"text-uppercase v-align-mid fs-6\">Totale Prijs</span>"
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid "<span style=\"font-size: 1.7rem;\">Lending Confirmation</span>"
-msgstr "<span style=\"font-size: 1.7rem;\">Lending Confirmation</span>"
+msgstr "<span style=\"font-size: 1.7rem;\">Orderbevest. op zicht</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document
 msgid "<span style=\"font-size: 1.7rem;\">Lending Quotation</span>"
-msgstr "<span style=\"font-size: 1.7rem;\">Lending Quotation</span>"
+msgstr "<span style=\"font-size: 1.7rem;\">Orderbevest. op zicht</span>"
 
 #. module: mc_sale_layout
 #: model_terms:ir.ui.view,arch_db:mc_sale_layout.mc_report_saleorder_document

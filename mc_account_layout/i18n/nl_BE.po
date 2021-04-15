@@ -35,7 +35,7 @@ msgstr "<span>Hoeveelh.</span>"
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
 msgid "<span>Value</span>"
-msgstr "<span>Bedra / Waarde</span>"
+msgstr "<span>Bedra/Waarde</span>"
 
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
