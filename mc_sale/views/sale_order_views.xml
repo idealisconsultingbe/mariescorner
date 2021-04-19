@@ -12,6 +12,9 @@
             <xpath expr="//field[@name='commitment_date']" position="after">
                 <field name="effective_date" string="Effective Date" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='create_date']" position="after">
+                <field name="date_order" string="Quotation Date" optional="show"/>
+            </xpath>
             <xpath expr="//field[@name='partner_id']" position="before">
                 <field name="origin" optional="hide"/>
             </xpath>
@@ -41,6 +44,15 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order'][2]" position="after">
+                <field name="registered_date_order" groups="base.group_no_one"/>
+            </xpath>
+            <xpath expr="//field[@name='date_order'][1]" position="attributes">
+                <attribute name="groups"/>
+            </xpath>
+            <xpath expr="//label[@for='date_order'][1]/.." position="attributes">
+                <attribute name="groups"/>
+            </xpath>
             <xpath expr="//group[@name='note_group']" position="before">
                 <div class="oe_right">
                     <button
