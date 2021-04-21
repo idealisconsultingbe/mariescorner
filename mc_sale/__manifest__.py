@@ -32,6 +32,8 @@
         'account'
     ],
     'data': [
+        # data
+        'data/mail_templates.xml',
         # security
         'security/ir.model.access.csv',
         'security/mc_sale_security_rule.xml',
@@ -53,6 +55,7 @@
         'views/res_company_views.xml',
         'views/report_templates.xml',
         'views/delivery_view.xml',
+        'views/product_views.xml',
         # wizard
         'wizard/sale_product_configurator_views.xml',
         # report
