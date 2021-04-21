@@ -86,8 +86,8 @@
                 </tr>
                 <tr>
                     <td class="pt-01 pb-01">
-                        <strong>QTY :</strong>
-                        <span class="font-weight-bold" t-field="line.qty_done"/>
+                        <strong>QTY: </strong>
+                        <span class="font-weight-bold" t-field="line.qty_done"/> <span class="font-weight-bold" t-field="line.product_uom_id.name"/>
                     </td>
                 </tr>
                 <tr>
@@ -128,7 +128,7 @@
     <template id="report_stock_picking_label">
         <t t-call="web.basic_layout">
             <t t-set="docs" t-value="docs.sudo()"/>
-            <t t-foreach="docs.filtered(lambda p: p.state == 'done' and p.picking_type_code == 'outgoing')" t-as="doc">
+            <t t-foreach="docs.filtered(lambda p: p.state in ['assigned','done'])" t-as="doc">
                 <t t-foreach="doc.move_line_ids" t-as="line">
                     <t t-call="mc_sales_lot.report_stock_picking_labels_document" t-lang="doc.env.lang"/>
                 </t>
