@@ -12,11 +12,7 @@ class SaleOrder(models.Model):
         for order in self:
             if len([x for x in order.order_line if x.product_id.categ_id.send_mail_order_confirmation]) > 0:
                 template = self.env.ref('mc_sale.mail_template_send_mail_confirmation_order', raise_if_not_found=True)
-                try:
-                    template.send_mail(order.id, force_send=True)
-                    order.message_post(body=_("Order confirmation email sent."))
-                except:
-                    raise UserError(_("Can't send confirmation order email"))
+                order.message_post_with_template(template.id)
         return super(SaleOrder, self)._action_confirm()
 
     @api.depends('partner_id')
