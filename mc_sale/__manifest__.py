@@ -23,10 +23,19 @@
     """,
     'author': 'dwa@idealisconsulting, pfi@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['sale_product_configurator', 'sale_management', 'inter_company_rules', 'purchase_stock', 'delivery', 'account'],
+    'depends': [
+        'sale_product_configurator',
+        'sale_management',
+        'inter_company_rules',
+        'purchase_stock',
+        'delivery',
+        'account'
+    ],
     'data': [
+        # security
         'security/ir.model.access.csv',
         'security/mc_sale_security_rule.xml',
+        # views
         'views/ir_qweb_widget_templates.xml',
         'views/res_config_settings_views.xml',
         'views/product_attribute_value_percentage_price_views.xml',
@@ -43,7 +52,10 @@
         'views/stock_picking_views.xml',
         'views/res_company_views.xml',
         'views/report_templates.xml',
+        'views/delivery_view.xml',
+        # wizard
         'wizard/sale_product_configurator_views.xml',
+        # report
         'report/res_partner_templates.xml',
         'report/res_partner_report_views.xml',
     ],
@@ -51,4 +63,3 @@
     'installable': True,
     'application': False,
 }
-

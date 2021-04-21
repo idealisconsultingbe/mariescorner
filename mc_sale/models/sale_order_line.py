@@ -16,6 +16,7 @@ class SaleOrderLine(models.Model):
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
     price_unit = fields.Float(string='Customer Price')
+    route_id = fields.Many2one(related='order_id.carrier_id.route_id')
 
     @api.onchange('product_id', 'product_uom_qty')
     def product_id_change(self):
