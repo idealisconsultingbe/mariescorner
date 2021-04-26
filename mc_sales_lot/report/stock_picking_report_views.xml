@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <report
+            id="action_report_stock_picking_label"
+            string="Detailed Operation Labels"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="mc_sales_lot.report_stock_picking_label"
+            name="mc_sales_lot.report_stock_picking_label"
+            print_report_name="('Detailed Operation Labels - %s' % (object.name))"
+            paperformat="mc_sales_lot.paperformat_manufacturing_number_labels"
+        />
+    </data>
+</odoo>
