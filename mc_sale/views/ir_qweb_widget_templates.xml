@@ -32,6 +32,17 @@
                     <span t-field="object.country_id.image" t-options='{"widget": "image", "class": "country_flag"}'/>
                 </t>
             </div>
+            <div t-elif="'parent_name' in fields">
+                <t t-if="object.parent_name">
+                    <span itemprop="name" t-esc="object.parent_name"/>
+                </t>
+                <t t-if="not object.parent_name and object.name">
+                    <span itemprop="name" t-esc="object.name"/>
+                </t>
+                <t t-if="options.get('country_image') and 'country_id' in fields and object.country_id and object.country_id.image">
+                    <span t-field="object.country_id.image" t-options='{"widget": "image", "class": "country_flag"}'/>
+                </t>
+            </div>
        </xpath>
     </template>
     

@@ -15,7 +15,7 @@
                 <!-- set invoicing address -->
                 <t t-if="o.sale_id" name="invoicing_partner_header">
                     <t t-set="invoicing_address">
-                        <div t-field="o.sale_id.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True, "no_contact_marker": False}'/>
+                        <div t-field="o.sale_id.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "parent_name"], "no_marker": True, "no_contact_marker": False}'/>
                     </t>
                 </t>
 
@@ -202,13 +202,11 @@
                         The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state.
                     </p>
                     <table class="table table-sm table-bordered" name="signature_table">
-                        <thead>
-                            <tr>
-                                <th name="th_customer_signature" class="text-center" style="width: 50%;" ><span>Customer Signature</span></th>
-                                <th name="th_delivery_signature" class="text-center" style="width: 50%;"><span>Delivery Signature</span></th>
-                            </tr>
-                        </thead>
                         <tbody>
+                            <tr>
+                                <th name="th_customer_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;" ><span>Customer Signature</span></th>
+                                <th name="th_delivery_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;"><span>Delivery Signature</span></th>
+                            </tr>
                             <tr>
                                 <td style="line-height: 100px !important;">&amp;nbsp;</td>
                                 <td style="line-height: 100px !important;">&amp;nbsp;</td>
