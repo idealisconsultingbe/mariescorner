@@ -9,18 +9,25 @@ from odoo.tools import float_round
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    # change label
     list_price = fields.Float(string='Base Price', digits='Product Price',
                               help='This is the product public price')
-    list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price',
+
+    # new fields
+    list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price', store=True, copy=True,
                                     help='This is the product public price and the sum of the extra price of all attributes (with custom values)')
     delivery_date = fields.Date(related='sales_lot_id.delivery_date')
     fabric_date = fields.Date(related='sales_lot_id.fabric_date')
 
-    @api.depends('product_custom_attribute_value_ids',
-                 'product_no_variant_attribute_value_ids',
+    @api.depends('product_no_variant_attribute_value_ids',
                  'product_id.product_template_attribute_value_ids',
                  'list_price')
     def _compute_list_price_extra(self):
+        """
+        Compute list_extra_price which is product price with extra and eventually a pricelist applied
+        Removed 'product_custom_attribute_value_ids' from depends in order to prevent recomputation when order is sent to production
+        (because product_custom_attribute_value_ids are lost)
+        """
         for line in self:
             price = line.list_price
             extra_prices = line._get_no_variant_attributes_price_extra(line.product_id)
@@ -92,7 +99,7 @@ class SaleOrderLine(models.Model):
             if no_variant_attributes_price_extra:
                 product = product.with_context(no_variant_attributes_price_extra=tuple(no_variant_attributes_price_extra))
             if self.order_id.pricelist_id.discount_policy == 'with_discount':
-                return product.with_context(pricelist=self.order_id.pricelist_id.id).price
+                return float_round(product.with_context(pricelist=self.order_id.pricelist_id.id).price, precision_digits=0)
             product_context = dict(self.env.context, partner_id=self.order_id.partner_id.id, date=self.order_id.date_order, uom=self.product_uom.id)
 
             final_price, rule_id = self.order_id.pricelist_id.with_context(product_context).get_product_price_rule(
@@ -106,6 +113,6 @@ class SaleOrderLine(models.Model):
                     base_price, self.order_id.pricelist_id.currency_id,
                     self.order_id.company_id or self.env.company, self.order_id.date_order or fields.Date.today())
             # negative discounts (= surcharge) are included in the display price
-            return max(base_price, final_price)
+            return float_round(max(base_price, final_price), precision_digits=0)
         else:
             return super(SaleOrderLine, self)._get_display_price(product)
