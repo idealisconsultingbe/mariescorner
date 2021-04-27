@@ -9,12 +9,12 @@
             <t t-else="">
                 <t t-set="qty" t-value="1"/>
             </t>
-            <t t-if="len(sales_lot.product_id.name) > 27">
-                <t t-set="product_name1" t-value="sales_lot.product_id.name[:27]+'-'"/>
-                <t t-set="product_name2" t-value="sales_lot.product_id.name[27:]"/>
+            <t t-if="len(sales_lot.product_id.default_code) &gt; 27">
+                <t t-set="product_name1" t-value="sales_lot.product_id.default_code[:27]+'-'"/>
+                <t t-set="product_name2" t-value="sales_lot.product_id.default_code[27:]"/>
             </t>
             <t t-else="">
-                <t t-set="product_name1" t-value="sales_lot.product_id.name"/>
+                <t t-set="product_name1" t-value="sales_lot.product_id.default_code"/>
                 <t t-set="product_name2" t-value="''"/>
             </t>
             <t t-foreach="range(qty)" t-as="i">
