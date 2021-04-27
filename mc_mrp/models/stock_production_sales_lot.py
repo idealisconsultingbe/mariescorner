@@ -25,8 +25,8 @@ class ProductionSalesLot(models.Model):
                 sales_lot.fabric_date = sales_lot.ext_fabric_date
                 sales_lot.delivery_date = sales_lot.ext_delivery_date
             else:
-                delivery_dates_list = [production.delivery_date for production in sales_lot.production_ids]
-                fabric_dates_list = [production.fabric_date for production in sales_lot.production_ids]
+                delivery_dates_list = [production.delivery_date for production in sales_lot.production_ids if production.delivery_date]
+                fabric_dates_list = [production.fabric_date for production in sales_lot.production_ids if production.fabric_date]
                 if delivery_dates_list:
                     sales_lot.delivery_date = max(delivery_dates_list)
                 else:
