@@ -20,6 +20,7 @@
                 </div>
             </field>
             <field name="lang">${user.lang}</field>
+            <field name="report_template" ref="mc_sale_layout.action_report_saleorder_downpayment"/>
             <field name="auto_delete" eval="True"/>
         </record>
     </data>
