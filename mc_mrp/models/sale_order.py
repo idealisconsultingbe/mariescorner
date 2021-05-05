@@ -121,10 +121,11 @@ class SaleOrder(models.Model):
             if purchase_order_lines:
                 purchase_order_ids |= purchase_order_lines.mapped('order_id')
             if line.move_ids:
-                move = line.move_ids[0]
-                purchase_order_line = move._get_purchase_line_id()
-                if purchase_order_line:
-                    purchase_order_ids |= purchase_order_line.order_id
+                move = line.move_ids.filtered(lambda m: m.state != 'cancel')[0] if line.move_ids.filtered(lambda m: m.state != 'cancel') else False
+                if move:
+                    purchase_order_line = move._get_purchase_line_id()
+                    if purchase_order_line:
+                        purchase_order_ids |= purchase_order_line.order_id
         return purchase_order_ids
 
     def action_confirm_purchase_order(self):
