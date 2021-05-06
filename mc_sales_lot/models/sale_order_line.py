@@ -23,6 +23,8 @@ class SaleOrderLine(models.Model):
     allow_set_sales_lot_id = fields.Boolean(string='Manual Manufacturing Number', default=_default_allow_set_sales_lot)
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
     fabric_purchase_order_description = fields.Text(compute='_get_fabric_purchase_orders_description', compute_sudo=True, string="Fabric Order(s)")
+    fabric_ordered = fields.Boolean(string='Fabric Ordered', default=False)
+
 
     def _get_fabric_purchase_orders_description(self):
         """
