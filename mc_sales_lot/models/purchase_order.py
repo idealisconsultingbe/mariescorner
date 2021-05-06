@@ -7,7 +7,7 @@ from odoo import api, models, fields
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    sales_lot_id = fields.Many2one('stock.production.sales.lot', string="Manufacturing Number")
+    sales_lot_ids = fields.Many2many('stock.production.sales.lot', string="Manufacturing Numbers")
 
     @api.model
     def _prepare_sale_order_line_data(self, line, company, sale_id):
@@ -54,6 +54,6 @@ class PurchaseOrder(models.Model):
         """ Set automatically sales lot external state to 'To Produce' of each purchase order line at purchase order confirmation """
         res = super(PurchaseOrder, self).button_confirm()
         for order in self:
-            sales_lots = order.order_line.mapped('sales_lot_id').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_produce')
-            sales_lots.external_state = 'in_manufacturing'
+            sales_lots = order.order_line.mapped('sales_lot_ids').filtered(lambda lot: lot.supplier_type == 'external' and lot.external_state == 'to_produce')
+            sales_lots.write({'external_state': 'in_manufacturing'})
         return res
