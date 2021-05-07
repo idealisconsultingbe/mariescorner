@@ -73,8 +73,8 @@
                             <group>
                                 <field name="manufacturing_date" class="oe_inline"/>
                                 <field name="shipped_date" class="oe_inline"/>
-                                <field name="ext_delivery_date" string="Planned Delivery Date" invisible="1"/>
-                                <field name="ext_fabric_date" string="Fabric Date" invisible="1"/>
+                                <field name="ext_delivery_date" string="Planned Delivery Date"/>
+                                <field name="ext_fabric_date" string="Fabric Date"/>
                             </group>
                         </page>
                         <page name="status" string="Status">
