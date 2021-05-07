@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 17:04+0000\n"
-"PO-Revision-Date: 2021-04-12 19:22+0200\n"
+"POT-Creation-Date: 2021-05-07 14:01+0000\n"
+"PO-Revision-Date: 2021-05-07 16:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: nl_BE\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. module: mc_stock_layout
 #: model:mail.template,report_name:mc_stock_layout.picking_availability_mail model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
@@ -257,7 +257,7 @@ msgstr "<span>Handtekening Klant</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Deliv. Qty</span>"
-msgstr "<span>Geleverde Hoeveelheid</span>"
+msgstr "<span>Geleverde Hoeveelh</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -267,7 +267,7 @@ msgstr "<span>Handtekening leveringsbedrijf</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Depth</span>"
-msgstr "<span>Diepte</span>"
+msgstr "<span>D</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -277,7 +277,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Height</span>"
-msgstr "<span>Hoogte</span>"
+msgstr "<span>H</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -287,12 +287,12 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Manuf N°</span>"
-msgstr "<span>Produktie Nummer</span>"
+msgstr "<span>Prod. Num.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Ord. Qty</span>"
-msgstr "<span>Bestelde hoeveelheid</span>"
+msgstr "<span>Bestelde Hoeveelh</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -300,9 +300,14 @@ msgid "<span>Product</span>"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
+msgid "<span>Total </span><span>..................</span><span> Packages</span>"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Volume</span>"
-msgstr ""
+msgstr "<span>Vol.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -312,7 +317,7 @@ msgstr "<span>Gewicht</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid "<span>Width</span>"
-msgstr "<span>Breedte</span>"
+msgstr "<span>B</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -374,6 +379,11 @@ msgid "<strong>Volume</strong>&amp;nbsp;"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
+msgid "<strong>Weight (kg)</strong>&amp;nbsp;"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
 msgid ""
 "<strong>Weight:</strong>\n"
@@ -393,9 +403,29 @@ msgid "CMR Document"
 msgstr "Hoogte"
 
 #. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.print_stock_report_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__cms_uom_name
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__cms_uom_name
 msgid "Centimeters UoM Label"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__company_id
+msgid "Company"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__create_date
+msgid "Created on"
 msgstr ""
 
 #. module: mc_stock_layout
@@ -410,6 +440,11 @@ msgid "Depth(cm)"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__height
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_template__height
 msgid "Height"
@@ -421,8 +456,28 @@ msgid "Height(cm)"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__id
+msgid "ID"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_address_layout
 msgid "Invoicing Address"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: mc_stock_layout
@@ -444,6 +499,31 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.mc_external_layout
 msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr "Pagina: <span class=\"page\"/> / <span class=\"topage\"/>"
+
+#. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__picking_id
+msgid "Picking"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
+msgid "Print Report"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.print_stock_report_view_form
+msgid "Print Selected Report"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.actions.act_window,name:mc_stock_layout.print_stock_report_action model_terms:ir.ui.view,arch_db:mc_stock_layout.print_stock_report_view_form
+msgid "Print Stock Report"
+msgstr ""
+
+#. module: mc_stock_layout
+#: model:ir.model,name:mc_stock_layout.model_print_stock_report
+msgid "Print Stock Report With Different Company Header/Footer"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_stock_move__product_depth
@@ -476,9 +556,19 @@ msgid "Product Width"
 msgstr ""
 
 #. module: mc_stock_layout
+#: model:ir.model.fields,field_description:mc_stock_layout.field_print_stock_report__action_report_id
+msgid "Report"
+msgstr ""
+
+#. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_sale_order
 msgid "Sales Order"
 msgstr "Verkooporder"
+
+#. module: mc_stock_layout
+#: model_terms:ir.ui.view,arch_db:mc_stock_layout.print_stock_report_view_form
+msgid "Select a Printable Report"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.view_picking_form
@@ -493,7 +583,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_stock_move
 msgid "Stock Move"
-msgstr "Voorraadmutatie"
+msgstr "Voorraadbeweging"
 
 #. module: mc_stock_layout
 #: model:ir.model,name:mc_stock_layout.model_stock_picking
@@ -567,4 +657,10 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
 msgid "m³"
+msgstr ""
+
+#. module: mc_stock_layout
+#: code:addons/mc_stock_layout/wizard/print_stock_report.py:0
+#, python-format
+msgid "{} has been generated with {} header/footer."
 msgstr ""

@@ -31,13 +31,13 @@ class StockMove(models.Model):
     product_width = fields.Float(string='Product Width', compute='_compute_product_info', store=True, readonly=False)
     product_depth = fields.Float(string='Product Depth', compute='_compute_product_info', store=True, readonly=False)
 
-    @api.depends('product_id.height', 'product_id.width', 'product_id.depth', 'product_id.volume', 'product_id.weight')
+    @api.depends('product_id.height', 'product_id.width', 'product_id.depth', 'product_id.volume', 'product_id.weight', 'product_uom_qty')
     def _compute_product_info(self):
         for move in self:
             move.update({
                 'product_height': move.product_id.height,
                 'product_width': move.product_id.width,
                 'product_depth': move.product_id.depth,
-                'product_volume': move.product_id.volume,
-                'product_weight': move.product_id.weight
+                'product_volume': move.product_id.volume * move.product_uom_qty,
+                'product_weight': move.product_id.weight * move.product_uom_qty
             })
