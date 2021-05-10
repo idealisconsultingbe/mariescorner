@@ -18,11 +18,9 @@ class ProductTemplateAttributeValue(models.Model):
     @api.depends_context('force_company')
     def _compute_price_extra(self):
         """ compute extra price according to precedence rule:
-        * Precedence rule -> manual price > linear price & custom value > percentage price > linear price  >  0.0
+        * Precedence rule -> manual price > percentage price >  0.0
         -   if product template attribute value 'manual price' flag is on, then use price manually set by user
-        -   else if product attribute has 'linear price' flag set,
-            then extra price should be 0.0 and computed later on (computed through the product configurator when the user has given the length used: unit price * custom quantity).
-        -   else if has a 'percentage price' matching product category,
+        -   else if product attribute has a 'percentage price' matching product category,
             apply this percentage on public price,
         -   else extra price is 0.0
         """
@@ -30,8 +28,6 @@ class ProductTemplateAttributeValue(models.Model):
             price_extra = 0.0
             if value.is_manual_price_extra:
                 price_extra = value.manual_price_extra
-            elif value.product_attribute_value_id.has_linear_price:
-                price_extra = 0.0
             elif value.product_attribute_value_id.percentage_price_ids:
                 percentage_price = value._get_percentage_price()
                 if percentage_price and percentage_price.type == 'percentage':
