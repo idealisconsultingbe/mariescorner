@@ -145,7 +145,7 @@ def configure_ptav_exclusion(color_name, color_attribute_ids, fabric_attribute_i
                                                         'product.template.attribute.value',
                                                         'search_read',
                                                         [[
-                                                            ('name', 'not in', attribute_combinaison_inverse[color_attribute_value]),
+                                                            ('name', 'not in', attribute_combinaison_inverse[color_name]),
                                                             ('product_tmpl_id', 'in', product_ids),
                                                             ('attribute_id', '=', attribute_fabric_id)
                                                         ]],
@@ -159,7 +159,7 @@ def configure_ptav_exclusion(color_name, color_attribute_ids, fabric_attribute_i
                                            'search_read',
                                            [[
                                                ('product_template_attribute_value_id', 'in', ptav_color_ids),
-                                               ('product_tmpl_id', '=', product_ids),
+                                               ('product_tmpl_id', 'in', product_ids),
                                            ]],
                                            {'fields': ['product_template_attribute_value_id', 'product_tmpl_id', 'value_ids']}
                                            )
@@ -179,9 +179,11 @@ def configure_ptav_exclusion(color_name, color_attribute_ids, fabric_attribute_i
                         }])
             for ptav_color_id in ptav_color_without_exclusion_ids:
                 product_tmpl_id = ptav_color_records[ptav_color_id]['product_tmpl_id'][0]
-                exclusion_to_create.append({'product_template_attribute_value_id': ptav_color_id,
-                                            'product_tmpl_id': product_tmpl_id,
-                                            'value_ids': [(6, 0, unallowed_ptav_fabric_by_product[product_tmpl_id])]})
+                unallowed_ptav_fabric = unallowed_ptav_fabric_by_product[product_tmpl_id] if product_tmpl_id in unallowed_ptav_fabric_by_product else False
+                if unallowed_ptav_fabric:
+                    exclusion_to_create.append({'product_template_attribute_value_id': ptav_color_id,
+                                                'product_tmpl_id': product_tmpl_id,
+                                                'value_ids': [(6, 0, unallowed_ptav_fabric_by_product[product_tmpl_id])]})
     return exclusion_to_create
 
 
