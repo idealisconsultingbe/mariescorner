@@ -95,7 +95,7 @@ msgstr "Laatst gewijzigd op"
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document_with_payments
 msgid "We would be grateful if you could pay us the amount of"
-msgstr "we zouden dankbaar zijn als u het bedrag aan ons zou kunnen betalen"
+msgstr "We zouden dankbaar zijn als u het bedrag aan ons zou kunnen betalen"
 
 #. module: mc_account_layout
 #: model:ir.model,name:mc_account_layout.model_report_account_report_invoice

@@ -381,7 +381,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_cmr_document
 msgid "<strong>Weight (kg)</strong>&amp;nbsp;"
-msgstr ""
+msgstr "<strong>Gewicht (kg)</strong>&amp;nbsp;"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document model_terms:ir.ui.view,arch_db:mc_stock_layout.report_so_delivery_document
@@ -400,7 +400,7 @@ msgstr "Alle artikelen konden niet worden verzonden, de resterende zullen worden
 #. module: mc_stock_layout
 #: model:ir.actions.report,name:mc_stock_layout.action_report_mc_cmr_document
 msgid "CMR Document"
-msgstr "Hoogte"
+msgstr ""
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.print_stock_report_view_form
@@ -625,7 +625,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.stock_picking_view_form
 msgid "Weight(kg)"
-msgstr ""
+msgstr "Gewicht (kg)"
 
 #. module: mc_stock_layout
 #: model:ir.model.fields,field_description:mc_stock_layout.field_product_product__width
