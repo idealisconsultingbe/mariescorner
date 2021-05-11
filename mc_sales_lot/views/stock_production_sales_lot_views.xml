@@ -28,7 +28,7 @@
             <form name="sales_lot_form" create="0">
                 <header>
                     <field name="manufacturing_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,received_by_supplier,internal_transit,internal_receipt,delivered" attrs="{'invisible': [('supplier_type', '=', 'external')]}"/>
-                    <field name="external_state" widget="statusbar" statusbar_visible="cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
+                    <field name="external_state" widget="statusbar" statusbar_visible="to_produce,in_manufacturing,received_by_manufacturer,internal_transit,cancel" options="{'clickable': '1'}" attrs="{'invisible': [('supplier_type', '=', 'internal')]}"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
@@ -71,10 +71,10 @@
                     <notebook>
                         <page name="ext_company" string="External Company" attrs="{'invisible': [('supplier_type', '!=', 'external')]}">
                             <group>
+                                <field name="ext_fabric_date" string="Fabric Date" class="oe_inline"/>
                                 <field name="manufacturing_date" class="oe_inline"/>
                                 <field name="shipped_date" class="oe_inline"/>
-                                <field name="ext_delivery_date" string="Planned Delivery Date"/>
-                                <field name="ext_fabric_date" string="Fabric Date"/>
+                                <field name="ext_delivery_date" string="Planned Delivery Date" class="oe_inline"/>
                             </group>
                         </page>
                         <page name="status" string="Status">

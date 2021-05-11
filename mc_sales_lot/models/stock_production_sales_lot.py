@@ -45,11 +45,11 @@ class ProductionSalesLot(models.Model):
     # Dates
     fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
     mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
-    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
+    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor', tracking=True)
     fabric_received_date = fields.Date(string='Fabric Received Date')
-    shipped_date = fields.Date(string='Shipped Date')
-    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
-    manufacturing_date = fields.Date(string='Manufacturing Date')
+    shipped_date = fields.Date(string='Shipped Date', tracking=True)
+    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor', tracking=True)
+    manufacturing_date = fields.Date(string='Manufacturing Date', tracking=True)
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
