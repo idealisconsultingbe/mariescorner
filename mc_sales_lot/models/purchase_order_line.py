@@ -8,7 +8,6 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Manufacturing Number', readonly=True, copy=False)
-    sales_lot_supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], related='sales_lot_id.supplier_type', string='Supplier Type')
     sales_lot_activated = fields.Boolean(string='Sales Lot Activated', related='product_id.sales_lot_activated')
 
     def _find_candidate(self, product_id, product_qty, product_uom, location_id, name, origin, company_id, values):

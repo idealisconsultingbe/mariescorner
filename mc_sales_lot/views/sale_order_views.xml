@@ -39,11 +39,12 @@
                 <field name="sales_lot_id" string='Manuf N°' domain="[('product_id', '=', product_id)]" attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id, 'default_product_id': product_id}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="sales_lot_supplier_type" invisible="1"/>
                 <field name="sales_lot_id_required" invisible="1"/>
                 <field name="sales_lot_id_needed" invisible="1"/>
                 <field name="allow_set_sales_lot_id" optional="hide" string="Set Manuf N°" attrs="{'readonly': [('state', 'in', ['sale', 'done'])]}"/>
                 <field name="sales_lot_id" string='Manuf N°' domain="[('product_id', '=', product_id)]" attrs="{'readonly': ['|', ('sales_lot_id_needed', '=', False), ('state', 'in', ['sale', 'done'])], 'required': [('sales_lot_id_required', '=', True), ('state', 'in', ['sale', 'done'])]}" context="{'default_partner_id': parent.partner_id, 'default_product_id': product_id}"/>
-                <field name="fabric_ordered" attrs="{'invisible': ['|', ('sales_lot_id_required', '=', False)]}" optional="hide"/>
+                <field name="fabric_ordered" attrs="{'invisible': ['|', ('sales_lot_id_required', '=', False), ('sales_lot_supplier_type', '!=', 'external')]}" optional="hide"/>
                 <field name="fabric_purchase_order_description" optional="hide"/>
                 <field name="manufacturing_state" optional="hide"/>
             </xpath>

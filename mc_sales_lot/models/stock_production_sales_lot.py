@@ -41,6 +41,7 @@ class ProductionSalesLot(models.Model):
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
+    fabric_ordered = fields.Boolean(string='Fabric Ordered', related='origin_sale_order_line_id.fabric_ordered', store=True, help="Technical field used in a scheduled action")
 
     # Dates
     fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
