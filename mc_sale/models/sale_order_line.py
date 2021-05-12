@@ -16,6 +16,12 @@ class SaleOrderLine(models.Model):
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
     price_unit = fields.Float(string='Customer Price')
+    route_id = fields.Many2one('stock.location.route', compute='_compute_route_id', store=True, readonly=False)
+
+    @api.depends('order_id.carrier_id.route_id', 'product_id')
+    def _compute_route_id(self):
+        for line in self:
+            line.route_id = line.order_id.carrier_id.route_id if line.order_id.carrier_id else False
 
     @api.onchange('product_id', 'product_uom_qty')
     def product_id_change(self):

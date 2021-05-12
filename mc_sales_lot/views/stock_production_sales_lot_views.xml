@@ -48,7 +48,7 @@
                                 <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
                             </div>
                             <field name="so_origin_name"/>
-                            <field name="carrier_id" readonly="1"/>
+                            <field name="carrier_id"/>
                         </group>
                         <group name="fabric_mc" string="Fabric MC">
                             <label for="fabric_received_mc"/>

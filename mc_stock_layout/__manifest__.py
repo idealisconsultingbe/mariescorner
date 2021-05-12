@@ -12,6 +12,7 @@
     'depends': ['mc_sale', 'mc_sales_lot', 'mc_sales_representative'],
     'data': [
         'data/data_reports.xml',
+        'wizard/print_stock_report_views.xml',
         'views/stock_picking_views.xml',
         'report/sale_order_templates.xml',
         'report/sale_order_report.xml',

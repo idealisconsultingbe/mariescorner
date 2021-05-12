@@ -9,9 +9,11 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['mc_sale', 'mc_sales_lot', 'mc_sales_representative'],
     'data': [
+        'wizard/print_sale_report_views.xml',
         'report/sale_order_templates.xml',
         'report/sale_report.xml',
         'views/sale_order_templates.xml',
+        'views/sale_order_views.xml',
     ],
     'installable': True,
     'auto_install': False,
