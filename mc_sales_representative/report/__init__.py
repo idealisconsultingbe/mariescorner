@@ -2,3 +2,5 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from . import res_partner_custom_report
+from . import account_invoice_report
+from . import sale_report
