@@ -37,6 +37,6 @@ class StockRule(models.Model):
         origins += [v['origin'] for v in values if v.get('origin', False)]
         res = super(StockRule, self)._prepare_purchase_order(company_id, set(origins), values)
         if self.env.context.get('po_sales_lot_id', False):
-            res['sales_lot_id'] = self.env.context.get('po_sales_lot_id')
+            res['sales_lot_ids'] = self.env.context.get('po_sales_lot_id')
         return res
 

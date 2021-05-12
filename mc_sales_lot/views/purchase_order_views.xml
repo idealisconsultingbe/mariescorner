@@ -35,4 +35,16 @@
         </field>
     </record>
 
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="name">mc.purchase.order.filter.inherited.sales.lot</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="order_line" string="Manufacturing Number" filter_domain="[('order_line.sales_lot_id', 'ilike', self)]"/>
+                <field name="sales_lot_ids" string="Fabric Manufacturing Number" filter_domain="[('sales_lot_ids', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
