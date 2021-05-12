@@ -15,6 +15,7 @@ class PartnerCustomReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         """ Generate report values instead of complicated manipulation of records in Qweb """
         # retrieve representatives
+        print(datetime.now())
         if not data:
             data = dict()
         if not docids:
@@ -54,14 +55,15 @@ class PartnerCustomReport(models.AbstractModel):
         # }
         invoices_values = dict()
         for representative in docs:
-            # retrieve all invoices to which current representative is linked
-            commissionned_invoices = self.env['account.move'].search([('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
+            # retrieve customer invoices to which current representative is linked
+            commissionned_invoices = self.env['account.move'].search([('type', '=', 'out_invoice'), ('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
 
             # create a dictionary with untaxed amount without shipping costs and last payment date for each invoice
             delivery_products = self.env['delivery.carrier'].search([]).mapped('product_id')
             invoices_data = dict()
+            payments = self.env['account.payment'].search([('payment_date', '>=', start_date), ('payment_date', '<=', end_date)])
             for invoice in commissionned_invoices:
-                payment = self.env['account.payment'].search([('invoice_ids', '=', invoice.id)])
+                payment = payments.filtered(lambda p: invoice.id in p.reconciled_invoice_ids.ids + p.invoice_ids.ids)
                 last_payment_date = max(payment.mapped('payment_date')) if payment else False
                 invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products)
                 untaxed_total = sum(invoice_lines.mapped('price_subtotal'))
@@ -88,15 +90,17 @@ class PartnerCustomReport(models.AbstractModel):
                     'commission_amount': float_round(invoices_data[inv.id].get('untaxed_total', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
                     'due_date': inv.invoice_date_due
                 } for inv in partner_invoices]
-                invoices_values[representative.id]['invoices'].append({
-                    'name': partner.name,
-                    'ref': partner.ref,
-                    'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
-                    'lines': lines,
-                    'commissions': sum([line['commission_amount'] for line in lines])
-                })
+                if lines:
+                    invoices_values[representative.id]['invoices'].append({
+                        'name': partner.name,
+                        'ref': partner.ref,
+                        'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
+                        'lines': lines,
+                        'commissions': sum([line['commission_amount'] for line in lines])
+                    })
             invoices_values[representative.id]['total_commissions'] = sum([invoice['commissions'] for invoice in invoices_values[representative.id]['invoices']])
 
+        print(datetime.now())
         return {
             'doc_ids': docids,
             'doc_model': 'res.partner',
