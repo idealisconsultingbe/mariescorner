@@ -33,18 +33,28 @@ class PartnerCustomReport(models.AbstractModel):
         invoices_values = dict()
         for representative in docs:
             # retrieve customer invoices to which current representative is linked
-            commissionned_invoices = self.env['account.move'].search([('type', '=', 'out_invoice'), ('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
+            commissionned_invoices = self.env['account.move'].search([('type', 'in', ['out_invoice', 'out_refund']),
+                                                                      ('sales_representative_id', '=', representative.id),
+                                                                      ('state', 'not in', ['draft', 'cancel']),
+                                                                      ('invoice_payment_state', '=', 'paid')])
 
             # create a dictionary with untaxed amount without shipping costs and last payment date for each invoice
             delivery_products = self.env['delivery.carrier'].search([]).mapped('product_id')
             invoices_data = dict()
-            payments = self.env['account.payment'].search([('payment_date', '>=', start_date), ('payment_date', '<=', end_date)])
             for invoice in commissionned_invoices:
-                payment = payments.filtered(lambda p: invoice.id in p.reconciled_invoice_ids.ids + p.invoice_ids.ids)
-                last_payment_date = max(payment.mapped('payment_date')) if payment else False
+                payment_info = invoice._get_reconciled_info_JSON_values()
+                if payment_info:
+                    payment_date = [payment['date'] for payment in payment_info]
+                else:
+                    payment_date = [invoice.invoice_date]
+                if invoice.is_outbound():
+                    sign = -1
+                else:
+                    sign = 1
+                last_payment_date = max(payment_date) if payment_date else False
                 invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products)
-                untaxed_total = sum(invoice_lines.mapped('price_subtotal'))
-                invoices_data[invoice.id] = {'last_payment': last_payment_date, 'untaxed_total': untaxed_total}
+                untaxed_total_signed = sign * sum(invoice_lines.mapped('price_subtotal'))
+                invoices_data[invoice.id] = {'last_payment': last_payment_date, 'amount_untaxed_signed': untaxed_total_signed}
 
             commercial_partners = commissionned_invoices.mapped('partner_id.commercial_partner_id')
             invoices = commissionned_invoices.filtered(lambda inv:
@@ -53,7 +63,7 @@ class PartnerCustomReport(models.AbstractModel):
             percentage = representative.commission_percentage
             invoices_values[representative.id] = {
                 'total_commissions': 0.0,
-                'total_invoiced': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in invoices]),
+                'total_invoiced': sum([invoices_data[inv.id].get('amount_untaxed_signed', 0.0) for inv in invoices]),
                 'commission_percentage': percentage,
                 'invoices': []
             }
@@ -63,15 +73,15 @@ class PartnerCustomReport(models.AbstractModel):
                     'order_no': ', '.join([order.name for order in inv.invoice_line_ids.mapped('sale_line_ids.order_id')]),
                     'invoice_no': inv.name,
                     'invoice_date': invoices_data[inv.id].get('last_payment', ''),
-                    'invoice_total': invoices_data[inv.id].get('untaxed_total', 0.0),
-                    'commission_amount': float_round(invoices_data[inv.id].get('untaxed_total', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
+                    'invoice_total': invoices_data[inv.id].get('amount_untaxed_signed', 0.0),
+                    'commission_amount': float_round(invoices_data[inv.id].get('amount_untaxed_signed', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
                     'due_date': inv.invoice_date_due
                 } for inv in partner_invoices]
                 if lines:
                     invoices_values[representative.id]['invoices'].append({
                         'name': partner.name,
                         'ref': partner.ref,
-                        'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
+                        'total': sum([invoices_data[inv.id].get('amount_untaxed_signed', 0.0) for inv in partner_invoices]),
                         'lines': lines,
                         'commissions': sum([line['commission_amount'] for line in lines])
                     })
