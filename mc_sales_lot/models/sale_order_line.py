@@ -24,8 +24,8 @@ class SaleOrderLine(models.Model):
     sales_lot_supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], related='sales_lot_id.supplier_type', string='Supplier Type')
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
     fabric_purchase_order_description = fields.Text(compute='_get_fabric_purchase_orders_description', compute_sudo=True, string="Fabric Order(s)")
+    purchase_note = fields.Text(string='Purchase Note')
     fabric_ordered = fields.Boolean(string='Fabric Ordered', default=False)
-
 
     def _get_fabric_purchase_orders_description(self):
         """

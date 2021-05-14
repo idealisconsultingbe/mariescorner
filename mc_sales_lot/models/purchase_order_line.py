@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class PurchaseOrderLine(models.Model):
@@ -9,6 +9,12 @@ class PurchaseOrderLine(models.Model):
 
     sales_lot_id = fields.Many2one('stock.production.sales.lot', string='Manufacturing Number', readonly=True, copy=False)
     sales_lot_activated = fields.Boolean(string='Sales Lot Activated', related='product_id.sales_lot_activated')
+    date_msc_planned = fields.Datetime(string='Date planned')
+
+    @api.onchange('date_msc_planned')
+    def _onchange_date_planned(self):
+        if self.date_msc_planned:
+            self.date_planned = self.date_msc_planned
 
     def _find_candidate(self, product_id, product_qty, product_uom, location_id, name, origin, company_id, values):
         # if this is defined, this is a dropshipping line, so no
