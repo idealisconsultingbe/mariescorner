@@ -30,38 +30,17 @@ class PartnerCustomReport(models.AbstractModel):
         if isinstance(end_date, str):
             end_date = datetime.strptime(end_date, '%d/%m/%y').date()
 
-        # generate a dictionary with all values required by report template
-        # structure:
-        # { representative_id: {
-        #     'total_commissions': value,
-        #     'total_invoiced': value,
-        #     'commission_percentage': value,
-        #     'all_invoices': [ {
-        #             'customer_name': value,
-        #             'customer_reference': value,
-        #             'customer_invoices_total': value,
-        #             'customer_commissions_total': value,
-        #             'customer_invoices': [ {
-        #                     'order_name': value,
-        #                     'invoice_name': value,
-        #                     'invoice_date': value,
-        #                     'invoice_amount': value,
-        #                     'commission_amount': value,
-        #                     'invoice_due_date': value,
-        #                     } ]
-        #             } ]
-        #     }
-        # }
         invoices_values = dict()
         for representative in docs:
-            # retrieve all invoices to which current representative is linked
-            commissionned_invoices = self.env['account.move'].search([('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
+            # retrieve customer invoices to which current representative is linked
+            commissionned_invoices = self.env['account.move'].search([('type', '=', 'out_invoice'), ('sales_representative_id', '=', representative.id), ('state', 'not in', ['draft', 'cancel'])])
 
             # create a dictionary with untaxed amount without shipping costs and last payment date for each invoice
             delivery_products = self.env['delivery.carrier'].search([]).mapped('product_id')
             invoices_data = dict()
+            payments = self.env['account.payment'].search([('payment_date', '>=', start_date), ('payment_date', '<=', end_date)])
             for invoice in commissionned_invoices:
-                payment = self.env['account.payment'].search([('invoice_ids', '=', invoice.id)])
+                payment = payments.filtered(lambda p: invoice.id in p.reconciled_invoice_ids.ids + p.invoice_ids.ids)
                 last_payment_date = max(payment.mapped('payment_date')) if payment else False
                 invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products)
                 untaxed_total = sum(invoice_lines.mapped('price_subtotal'))
@@ -88,13 +67,14 @@ class PartnerCustomReport(models.AbstractModel):
                     'commission_amount': float_round(invoices_data[inv.id].get('untaxed_total', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
                     'due_date': inv.invoice_date_due
                 } for inv in partner_invoices]
-                invoices_values[representative.id]['invoices'].append({
-                    'name': partner.name,
-                    'ref': partner.ref,
-                    'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
-                    'lines': lines,
-                    'commissions': sum([line['commission_amount'] for line in lines])
-                })
+                if lines:
+                    invoices_values[representative.id]['invoices'].append({
+                        'name': partner.name,
+                        'ref': partner.ref,
+                        'total': sum([invoices_data[inv.id].get('untaxed_total', 0.0) for inv in partner_invoices]),
+                        'lines': lines,
+                        'commissions': sum([line['commission_amount'] for line in lines])
+                    })
             invoices_values[representative.id]['total_commissions'] = sum([invoice['commissions'] for invoice in invoices_values[representative.id]['invoices']])
 
         return {
