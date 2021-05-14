@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 15:26+0000\n"
-"PO-Revision-Date: 2021-02-13 12:15+0100\n"
+"POT-Creation-Date: 2021-05-11 08:51+0000\n"
+"PO-Revision-Date: 2021-05-11 11:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: de\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document_with_payments
+msgid ""
+"<br/>\n"
+"                        SWIFT:"
+msgstr ""
 
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
@@ -25,34 +32,37 @@ msgstr ""
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
 msgid "<span>Manuf N°</span>"
-msgstr ""
+msgstr "<span>Fab. Num.</span>"
 
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
 msgid "<span>Qty</span>"
-msgstr ""
+msgstr "<span>Menge</span>"
 
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
 msgid "<span>Value</span>"
-msgstr ""
+msgstr "<span>Wert</span>"
 
 #. module: mc_account_layout
 #: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
 msgid "<span>Weight</span>"
+msgstr "<span>Gewicht</span>"
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document
+msgid "<strong>Total</strong>"
 msgstr ""
 
 #. module: mc_account_layout
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__create_uid
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__create_uid
-msgid "Created by"
-msgstr "Erstellt von"
+#: model:ir.model.fields,field_description:mc_account_layout.field_account_move__payment_bank_id
+msgid "Bank Account for Payment"
+msgstr ""
 
 #. module: mc_account_layout
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__create_date
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__create_date
-msgid "Created on"
-msgstr "Erstellt am"
+#: model:ir.model.fields,help:mc_account_layout.field_account_move__payment_bank_id
+msgid "Bank account used by customer for payment"
+msgstr ""
 
 #. module: mc_account_layout
 #: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__display_name
@@ -61,10 +71,20 @@ msgid "Display Name"
 msgstr "Anzeigename"
 
 #. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document_with_payments
+msgid "IBAN:"
+msgstr ""
+
+#. module: mc_account_layout
 #: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__id
 #: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
+
+#. module: mc_account_layout
+#: model:ir.model,name:mc_account_layout.model_account_move
+msgid "Journal Entries"
+msgstr "Buchungssätze"
 
 #. module: mc_account_layout
 #: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice____last_update
@@ -73,16 +93,9 @@ msgid "Last Modified on"
 msgstr "Letzte Änderung am"
 
 #. module: mc_account_layout
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__write_uid
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__write_uid
-msgid "Last Updated by"
-msgstr "zuletzt geändert durch"
-
-#. module: mc_account_layout
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice__write_date
-#: model:ir.model.fields,field_description:mc_account_layout.field_report_account_report_invoice_with_payments__write_date
-msgid "Last Updated on"
-msgstr "Zuletzt aktualisiert am"
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document_with_payments
+msgid "We would be grateful if you could pay us the amount of"
+msgstr "Wenn Sie mit diesem Angebot zufrieden sind und bestellen möchten, bitten wir Sie um die Begleichung des Betrages von\""
 
 #. module: mc_account_layout
 #: model:ir.model,name:mc_account_layout.model_report_account_report_invoice
@@ -92,4 +105,9 @@ msgstr "Kontobericht.Bericht_Rechnung"
 #. module: mc_account_layout
 #: model:ir.model,name:mc_account_layout.model_report_account_report_invoice_with_payments
 msgid "report.account.report_invoice_with_payments"
-msgstr "Kontobericht.Rechnung mit Zahlung melden"
+msgstr ""
+
+#. module: mc_account_layout
+#: model_terms:ir.ui.view,arch_db:mc_account_layout.report_invoice_document_with_payments
+msgid "to our bank account:<br/>"
+msgstr "an folgendes Bankkonto zi überweisen:<br/>"

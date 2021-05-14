@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-12 08:51+0000\n"
-"PO-Revision-Date: 2021-03-12 10:03+0100\n"
+"PO-Revision-Date: 2021-05-07 16:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: de\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. module: mc_stock_layout
 #: model:mail.template,report_name:mc_stock_layout.picking_availability_mail model:mail.template,report_name:mc_stock_layout.picking_delivery_mail
@@ -258,7 +258,7 @@ msgstr "<span>Kundenunterschrift</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Deliv. Qty</span>"
-msgstr "<span>Liefermenge</span>"
+msgstr "<span>Geliefert</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -268,7 +268,7 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Depth</span>"
-msgstr "<span>Tiefe</span>"
+msgstr "<span>T</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -278,17 +278,17 @@ msgstr ""
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Height</span>"
-msgstr "<span>Höhe</span>"
+msgstr "<span>H</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Manuf N°</span>"
-msgstr "<span>Fabrikationsnummer</span>"
+msgstr "<span>Fab. Num.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Ord. Qty</span>"
-msgstr "<span>Bestellmenge</span>"
+msgstr "<span>Bestellt</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -298,7 +298,7 @@ msgstr "<span>Produkt</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Volume</span>"
-msgstr "<span>Volumen</span>"
+msgstr "<span>Vol.</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
@@ -308,7 +308,7 @@ msgstr "<span>Gewicht</span>"
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document
 msgid "<span>Width</span>"
-msgstr "<span>Breite</span>"
+msgstr "<span>B</span>"
 
 #. module: mc_stock_layout
 #: model_terms:ir.ui.view,arch_db:mc_stock_layout.report_delivery_document

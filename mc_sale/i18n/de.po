@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-08 07:38+0000\n"
-"PO-Revision-Date: 2021-03-08 08:49+0100\n"
+"POT-Creation-Date: 2021-05-06 09:49+0000\n"
+"PO-Revision-Date: 2021-05-06 12:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: de\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.contact_name
@@ -28,8 +28,22 @@ msgid "('Contact Sticker - %s' % (object.name))"
 msgstr ""
 
 #. module: mc_sale
-#: model_terms:ir.ui.view,arch_db:mc_sale.contact_name
-msgid ",&amp;nbsp;"
+#: model:mail.template,body_html:mc_sale.mail_template_send_mail_confirmation_order
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;font-size: 13px;"
+"\">\n"
+"                        Hello,\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Thanks to prepare this command : ${object.name}\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Thank you,\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 msgstr ""
 
 #. module: mc_sale
@@ -65,6 +79,18 @@ msgid ""
 msgstr ""
 "Wird automatisch mit der ersten verfügbaren Versandart für die aktuelle "
 "Lieferadresse gefüllt."
+
+#. module: mc_sale
+#. openerp-web
+#: code:addons/mc_sale/static/src/js/product_configurator_controller.js:0
+#, python-format
+msgid "Back"
+msgstr "Zurück"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_stock_picking__carrier_id
+msgid "Carrier"
+msgstr "Frachtführer"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_sale_order__comment
@@ -107,6 +133,20 @@ msgstr ""
 "Bestellungen angezeigt wird."
 
 #. module: mc_sale
+#. openerp-web
+#: code:addons/mc_sale/static/src/js/product_configurator_controller.js:0
+#, python-format
+msgid "Configure"
+msgstr "Konfigurieren"
+
+#. module: mc_sale
+#. openerp-web
+#: code:addons/mc_sale/static/src/js/product_configurator_controller.js:0
+#, python-format
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. module: mc_sale
 #: model:ir.actions.report,name:mc_sale.action_report_partner_sticker
 msgid "Contact Sticker (ZPL)"
 msgstr ""
@@ -135,10 +175,9 @@ msgstr ""
 "Bestätigungsdatum von Aufträgen."
 
 #. module: mc_sale
-#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__price_unit
-#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
-msgid "Customer Price"
-msgstr "Kundenpreis"
+#: model:ir.model.fields,help:mc_sale.field_sale_order__registered_date_order
+msgid "Date of the very first confirmation of current sale order."
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute__default_linear_value
@@ -157,7 +196,6 @@ msgstr ""
 
 #. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.view_order_tree
-#: model_terms:ir.ui.view,arch_db:mc_sale.view_quotation_tree
 #: model_terms:ir.ui.view,arch_db:mc_sale.view_sales_order_filter
 msgid "Delivery Date"
 msgstr ""
@@ -206,7 +244,7 @@ msgstr ""
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_res_company__eori
 msgid "EORI"
-msgstr "EORI"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_res_company__eori_uk
@@ -221,7 +259,12 @@ msgstr "EORI Großbritannien:"
 #. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.external_layout_boxed
 msgid "EORI:"
-msgstr "EORI:"
+msgstr ""
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_quotation_tree
+msgid "Effective Date"
+msgstr ""
 
 #. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.contact
@@ -271,11 +314,16 @@ msgid "Fix Amount"
 msgstr "Fixbetrag"
 
 #. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__hs_code
+msgid "HS Code"
+msgstr "HS-Code"
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__id
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__id
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line_value__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model.fields,help:mc_sale.field_product_attribute_value__is_none_value
@@ -411,6 +459,11 @@ msgid "Order Date"
 msgstr "Bestelldatum"
 
 #. module: mc_sale
+#: model:mail.template,subject:mc_sale.mail_template_send_mail_confirmation_order
+msgid "Order confirmation (Ref ${object.name})"
+msgstr ""
+
+#. module: mc_sale
 #: model:ir.model.fields.selection,name:mc_sale.selection__product_attribute_value_percentage_price__type__percentage
 msgid "Percentage"
 msgstr "Prozent"
@@ -475,9 +528,10 @@ msgid "Product Attribute Value"
 msgstr "Produkt-Attribut Wert"
 
 #. module: mc_sale
+#: model:ir.model,name:mc_sale.model_product_category
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__product_category_id
 msgid "Product Category"
-msgstr "Produkt-Kategorie"
+msgstr "Produktkategorie"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_sale_product_configurator__product_cost
@@ -493,6 +547,11 @@ msgstr "Produktvorlage"
 #: model:ir.model,name:mc_sale.model_product_template_attribute_value
 msgid "Product Template Attribute Value"
 msgstr "Produktvorlage Attributwert"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_product__product_variant_seller_ids
+msgid "Product Vendors"
+msgstr ""
 
 #. module: mc_sale
 #: code:addons/mc_sale/models/product_attribute_value_percentage_price.py:0
@@ -525,9 +584,30 @@ msgid "Quantity of fabric required to upholster furniture"
 msgstr "Menge des zum Polstern von Möbeln benötigten Stoffes"
 
 #. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.view_quotation_tree
+msgid "Quotation Date"
+msgstr ""
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_purchase_order__date_planned
 msgid "Receipt Date"
 msgstr "Lieferdatum"
+
+#. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Recompute Pricelist Discounts"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order__registered_date_order
+msgid "Registered Order Date"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_delivery_carrier__route_id
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__route_id
+msgid "Route"
+msgstr ""
 
 #. module: mc_sale
 #: model:ir.model,name:mc_sale.model_sale_product_configurator
@@ -550,9 +630,34 @@ msgid "Sales Order Line"
 msgstr "Kundenauftragszeile"
 
 #. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_stock_picking__scheduled_date
+msgid "Scheduled Date"
+msgstr "Geplantes Datum"
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_stock_picking__scheduled_date
+msgid ""
+"Scheduled time for the first part of the shipment to be processed. Setting "
+"manually a value here would set it as expected date for all the stock moves."
+msgstr ""
+"Geplantes Datum für die Auslieferung der ersten Lieferpositionen. Ein "
+"manueller Eintrag überträgt dieses Datum auch auf alle anderen "
+"Lieferpositionen."
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_product_category__send_mail_order_confirmation
+msgid "Send order confirmation mail"
+msgstr ""
+
+#. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_configurator_description_line__sequence
 msgid "Sequence"
 msgstr "Reihenfolge"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_delivery_carrier
+msgid "Shipping Methods"
+msgstr "Versandmethoden"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_account_move_line__short_name
@@ -577,6 +682,15 @@ msgid "Standard Sale Price"
 msgstr "Standard-Verkaufspreis"
 
 #. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_product__hs_code
+msgid ""
+"Standardized code for international shipping and goods declaration. At the "
+"moment, only used for the FedEx shipping provider."
+msgstr ""
+"Standardisierter Code für den internationalen Versand und die "
+"Warendeklaration. Im Moment nur für den FedEx-Versand verwendet."
+
+#. module: mc_sale
 #: model:ir.model,name:mc_sale.model_stock_move
 msgid "Stock Move"
 msgstr "Lagerbuchung"
@@ -595,10 +709,11 @@ msgstr ""
 #. module: mc_sale
 #: model:ir.model.fields.selection,name:mc_sale.selection__product_configurator_description_line_value__type__text
 msgid "Text"
-msgstr "Text"
+msgstr ""
 
 #. module: mc_sale
 #: code:addons/mc_sale/models/product_attribute_custom_value.py:0
+#: code:addons/mc_sale/models/product_template.py:0
 #, python-format
 msgid ""
 "The custom value for the attribute '{}' should be a float like 2.25 or 2,25 "
@@ -615,6 +730,16 @@ msgid ""
 msgstr ""
 "Diese Information wird nach der Produktkonfiguration in der "
 "Kurzbeschreibung einer Verkaufs- oder Bestellzeile sichtbar sein"
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_stock_picking__carrier_tracking_ref
+msgid "Tracking Reference"
+msgstr "Tracking-Referenz"
+
+#. module: mc_sale
+#: model:ir.model,name:mc_sale.model_stock_picking
+msgid "Transfer"
+msgstr "Lieferung vornehmen"
 
 #. module: mc_sale
 #: model:ir.model.fields,field_description:mc_sale.field_product_attribute_value_percentage_price__type
@@ -654,9 +779,25 @@ msgid "Values"
 msgstr "Werte"
 
 #. module: mc_sale
+#: model_terms:ir.ui.view,arch_db:mc_sale.product_product_easy_edit_form_view
+msgid "Vendors"
+msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,help:mc_sale.field_product_product__product_variant_seller_ids
+msgid "Vendors of current variant."
+msgstr ""
+
+#. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.contact
 msgid "Website"
 msgstr ""
+
+#. module: mc_sale
+#: model:ir.model.fields,field_description:mc_sale.field_sale_order_line__price_unit
+#: model_terms:ir.ui.view,arch_db:mc_sale.sale_order_form_view
+msgid "Your Price"
+msgstr "Ihr Preis"
 
 #. module: mc_sale
 #: model_terms:ir.ui.view,arch_db:mc_sale.product_template_attribute_value_view_form
