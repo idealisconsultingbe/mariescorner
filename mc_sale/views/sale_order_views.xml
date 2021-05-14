@@ -100,10 +100,10 @@
                 <field name="carrier_id"/>
             </xpath>
             <xpath expr="//tree/field[@name='price_unit']" position="attributes">
-                <attribute name="string">Customer Price</attribute>
+                <attribute name="string">Your Price</attribute>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="attributes">
-                <attribute name="string">Customer Price</attribute>
+                <attribute name="string">Your Price</attribute>
             </xpath>
             <!--Useful for sending values to js-->
             <xpath expr="//tree/field[@name='product_template_id']" position="attributes">
