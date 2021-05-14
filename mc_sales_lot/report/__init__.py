@@ -3,3 +3,5 @@
 
 from . import sales_lot_custom_report
 from . import mrp_production_custom_report
+from . import sale_report
+from . import account_invoice_report
