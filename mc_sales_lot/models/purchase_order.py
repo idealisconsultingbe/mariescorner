@@ -9,6 +9,12 @@ class PurchaseOrder(models.Model):
 
     sales_lot_ids = fields.Many2many('stock.production.sales.lot', 'sales_lot_purchase_order_rel', 'po_id', 'sales_lot_id', string="Manufacturing Numbers")
 
+    def write(self, vals):
+        res = super(PurchaseOrder, self).write(vals)
+        if vals.get('date_planned'):
+            self.order_line.filtered(lambda line: not line.display_type).date_msc_planned = vals['date_planned']
+        return res
+
     @api.model
     def _prepare_sale_order_line_data(self, line, company, sale_id):
         """ Overridden Method

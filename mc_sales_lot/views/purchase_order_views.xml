@@ -15,11 +15,17 @@
                 <field name="sales_lot_id" optional="hide"/>
                 <field name="fabric_ordered" attrs="{'invisible': ['|', ('sales_lot_activated', '=', False), ('sales_lot_supplier_type', '!=', 'external')]}" optional="hide"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="replace">
-                <field name="date_msc_planned" optional="hide"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='date_planned']" position="replace">
-                <field name="date_msc_planned" widget="date"/>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+                <field name="date_msc_planned" optional="hide" attrs="{'readonly': [('parent.date_planned', '!=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='date_planned']" position="after">
+                <field name="date_msc_planned" widget="date" attrs="{'readonly': [('parent.date_planned', '!=', False)]}"/>
             </xpath>
         </field>
     </record>
