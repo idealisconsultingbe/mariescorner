@@ -15,7 +15,6 @@ class PartnerCustomReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         """ Generate report values instead of complicated manipulation of records in Qweb """
         # retrieve representatives
-        print(datetime.now())
         if not data:
             data = dict()
         if not docids:
@@ -31,28 +30,6 @@ class PartnerCustomReport(models.AbstractModel):
         if isinstance(end_date, str):
             end_date = datetime.strptime(end_date, '%d/%m/%y').date()
 
-        # generate a dictionary with all values required by report template
-        # structure:
-        # { representative_id: {
-        #     'total_commissions': value,
-        #     'total_invoiced': value,
-        #     'commission_percentage': value,
-        #     'all_invoices': [ {
-        #             'customer_name': value,
-        #             'customer_reference': value,
-        #             'customer_invoices_total': value,
-        #             'customer_commissions_total': value,
-        #             'customer_invoices': [ {
-        #                     'order_name': value,
-        #                     'invoice_name': value,
-        #                     'invoice_date': value,
-        #                     'invoice_amount': value,
-        #                     'commission_amount': value,
-        #                     'invoice_due_date': value,
-        #                     } ]
-        #             } ]
-        #     }
-        # }
         invoices_values = dict()
         for representative in docs:
             # retrieve customer invoices to which current representative is linked
@@ -100,7 +77,6 @@ class PartnerCustomReport(models.AbstractModel):
                     })
             invoices_values[representative.id]['total_commissions'] = sum([invoice['commissions'] for invoice in invoices_values[representative.id]['invoices']])
 
-        print(datetime.now())
         return {
             'doc_ids': docids,
             'doc_model': 'res.partner',
