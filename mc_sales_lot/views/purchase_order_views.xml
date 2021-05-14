@@ -11,9 +11,7 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
                 <field name="sales_lot_activated" invisible="1"/>
-                <field name="sales_lot_supplier_type" invisible="1"/>
                 <field name="sales_lot_id" optional="hide"/>
-                <field name="fabric_ordered" attrs="{'invisible': ['|', ('sales_lot_activated', '=', False), ('sales_lot_supplier_type', '!=', 'external')]}" optional="hide"/>
             </xpath>
         </field>
     </record>

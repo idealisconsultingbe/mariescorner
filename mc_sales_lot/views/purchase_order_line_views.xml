@@ -13,7 +13,6 @@
                 <field name="short_name" optional="show"/>
                 <field name="date_planned"  widget="date" optional="hide"/>
                 <field name="sales_lot_id" optional="show"/>
-                <field name="fabric_ordered" optional="hide"/>
                 <field name="product_qty"/>
                 <field name="qty_received" optional="hide"/>
                 <field name="qty_invoiced" optional="hide"/>
