@@ -79,26 +79,6 @@ class SaleOrder(models.Model):
                 order.date_order = order.registered_date_order
         return super(SaleOrder, self)._action_confirm()
 
-    def action_cancel(self):
-        """
-        Overridden method
-        Cancel the SO, PO, MO and pickings linked to the sales_lot_id
-        """
-        for order in self:
-            sales_lot_ids = order.order_line.mapped('sales_lot_id')
-            if sales_lot_ids:
-                sales_lot_manuf_order = sales_lot_ids.sudo().mapped('production_ids')
-                for mo in sales_lot_manuf_order:
-                    if mo.state == 'done':
-                        raise UserError(_('The MO {} is already done, so you cannot cancel it!').format(mo.name))
-                    elif sum(mo.move_raw_ids.mapped('reserved_availability')) > 0 or sum(mo.move_raw_ids.mapped('quantity_done')) > 0:
-                        raise UserError(_('The MO {} has already some Reserved or Consumed quantity in its components!').format(mo.name))
-                sales_lot_ids.mapped('purchase_order_ids').filtered(lambda po: po.state != 'cancel').button_cancel()
-                sales_lot_ids.mapped('production_ids').filtered(lambda morder: morder.state != 'cancel').action_cancel()
-                sales_lot_ids.mapped('picking_ids').filtered(lambda pick: pick.state != 'cancel').action_cancel()
-        res = super(SaleOrder, (self.order_line.mapped('sales_lot_id.sale_order_ids').filtered(lambda so: so.state != 'cancel'))).action_cancel()
-        return res
-
     def action_compute_pricelist_discount(self):
         """
         Compute pricelist discounts on current sale order
