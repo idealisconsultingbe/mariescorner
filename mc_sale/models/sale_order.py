@@ -77,18 +77,6 @@ class SaleOrder(models.Model):
                 order.date_order = order.registered_date_order
         return super(SaleOrder, self)._action_confirm()
 
-    def action_cancel(self):
-        """
-        Overridden method
-        Cancel the PO linked.
-        """
-        for rec in self:
-            po_id = rec._get_purchase_order()
-            if po_id:
-                po_id.button_cancel()
-        res = super(SaleOrder, self).action_cancel()
-        return res
-
     def action_compute_pricelist_discount(self):
         """
         Compute pricelist discounts on current sale order
