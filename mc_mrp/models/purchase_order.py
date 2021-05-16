@@ -46,7 +46,9 @@ class PurchaseOrder(models.Model):
         """
         res = super(PurchaseOrder, self)._prepare_sale_order_line_data(line, company, sale_id)
         if line.product_no_variant_attribute_value_ids or line.product_custom_attribute_value_ids:
-            product_custom_attribute_values = line.product_custom_attribute_value_ids.copy_data()
+            product_custom_attribute_values = []
+            for pcav in line.product_custom_attribute_value_ids:
+                product_custom_attribute_values.append(pcav.copy_data())
             res.update({
                 'name': line.name,
                 'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],
