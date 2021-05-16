@@ -25,8 +25,8 @@ class SaleOrder(models.Model):
             order.allowed_shipping_address_ids = False
             if order.partner_id:
                 commercial_partner = order.partner_id.commercial_partner_id
-                order.allowed_shipping_address_ids = self.env['res.partner'].search([('type', '=', 'delivery'), ('parent_id', '=', commercial_partner.id)])
-                order.allowed_invoice_address_ids = self.env['res.partner'].search([('type', '=', 'invoice'), ('parent_id', '=', commercial_partner.id)])
+                order.allowed_shipping_address_ids = self.env['res.partner'].search([('type', '=', 'delivery'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
+                order.allowed_invoice_address_ids = self.env['res.partner'].search([('type', '=', 'invoice'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
 
     @api.depends('partner_shipping_id')
     def _compute_carrier_id(self):

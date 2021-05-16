@@ -11,6 +11,7 @@ class StockPicking(models.Model):
     carrier_id = fields.Many2one('delivery.carrier', tracking=True)
     carrier_tracking_ref = fields.Char(tracking=True)
     scheduled_date = fields.Datetime(states={'cancel': [('readonly', True)]})
+    partner_id = fields.Many2one('res.partner', states={'cancel': [('readonly', True)]}, tracking=True)
 
     def _set_scheduled_date(self):
         return super(StockPicking, self.filtered(lambda record: record.state != 'done'))._set_scheduled_date()
