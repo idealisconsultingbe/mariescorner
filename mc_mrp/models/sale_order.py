@@ -149,17 +149,21 @@ class SaleOrder(models.Model):
         Overridden method
         Cancel the SO, PO, MO and pickings linked to the sales_lot_id
         """
+        sale_order_ids = self
         for order in self:
             sales_lot_ids = order.order_line.mapped('sales_lot_id')
             if sales_lot_ids:
                 sales_lot_manuf_order = sales_lot_ids.sudo().mapped('production_ids')
+                sale_order_ids = self.env['sale.order.line'].sudo().search([('sales_lot_id', 'in', sales_lot_ids.ids)]).mapped('order_id')
+                purchase_order_ids = self.env['purchase.order.line'].sudo().search([('sales_lot_id', 'in', sales_lot_ids.ids)]).mapped('order_id')
+                picking_ids = self.env['stock.move'].sudo().search([('sales_lot_id', 'in', sales_lot_ids.ids)]).mapped('picking_id')
                 for mo in sales_lot_manuf_order:
                     if mo.state == 'done':
                         raise UserError(_('The MO {} is already done, so you cannot cancel it!').format(mo.name))
                     elif sum(mo.move_raw_ids.mapped('reserved_availability')) > 0 or sum(mo.move_raw_ids.mapped('quantity_done')) > 0:
                         raise UserError(_('The MO {} has already some Reserved or Consumed quantity in its components!').format(mo.name))
-                sales_lot_ids.mapped('purchase_order_ids').filtered(lambda po: po.state != 'cancel').button_cancel()
-                sales_lot_ids.mapped('production_ids').filtered(lambda morder: morder.state != 'cancel').action_cancel()
-                sales_lot_ids.mapped('picking_ids').filtered(lambda pick: pick.state != 'cancel').action_cancel()
-        res = super(SaleOrder, (self.order_line.mapped('sales_lot_id.sale_order_ids').filtered(lambda so: so.state != 'cancel'))).action_cancel()
+                sales_lot_manuf_order.filtered(lambda morder: morder.state != 'cancel').action_cancel()
+                purchase_order_ids.filtered(lambda po: po.state != 'cancel').button_cancel()
+                picking_ids.filtered(lambda pick: pick.state != 'cancel').action_cancel()
+        res = super(SaleOrder, (sale_order_ids.filtered(lambda so: so.state != 'cancel'))).action_cancel()
         return res
