@@ -48,11 +48,11 @@ class PurchaseOrder(models.Model):
         if line.product_no_variant_attribute_value_ids or line.product_custom_attribute_value_ids:
             product_custom_attribute_values = []
             for pcav in line.product_custom_attribute_value_ids:
-                product_custom_attribute_values.append(pcav.copy_data())
+                product_custom_attribute_values.append((0, 0, pcav.copy_data()[0]))
             res.update({
                 'name': line.name,
                 'product_no_variant_attribute_value_ids': [(6, 0, line.product_no_variant_attribute_value_ids.ids)],
-                'product_custom_attribute_value_ids': [(0, 0, pcav) for pcav in product_custom_attribute_values],
+                'product_custom_attribute_value_ids': product_custom_attribute_values,
                 'comment': line.comment,
             })
         res['trigger_product_id_onchange'] = True # Used to trigger the product_id_onchange in the create method!
