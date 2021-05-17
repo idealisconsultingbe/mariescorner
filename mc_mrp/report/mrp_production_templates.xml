@@ -11,7 +11,7 @@
         </xpath>
 
         <xpath expr="//div[@name='label_1']/div[@id='main_row']" position="after">
-            <div id="secondary_row">
+            <div class="mb32" id="secondary_row">
                 <table class="table table-sm" style="border: 2px solid black !important;">
                     <tbody>
                         <tr>
@@ -34,7 +34,7 @@
                           <thead>
                               <tr>
                                   <th>Fabrics</th>
-                                  <th>Lot</th>
+                                  <th width="25%">Lot</th>
                                   <th>Meterage Needed</th>
                                   <th>Total Needed</th>
                               </tr>
@@ -62,13 +62,17 @@
                             <thead>
                                 <tr>
                                     <th>Fabrics</th>
-                                    <th>Quantity</th>
+                                    <th width="40%">Lot(s)</th>
+                                    <th width="20%">Quantity</th>
                                 </tr>
                             </thead>
                             <tbody name="fabrics_tbody">
                                 <tr t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
                                     <td>
                                         <span t-field="raw.product_id.default_code"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="', '.join(raw.move_line_ids.mapped('lot_id.name'))"/>
                                     </td>
                                     <td>
                                         <span t-field="raw.product_uom_qty"/> <t t-raw="raw.product_uom.name"/>
@@ -129,7 +133,9 @@
             <div class="mb-4" name="label_3" style="page-break-inside:avoid;">
                 <hr width="100%" class="m-0" style="border-bottom: 1px solid black;"/>
                 <t t-set="lots" t-value="fabrics_lots[doc.id]"/>
+                <t t-set="lots_count" t-value="0"/>
                 <t t-foreach="lots" t-as="lot">
+                    <t t-set="lots_count" t-value="lots_count + 1"/>
                     <ul class="list-inline mt-4 mb-0">
                         <li class="list-inline-item d-inline">ORDER: <span t-field="lots[lot]['manuf_num'].origin_sale_order_id.name"/></li>
                         <li class="list-inline-item d-inline">/</li>
@@ -150,29 +156,36 @@
                             <div><span class="font-weight-bold">Meterage Needed: <t t-esc="lots[lot]['unit_fabric']"/> <t t-esc="lots[lot]['fabric_uom']"/> - Total Meterage Needed: <t t-esc="lots[lot]['total_fabric']"/> <t t-esc="lots[lot]['fabric_uom']"/></span></div>
                         </div>
                     </div>
+                    <hr t-if="len(lots) &gt; 1 and lots_count &lt; len(lots)" width="100%" class="mt-4 mx-0 mb-0"/>
                 </t>
 
-                <t t-if="not lots" t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="move">
-                    <ul class="list-inline mt-4 mb-0">
-                        <li class="list-inline-item d-inline">ORDER: <span t-field="doc.sales_lot_id.origin_sale_order_id.name"/></li>
-                        <li class="list-inline-item d-inline">/</li>
-                        <li class="list-inline-item d-inline">SHEET: <span t-field="doc.sales_lot_id.name"/></li>
-                    </ul>
-                    <ul class="list-inline mb-1 mt-0">
-                        <li class="list-inline-item d-inline">MODEL: <span t-field="doc.product_id.name"/></li>
-                        <li class="list-inline-item d-inline">/</li>
-                        <li class="list-inline-item d-inline">QUANTITY: <t t-raw="doc.product_qty"/></li>
-                    </ul>
+                <t t-if="not lots">
+                    <t t-set="fabric_moves" t-value="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)"/>
+                    <t t-set="fabric_moves_count" t-value="0"/>
+                    <t t-foreach="fabric_moves" t-as="move">
+                        <t t-set="fabric_moves_count" t-value="fabric_moves_count + 1"/>
+                        <ul class="list-inline mt-4 mb-0">
+                            <li class="list-inline-item d-inline">ORDER: <span t-field="doc.sales_lot_id.origin_sale_order_id.name"/></li>
+                            <li class="list-inline-item d-inline">/</li>
+                            <li class="list-inline-item d-inline">SHEET: <span t-field="doc.sales_lot_id.name"/></li>
+                        </ul>
+                        <ul class="list-inline mb-1 mt-0">
+                            <li class="list-inline-item d-inline">MODEL: <span t-field="doc.product_id.name"/></li>
+                            <li class="list-inline-item d-inline">/</li>
+                            <li class="list-inline-item d-inline">QUANTITY: <t t-raw="doc.product_qty"/></li>
+                        </ul>
 
-                    <div class="row">
-                        <div class="col-auto">
-                            <span>Fabric(s): </span>
+                        <div class="row">
+                            <div class="col-auto">
+                                <span>Fabric(s): </span>
+                            </div>
+                            <div class="col-auto">
+                                <div><span class="font-weight-bold"><t t-esc="move.product_id.default_code"/> - Lot(s): <t t-esc="', '.join(move.move_line_ids.mapped('lot_id.name'))"/></span></div>
+                                <div><span class="font-weight-bold">Meterage Needed: <t t-esc="move.product_uom_qty / doc.product_qty"/> <t t-esc="move.product_uom.name"/> - Total Meterage Needed: <t t-esc="move.product_uom_qty"/> <t t-esc="move.product_uom.name"/></span></div>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <div><span class="font-weight-bold" t-field="move.product_id.default_code"/></div>
-                            <div><span class="font-weight-bold">Meterage Needed: <t t-esc="move.product_uom_qty / doc.product_qty"/> <t t-esc="move.product_uom.name"/> - Total Meterage Needed: <t t-esc="move.product_uom_qty"/> <t t-esc="move.product_uom.name"/></span></div>
-                        </div>
-                    </div>
+                        <hr t-if="len(fabric_moves) &gt; 1 and fabric_moves_count &lt; len(fabric_moves)" width="100%" class="mt-4 mx-0 mb-0"/>
+                    </t>
                 </t>
             </div>
         </xpath>
@@ -212,13 +225,17 @@
                     <thead>
                         <tr>
                             <th>Fabrics</th>
-                            <th>Quantity</th>
+                            <th width="40%">Lot(s)</th>
+                            <th width="20%">Quantity</th>
                         </tr>
                     </thead>
                     <tbody name="fabrics_tbody">
                         <tr t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
                             <td>
                                 <span t-field="raw.product_id.default_code"/>
+                            </td>
+                            <td>
+                                <span t-esc="', '.join(raw.move_line_ids.mapped('lot_id.name'))"/>
                             </td>
                             <td>
                                 <span t-field="raw.product_uom_qty"/> <t t-raw="raw.product_uom.name"/>
