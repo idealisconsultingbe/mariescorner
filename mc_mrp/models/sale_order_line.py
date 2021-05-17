@@ -24,7 +24,7 @@ class SaleOrderLine(models.Model):
                  'list_price')
     def _compute_list_price_extra(self):
         """
-        Compute list_extra_price which is product price with extra and eventually a pricelist applied
+        Compute list_extra_price which is product price with extra and the result is rounded
         Removed 'product_custom_attribute_value_ids' from depends in order to prevent recomputation when order is sent to production
         (because product_custom_attribute_value_ids are lost)
         """
@@ -34,7 +34,7 @@ class SaleOrderLine(models.Model):
             if extra_prices:
                 precision = self.env['decimal.precision'].precision_get('Product Price')
                 price += float_round(sum(extra_prices), precision_digits=precision)
-            line.list_price_extra = price
+            line.list_price_extra = float_round(price, precision_digits=0)
 
     @api.model
     def create(self, values):
@@ -113,6 +113,6 @@ class SaleOrderLine(models.Model):
                     base_price, self.order_id.pricelist_id.currency_id,
                     self.order_id.company_id or self.env.company, self.order_id.date_order or fields.Date.today())
             # negative discounts (= surcharge) are included in the display price
-            return float_round(max(base_price, final_price), precision_digits=0)
+            return max(base_price, final_price)
         else:
             return super(SaleOrderLine, self)._get_display_price(product)
