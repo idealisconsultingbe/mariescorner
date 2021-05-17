@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-06 12:55+0000\n"
-"PO-Revision-Date: 2021-05-06 15:02+0200\n"
+"POT-Creation-Date: 2021-05-17 08:54+0000\n"
+"PO-Revision-Date: 2021-05-17 11:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr_BE\n"
+"Language: fr\n"
 "X-Generator: Poedit 2.4.3\n"
 
 #. module: mc_sales_lot
@@ -82,13 +82,13 @@ msgid "<strong>Country:</strong>"
 msgstr "<strong>Pays:</strong>"
 
 #. module: mc_sales_lot
-#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_saleslot_document
 msgid "<strong>Customer: [</strong>"
 msgstr "<strong>Client: [</strong>"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
 msgid "<strong>Customer:</strong>"
 msgstr "<strong>Client:</strong>"
 
@@ -109,7 +109,7 @@ msgstr ""
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
 msgid "<strong>Details:</strong>"
-msgstr ""
+msgstr "<strong>Détails:</strong>"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
@@ -130,7 +130,7 @@ msgstr "<strong>ID CLIENT </strong>"
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_stock_picking_labels_document
 msgid "<strong>ID CUST</strong>"
-msgstr ""
+msgstr "strong>ID CLIENT</strong>"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
@@ -145,7 +145,7 @@ msgstr "<strong>Produit:</strong>"
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_stock_picking_labels_document
 msgid "<strong>QTY: </strong>"
-msgstr ""
+msgstr "<strong>QTÉ: </strong>"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
@@ -160,7 +160,7 @@ msgstr "<strong>Commande:</strong>"
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lot_portal
 msgid "<strong>Shipped Date:</strong>"
-msgstr "<strong>Date d'envoie:</strong>"
+msgstr "<strong>Date d'envoi:</strong>"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__access_warning
@@ -185,7 +185,7 @@ msgstr "Activitées"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Activité d'exception de décoration"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_state
@@ -489,14 +489,20 @@ msgid "Fabric MC"
 msgstr "Tissu MC"
 
 #. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_purchase_order_filter
+msgid "Fabric Manufacturing Number"
+msgstr "Numéro de fabrication de tissu"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__fabric_purchase_order_description
 msgid "Fabric Order(s)"
 msgstr ""
 
 #. module: mc_sales_lot
-#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__fabric_ordered
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__fabric_ordered
+#: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fabric_ordered
 msgid "Fabric Ordered"
-msgstr "Tissu commandé"
+msgstr ""
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__fabric_purchase_order_ids
@@ -563,12 +569,12 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_channel_ids
 msgid "Followers (Channels)"
-msgstr ""
+msgstr "Abonnés (Canaux)"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Abonnés (Partenaires)"
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.log_sales_lot_status_form_view
@@ -593,24 +599,24 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icône"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Icône pour indiquer une activité d'exception."
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_needaction
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_unread
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Si coché, de nouveaux messages demandent votre attention."
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_has_error
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Si actif, certains messages ont une erreur de livraison."
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_res_config_settings__group_automatic_lot_creation
@@ -669,6 +675,11 @@ msgstr "Départ Usine"
 #: model:ir.model,name:mc_sales_lot.model_stock_inventory_line
 msgid "Inventory Line"
 msgstr "Ligne d'inventaire"
+
+#. module: mc_sales_lot
+#: model:ir.model,name:mc_sales_lot.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Statistiques des factures"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_is_follower
@@ -730,7 +741,7 @@ msgstr "Lots/Numéros de série"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Pièce jointe principale"
 
 #. module: mc_sales_lot
 #: model:res.groups,name:mc_sales_lot.group_automatic_sales_lot
@@ -776,11 +787,13 @@ msgstr "Date de Production"
 #: code:addons/mc_sales_lot/controllers/portal.py:0
 #: model:ir.actions.report,name:mc_sales_lot.action_report_saleslot
 #: model:ir.model,name:mc_sales_lot.model_stock_production_sales_lot
+#: model:ir.model.fields,field_description:mc_sales_lot.field_account_invoice_report__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_account_move_line__sale_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_log_sales_lot_status__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_mrp_production__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__sales_lot_id
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_report__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_inventory_line__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move__sales_lot_id
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_move_line__sales_lot_id
@@ -789,6 +802,7 @@ msgstr "Date de Production"
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.sale_order_filter_view
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.view_purchase_order_filter
 #, python-format
 msgid "Manufacturing Number"
 msgstr "Numéro de production"
@@ -874,7 +888,7 @@ msgstr "Statut de Production des articles sous-traités"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Erreur d'envoi du message"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_ids
@@ -909,17 +923,17 @@ msgstr "Le plus récent"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Date limite de l'activité à venir"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Résumé d'activité suivant"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Type d'activités à venir"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_res_config_settings__extra_serial_digits
@@ -929,33 +943,37 @@ msgstr "Nombre de chiffres à ajouter pour composer le numéro de série"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Nombre d'actions"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Nombre d'erreurs"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Nombre de messages exigeant une action"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Nombre de messages avec des erreurs d'envoi"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Nombre de messages non lus"
 
 #. module: mc_sales_lot
-#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_saleslot_document
 msgid "Order (Source Document):"
 msgstr "Commande (Document Source):"
+
+#. module: mc_sales_lot
+#: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
+msgid "Order <small>(Source Document)</small>:"
+msgstr "Commande <small style="font-size: 1.0rem;">(Document Source)</small>:"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__received_by_manufacturer
@@ -991,7 +1009,7 @@ msgstr "Date de livraison planifiée"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__access_url
 msgid "Portal Access URL"
-msgstr ""
+msgstr "URL d'accès au portail"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_product_product
@@ -1000,7 +1018,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.stock_production_sales_lot_view_search
 msgid "Product"
-msgstr "Produit"
+msgstr "Article"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_product_category
@@ -1101,7 +1119,7 @@ msgstr "Utilisateur Responsable"
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Erreur d'envoi SMS"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__sale_comment
@@ -1135,6 +1153,11 @@ msgid "Sale Orders"
 msgstr "Bons de commande"
 
 #. module: mc_sales_lot
+#: model:ir.model,name:mc_sales_lot.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Rapport d'analyse des ventes"
+
+#. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_activated
 msgid "Sales Lot Activated"
 msgstr "Numéro de Production Activé"
@@ -1147,7 +1170,7 @@ msgstr "Bon de commande"
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne du bon de commande"
+msgstr "Ligne de bons de commande"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/controllers/portal.py:0
@@ -1176,7 +1199,7 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__access_token
 msgid "Security Token"
-msgstr ""
+msgstr "Jeton de sécurité"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__partner_ids
@@ -1231,6 +1254,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Statut basé sur les activités\n"
+"En retard : la date d'échéance est déjà dépassée\n"
+"Aujourd'hui : la date d'activité est aujourd'hui\n"
+"Planifiée : activités futures"
 
 #. module: mc_sales_lot
 #: model:ir.model,name:mc_sales_lot.model_stock_move
@@ -1263,7 +1290,7 @@ msgid "Subcontractor Fabric Date"
 msgstr "Date Tissu du Fournisseur"
 
 #. module: mc_sales_lot
-#: model:ir.model.fields,field_description:mc_sales_lot.field_purchase_order_line__sales_lot_supplier_type
+#: model:ir.model.fields,field_description:mc_sales_lot.field_sale_order_line__sales_lot_supplier_type
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__supplier_type
 msgid "Supplier Type"
 msgstr "Type de fournisseur"
@@ -1282,6 +1309,11 @@ msgid ""
 msgstr ""
 "Champs technique qui indique si un numéro de production doit être utilisé "
 "pour ce produit."
+
+#. module: mc_sales_lot
+#: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__fabric_ordered
+msgid "Technical field used in a scheduled action"
+msgstr ""
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_picking.py:0
@@ -1304,7 +1336,7 @@ msgstr "Le SN {} est en cours d'acheminement vers l'entrepôt de {}"
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_picking__fictitious_receipt_date
 msgid "The earliest fictitious receipt date set on manufacturing numbers"
-msgstr " "
+msgstr ""
 
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.my_sales_lots_portal
@@ -1342,7 +1374,7 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Type d'activité d'exception enregistrée"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__product_uom_id
@@ -1358,12 +1390,12 @@ msgstr ""
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Messages non lus"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Compteur de messages non lus"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_production_sales_lot.py:0
@@ -1393,17 +1425,17 @@ msgstr "Utilisateur"
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.purchase_order_line_tree
 msgid "Vendor"
-msgstr ""
+msgstr "Fournisseur"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,field_description:mc_sales_lot.field_stock_production_sales_lot__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Messages du site web"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields,help:mc_sales_lot.field_stock_production_sales_lot__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Historique de communication du site web"
 
 #. module: mc_sales_lot
 #: code:addons/mc_sales_lot/models/stock_production_sales_lot.py:0

@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-11 21:08+0000\n"
-"PO-Revision-Date: 2021-03-11 22:30+0100\n"
+"POT-Creation-Date: 2021-05-17 09:03+0000\n"
+"PO-Revision-Date: 2021-05-17 11:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr_BE\n"
-"X-Generator: Poedit 2.4.2\n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. module: mc_mrp
 #: model:ir.actions.report,print_report_name:mc_mrp.action_report_production_sheet_2
@@ -42,11 +42,13 @@ msgid ""
 "                    </p>\n"
 "                </div>"
 msgstr ""
-"<?xml version=\"1.0\"?>\n"
-"<div style=\"margin: 0px; padding: 0px;\">\n"
-"                    <p style=\"margin: 0px; padding: 0px;font-size: 13px;"
-"\">\n"
-"                        Bonjour ${object.partner_id.name},<br/>\n"
+"<!--?xml version=\"1.0\"?-->\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, "
+"Helvetica, Verdana, Arial, sans-serif;margin:0px;padding: 0px;\">\n"
+"                    <p style=\"margin:0px;font-family:&quot;Lucida "
+"Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding: 0px;font-size: "
+"13px;\">\n"
+"                        Bonjour ${object.partner_id.name},<br>\n"
 "                        En pièce jointe vous trouverez la fiche de "
 "production.\n"
 "                        % if object.origin:\n"
@@ -54,55 +56,19 @@ msgstr ""
 "                        % endif\n"
 "                        Vous pouvez répondre à cette email si vous avez une "
 "question.\n"
-"                        <br/><br/>\n"
+"                        <br><br>\n"
 "                        Merci,\n"
 "                    </p>\n"
 "                </div>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid ""
 "<br/>\n"
-"                                    <strong>Unit Meterage Needed:</strong>"
+"                    <span>MODEL: </span>"
 msgstr ""
 "<br/>\n"
-"                                    <strong>Méterage Nécessaire:</strong>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<br/>\n"
-"                                <strong>Unit Meterage Needed:</strong>"
-msgstr ""
-"<br/>\n"
-"                                <strong>Méterage Nécessaire:</strong>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<br/>\n"
-"                            <span>MODEL: </span>"
-msgstr ""
-"<br/>\n"
-"                            <span>Modèle: </span>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<br/>\n"
-"                            <strong>Unit Meterage Needed:</strong>"
-msgstr ""
-"<br/>\n"
-"                            <strong>Métrage Unitaire Utilisé:</strong>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<br/>\n"
-"                        <span>MODEL: </span>"
-msgstr ""
-"<br/>\n"
-"                        <span>MODELE: </span>"
+"                    <span>MODÈLE: </span>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_labels_manufacturing_document
@@ -114,127 +80,100 @@ msgstr ""
 "            <span style=\"font-size:10pt\">Tissu(s):</span>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid ""
 "<span> / </span>\n"
-"                            <span>Quantity: </span>"
+"                    <span>Quantity: </span>"
 msgstr ""
 "<span> / </span>\n"
-"                            <span>Quantité: </span>"
+"                    <span>Quantité: </span>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
+msgid ""
+"<span> / </span>\n"
+"                    <span>SHEET: </span>"
+msgstr ""
+"<span> / </span>\n"
+"                    <span>FICHE: </span>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<span> / </span>\n"
-"                            <span>SHEET: </span>"
-msgstr ""
-"<span> / </span>\n"
-"                            <span>FICHE: </span>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<span> / </span>\n"
-"                        <span>Quantity: </span>"
-msgstr ""
-"<span> / </span>\n"
-"                        <span>Quantité: </span>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid ""
-"<span> / </span>\n"
-"                        <span>SHEET: </span>"
-msgstr ""
-"<span> / </span>\n"
-"                        <span>N° PROD: </span>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<span>Fabric(s): </span>"
 msgstr "<span>Tissu(s): </span>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<span>ORDER: </span>"
 msgstr "<span>COMMANDE: </span>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid "<strong> - </strong><strong>Lot: </strong>"
-msgstr ""
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid "<strong> - Total Meterage Needed:</strong>"
-msgstr "<strong> - Métrage Total Utilisé:</strong>"
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
+msgid "<strong>Country: </strong>"
+msgstr "<strong>Pays: </strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
-msgid "<strong>Country:</strong>"
-msgstr "<strong>Pays:</strong>"
+msgid "<strong>Customer: </strong>"
+msgstr "<strong>Client: </strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
-msgid "<strong>Customer:</strong>"
-msgstr "<strong>Client:</strong>"
+msgid "<strong>Delivery Date: </strong>"
+msgstr "<strong>Date de Livraison: </strong>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Delivery Date:</strong>"
 msgstr "<strong>Date de Livraison:</strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
-msgid "<strong>Destination:</strong>"
-msgstr "<strong>Destination:</strong>"
+msgid "<strong>Destination: </strong>"
+msgstr "<strong>Destination: </strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Details</strong>"
 msgstr "<strong>Détails</strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
+msgid "<strong>Fabric Date: </strong>"
+msgstr "<strong>Date Tissu: </strong>"
+
+#. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Fabric Date:</strong>"
 msgstr "<strong>Date Tissu:</strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid "<strong>Fabric(s):</strong>"
-msgstr "<strong>Tissu(s):</strong>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid "<strong>Legs: </strong>"
-msgstr "<strong>Pieds: </strong>"
-
-#. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Mandatory Date:</strong>"
 msgstr "<strong>Date Impérative:</strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
-msgid "<strong>Mc Care:</strong>"
+msgid "<strong>Mc Care: </strong>"
 msgstr ""
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Model (Finished Product): </strong>"
 msgstr "<strong>Modèle (Produit Fini): </strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
-msgid "<strong>Options: </strong>"
-msgstr ""
+msgid "<strong>Model <small>(Finished Product)</small>: </strong>"
+msgstr "<strong>Modèle <small>(Produit Fini)</small>: </strong>"
 
 #. module: mc_mrp
-#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_labels_document
 msgid "<strong>Product Details</strong>"
 msgstr "<strong>Produit Détaillé</strong>"
@@ -242,19 +181,26 @@ msgstr "<strong>Produit Détaillé</strong>"
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "<strong>Quantity: </strong>"
+msgstr "<strong>Quantité: </strong>"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Quantity:</strong>"
 msgstr "<strong>Quantité:</strong>"
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_saleslot_document
 msgid "<strong>Special Remarks:</strong>"
 msgstr "<strong>Remarque Spéciale:</strong>"
 
 #. module: mc_mrp
 #: model:ir.model.fields,help:mc_mrp.field_product_category__is_foot
 msgid "All products of this category will be see as being a foot"
-msgstr "Tous le produit de cette catégorie seront vu comme des pieds"
+msgstr ""
+"Tous les produits de cette catégorie seront considérés comme des pieds"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__allowed_attribute_ids
@@ -305,7 +251,7 @@ msgstr "Ligne de nomenclature"
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.confirm_purchase_order_view_form
 msgid "Cancel"
-msgstr "Annulé"
+msgstr "Annuler"
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__manufacturing_state__cancel
@@ -424,7 +370,7 @@ msgstr "Date de Livraison"
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__short_name
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_confirm_purchase_order__display_name
@@ -433,12 +379,14 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_sale_order_line__delivery_date
 #: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__delivery_date
 msgid "Estimated delivery date provided by production team or subcontractor"
 msgstr "Date de livraison estimée par l'équipe de production"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__fabric_date
+#: model:ir.model.fields,field_description:mc_mrp.field_sale_order_line__fabric_date
 #: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__fabric_date
 msgid "Fabric Date"
 msgstr "Date Tissu"
@@ -450,6 +398,7 @@ msgid "Fabric Description"
 msgstr "Description Tissu"
 
 #. module: mc_mrp
+#: model:ir.model.fields,help:mc_mrp.field_sale_order_line__fabric_date
 #: model:ir.model.fields,help:mc_mrp.field_stock_production_sales_lot__fabric_date
 msgid "Fabric date provided by production team"
 msgstr "Date de réception tissu estimée par l'équipe de production"
@@ -528,14 +477,46 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Legs"
+msgstr "Pieds"
+
+#. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__done
 msgid "Locked"
 msgstr "Bloqué"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Lot"
+msgstr ""
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Lot(s)"
+msgstr ""
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Lot(s):"
+msgstr ""
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Lot:"
+msgstr ""
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__short_name
 msgid "MC Description"
-msgstr "MC Description"
+msgstr ""
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "MODEL:"
+msgstr "MODÈLE:"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_stock_production_sales_lot
@@ -564,9 +545,19 @@ msgid "Many to One"
 msgstr ""
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Meterage Needed"
+msgstr "Métrage nécessaire"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Meterage Needed:"
+msgstr "Métrage nécessaire:"
+
+#. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 msgid "Model:"
-msgstr "Modéle"
+msgstr "Modèle:"
 
 #. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__sale_order__po_state__multi_draft
@@ -611,6 +602,11 @@ msgid ""
 msgstr ""
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "ORDER:"
+msgstr "COMMANDE:"
+
+#. module: mc_mrp
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute__relationship_type__o2m
 #: model:ir.model.fields.selection,name:mc_mrp.selection__product_attribute_value__relationship_type__o2m
 msgid "One to Many"
@@ -621,6 +617,11 @@ msgstr ""
 #, python-format
 msgid "Operations"
 msgstr "Opérations"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Options"
+msgstr ""
 
 #. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
@@ -639,6 +640,7 @@ msgstr "Commande:"
 
 #. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__delivery_date
+#: model:ir.model.fields,field_description:mc_mrp.field_sale_order_line__delivery_date
 #: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__delivery_date
 #: model_terms:ir.ui.view,arch_db:mc_mrp.sales_lot_form_view
 msgid "Planned Delivery Date"
@@ -661,6 +663,11 @@ msgid "Product Attribute"
 msgstr "Caractéristique de l'article"
 
 #. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_product_attribute_custom_value
+msgid "Product Attribute Custom Value"
+msgstr "Valeur caractéristique personnalisée du produit"
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_bom_line__product_attribute_ids
 msgid "Product Attributes"
 msgstr "Attributs de produit"
@@ -674,6 +681,11 @@ msgstr "Catégorie d'article"
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_description
 msgid "Product Description"
 msgstr "Description du produit"
+
+#. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Mouvements d'article (Ligne de mouvement de stock)"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_product_template
@@ -744,6 +756,11 @@ msgid "Purchase Orders"
 msgstr "Commandes Fournisseurs"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "QUANTITY:"
+msgstr "QUANTITÉ:"
+
+#. module: mc_mrp
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_production_sheet_2_document
 #: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
 msgid "Quantity"
@@ -788,6 +805,11 @@ msgid "Relationship Type"
 msgstr "Type de relation"
 
 #. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "SHEET:"
+msgstr "FICHE:"
+
+#. module: mc_mrp
 #: model:ir.model.fields,field_description:mc_mrp.field_mrp_production__sale_comment
 #: model:ir.model.fields,field_description:mc_mrp.field_stock_production_sales_lot__sale_comment
 msgid "Sale Comment"
@@ -820,6 +842,7 @@ msgstr "Bon de commande"
 
 #. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_sale_order_line
+#: model:ir.model.fields,field_description:mc_mrp.field_product_attribute_custom_value__sale_order_line_id
 msgid "Sales Order Line"
 msgstr "Ligne de bons de commande"
 
@@ -834,6 +857,11 @@ msgid "Send To Manufacturing"
 msgstr "Envoyer en Production"
 
 #. module: mc_mrp
+#: model:ir.model,name:mc_mrp.model_stock_move
+msgid "Stock Move"
+msgstr "Stock déplacer"
+
+#. module: mc_mrp
 #: model:ir.model,name:mc_mrp.model_stock_rule
 msgid "Stock Rule"
 msgstr "Règle de stock minimum"
@@ -846,6 +874,19 @@ msgstr ""
 #. module: mc_mrp
 #: model:ir.model.fields,help:mc_mrp.field_product_product__is_foot
 msgid "Technical field that indicates whether a product is a foot or not."
+msgstr ""
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/sale_order.py:0
+#, python-format
+msgid ""
+"The MO {} has already some Reserved or Consumed quantity in its components!"
+msgstr ""
+
+#. module: mc_mrp
+#: code:addons/mc_mrp/models/sale_order.py:0
+#, python-format
+msgid "The MO {} is already done, so you cannot cancel it!"
 msgstr ""
 
 #. module: mc_mrp
@@ -917,6 +958,16 @@ msgstr "À confimer"
 #: model_terms:ir.ui.view,arch_db:mc_mrp.sale_order_filter_view
 msgid "To Produce"
 msgstr "À produire"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Total Meterage Needed:"
+msgstr "Métrage total nécessaire:"
+
+#. module: mc_mrp
+#: model_terms:ir.ui.view,arch_db:mc_mrp.report_mrp_saleslot_manufacturing_document
+msgid "Total Needed"
+msgstr "Total nécessaire"
 
 #. module: mc_mrp
 #: model:ir.model.fields,help:mc_mrp.field_mrp_bom_line__product_uom_id

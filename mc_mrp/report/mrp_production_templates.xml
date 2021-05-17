@@ -152,8 +152,16 @@
                             <span>Fabric(s): </span>
                         </div>
                         <div class="col-auto">
-                            <div><span class="font-weight-bold"><t t-esc="lots[lot]['fabric'].default_code"/> - Lot: <t t-esc="lot"/></span></div>
-                            <div><span class="font-weight-bold">Meterage Needed: <t t-esc="lots[lot]['unit_fabric']"/> <t t-esc="lots[lot]['fabric_uom']"/> - Total Meterage Needed: <t t-esc="lots[lot]['total_fabric']"/> <t t-esc="lots[lot]['fabric_uom']"/></span></div>
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item d-inline"><span class="font-weight-bold" t-field="lots[lot]['fabric'].default_code"/></li>
+                                <li class="list-inline-item d-inline"> - </li>
+                                <li class="list-inline-item d-inline"><span class="font-weight-bold">Lot: <t t-esc="lot"/></span></li>
+                            </ul>
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item d-inline"><span class="font-weight-bold">Meterage Needed: <t t-esc="lots[lot]['unit_fabric']"/><t t-esc="lots[lot]['fabric_uom']"/></span></li>
+                                <li class="list-inline-item d-inline"> - </li>
+                                <li class="list-inline-item d-inline"><span class="font-weight-bold">Total Meterage Needed: <t t-esc="lots[lot]['total_fabric']"/><t t-esc="lots[lot]['fabric_uom']"/></span></li>
+                            </ul>
                         </div>
                     </div>
                     <hr t-if="len(lots) &gt; 1 and lots_count &lt; len(lots)" width="100%" class="mt-4 mx-0 mb-0"/>
@@ -180,8 +188,16 @@
                                 <span>Fabric(s): </span>
                             </div>
                             <div class="col-auto">
-                                <div><span class="font-weight-bold"><t t-esc="move.product_id.default_code"/> - Lot(s): <t t-esc="', '.join(move.move_line_ids.mapped('lot_id.name'))"/></span></div>
-                                <div><span class="font-weight-bold">Meterage Needed: <t t-esc="move.product_uom_qty / doc.product_qty"/> <t t-esc="move.product_uom.name"/> - Total Meterage Needed: <t t-esc="move.product_uom_qty"/> <t t-esc="move.product_uom.name"/></span></div>
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item d-inline"><span class="font-weight-bold" t-field="move.product_id.default_code"/></li>
+                                    <li class="list-inline-item d-inline"> - </li>
+                                    <li class="list-inline-item d-inline"><span class="font-weight-bold">Lot(s): <t t-esc="', '.join(move.move_line_ids.mapped('lot_id.name'))"/></span></li>
+                                </ul>
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item d-inline"><span class="font-weight-bold">Meterage Needed: <t t-esc="move.product_uom_qty / doc.product_qty"/><t t-esc="move.product_uom.name"/></span></li>
+                                    <li class="list-inline-item d-inline"> - </li>
+                                    <li class="list-inline-item d-inline"><span class="font-weight-bold">Total Meterage Needed: <t t-esc="move.product_uom_qty"/><t t-esc="move.product_uom.name"/></span></li>
+                                </ul>
                             </div>
                         </div>
                         <hr t-if="len(fabric_moves) &gt; 1 and fabric_moves_count &lt; len(fabric_moves)" width="100%" class="mt-4 mx-0 mb-0"/>
