@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="%(mc_sale_layout.print_sale_report_action)d" string="Print Report" type="action" context="{'default_sale_order_id': active_id}"/>
+                <field name="id" invisible="1"/>
+                <button name="%(mc_sale_layout.print_sale_report_action)d" string="Print Report" type="action" context="{'default_sale_order_id': id}"/>
             </xpath>
         </field>
     </record>
