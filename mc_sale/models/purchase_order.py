@@ -11,8 +11,11 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def _prepare_picking(self):
+        """
+        In case of drop shipping set as partner id of the picking the delivery address
+        """
         res = super(PurchaseOrder, self)._prepare_picking()
-        if self.picking_type_id.default_location_dest_id.usage == 'customer':
+        if self.picking_type_id.default_location_dest_id.usage == 'customer' and self.dest_address_id:
             res['partner_id'] = self.dest_address_id.id
         return res
 
