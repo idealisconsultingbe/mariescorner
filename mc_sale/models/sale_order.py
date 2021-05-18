@@ -96,8 +96,6 @@ class SaleOrder(models.Model):
         """
         self.ensure_one()
         if self.state in ['draft', 'sent']:
-            # Remove delivery products from the sales order because prices may have changed
-            self._remove_delivery_line()
             for line in self.order_line:
                 if self.pricelist_id.discount_policy == 'with_discount':
                     line.discount = 0.0
