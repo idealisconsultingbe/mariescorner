@@ -4,17 +4,17 @@
     <record id="stock_picking_view_form" model="ir.ui.view">
         <field name="name">stock.picking.view.form.inherited.custom.product.info</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="mc_sale.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="%(mc_stock_layout.print_stock_report_action)d" string="Print Report" type="action" context="{'default_picking_id': id}"/>
             </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="product_volume" string="Volume(m³)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_weight" string="Weight(kg)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_height" string="Height(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_width" string="Width(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
-                <field name="product_depth" string="Depth(cm)" option="show" attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_volume" string="Volume(m³)" option="show" attrs="{'column_invisible': [('parent.destination_usage', '!=', 'customer')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_weight" string="Weight(kg)" option="show" attrs="{'column_invisible': [('parent.destination_usage', '!=', 'customer')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_height" string="Height(cm)" option="show" attrs="{'column_invisible': [('parent.destination_usage', '!=', 'customer')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_width" string="Width(cm)" option="show" attrs="{'column_invisible': [('parent.destination_usage', '!=', 'customer')], 'readonly': [('state', '=', 'cancel')]}"/>
+                <field name="product_depth" string="Depth(cm)" option="show" attrs="{'column_invisible': [('parent.destination_usage', '!=', 'customer')], 'readonly': [('state', '=', 'cancel')]}"/>
             </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/form" position="inside">
                 <group>

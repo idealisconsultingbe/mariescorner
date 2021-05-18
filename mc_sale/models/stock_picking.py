@@ -7,6 +7,8 @@ from odoo import fields, models
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    destination_usage = fields.Selection(related='picking_type_id.default_location_dest_id.usage', string='Destination Location Type', help="Technical field used in view", readonly=True)
+
     # changes to existing fields
     carrier_id = fields.Many2one('delivery.carrier', tracking=True)
     carrier_tracking_ref = fields.Char(tracking=True)

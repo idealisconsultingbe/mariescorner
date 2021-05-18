@@ -21,6 +21,13 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//label[@for='partner_id']" position="after">
+                <field name="destination_usage" invisible="1"/>
+                <label for="partner_id" string="Delivery Address" style="font-weight:bold;" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming'), ('destination_usage', '!=', 'customer')]}"/>
+            </xpath>
+            <xpath expr="//label[@for='partner_id'][3]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('picking_type_code', '!=', 'incoming'), ('destination_usage', '=', 'customer')]}</attribute>
+            </xpath>
             <xpath expr="//field[@name='location_dest_id']" position="after">
                 <field name="carrier_id" attrs="{'readonly': [('state', '=', 'cancel')]}" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
