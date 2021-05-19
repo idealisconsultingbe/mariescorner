@@ -19,14 +19,13 @@ class SaleOrderLine(models.Model):
     delivery_date = fields.Date(related='sales_lot_id.delivery_date')
     fabric_date = fields.Date(related='sales_lot_id.fabric_date')
 
-    @api.depends('product_no_variant_attribute_value_ids',
+    @api.depends('product_custom_attribute_value_ids',
+                 'product_no_variant_attribute_value_ids',
                  'product_id.product_template_attribute_value_ids',
                  'list_price')
     def _compute_list_price_extra(self):
         """
         Compute list_extra_price which is product price with extra and the result is rounded
-        Removed 'product_custom_attribute_value_ids' from depends in order to prevent recomputation when order is sent to production
-        (because product_custom_attribute_value_ids are lost)
         """
         for line in self:
             price = line.list_price
