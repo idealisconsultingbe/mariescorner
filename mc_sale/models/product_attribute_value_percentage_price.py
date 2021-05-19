@@ -40,7 +40,7 @@ class PercentagePrice(models.Model):
     @api.constrains('quantity_computation_type', 'product_attribute_value_id.is_custom', 'product_attribute_value_id.has_linear_price')
     def _check_quantity_computation_type(self):
         for percentage_price in self:
-            if not percentage_price.product_attribute_value_id.is_custom or not percentage_price.product_attribute_value_id.has_linear_price:
+            if percentage_price.quantity_computation_type == 'quantity' and (not percentage_price.product_attribute_value_id.is_custom or not percentage_price.product_attribute_value_id.has_linear_price):
                 raise UserError(_('Computation of extra prices cannot be quantity dependent if product attribute value is not custom '
                                   'or is not configurated with linear prices (see product attribute value {}).').format(percentage_price.product_attribute_value_id.display_name))
 

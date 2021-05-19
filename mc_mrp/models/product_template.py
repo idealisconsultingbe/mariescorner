@@ -22,16 +22,16 @@ class ProductTemplate(models.Model):
         """
         self.ensure_one()
         custom_extra_prices = []
-        combination = combination.filtered(lambda c: c.attribute_id.has_linear_price)
+        ptav_used = self.env['product.template.attribute.value']
         attribute_ids = combination.mapped('attribute_id.id')
         for ptav in combination:
             percentage_price_rule = ptav._get_percentage_price()
             if percentage_price_rule and percentage_price_rule.quantity_computation_type == 'total_quantity':
                 price = ptav.price_extra * sum([custom_quantities.get(id, 0) for id in attribute_ids])
+                ptav_used |= ptav
             elif percentage_price_rule and percentage_price_rule.quantity_computation_type == 'quantity':
                 price = ptav.price_extra * custom_quantities.get(ptav.attribute_id.id, 0)
-            else:
-                price = ptav.price_extra
+                ptav_used |= ptav
             custom_extra_prices.append(price)
         return custom_extra_prices, combination
 
@@ -59,7 +59,11 @@ class ProductTemplate(models.Model):
             custom_quantities = {}
             for ptav_id in pre_custom_quantities:
                 # keep only custom attribute values linked to an attribute marked as linear price
-                custom_quantities[custom_combination.filtered(lambda ptav: ptav.id == ptav_id and ptav.attribute_id.has_linear_price).attribute_id.id] = pre_custom_quantities[ptav_id]
+                # attribute_id is mandatory for ptav
+                combination_candidate = custom_combination.filtered(lambda ptav: ptav.id == ptav_id and ptav.attribute_id.has_linear_price)
+                # since we filter by record id, there should be only one or zero result.
+                if combination_candidate:
+                    custom_quantities[combination_candidate.attribute_id.id] = pre_custom_quantities[ptav_id]
 
             # Find price of fabric product linked to this combination
             fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_fabric_product_id')
