@@ -28,11 +28,12 @@ class ProductTemplate(models.Model):
             percentage_price_rule = ptav._get_percentage_price()
             if percentage_price_rule and percentage_price_rule.quantity_computation_type == 'total_quantity':
                 price = ptav.price_extra * sum([custom_quantities.get(id, 0) for id in attribute_ids])
+                custom_extra_prices.append(price)
                 ptav_used |= ptav
             elif percentage_price_rule and percentage_price_rule.quantity_computation_type == 'quantity':
                 price = ptav.price_extra * custom_quantities.get(ptav.attribute_id.id, 0)
+                custom_extra_prices.append(price)
                 ptav_used |= ptav
-            custom_extra_prices.append(price)
         return custom_extra_prices, ptav_used
 
     def _get_combination_info(self, combination=False, product_id=False, add_qty=1, pricelist=False, parent_combination=False, only_template=False, **kw):
