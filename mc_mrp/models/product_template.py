@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
                 price = ptav.price_extra * custom_quantities.get(ptav.attribute_id.id, 0)
                 ptav_used |= ptav
             custom_extra_prices.append(price)
-        return custom_extra_prices, combination
+        return custom_extra_prices, ptav_used
 
     def _get_combination_info(self, combination=False, product_id=False, add_qty=1, pricelist=False, parent_combination=False, only_template=False, **kw):
         """ Overridden method used in product configurator
