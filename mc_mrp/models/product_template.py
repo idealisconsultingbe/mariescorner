@@ -8,6 +8,7 @@ from .tools import to_float
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    @api.model
     def get_fabric_price(self, combination, custom_quantities):
         """
         Previously this method was used to find the price of fabric product from the given combination.
@@ -44,7 +45,6 @@ class ProductTemplate(models.Model):
         combination = combination.with_context(self.env.context)
         self.ensure_one()
         res = super(ProductTemplate, self)._get_combination_info(combination, product_id, add_qty, pricelist, parent_combination, only_template)
-
         if kw.get('custom_values'):
             # standard
             context = dict(self.env.context, quantity=self.env.context.get('quantity', add_qty), pricelist=pricelist.id if pricelist else False)
@@ -67,12 +67,9 @@ class ProductTemplate(models.Model):
                     custom_quantities[combination_candidate.attribute_id.id] = pre_custom_quantities[ptav_id]
 
             # Find price of fabric product linked to this combination
-            fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_fabric_product_id')
-            fabric_product = self.env['product.template'].browse(int(fabric_product_id)) if fabric_product_id else False
             custom_extra_price = []
             ptav_used = self.env['product.template.attribute.value']
-            if fabric_product:
-                custom_extra_price, ptav_used = fabric_product.get_fabric_price(combination, custom_quantities)
+            custom_extra_price, ptav_used = self.get_fabric_price(combination, custom_quantities)
 
             if product:
                 # compute correct extra prices of custom attribute values left
