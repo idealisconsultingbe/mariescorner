@@ -8,6 +8,7 @@
             <tree string="Percentage Prices" editable="bottom">
                 <field name="product_category_id"/>
                 <field name="type"/>
+                <field name="quantity_computation_type"/>
                 <field name="percentage_price" widget="percentage" attrs="{'invisible': [('type', '!=', 'percentage')]}"/>
                 <field name="price_extra" attrs="{'invisible': [('type', '!=', 'amount')]}"/>
             </tree>

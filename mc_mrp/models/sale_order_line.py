@@ -50,13 +50,14 @@ class SaleOrderLine(models.Model):
         :return: list of extra prices
         """
         if self.product_custom_attribute_value_ids:
-            custom_quantities = {value.custom_product_template_attribute_value_id.attribute_id.id: to_float(value.custom_value) for value in self.product_custom_attribute_value_ids}
+            # Only custom quantities for product attributes with linear price are considered
+            custom_quantities = {value.custom_product_template_attribute_value_id.attribute_id.id: to_float(value.custom_value) for value in self.product_custom_attribute_value_ids.filtered(lambda pcav: pcav.custom_product_template_attribute_value_id.attribute_id.has_linear_price)}
             fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_fabric_product_id')
             fabric_product = self.env['product.template'].browse(int(fabric_product_id)) if fabric_product_id else False
             custom_extra_price = []
             ptav_used = self.env['product.template.attribute.value']
             if fabric_product:
-                custom_extra_price, ptav_used = fabric_product.get_variant_price(self.product_no_variant_attribute_value_ids, custom_quantities, self.order_id.pricelist_id)
+                custom_extra_price, ptav_used = fabric_product.get_fabric_price(self.product_no_variant_attribute_value_ids, custom_quantities)
 
             # exclude product_template_attribute_values related to the same attribute than a custom attribute value
             no_variant_attributes_price_extra = [
