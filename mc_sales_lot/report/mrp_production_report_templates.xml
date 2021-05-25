@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_mrp_saleslot_document">
-        <div class="page" style="font-size:16pt;">
-            <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)" />
-            <div style="border-bottom: 1px solid black;"/>
+        <div class="page" style="font-size:1.4rem;">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.sales_lot_id.partner_id.lang)"/>
+            <hr width="100%" class="m-0" style="border-bottom: 1px solid black;"/>
 
             <div name="label_1" style="page-break-inside:avoid;">
                 <strong class="m-0" t-field="doc.name"/>
                 <div class="row mt32 mb32" id="main_row">
                     <div class="col-6" name="main_info">
-                        <p><h1>Manufacturing Number: <span class="m-0" t-field="doc.sales_lot_id.name"/></h1></p>
-                        <p><h2>Order (Source Document): <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/></h2></p>
-                        <div class="col-auto mw-100 mb-2" name="destination" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
-                            <p><strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/></p>
-                            <p><strong>Country:</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.country_id.name"/></p>
+                        <h1 class="font-weight-bold" style="font-size:1.6rem;">Manufacturing Number: <span t-field="doc.sales_lot_id.name"/></h1>
+                        <h2 class="font-weight-bold" style="font-size:1.4rem;">Order <small>(Source Document)</small>: <span t-field="doc.sales_lot_id.origin_sale_order_id.name"/></h2>
+                        <div class="p-2 mw-100" name="destination" style="border: 2px solid black;">
+                            <div><strong>Destination:</strong> <span t-field="doc.sales_lot_id.carrier_id.name"/></div>
+                            <div><strong>Country:</strong> <span t-field="doc.sales_lot_id.partner_id.country_id.name"/></div>
                         </div>
                     </div>
                     <div class="col-6" name="secondary_info">
                         <div name="barcode" class="text-center align-middle">
                             <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.sales_lot_id.name or ''), 400, 50)" style="width:100%;"/>
-                            <span class="m-0" t-field="doc.sales_lot_id.name" style="font-size:8pt;"/>
+                            <span t-field="doc.sales_lot_id.name" style="font-size:8pt;"/>
                         </div>
                         <div name="customer">
-                            <p> <strong>Customer: [</strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <strong>] </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.name"/></p>
+                            <strong>Customer:</strong> <span t-if="doc.sales_lot_id.partner_id.ref">[<t t-esc="doc.sales_lot_id.partner_id.ref"/>]</span> <span t-field="doc.sales_lot_id.partner_id.name"/>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div style="border-bottom: 1px solid black;"/>
+            <hr width="100%" class="m-0" style="border-bottom: 1px solid black;"/>
 
         </div>
     </template>

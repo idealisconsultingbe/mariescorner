@@ -3,7 +3,7 @@
     <template id="report_mrp_saleslot_mc_care_document" inherit_id="mc_sales_lot.report_mrp_saleslot_document">
         <xpath expr="//div[@name='destination']" position="after">
             <div name="details">
-                <p><strong>MC Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong></p>
+                <div><strong>MC Care:</strong> <span t-if="doc.sales_lot_id.mc_care">Yes</span><span t-else="">No</span></div>
             </div>
         </xpath>
     </template>
