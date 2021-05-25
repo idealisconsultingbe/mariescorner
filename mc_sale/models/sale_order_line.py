@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from .tools import to_float
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import float_round
 from odoo.tools.misc import get_lang
 
 

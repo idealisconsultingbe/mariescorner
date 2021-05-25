@@ -5,6 +5,7 @@ from odoo import api, fields, exceptions, models, _
 from odoo.tools.misc import get_lang
 from odoo.exceptions import ValidationError, UserError
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
