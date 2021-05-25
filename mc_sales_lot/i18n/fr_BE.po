@@ -973,7 +973,7 @@ msgstr "Commande (Document Source):"
 #. module: mc_sales_lot
 #: model_terms:ir.ui.view,arch_db:mc_sales_lot.report_mrp_saleslot_document
 msgid "Order <small>(Source Document)</small>:"
-msgstr "Commande <small style="font-size: 1.0rem;">(Document Source)</small>:"
+msgstr "Commande <small style=\"font-size: 1.0rem;\">(Document Source)</small>:"
 
 #. module: mc_sales_lot
 #: model:ir.model.fields.selection,name:mc_sales_lot.selection__stock_production_sales_lot__external_state__received_by_manufacturer
