@@ -44,8 +44,8 @@
         <t t-call="web.html_container">
             <t t-call="mc_batch_picking.packing_list_external_layout">
                 <t t-set="report_name" t-value="'Packing List for Receipt'"/>
-                <t t-foreach="pickings_by_carrier" t-as="carrier_name">
-                    <t t-set="moves" t-value="pickings_by_carrier[carrier_name].mapped('move_lines').filtered(lambda m: m.inter_company_batch_picking_name)"/>
+                <t t-foreach="pickings_by_carrier" t-as="carrier">
+                    <t t-set="moves" t-value="pickings_by_carrier[carrier].mapped('move_lines').filtered(lambda m: m.inter_company_batch_picking_name)"/>
                     <t t-set="moves" t-value="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)"/>
                     <style type="text/css">
                         table.table-lightgray th {
@@ -59,7 +59,13 @@
                         }
                     </style>
 
-                    <h5 t-esc="carrier_name"/>
+                    <t t-if="carrier">
+                        <h5 t-esc="carrier.name"/>
+                    </t>
+                    <t t-else="">
+                        <h5>Undefined</h5>
+                    </t>
+
                     <div class="page" style="font-size: small;">
                         <t t-set="moves_part1" t-value="moves[:int(len(moves)/2)]"/>
                         <t t-set="moves_part2" t-value="moves[int(len(moves)/2):]"/>
@@ -128,8 +134,8 @@
         <t t-call="web.html_container">
             <t t-call="mc_batch_picking.packing_list_external_layout">
                 <t t-set="report_name" t-value="'Planned Packing List for Shipment'"/>
-                <t t-foreach="pickings_by_carrier" t-as="carrier_name">
-                    <t t-set="moves" t-value="pickings_by_carrier[carrier_name].mapped('move_lines').filtered(lambda m: m.state in ['partially_available', 'assigned'])"/>
+                <t t-foreach="pickings_by_carrier" t-as="carrier">
+                    <t t-set="moves" t-value="pickings_by_carrier[carrier].mapped('move_lines').filtered(lambda m: m.state in ['partially_available', 'assigned'])"/>
                     <t t-set="moves" t-value="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)"/>
                     <style type="text/css">
                         table.table-lightgray th {
@@ -143,7 +149,12 @@
                         }
                     </style>
 
-                    <h5 t-esc="carrier_name"/>
+                    <t t-if="carrier">
+                        <h5 t-esc="carrier.name"/>
+                    </t>
+                    <t t-else="">
+                        <h5>Undefined</h5>
+                    </t>
                     <div class="page" style="font-size: small;">
                         <t t-set="moves_part1" t-value="moves[:int(len(moves)/2)]"/>
                         <t t-set="moves_part2" t-value="moves[int(len(moves)/2):]"/>
@@ -214,9 +225,9 @@
         <t t-call="web.html_container">
             <t t-call="mc_batch_picking.packing_list_external_layout">
                 <t t-set="report_name" t-value="'Packing List for Shipment'"/>
-                <t t-foreach="pickings_by_carrier" t-as="carrier_name">
-                    <t t-set="company" t-value="pickings_by_carrier[carrier_name].mapped('company_id')"/>
-                    <t t-set="pickings" t-value="pickings_by_carrier[carrier_name].filtered(lambda pick: any([move.quantity_done > 0 for move in pick.move_lines]) if pick.state == 'done' else any([move.product_uom_qty > 0 for move in pick.move_lines]))"/>
+                <t t-foreach="pickings_by_carrier" t-as="carrier">
+                    <t t-set="company" t-value="pickings_by_carrier[carrier].mapped('company_id')"/>
+                    <t t-set="pickings" t-value="pickings_by_carrier[carrier].filtered(lambda pick: any([move.quantity_done > 0 for move in pick.move_lines]) if pick.state == 'done' else any([move.product_uom_qty > 0 for move in pick.move_lines]))"/>
                     <t t-set="all_moves" t-value="pickings.mapped('move_lines').filtered(lambda m: m.quantity_done if m.picking_id.state == 'done' else m.product_uom_qty)"/>
 
                     <style type="text/css">
@@ -231,9 +242,17 @@
                         }
                     </style>
 
-                    <h5 t-esc="carrier_name"/>
+                    <t t-if="carrier">
+                        <h5 t-esc="carrier.name"/>
+                        <t t-set="display_price_on_packing_list" t-value="carrier.display_price_on_packing_list"/>
+                    </t>
+                    <t t-else="">
+                        <h5>Undefined</h5>
+                        <t t-set="display_price_on_packing_list" t-value="False"/>
+                    </t>
                     <div class="page" style="font-size: small;">
                         <t t-foreach="pickings" t-as="pick">
+
                             <table class="table table-sm table-lightgray" style="page-break-inside: avoid;">
                                 <thead>
                                     <tr>
@@ -271,7 +290,7 @@
                                                         <th class="text-center border-bottom-black"><strong>Quantity</strong></th>
                                                         <th class="text-center border-bottom-black"><strong>Volume</strong>(m³)</th>
                                                         <th class="text-center border-bottom-black"><strong>Weight</strong>(kg)</th>
-                                                        <th class="text-center border-bottom-black"><strong>Price</strong>(<span t-field="company.currency_id"/>)</th>
+                                                        <th class="text-center border-bottom-black" t-if="display_price_on_packing_list"><strong>Price</strong>(<span t-field="company.currency_id"/>)</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -288,7 +307,7 @@
                                                         <td class="text-right"><span t-esc="move_quantity"/></td>
                                                         <td class="text-right"><span t-esc="'%.2f' %  (move_quantity * move.product_id.volume)"/></td>
                                                         <td class="text-right"><span t-esc="'%.2f' % (move_quantity * move.product_id.weight)"/></td>
-                                                        <td class="text-right"><span t-esc="'%.2f' % (move_quantity * move.product_id.standard_price)"/></td>
+                                                        <td class="text-right" t-if="display_price_on_packing_list"><span t-esc="'%.2f' % (move_quantity * move.product_id.standard_price)"/></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-top-black"/>
@@ -297,7 +316,7 @@
                                                         <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum([move.quantity_done if move.picking_id == 'done' else move.product_uom_qty for move in moves])"/></strong></td>
                                                         <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.volume for move in moves])"/></strong></td>
                                                         <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.weight for move in moves])"/></strong></td>
-                                                        <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.standard_price for move in moves])"/></strong></td>
+                                                        <td class="text-right border-top-black" t-if="display_price_on_packing_list"><strong><span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.standard_price for move in moves])"/></strong></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -330,7 +349,7 @@
                                                     <span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.weight for move in all_moves])"/> <span>kg</span>
                                                 </strong>
                                             </td>
-                                            <td class="text-right">
+                                            <td class="text-right" t-if="display_price_on_packing_list">
                                                 <strong>
                                                     <span t-esc="'%.2f' % sum([(move.quantity_done if move.picking_id == 'done' else move.product_uom_qty) * move.product_id.standard_price for move in all_moves])"/> <span t-field="company.currency_id"/>
                                                 </strong>
