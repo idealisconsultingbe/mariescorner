@@ -132,8 +132,8 @@
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
-                                <t t-set="weight" t-value="move.product_weight if move.product_weight else move.product_id.weight"/>
-                                <t t-set="volume" t-value="move.product_volume if move.product_volume else move.product_id.volume"/>
+                                <t t-set="weight" t-value="(move.product_weight if move.product_weight else move.product_id.weight) * qty_done"/>
+                                <t t-set="volume" t-value="(move.product_volume if move.product_volume else move.product_id.volume) * qty_done"/>
                                 <t t-set="height" t-value="move.product_height if move.product_height else move.product_id.height"/>
                                 <t t-set="width" t-value="move.product_width if move.product_width else move.product_id.width"/>
                                 <t t-set="depth" t-value="move.product_depth if move.product_depth else move.product_id.depth"/>
@@ -163,11 +163,11 @@
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
-                                    <span t-esc="volume"/>
+                                    <span t-esc="round(volmue * 100) / 100"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
-                                    <span t-esc="weight"/>
+                                    <span t-esc="round(weight * 100) / 100"/>
                                     <span t-field="o.weight_uom_name"/>
                                 </td>
                                 <td>
