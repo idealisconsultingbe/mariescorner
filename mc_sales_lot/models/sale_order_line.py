@@ -21,8 +21,11 @@ class SaleOrderLine(models.Model):
     sales_lot_id_required = fields.Boolean(string='Manufacturing Number Required', compute='_compute_sales_lot_id_required')
     sales_lot_id_needed = fields.Boolean(string='Manufacturing Number Needed', compute='_compute_sales_lot_id_required')
     allow_set_sales_lot_id = fields.Boolean(string='Manual Manufacturing Number', default=_default_allow_set_sales_lot)
+    sales_lot_supplier_type = fields.Selection([('internal', 'Internal Company'), ('external', 'External Company')], related='sales_lot_id.supplier_type', string='Supplier Type')
     has_tracking = fields.Selection(related='product_id.tracking', string='Product with Tracking')
     fabric_purchase_order_description = fields.Text(compute='_get_fabric_purchase_orders_description', compute_sudo=True, string="Fabric Order(s)")
+    purchase_note = fields.Text(string='Purchase Note')
+    fabric_ordered = fields.Boolean(string='Fabric Ordered', default=False)
 
     def _get_fabric_purchase_orders_description(self):
         """
@@ -44,7 +47,7 @@ class SaleOrderLine(models.Model):
         """
         automatic_lot_enabled = self.user_has_groups('mc_sales_lot.group_automatic_sales_lot')
         production_lot_enabled = self.user_has_groups('stock.group_production_lot')
-        sales_lot_id_required = (production_lot_enabled and not automatic_lot_enabled)
+        sales_lot_id_required = production_lot_enabled # and not automatic_lot_enabled)
         for line in self:
             if not line.product_id:
                 line.sales_lot_id_required = False

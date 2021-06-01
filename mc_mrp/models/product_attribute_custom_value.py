@@ -7,6 +7,8 @@ from odoo import fields, models
 class ProductAttributeCustomValue(models.Model):
     _inherit = 'product.attribute.custom.value'
 
+    sale_order_line_id = fields.Many2one('sale.order.line', copy=False) # Add copy False to standard field
+
     def unlink(self):
         """
         Allow to delete custom value link to a purchase order line

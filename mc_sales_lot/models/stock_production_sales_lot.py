@@ -41,15 +41,16 @@ class ProductionSalesLot(models.Model):
     internal_receipt_done = fields.Boolean(String='Internal Receipt Completed')
     customer_delivery_done = fields.Boolean(String='Customer Delivery Completed')
     fictitious_receipt = fields.Boolean(string='Fictitious Receipt', help='Allow fictitious receipt of manufacturing numbers')
+    fabric_ordered = fields.Boolean(string='Fabric Ordered', related='origin_sale_order_line_id.fabric_ordered', store=True, help="Technical field used in a scheduled action")
 
     # Dates
     fictitious_receipt_date = fields.Date(string='Fictitious Receipt Date', help='Fictitious receipt date set by user')
     mandatory_date = fields.Date(string='Mandatory Date', related='origin_sale_order_id.mandatory_date', store=True, help='Mandatory date coming from original sale order')
-    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor')
+    ext_fabric_date = fields.Date(string='Subcontractor Fabric Date', help='Fabric date provided by subcontractor', tracking=True)
     fabric_received_date = fields.Date(string='Fabric Received Date')
-    shipped_date = fields.Date(string='Shipped Date')
-    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor')
-    manufacturing_date = fields.Date(string='Manufacturing Date')
+    shipped_date = fields.Date(string='Shipped Date', tracking=True)
+    ext_delivery_date = fields.Date(string='Subcontractor Delivery Date', help='Estimated delivery date provided by subcontractor', tracking=True)
+    manufacturing_date = fields.Date(string='Manufacturing Date', tracking=True)
 
     # Relational fields
     carrier_id = fields.Many2one('delivery.carrier', string='Delivery Method')
@@ -69,7 +70,7 @@ class ProductionSalesLot(models.Model):
     sale_order_ids = fields.Many2many('sale.order', 'sales_lot_so_rel', 'sales_lot_id', 'so_id', string='Sale Orders', compute='_compute_sale_orders', store=True)
     purchase_order_line_ids = fields.One2many('purchase.order.line', 'sales_lot_id', string='Purchase Order Lines')
     purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_po_rel', 'sales_lot_id', 'po_id', string='Purchase Orders', compute='_compute_purchase_orders', store=True)
-    fabric_purchase_order_ids = fields.One2many('purchase.order', 'sales_lot_id', string='Fabric Purchase Orders')
+    fabric_purchase_order_ids = fields.Many2many('purchase.order', 'sales_lot_purchase_order_rel', 'sales_lot_id', 'po_id', string='Fabric Purchase Orders')
     lot_ids = fields.Many2many('stock.production.lot', 'sales_lot_stock_lot_rel', 'sales_lot_id', 'stock_lot_id', string='Lot/Serial', compute='_compute_get_lots', store=True)
     picking_ids = fields.Many2many('stock.picking', 'sales_lot_picking_rel', 'sales_lot_id', 'picking_id', string='Transfers', compute='_compute_pickings', store=True)
     log_sales_lot_status_ids = fields.One2many('log.sales.lot.status', 'sales_lot_id', string='Status')

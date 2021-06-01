@@ -7,13 +7,23 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
-                <field name="sales_lot_id"/>
+                <field name="sales_lot_ids" widget="many2many_tags"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
                 <field name="sales_lot_activated" invisible="1"/>
-                <field name="sales_lot_supplier_type" invisible="1"/>
                 <field name="sales_lot_id" optional="hide"/>
-                <field name="fabric_ordered" attrs="{'invisible': ['|', ('sales_lot_activated', '=', False), ('sales_lot_supplier_type', '!=', 'external')]}" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+                <field name="date_msc_planned" optional="hide" attrs="{'readonly': [('parent.date_planned', '!=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='date_planned']" position="after">
+                <field name="date_msc_planned" widget="date" attrs="{'readonly': [('parent.date_planned', '!=', False)]}"/>
             </xpath>
         </field>
     </record>
@@ -24,19 +34,8 @@
         <field name="inherit_id" ref="purchase.purchase_order_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="after">
-                <field name="sales_lot_id" optional="hide"/>
+                <field name="sales_lot_ids" widget="many2many_tags" optional="hide"/>
             </xpath>
-        </field>
-    </record>
-
-    <record id="pruchase_order_search_view" model="ir.ui.view">
-        <field name="name">mc.purchase.order.search.view.inherited.sales.lot</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
-        <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="sales_lot_id"/>
-            </field>
         </field>
     </record>
 
@@ -46,7 +45,8 @@
         <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="sales_lot_id"/>
+                <field name="order_line" string="Manufacturing Number" filter_domain="[('order_line.sales_lot_id', 'ilike', self)]"/>
+                <field name="sales_lot_ids" string="Fabric Manufacturing Number" filter_domain="[('sales_lot_ids', 'ilike', self)]"/>
             </field>
         </field>
     </record>

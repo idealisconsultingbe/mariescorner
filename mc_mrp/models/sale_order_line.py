@@ -9,9 +9,12 @@ from odoo.tools import float_round
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    # change label
     list_price = fields.Float(string='Base Price', digits='Product Price',
                               help='This is the product public price')
-    list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price',
+
+    # new fields
+    list_price_extra = fields.Float(string='Public Price', compute='_compute_list_price_extra', digits='Product Price', store=True, copy=True,
                                     help='This is the product public price and the sum of the extra price of all attributes (with custom values)')
     delivery_date = fields.Date(related='sales_lot_id.delivery_date')
     fabric_date = fields.Date(related='sales_lot_id.fabric_date')
@@ -21,13 +24,16 @@ class SaleOrderLine(models.Model):
                  'product_id.product_template_attribute_value_ids',
                  'list_price')
     def _compute_list_price_extra(self):
+        """
+        Compute list_extra_price which is product price with extra and the result is rounded
+        """
         for line in self:
             price = line.list_price
             extra_prices = line._get_no_variant_attributes_price_extra(line.product_id)
             if extra_prices:
                 precision = self.env['decimal.precision'].precision_get('Product Price')
                 price += float_round(sum(extra_prices), precision_digits=precision)
-            line.list_price_extra = price
+            line.list_price_extra = float_round(price, precision_digits=0)
 
     @api.model
     def create(self, values):
@@ -50,13 +56,14 @@ class SaleOrderLine(models.Model):
         :return: list of extra prices
         """
         if self.product_custom_attribute_value_ids:
-            custom_quantities = {value.custom_product_template_attribute_value_id.attribute_id.id: to_float(value.custom_value) for value in self.product_custom_attribute_value_ids}
+            # Only custom quantities for product attributes with linear price are considered
+            custom_quantities = {value.custom_product_template_attribute_value_id.attribute_id.id: to_float(value.custom_value) for value in self.product_custom_attribute_value_ids.filtered(lambda pcav: pcav.custom_product_template_attribute_value_id.attribute_id.has_linear_price)}
             fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_fabric_product_id')
             fabric_product = self.env['product.template'].browse(int(fabric_product_id)) if fabric_product_id else False
             custom_extra_price = []
             ptav_used = self.env['product.template.attribute.value']
             if fabric_product:
-                custom_extra_price, ptav_used = fabric_product.get_variant_price(self.product_no_variant_attribute_value_ids, custom_quantities, self.order_id.pricelist_id)
+                custom_extra_price, ptav_used = fabric_product.get_fabric_price(self.product_no_variant_attribute_value_ids, custom_quantities)
 
             # exclude product_template_attribute_values related to the same attribute than a custom attribute value
             no_variant_attributes_price_extra = [
@@ -92,7 +99,7 @@ class SaleOrderLine(models.Model):
             if no_variant_attributes_price_extra:
                 product = product.with_context(no_variant_attributes_price_extra=tuple(no_variant_attributes_price_extra))
             if self.order_id.pricelist_id.discount_policy == 'with_discount':
-                return product.with_context(pricelist=self.order_id.pricelist_id.id).price
+                return float_round(product.with_context(pricelist=self.order_id.pricelist_id.id).price, precision_digits=0)
             product_context = dict(self.env.context, partner_id=self.order_id.partner_id.id, date=self.order_id.date_order, uom=self.product_uom.id)
 
             final_price, rule_id = self.order_id.pricelist_id.with_context(product_context).get_product_price_rule(

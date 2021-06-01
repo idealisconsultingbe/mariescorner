@@ -52,7 +52,7 @@
         <div t-attf-class="header o_company_#{company.id}_layout" style="font-size: small;">
             <div class="row">
                 <div class="col-custom-13-15 pr-0">
-                    <img src="/mc_sale_layout/static/src/img/logo-maries-corner.png" class="height-6" alt="Maries Corner Logo"/>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="height-6" style="max-width:100px" alt="Maries Corner Logo"/>
                 </div>
                 <!--<div class="col-4"'>-->
                 <div t-if="quotation" class="col-custom-36-85" style="background-color: LightGray;">

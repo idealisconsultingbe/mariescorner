@@ -19,6 +19,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['stock_picking_batch', 'delivery', 'mc_sale', 'mc_sales_lot'],
     'data': [
+        'views/delivery_carrier_views.xml',
         'views/stock_picking_batch_views.xml',
         'report/mc_batch_picking_report_templates.xml',
         'report/mc_batch_picking_reports.xml'

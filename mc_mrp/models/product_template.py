@@ -9,74 +9,33 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     @api.model
-    def get_combination_qty(self, custom_quantities, ptav_combination):
-        qty = 0
-        for ptav in ptav_combination:
-            if custom_quantities.get(ptav.attribute_id.id, False):
-                qty = custom_quantities[ptav.attribute_id.id]
-                break
-        return qty
+    def get_fabric_price(self, combination, custom_quantities):
+        """
+        Previously this method was used to find the price of fabric product from the given combination.
+        The variant price was used and multiplied by custom quantity.
 
-    def get_combination_fabric_attributes(self):
-        """
-        Get attributes related to the fabric product.
-        """
-        self.ensure_one()
-        combination_fabric_attribute = {}
-        for attribute_line in self.attribute_line_ids:
-            corresponding_attributes = attribute_line.attribute_id.product_attribute_ids
-            i = 1
-            for attribute in corresponding_attributes:
-                if combination_fabric_attribute.get(i, False):
-                    combination_fabric_attribute[i] |= attribute
-                else:
-                    combination_fabric_attribute[i] = attribute
-                i += 1
-        return combination_fabric_attribute
+        In order to not rethink the whole logic, we keep this method but use extra price from ptav instead,
+        in the same way it is done for non-fabric attributes.
 
-    def get_combination_fabric_product_template_attribute_values(self, combination, custom_quantities):
-        """
-        Map qty and ptav of the fabric product
         :param combination: Product Template Attribute Values
-        :param custom_quantities: {'attribute_id': qty} link an qty 'float' to an attribute
-        :return:
+        :param custom_quantities: {'attribute_id': qty} link a 'float' qty to an attribute
+        :return: list of price for the given combination, ptav from the combination that has been used.
         """
         self.ensure_one()
-        product_template_attribute_values_combination = []
-        combination_fabric_attributes = self.get_combination_fabric_attributes()
-        product_no_variant_attribute_values_link_fabric = combination.filtered(lambda ptav: ptav.attribute_id.product_attribute_id in self.attribute_line_ids.attribute_id)
-        for combination_id in combination_fabric_attributes:
-            arg_ptav = product_no_variant_attribute_values_link_fabric.filtered(lambda ptav: ptav.attribute_id in combination_fabric_attributes[combination_id])
-            fabric_product_attribute_values = arg_ptav.mapped('product_attribute_value_id.product_attribute_value_id')
-            qty = self.get_combination_qty(custom_quantities, arg_ptav)
-            fabric_ptav = self.env['product.template.attribute.value'].search([('product_tmpl_id', '=', self.id),
-                                                                               ('product_attribute_value_id', 'in', fabric_product_attribute_values.ids)])
-            product_template_attribute_values_combination.append([arg_ptav, fabric_ptav, qty])
-        return product_template_attribute_values_combination
-
-    def get_variant_price(self, combination, custom_quantities, pricelist=False):
-        """
-        Method used to found the price of fabric product from the given combination.
-        :param combination: Product Template Attribute Values
-        :param custom_quantities: {'attribute_id': qty} link an qty 'float' to an attribute
-        :return: list of price for the combination given, ptav from the combination that have been used.
-        """
-        self.ensure_one()
-        product_template_attribute_values_link_to_self = self.env['product.template.attribute.value']
-        custom_extra_price = []
-        product_template_attribute_values_combination = self.get_combination_fabric_product_template_attribute_values(combination, custom_quantities)
-        for arg_ptav_combination, fabric_ptav_combination, qty in product_template_attribute_values_combination:
-            if all(fabric_ptav_combination.mapped('product_attribute_value_id.is_none_value')):
-                price = 0
-            else:
-                fabric_product_variant = self._create_product_variant(fabric_ptav_combination)
-                if pricelist:
-                    price = fabric_product_variant.with_context(pricelist=pricelist.id).price
-                else:
-                    price = fabric_product_variant.price
-            custom_extra_price.append(price * qty)
-            product_template_attribute_values_link_to_self |= arg_ptav_combination
-        return custom_extra_price, product_template_attribute_values_link_to_self
+        custom_extra_prices = []
+        ptav_used = self.env['product.template.attribute.value']
+        attribute_ids = combination.mapped('attribute_id.id')
+        for ptav in combination:
+            percentage_price_rule = ptav._get_percentage_price()
+            if percentage_price_rule and percentage_price_rule.quantity_computation_type == 'total_quantity':
+                price = ptav.price_extra * sum([custom_quantities.get(id, 0) for id in attribute_ids])
+                custom_extra_prices.append(price)
+                ptav_used |= ptav
+            elif percentage_price_rule and percentage_price_rule.quantity_computation_type == 'quantity':
+                price = ptav.price_extra * custom_quantities.get(ptav.attribute_id.id, 0)
+                custom_extra_prices.append(price)
+                ptav_used |= ptav
+        return custom_extra_prices, ptav_used
 
     def _get_combination_info(self, combination=False, product_id=False, add_qty=1, pricelist=False, parent_combination=False, only_template=False, **kw):
         """ Overridden method used in product configurator
@@ -86,7 +45,6 @@ class ProductTemplate(models.Model):
         combination = combination.with_context(self.env.context)
         self.ensure_one()
         res = super(ProductTemplate, self)._get_combination_info(combination, product_id, add_qty, pricelist, parent_combination, only_template)
-
         if kw.get('custom_values'):
             # standard
             context = dict(self.env.context, quantity=self.env.context.get('quantity', add_qty), pricelist=pricelist.id if pricelist else False)
@@ -101,20 +59,20 @@ class ProductTemplate(models.Model):
             pre_custom_quantities = {value['custom_product_template_attribute_value_id']: to_float(value['custom_value']) for value in kw.get('custom_values')}
             custom_quantities = {}
             for ptav_id in pre_custom_quantities:
-                custom_quantities[custom_combination.filtered(lambda ptav: ptav.id == ptav_id).attribute_id.id] = pre_custom_quantities[ptav_id]
-
+                # keep only custom attribute values linked to an attribute marked as linear price
+                # attribute_id is mandatory for ptav
+                combination_candidate = custom_combination.filtered(lambda ptav: ptav.id == ptav_id and ptav.attribute_id.has_linear_price)
+                # since we filter by record id, there should be only one or zero result.
+                if combination_candidate:
+                    custom_quantities[combination_candidate.attribute_id.id] = pre_custom_quantities[ptav_id]
 
             # Find price of fabric product linked to this combination
-            fabric_product_id = self.env['ir.config_parameter'].sudo().get_param('sale.default_fabric_product_id')
-            fabric_product = self.env['product.template'].browse(int(fabric_product_id)) if fabric_product_id else False
             custom_extra_price = []
             ptav_used = self.env['product.template.attribute.value']
-            if fabric_product:
-                custom_extra_price, ptav_used = fabric_product.get_variant_price(combination, custom_quantities, pricelist)
+            custom_extra_price, ptav_used = self.get_fabric_price(combination, custom_quantities)
 
-            # Keeps only custom attribute values linked to an attribute marked as linear price and for which the manual extra price is not activated.
             if product:
-                # compute correct extra prices of custom attribute values
+                # compute correct extra prices of custom attribute values left
                 no_variant_attributes_price_extra = [
                     ptav.price_extra for ptav in combination.filtered(
                         lambda ptav:
@@ -131,6 +89,7 @@ class ProductTemplate(models.Model):
                         no_variant_attributes_price_extra=tuple(no_variant_attributes_price_extra)
                     )
                 list_price = product.price_compute('list_price')[product.id]
+                # FIXME : why do we use product.price ???
                 price = product.price if pricelist else list_price
             else:
                 current_attributes_price_extra = [v.price_extra or 0.0 for v in (combination - ptav_used)]
@@ -155,9 +114,9 @@ class ProductTemplate(models.Model):
 
     def _create_product_variant(self, combination, log_warning=False):
         """
-        Override standard method.
-        If only one product is return and if this product doesn't have internal reference.
-        Fulfill its internal reference with its attribute values.
+        Overridden standard method.
+        If only one product is returned and if this product doesn't have internal reference.
+        Fill its internal reference with its attribute values.
         """
         product = super(ProductTemplate, self)._create_product_variant(combination, log_warning)
         if product and len(product) == 1:

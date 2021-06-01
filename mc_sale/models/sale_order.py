@@ -5,6 +5,7 @@ from odoo import api, fields, exceptions, models, _
 from odoo.tools.misc import get_lang
 from odoo.exceptions import ValidationError, UserError
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -25,8 +26,8 @@ class SaleOrder(models.Model):
             order.allowed_shipping_address_ids = False
             if order.partner_id:
                 commercial_partner = order.partner_id.commercial_partner_id
-                order.allowed_shipping_address_ids = self.env['res.partner'].search([('type', '=', 'delivery'), ('parent_id', '=', commercial_partner.id)])
-                order.allowed_invoice_address_ids = self.env['res.partner'].search([('type', '=', 'invoice'), ('parent_id', '=', commercial_partner.id)])
+                order.allowed_shipping_address_ids = self.env['res.partner'].search([('type', '=', 'delivery'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
+                order.allowed_invoice_address_ids = self.env['res.partner'].search([('type', '=', 'invoice'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
 
     @api.depends('partner_shipping_id')
     def _compute_carrier_id(self):
@@ -76,18 +77,6 @@ class SaleOrder(models.Model):
             else:
                 order.date_order = order.registered_date_order
         return super(SaleOrder, self)._action_confirm()
-
-    def action_cancel(self):
-        """
-        Overridden method
-        Cancel the PO linked.
-        """
-        for rec in self:
-            po_id = rec._get_purchase_order()
-            if po_id:
-                po_id.button_cancel()
-        res = super(SaleOrder, self).action_cancel()
-        return res
 
     def action_compute_pricelist_discount(self):
         """

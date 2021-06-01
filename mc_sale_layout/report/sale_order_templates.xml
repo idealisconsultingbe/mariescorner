@@ -140,7 +140,7 @@
                               <span class="text-uppercase v-align-mid fs-6">Base Price</span>
                             </th>
                             <th name="th_priceunit" class="text-center" style="width: 11%">
-                              <span class="text-uppercase v-align-mid fs-6">Customer Price</span>
+                              <span class="text-uppercase v-align-mid fs-6">Your Price</span>
                             </th>
                             <th name="th_discount" t-if="display_discount" class="text-center" groups="product.group_discount_per_so_line">
                                 <span class="text-uppercase v-align-mid fs-6">Disc.%</span>
@@ -157,7 +157,7 @@
                     <tbody class="sale_tbody">
 
                         <t t-set="current_subtotal" t-value="0"/>
-                        <t t-set="order_lines_without_deposit" t-value="doc.order_line.filtered(lambda line: not line.is_downpayment)"/>
+                        <t t-set="order_lines_without_deposit" t-value="doc.order_line.filtered(lambda line: not line.is_downpayment and line.product_uom_qty > 0)"/>
                         <!-- do not display downpayments -->
                         <t t-foreach="order_lines_without_deposit" t-as="line">
 

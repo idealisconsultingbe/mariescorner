@@ -132,10 +132,8 @@
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
-                                <!--                                <t t-set="weight" t-value="move.product_id.weight * qty_done"/>-->
-                                <!--                                <t t-set="volume" t-value="move.product_id.volume * qty_done"/>-->
-                                <t t-set="weight" t-value="move.product_weight if move.product_weight else move.product_id.weight"/>
-                                <t t-set="volume" t-value="move.product_volume if move.product_volume else move.product_id.volume"/>
+                                <t t-set="weight" t-value="(move.product_weight if move.product_weight else move.product_id.weight) * qty_done"/>
+                                <t t-set="volume" t-value="(move.product_volume if move.product_volume else move.product_id.volume) * qty_done"/>
                                 <t t-set="height" t-value="move.product_height if move.product_height else move.product_id.height"/>
                                 <t t-set="width" t-value="move.product_width if move.product_width else move.product_id.width"/>
                                 <t t-set="depth" t-value="move.product_depth if move.product_depth else move.product_id.depth"/>
@@ -165,13 +163,11 @@
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
-                                    <!--                                    <span t-esc="round(volume * 100) /100"/>-->
-                                    <span t-esc="volume"/>
+                                    <span t-esc="round(volmue * 100) / 100"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
-                                    <!--                                    <span t-esc="round(weight * 100) /100"/>-->
-                                    <span t-esc="weight"/>
+                                    <span t-esc="round(weight * 100) / 100"/>
                                     <span t-field="o.weight_uom_name"/>
                                 </td>
                                 <td>
@@ -201,7 +197,7 @@
                         <strong>Control of Products at reception</strong><br/>
                         The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state.
                     </p>
-                    <table class="table table-sm table-bordered" name="signature_table">
+                    <table class="table table-sm table-bordered" name="signature_table" style="page-break-inside:avoid;">
                         <tbody>
                             <tr>
                                 <th name="th_customer_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;" ><span>Customer Signature</span></th>
@@ -212,10 +208,7 @@
                                 <td style="line-height: 100px !important;">&amp;nbsp;</td>
                             </tr>
                             <tr t-if="o.sale_id and o.sale_id.delivery_comment">
-                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><strong>Delivery Comment</strong></td>
-                            </tr>
-                            <tr t-if="o.sale_id and o.sale_id.delivery_comment">
-                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><span t-field="o.sale_id.delivery_comment"/></td>
+                                <td colspan="2" class="pl-2" style="height: 75px !important;"><strong>Delivery Comment</strong></td>
                             </tr>
                         </tbody>
                     </table>

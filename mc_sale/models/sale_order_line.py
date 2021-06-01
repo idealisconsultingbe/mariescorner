@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
-from .tools import to_float
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import float_round
 from odoo.tools.misc import get_lang
 
 
@@ -15,7 +12,7 @@ class SaleOrderLine(models.Model):
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
-    price_unit = fields.Float(string='Customer Price')
+    price_unit = fields.Float(string='Your Price')
     route_id = fields.Many2one('stock.location.route', compute='_compute_route_id', store=True, readonly=False)
 
     @api.depends('order_id.carrier_id.route_id', 'product_id')
