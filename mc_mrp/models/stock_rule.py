@@ -19,7 +19,7 @@ class StockRule(models.Model):
         else:
             move_dest_ids = values.get('move_dest_ids', False)
             if move_dest_ids:
-                sale_line = move_dest_ids[0]._get_sale_line()
+                sale_line = move_dest_ids[0]._get_sale_line(mandatory_attribute=True)
         if sale_line:
             res.update({
                 'name': sale_line.name,
