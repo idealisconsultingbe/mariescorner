@@ -35,14 +35,16 @@ class StockMove(models.Model):
                 current_move = self.env['stock.move']
         return po_line
 
-    def _get_sale_line(self):
+    def _get_sale_line(self, mandatory_attribute=False):
         """
         Retrieve sale line from a stock move
         Return the sale_line only if it is link to attributes.
         """
         self.ensure_one()
         if self and self.sale_line_id:
-            if self.sale_line_id.product_no_variant_attribute_value_ids:
+            if self.sale_line_id and not mandatory_attribute:
+                return self.sale_line_id
+            elif self.sale_line_id.product_no_variant_attribute_value_ids:
                 return self.sale_line_id
             elif self.sale_line_id.order_id:
                 try:
@@ -50,10 +52,10 @@ class StockMove(models.Model):
                 except Exception:
                     return False
                 if order_line.move_dest_ids and len(order_line.move_dest_ids) == 1:
-                    return order_line.move_dest_ids[0]._get_sale_line()
+                    return order_line.move_dest_ids[0]._get_sale_line(mandatory_attribute=mandatory_attribute)
             else:
                 return False
         if self.move_dest_ids and len(self.move_dest_ids) == 1:
-            return self.move_dest_ids[0]._get_sale_line()
+            return self.move_dest_ids[0]._get_sale_line(mandatory_attribute=mandatory_attribute)
         return False
 
