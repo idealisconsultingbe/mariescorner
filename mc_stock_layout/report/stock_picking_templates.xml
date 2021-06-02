@@ -163,7 +163,7 @@
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(volmue * 100) / 100"/>
+                                    <span t-esc="round(volume * 100) / 100"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
