@@ -29,6 +29,7 @@ class PurchaseOrder(models.Model):
         """
         res = super(PurchaseOrder, self)._prepare_sale_order_line_data(line, company, sale_id)
         # if all stock moves have the same Manufacturing Number then add it to values
+        sales_lot = self.env['stock.production.sales.lot']
         sale_line = self.env['sale.order.line']
         if line.sale_line_id:
             sale_line = line.sale_line_id
@@ -36,8 +37,12 @@ class PurchaseOrder(models.Model):
             move_dest_ids = line.move_dest_ids
             if move_dest_ids:
                 sale_line = move_dest_ids[0]._get_sale_line()
-        if sale_line:
-            res['sales_lot_id'] = sale_line.sales_lot_id.id
+        if sale_line and sale_line.sales_lot_id:
+            sales_lot = sale_line.sales_lot_id
+        if not sales_lot:
+            sales_lot = line.sales_lot_id
+        if sales_lot:
+            res['sales_lot_id'] = sales_lot.id
         return res
 
     def _prepare_sale_order_data(self, name, partner, company, direct_delivery_address):
