@@ -329,13 +329,14 @@
 
             <div name="sender_sign" class="cmr-block" style="top:1235px; left:100px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                    <div t-field="o.company_id.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': true}"/>
                 </div>
             </div>
 
             <div t-if="o.carrier_id" name="carrier_sign" class="cmr-block" style="top:1235px; left:390px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <span t-field="o.carrier_id.name"/>
+                    <span t-if="o.carrier_id.partner_id" t-field="o.carrier_id.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True, 'no_contact_marker': True}"/>
+                    <span t-else="" t-field="o.carrier_id.name"/>
                 </div>
             </div>
 
