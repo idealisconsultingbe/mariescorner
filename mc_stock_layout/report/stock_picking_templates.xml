@@ -402,13 +402,14 @@
                             <tr>
                                 <th><strong>Volume</strong>&amp;nbsp;</th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.volume'))"/> m³
+
+                                    <span t-esc="'%.2f' % sum([move.product_id.volume * move.quantity_done for move in moves])"/> m³
                                 </td>
                             </tr>
                             <tr>
-                                <th><strong>Weight (kg)</strong>&amp;nbsp;</th>
+                                <th><strong>Weight</strong>&amp;nbsp;</th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.weight'))"/>
+                                    <span t-esc="'%.2f' % sum([move.product_id.weight * move.quantity_done for move in moves])"/> kg
                                 </td>
                             </tr>
                             <tr></tr>
