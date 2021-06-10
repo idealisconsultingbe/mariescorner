@@ -281,10 +281,17 @@
                                         <td class="border-top-0"/>
                                         <td colspan="99" class="border-top-0">
                                             <t t-set="moves" t-value="pick.move_lines.filtered(lambda m: m.quantity_done if m.picking_id.state == 'done' else m.product_uom_qty)"/>
+                                            <t t-set="show_origin" t-value="any([move.picking_id.sale_id.origin for move in moves if move.picking_id.sale_id])"/>
                                             <table class="table table-sm mb-0" t-if="moves">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-left border-bottom-black"><strong>Order</strong></th>
+                                                        <t t-if="show_origin">
+                                                            <th class="text-left border_bottom_black"><strong>Origin</strong></th>
+                                                            <th class="text-left border-bottom-black"><strong>Order</strong></th>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <th class="text-left border-bottom-black"><strong>Order</strong></th>
+                                                        </t>
                                                         <th t-if="moves.mapped('sales_lot_id')" class="text-left border-bottom-black"><strong>Manuf. Number</strong></th>
                                                         <th class="text-left border-bottom-black"><strong>Product</strong></th>
                                                         <th class="text-center border-bottom-black"><strong>Quantity</strong></th>
@@ -296,10 +303,24 @@
                                                 <tbody>
                                                     <tr t-foreach="moves.sorted(lambda m: m.sales_lot_id.name if m.sales_lot_id else m.product_id.name)" t-as="move">
                                                         <t t-set="move_quantity" t-value="move.quantity_done if move.picking_id.state == 'done' else move.product_uom_qty"/>
-                                                        <td class="text-left">
-                                                            <span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/>
-                                                            <span t-else="" t-field="move.picking_id.sale_id.name"/>
-                                                        </td>
+                                                        <t t-if="show_origin">
+                                                            <td class="text-left">
+                                                                <span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/>
+                                                                <span t-elif="move.picking_id.sale_id" t-field="move.picking_id.sale_id.origin"/>
+                                                                <span t-else=""/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-if="move.picking_id.sale_id" t-field="move.picking_id.sale_id.name"/>
+                                                                <span t-else=""/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td class="text-left">
+                                                                <span t-if="move.sales_lot_id" t-field="move.sales_lot_id.so_origin_name"/>
+                                                                <span t-elif="move.picking_id.sale_id" t-field="move.picking_id.sale_id.name"/>
+                                                                <span t-else=""/>
+                                                            </td>
+                                                        </t>
                                                         <td t-if="moves.mapped('sales_lot_id')" class="text-left">
                                                             <span t-if="move.sales_lot_id" t-field="move.sales_lot_id.name"/>
                                                         </td>
@@ -311,6 +332,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="border-top-black"/>
+                                                        <td class="border-top-black" t-if="show_origin"/>
                                                         <td class="border-top-black" t-if="moves.mapped('sales_lot_id')"/>
                                                         <td class="border-top-black"/>
                                                         <td class="text-right border-top-black"><strong><span t-esc="'%.2f' % sum([move.quantity_done if move.picking_id == 'done' else move.product_uom_qty for move in moves])"/></strong></td>
