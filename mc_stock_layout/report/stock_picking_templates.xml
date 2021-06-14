@@ -399,15 +399,15 @@
 
             <div name="sender_sign" class="cmr-block" style="top:1235px; left:100px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <div t-field="o.company_id.partner_id"
-                         t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                    <div t-field="o.company_id.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': true}"/>
                 </div>
             </div>
 
             <div t-if="o.carrier_id" name="carrier_sign" class="cmr-block"
                  style="top:1235px; left:390px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <span t-field="o.carrier_id.name"/>
+                    <span t-if="o.carrier_id.partner_id" t-field="o.carrier_id.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True, 'no_contact_marker': True}"/>
+                    <span t-else="" t-field="o.carrier_id.name"/>
                 </div>
             </div>
 
@@ -493,21 +493,12 @@
                                 <th><strong>Volume</strong>&amp;nbsp;
                                 </th>
                                 <td>
-<<<<<<< HEAD
                                     <span t-esc="'%.2f' % sum([move.product_volume if move.product_volume else (move.product_id.volume * move.quantity_done) for move in moves])"/> m³
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><strong>Weight</strong>&amp;nbsp;</th>
-=======
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.volume'))"/>
-                                    m³
                                 </td>
                             </tr>
                             <tr>
                                 <th><strong>Weight (kg)</strong>&amp;nbsp;
                                 </th>
->>>>>>> feature/msc-236_layout_rework_to_gain_space
                                 <td>
                                     <span t-esc="'%.2f' % sum([move.product_weight if move.product_weight else (move.product_id.weight * move.quantity_done) for move in moves])"/> kg
                                 </td>

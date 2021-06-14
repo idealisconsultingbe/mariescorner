@@ -2,7 +2,6 @@
 # Part of Idealis Consulting. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
-from odoo.tools import float_round
 from odoo.tools.misc import get_lang
 from odoo.exceptions import ValidationError
 
