@@ -79,13 +79,12 @@ class AccountMove(models.Model):
                                             'product_uom_id': new_line._get_computed_uom(),
                                             'debit': invoices_sync_destination_company.currency_id.round(price_unit * quantity),
                                         })
+                                        new_line._onchange_price_subtotal()
                                         new_line._onchange_mark_recompute_taxes()
-                                        new_line._set_price_and_tax_after_fpos()
-                                        new_line._onchange_amount_currency()
-                                        new_line._onchange_debit()
                                         bill_invoice_lines += new_line
                         # add bill lines to bill
                         bill.invoice_line_ids = bill_invoice_lines
+                        bill._onchange_currency()
                         bill._onchange_invoice_line_ids()
                         # persist bill if there are bill lines
                         if bill_invoice_lines:
