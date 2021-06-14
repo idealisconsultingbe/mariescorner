@@ -61,8 +61,8 @@
                             <t t-else="">
                                 <t t-set="qty_done" t-value="move.reserved_availability"/>
                             </t>
-                            <t t-set="shipping_weight" t-value="shipping_weight + ((move.product_weight if move.product_weight else move.product_id.weight) * qty_done)"/>
-                            <t t-set="shipping_volume" t-value="shipping_volume + ((move.product_volume if move.product_volume else move.product_id.volume) * qty_done)"/>
+                            <t t-set="shipping_weight" t-value="shipping_weight + (move.product_weight if move.product_weight else (move.product_id.weight * qty_done))"/>
+                            <t t-set="shipping_volume" t-value="shipping_volume + (move.product_volume if move.product_volume else (move.product_id.volume * qty_done))"/>
                         </t>
                         <div t-if="o.origin" class="col-auto" name="div_origin">
                             <strong>Order:</strong>
@@ -132,8 +132,8 @@
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
-                                <t t-set="weight" t-value="(move.product_weight if move.product_weight else move.product_id.weight) * qty_done"/>
-                                <t t-set="volume" t-value="(move.product_volume if move.product_volume else move.product_id.volume) * qty_done"/>
+                                <t t-set="weight" t-value="move.product_weight if move.product_weight else (move.product_id.weight * qty_done)"/>
+                                <t t-set="volume" t-value="move.product_volume if move.product_volume else (move.product_id.volume * qty_done)"/>
                                 <t t-set="height" t-value="move.product_height if move.product_height else move.product_id.height"/>
                                 <t t-set="width" t-value="move.product_width if move.product_width else move.product_id.width"/>
                                 <t t-set="depth" t-value="move.product_depth if move.product_depth else move.product_id.depth"/>
@@ -402,13 +402,13 @@
                             <tr>
                                 <th><strong>Volume</strong>&amp;nbsp;</th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.volume'))"/> m³
+                                    <span t-esc="'%.2f' % sum([move.product_volume if move.product_volume else (move.product_id.volume * move.quantity_done) for move in moves])"/> m³
                                 </td>
                             </tr>
                             <tr>
-                                <th><strong>Weight (kg)</strong>&amp;nbsp;</th>
+                                <th><strong>Weight</strong>&amp;nbsp;</th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.weight'))"/>
+                                    <span t-esc="'%.2f' % sum([move.product_weight if move.product_weight else (move.product_id.weight * move.quantity_done) for move in moves])"/> kg
                                 </td>
                             </tr>
                             <tr></tr>

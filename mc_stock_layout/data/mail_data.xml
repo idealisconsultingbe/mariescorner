@@ -38,21 +38,21 @@
                         Your order (see attachment) is available for shipment. <br/><br/>
 
                         % if object.picking_type_id.warehouse_id:
-                            Pickup address:<br/>
-                            ${object.picking_type_id.warehouse_id.partner_id.name}<br/>
-                            % if object.picking_type_id.warehouse_id.partner_id.street:
-                                ${object.picking_type_id.warehouse_id.partner_id.street}<br/>
-                            % endif
-                            % if object.picking_type_id.warehouse_id.partner_id.zip:
-                                ${object.picking_type_id.warehouse_id.partner_id.zip}
-                            % endif
-                            % if object.picking_type_id.warehouse_id.partner_id.city:
-                                ${object.picking_type_id.warehouse_id.partner_id.city}
-                            % endif
-                            % if object.picking_type_id.warehouse_id.partner_id.country_id:
-                                ${object.picking_type_id.warehouse_id.partner_id.country_id.name}
-                            % endif
-                            <br/><br/>
+                        Pickup address:<br/>
+                        ${object.picking_type_id.warehouse_id.partner_id.name}<br/>
+                        % if object.picking_type_id.warehouse_id.partner_id.street:
+                        ${object.picking_type_id.warehouse_id.partner_id.street}<br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id.partner_id.zip:
+                        ${object.picking_type_id.warehouse_id.partner_id.zip}
+                        % endif
+                        % if object.picking_type_id.warehouse_id.partner_id.city:
+                        ${object.picking_type_id.warehouse_id.partner_id.city}
+                        % endif
+                        % if object.picking_type_id.warehouse_id.partner_id.country_id:
+                        ${object.picking_type_id.warehouse_id.partner_id.country_id.name}
+                        % endif
+                        <br/><br/>
                         % endif
 
                         From Monday until Thursday<br/>
@@ -65,7 +65,13 @@
                         Best regards<br/>
                         Logistics Department<br/>
                         % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
-                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        Tel: ${object.picking_type_id.warehouse_id.partner_id.phone} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.mobile:
+                        GSM: ${object.picking_type_id.warehouse_id.partner_id.mobile} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.email:
+                        Email: ${object.picking_type_id.warehouse_id.partner_id.email}<br/>
                         % endif
                     </p>
                 </div>
@@ -90,26 +96,26 @@
 
                         Your order (see attachment) will be handed over to our carrier
                         % if object.carrier_id:
-                            ${object.carrier_id.name}
+                        ${object.carrier_id.name}
                         % endif
                         % if object.scheduled_date:
-                            on ${object.scheduled_date.strftime('%d/%m/%Y')}.
+                        on ${object.scheduled_date.strftime('%d/%m/%Y')}.
                         % endif
                         <br/><br/>
 
                         Delivery address:<br/>
                         ${object.partner_id.name}<br/>
                         % if object.partner_id.street:
-                            ${object.partner_id.street}<br/>
+                        ${object.partner_id.street}<br/>
                         % endif
                         % if object.partner_id.zip:
-                            ${object.partner_id.zip}
+                        ${object.partner_id.zip}
                         % endif
                         % if object.partner_id.city:
-                            ${object.partner_id.city}
+                        ${object.partner_id.city}
                         % endif
                         % if object.partner_id.country_id:
-                            ${object.partner_id.country_id.name}
+                        ${object.partner_id.country_id.name}
                         % endif
                         <br/><br/>
 
@@ -125,7 +131,13 @@
                         Best regards<br/>
                         Logistics Department<br/>
                         % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
-                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        Tel: ${object.picking_type_id.warehouse_id.partner_id.phone} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.mobile:
+                        GSM: ${object.picking_type_id.warehouse_id.partner_id.mobile} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.email:
+                        Email: ${object.picking_type_id.warehouse_id.partner_id.email}<br/>
                         % endif
                     </p>
                 </div>
@@ -150,23 +162,23 @@
 
                         Your order (see attachment) is scheduled for
                         % if object.scheduled_date:
-                            ${object.scheduled_date.strftime('%d/%m/%Y')}.
+                        ${object.scheduled_date.strftime('%d/%m/%Y')}.
                         % endif
                         <br/><br/>
 
                         Delivery address:<br/>
                         ${object.partner_id.name}<br/>
                         % if object.partner_id.street:
-                            ${object.partner_id.street}<br/>
+                        ${object.partner_id.street}<br/>
                         % endif
                         % if object.partner_id.zip:
-                            ${object.partner_id.zip}
+                        ${object.partner_id.zip}
                         % endif
                         % if object.partner_id.city:
-                            ${object.partner_id.city}
+                        ${object.partner_id.city}
                         % endif
                         % if object.partner_id.country_id:
-                            ${object.partner_id.country_id.name}
+                        ${object.partner_id.country_id.name}
                         % endif
                         <br/><br/>
 
@@ -183,7 +195,13 @@
                         Best regards<br/>
                         Logistics Department<br/>
                         % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.phone:
-                            Phone: ${object.picking_type_id.warehouse_id.partner_id.phone}
+                        Tel: ${object.picking_type_id.warehouse_id.partner_id.phone} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.mobile:
+                        GSM: ${object.picking_type_id.warehouse_id.partner_id.mobile} <br/>
+                        % endif
+                        % if object.picking_type_id.warehouse_id and object.picking_type_id.warehouse_id.partner_id.email:
+                        Email: ${object.picking_type_id.warehouse_id.partner_id.email}<br/>
                         % endif
                     </p>
                 </div>
