@@ -264,8 +264,8 @@
                                 <p t-if="downpayment">
                                     We thank you to settle the amount of <span t-esc="total_deposit" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/> at the below bank details in order to enable us to start the production.<br/>
                                     <t t-if="doc.payment_bank_id">
-                                        IBAN: <span t-field="doc.payment_bank_id.acc_number"/><br/>
-                                        SWIFT: <t t-if="doc.payment_bank_id.bank_id and doc.payment_bank_id.bank_id.bic"><span t-field="doc.payment_bank_id.bank_id.bic"/></t>
+                                        <strong>IBAN:</strong> <span t-field="doc.payment_bank_id.acc_number"/><br/>
+                                        <strong>SWIFT:</strong> <t t-if="doc.payment_bank_id.bank_id and doc.payment_bank_id.bank_id.bic"><span t-field="doc.payment_bank_id.bank_id.name"/> - <span t-field="doc.payment_bank_id.bank_id.bic"/></t>
                                     </t>
                                 </p>
                             </t>

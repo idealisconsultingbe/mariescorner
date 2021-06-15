@@ -36,8 +36,6 @@ class StockMove(models.Model):
         for move in self:
             if move.state == 'done':
                 qty = move.quantity_done
-            elif move.state in ['partially_available', 'assigned']:
-                qty = move.reserved_availability
             else:
                 qty = move.product_uom_qty
             move.update({

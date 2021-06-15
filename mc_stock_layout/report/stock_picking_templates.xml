@@ -3,7 +3,7 @@
     <template id="report_delivery_document">
         <t t-call="web.html_container">
             <t t-call="mc_stock_layout.mc_delivery_external_layout">
-                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
                 <!-- set shipping address -->
                 <t t-if="partner" name="partner_header">
@@ -15,7 +15,8 @@
                 <!-- set invoicing address -->
                 <t t-if="o.sale_id" name="invoicing_partner_header">
                     <t t-set="invoicing_address">
-                        <div t-field="o.sale_id.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "parent_name"], "no_marker": True, "no_contact_marker": False}'/>
+                        <div t-field="o.sale_id.partner_invoice_id"
+                             t-options='{"widget": "contact", "fields": ["address", "parent_name"], "no_marker": True, "no_contact_marker": False}'/>
                     </t>
                 </t>
 
@@ -29,19 +30,22 @@
                             <br/>
                             <span t-field="partner.ref"/>
                         </div>
-                        <div t-if="o.sale_id and o.sale_id.payment_term_id and o.sale_id.payment_term_id.note" class="col-auto">
+                        <div t-if="o.sale_id and o.sale_id.payment_term_id and o.sale_id.payment_term_id.note"
+                             class="col-auto">
                             <span t-field="o.sale_id.payment_term_id.note"/>
                         </div>
                     </div>
                     <div class="row mt32 mb32">
                         <t t-if="fictitious_delivery">
-                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and ((x.sales_lot_id and x.sales_lot_id.fictitious_receipt) or not x.sales_lot_id))"/>
+                            <t t-set="lines"
+                               t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and ((x.sales_lot_id and x.sales_lot_id.fictitious_receipt) or not x.sales_lot_id))"/>
                         </t>
                         <t t-elif="planned_delivery">
                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                         </t>
                         <t t-elif="any([move.reserved_availability for move in o.move_lines.filtered(lambda x: x.product_uom_qty)])">
-                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and (x.reserved_availability or x.quantity_done))"/>
+                            <t t-set="lines"
+                               t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and (x.reserved_availability or x.quantity_done))"/>
                         </t>
                         <t t-else="">
                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
@@ -61,8 +65,8 @@
                             <t t-else="">
                                 <t t-set="qty_done" t-value="move.reserved_availability"/>
                             </t>
-                            <t t-set="shipping_weight" t-value="shipping_weight + ((move.product_weight if move.product_weight else move.product_id.weight) * qty_done)"/>
-                            <t t-set="shipping_volume" t-value="shipping_volume + ((move.product_volume if move.product_volume else move.product_id.volume) * qty_done)"/>
+                            <t t-set="shipping_weight" t-value="shipping_weight + (move.product_weight if move.product_weight else (move.product_id.weight * qty_done))"/>
+                            <t t-set="shipping_volume" t-value="shipping_volume + (move.product_volume if move.product_volume else (move.product_id.volume * qty_done))"/>
                         </t>
                         <div t-if="o.origin" class="col-auto" name="div_origin">
                             <strong>Order:</strong>
@@ -104,17 +108,39 @@
                     <table class="table table-sm" name="stock_move_table">
                         <thead style="font-size:10pt;">
                             <tr>
-                                <th name="th_sm_product"><span>Product</span></th>
-                                <th t-if="has_sales_lot"><span>Manuf N°</span></th>
-                                <th t-if="has_hs_code"><span>HS Code</span></th>
-                                <th name="th_sm_ord_quantity"><span>Ord. Qty</span></th>
-                                <th name="th_sm_deliv_quantity"><span>Deliv. Qty</span></th>
-                                <th name="th_sm_volume"><span>Volume</span></th>
-                                <th name="th_sm_weight"><span>Weight</span></th>
-                                <th name="th_sm_width"><span>Width</span></th>
-                                <th name="th_sm_height"><span>Height</span></th>
-                                <th name="th_sm_depth"><span>Depth</span></th>
-                                <th name="th_sm_location"><span>Location</span></th>
+                                <th name="th_sm_product">
+                                    <span>Product</span>
+                                </th>
+                                <th t-if="has_sales_lot">
+                                    <span>Manuf N°</span>
+                                </th>
+                                <th t-if="has_hs_code">
+                                    <span>HS Code</span>
+                                </th>
+                                <th name="th_sm_ord_quantity">
+                                    <span>Ord. Qty</span>
+                                </th>
+                                <th name="th_sm_deliv_quantity">
+                                    <span>Deliv. Qty</span>
+                                </th>
+                                <th name="th_sm_volume">
+                                    <span>Volume</span>
+                                </th>
+                                <th name="th_sm_weight">
+                                    <span>Weight</span>
+                                </th>
+                                <th name="th_sm_width">
+                                    <span>Width</span>
+                                </th>
+                                <th name="th_sm_height">
+                                    <span>Height</span>
+                                </th>
+                                <th name="th_sm_depth">
+                                    <span>Depth</span>
+                                </th>
+                                <th name="th_sm_location">
+                                    <span>Location</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody style="font-size:10pt;">
@@ -132,8 +158,8 @@
                                     <!-- this may be confusing. Quantity done = quantity reserved if picking state is not done -->
                                     <t t-set="qty_done" t-value="move.reserved_availability"/>
                                 </t>
-                                <t t-set="weight" t-value="(move.product_weight if move.product_weight else move.product_id.weight) * qty_done"/>
-                                <t t-set="volume" t-value="(move.product_volume if move.product_volume else move.product_id.volume) * qty_done"/>
+                                <t t-set="weight" t-value="move.product_weight if move.product_weight else (move.product_id.weight * qty_done)"/>
+                                <t t-set="volume" t-value="move.product_volume if move.product_volume else (move.product_id.volume * qty_done)"/>
                                 <t t-set="height" t-value="move.product_height if move.product_height else move.product_id.height"/>
                                 <t t-set="width" t-value="move.product_width if move.product_width else move.product_id.width"/>
                                 <t t-set="depth" t-value="move.product_depth if move.product_depth else move.product_id.depth"/>
@@ -155,7 +181,8 @@
                                     <span t-field="move.product_id.hs_code"/>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_uom_qty" t-options='{"widget": "float", "precision": 1}'/>
+                                    <span t-field="move.product_uom_qty"
+                                          t-options='{"widget": "float", "precision": 1}'/>
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
@@ -163,7 +190,7 @@
                                     <span t-field="move.product_uom"/>
                                 </td>
                                 <td>
-                                    <span t-esc="round(volmue * 100) / 100"/>
+                                    <span t-esc="round(volume * 100) / 100"/>
                                     <span t-field="o.volume_uom_name"/>
                                 </td>
                                 <td>
@@ -190,25 +217,40 @@
                     </table>
                     <p>
                         <t t-if="o.backorder_ids and o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))">
-                            All items couldn't be shipped, the remaining ones will be shipped as soon as they become available.
+                            All items couldn't be shipped, the remaining ones will be shipped as soon as they become
+                            available.
                         </t>
                     </p>
                     <p>
-                        <strong>Control of Products at reception</strong><br/>
-                        The products delivered on ....... / ....... / ....... are in accordance with the order and delivered in good state.
+                        <strong>Control of Products at reception</strong>
+                        <br/>
+                        The products delivered on ....... / ....... / ....... are in accordance with the order and
+                        delivered in good state.
                     </p>
-                    <table class="table table-sm table-bordered" name="signature_table" style="page-break-inside:avoid;">
+                    <table class="table table-sm table-bordered" name="signature_table"
+                           style="page-break-inside:avoid;">
                         <tbody>
                             <tr>
-                                <th name="th_customer_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;" ><span>Customer Signature</span></th>
-                                <th name="th_delivery_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;"><span>Delivery Signature</span></th>
+                                <th name="th_customer_signature" class="text-center"
+                                    style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;">
+                                    <span>Customer Signature</span>
+                                </th>
+                                <th name="th_delivery_signature" class="text-center"
+                                    style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;">
+                                    <span>Delivery Signature</span>
+                                </th>
                             </tr>
                             <tr>
-                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
-                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 35px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 35px !important;">&amp;nbsp;</td>
                             </tr>
-                            <tr t-if="o.sale_id and o.sale_id.delivery_comment">
-                                <td colspan="2" class="pl-2" style="height: 75px !important;"><strong>Delivery Comment</strong></td>
+                            <tr t-if="o.sale_id and show_delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 75px !important;">
+                                    <p>
+                                        <strong>Delivery Comment</strong>
+                                        <t t-raw="o.sale_id.delivery_comment"/>
+                                    </p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -232,7 +274,10 @@
                 <t t-set="company" t-value="res_company"/>
             </t>
         </t>
-        <div class="article" style="margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important;" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div class="article"
+             style="margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important;"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
             <t t-raw="0"/>
         </div>
     </template>
@@ -270,18 +315,25 @@
 
             <div name="sender" class="cmr-block" style="top:145px; left:100px; width:425px; height:90px;">
                 <div class="cmr-vertical-align">
-                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                    <div t-field="o.company_id.partner_id"
+                         t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                 </div>
             </div>
 
-            <div t-if="o.partner_id" name="recipient" class="cmr-block" style="top:265px; left:100px; width:425px; height:90px;">
+            <div t-if="o.partner_id" name="recipient" class="cmr-block"
+                 style="top:265px; left:100px; width:425px; height:90px;">
                 <div class="cmr-vertical-align">
                     <div class="row">
-                        <div class="col-7" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        <div class="col-7" t-field="o.partner_id"
+                             t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                         <div class="col-5">
                             <ul style="position: absolute; top: 50%;">
-                                <li><span t-if="o.partner_id and o.partner_id.phone" t-field="o.partner_id.phone"/></li>
-                                <li><span t-if="o.partner_id and o.partner_id.mobile" t-field="o.partner_id.mobile"/></li>
+                                <li>
+                                    <span t-if="o.partner_id and o.partner_id.phone" t-field="o.partner_id.phone"/>
+                                </li>
+                                <li>
+                                    <span t-if="o.partner_id and o.partner_id.mobile" t-field="o.partner_id.mobile"/>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -291,31 +343,48 @@
             <div name="delivery_from" class="cmr-block" style="top:395px; left:100px; width:425px; height:40px;">
                 <div class="cmr-vertical-align">
                     <ul class="list-inline">
-                        <li t-if="o.company_id.partner_id.zip" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.zip"/></li>
-                        <li t-if="o.company_id.partner_id.city" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.city"/></li>
-                        <li t-if="o.company_id.partner_id.country_id" class="list-inline-item d-inline"><span t-field="o.company_id.partner_id.country_id.name"/></li>
-                        <li class="list-inline-item d-inline"><span t-esc="datetime.date.today()"/></li>
+                        <li t-if="o.company_id.partner_id.zip" class="list-inline-item d-inline">
+                            <span t-field="o.company_id.partner_id.zip"/>
+                        </li>
+                        <li t-if="o.company_id.partner_id.city" class="list-inline-item d-inline">
+                            <span t-field="o.company_id.partner_id.city"/>
+                        </li>
+                        <li t-if="o.company_id.partner_id.country_id" class="list-inline-item d-inline">
+                            <span t-field="o.company_id.partner_id.country_id.name"/>
+                        </li>
+                        <li class="list-inline-item d-inline">
+                            <span t-esc="datetime.date.today()"/>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div t-if="o.partner_id" name="delivery_to" class="cmr-block" style="top:460px; left:100px; width:425px; height:50px;">
+            <div t-if="o.partner_id" name="delivery_to" class="cmr-block"
+                 style="top:460px; left:100px; width:425px; height:50px;">
                 <div class="cmr-vertical-align">
                     <ul class="list-inline">
-                        <li t-if="o.partner_id.zip" class="list-inline-item d-inline"><span t-field="o.partner_id.zip"/></li>
-                        <li t-if="o.partner_id.city" class="list-inline-item d-inline"><span t-field="o.partner_id.city"/></li>
-                        <li t-if="o.partner_id.country_id" class="list-inline-item d-inline"><span t-field="o.partner_id.country_id.name"/></li>
+                        <li t-if="o.partner_id.zip" class="list-inline-item d-inline">
+                            <span t-field="o.partner_id.zip"/>
+                        </li>
+                        <li t-if="o.partner_id.city" class="list-inline-item d-inline">
+                            <span t-field="o.partner_id.city"/>
+                        </li>
+                        <li t-if="o.partner_id.country_id" class="list-inline-item d-inline">
+                            <span t-field="o.partner_id.country_id.name"/>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div t-if="o.carrier_id" name="carrier" class="cmr-block" style="top:180px; left:530px; width:430px; height:150px;">
+            <div t-if="o.carrier_id" name="carrier" class="cmr-block"
+                 style="top:180px; left:530px; width:430px; height:150px;">
                 <div class="cmr-vertical-align">
                     <span t-field="o.carrier_id.name"/>
                 </div>
             </div>
 
-            <div t-if="o.sale_id" name="sender_information" class="cmr-block" style="top:1180px; left:530px; width:430px; height:40px;">
+            <div t-if="o.sale_id" name="sender_information" class="cmr-block"
+                 style="top:1180px; left:530px; width:430px; height:40px;">
                 <div class="cmr-vertical-align">
                     <span t-field="o.sale_id.name"/>
                 </div>
@@ -323,19 +392,22 @@
 
             <div name="origin" class="cmr-block" style="top:1195px; left:100px; width:430px; height:25px;">
                 <div class="cmr-vertical-align">
-                    <span t-field="o.company_id.partner_id.city"/>, <span t-esc="datetime.date.today()"/>
+                    <span t-field="o.company_id.partner_id.city"/>,
+                    <span t-esc="datetime.date.today()"/>
                 </div>
             </div>
 
             <div name="sender_sign" class="cmr-block" style="top:1235px; left:100px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                    <div t-field="o.company_id.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': true}"/>
                 </div>
             </div>
 
-            <div t-if="o.carrier_id" name="carrier_sign" class="cmr-block" style="top:1235px; left:390px; width:285px; height:110px;">
+            <div t-if="o.carrier_id" name="carrier_sign" class="cmr-block"
+                 style="top:1235px; left:390px; width:285px; height:110px;">
                 <div class="cmr-vertical-align">
-                    <span t-field="o.carrier_id.name"/>
+                    <span t-if="o.carrier_id.partner_id" t-field="o.carrier_id.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True, 'no_contact_marker': True}"/>
+                    <span t-else="" t-field="o.carrier_id.name"/>
                 </div>
             </div>
 
@@ -349,9 +421,15 @@
                                 <t t-foreach="moves" t-as="move">
                                     <t t-if="count%3 == 0">
                                         <tr>
-                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
-                                            <td><span t-field="move.product_id.name"/></td>
-                                            <td><span t-field="move.quantity_done"/></td>
+                                            <td t-if="move.sales_lot_id">
+                                                <span t-field="move.sales_lot_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.quantity_done"/>
+                                            </td>
                                         </tr>
                                     </t>
                                     <t t-set="count" t-value="count+1"/>
@@ -367,9 +445,15 @@
                                 <t t-foreach="moves" t-as="move">
                                     <t t-if="count%3 == 1">
                                         <tr>
-                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
-                                            <td><span t-field="move.product_id.name"/></td>
-                                            <td><span t-field="move.quantity_done"/></td>
+                                            <td t-if="move.sales_lot_id">
+                                                <span t-field="move.sales_lot_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.quantity_done"/>
+                                            </td>
                                         </tr>
                                     </t>
                                     <t t-set="count" t-value="count+1"/>
@@ -385,9 +469,15 @@
                                 <t t-foreach="moves" t-as="move">
                                     <t t-if="count%3 == 2">
                                         <tr>
-                                            <td t-if="move.sales_lot_id"><span t-field="move.sales_lot_id.name"/></td>
-                                            <td><span t-field="move.product_id.name"/></td>
-                                            <td><span t-field="move.quantity_done"/></td>
+                                            <td t-if="move.sales_lot_id">
+                                                <span t-field="move.sales_lot_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="move.quantity_done"/>
+                                            </td>
                                         </tr>
                                     </t>
                                     <t t-set="count" t-value="count+1"/>
@@ -400,20 +490,24 @@
                     <div class="col-4">
                         <table style="table-cmr">
                             <tr>
-                                <th><strong>Volume</strong>&amp;nbsp;</th>
+                                <th><strong>Volume</strong>&amp;nbsp;
+                                </th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.volume'))"/> m³
+                                    <span t-esc="'%.2f' % sum([move.product_volume if move.product_volume else (move.product_id.volume * move.quantity_done) for move in moves])"/> m³
                                 </td>
                             </tr>
                             <tr>
-                                <th><strong>Weight (kg)</strong>&amp;nbsp;</th>
+                                <th><strong>Weight (kg)</strong>&amp;nbsp;
+                                </th>
                                 <td>
-                                    <span t-esc="'%.2f' % sum(moves.mapped('product_id.weight'))"/>
+                                    <span t-esc="'%.2f' % sum([move.product_weight if move.product_weight else (move.product_id.weight * move.quantity_done) for move in moves])"/> kg
                                 </td>
                             </tr>
                             <tr></tr>
                         </table>
-                        <span>Total </span><span>..................</span><span> Packages</span>
+                        <span>Total</span>
+                        <span>..................</span>
+                        <span>Packages</span>
                     </div>
                 </div>
             </div>
@@ -423,6 +517,7 @@
 
     <template id="report_deliveryslip">
         <t t-foreach="docs" t-as="o">
+            <t t-set="show_delivery_comment" t-value="show_delivery_comment.get(o.id, False)"/>
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>
@@ -430,6 +525,7 @@
     <template id="report_planned_deliveryslip">
         <t t-foreach="docs" t-as="o">
             <t t-set="planned_delivery" t-value="True"/>
+            <t t-set="show_delivery_comment" t-value="show_delivery_comment.get(o.id, False)"/>
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>
@@ -437,6 +533,7 @@
     <template id="report_fictitious_deliveryslip">
         <t t-foreach="docs" t-as="o">
             <t t-set="fictitious_delivery" t-value="True"/>
+            <t t-set="show_delivery_comment" t-value="show_delivery_comment.get(o.id, False)"/>
             <t t-call="mc_stock_layout.report_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>

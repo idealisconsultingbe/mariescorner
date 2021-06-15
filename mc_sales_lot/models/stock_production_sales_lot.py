@@ -135,8 +135,10 @@ class ProductionSalesLot(models.Model):
                         state = 'cancel'
                     elif sale_lot.purchase_order_ids:
                         state = 'to_produce'
-                    else:
+                    elif sale_lot.lot_ids:
                         state = 'internal_receipt'
+                    else:
+                        state = 'cancel'
                 else:
                     state = 'in_manufacturing'
                     if all([x not in ['cancel', 'draft'] for x in sale_lot.production_ids.mapped('state')]):

@@ -18,8 +18,8 @@
                 <p class="mt-2" t-if="o.amount_residual">
                     We would be grateful if you could pay us the amount of <b><span t-field="o.amount_residual"/></b> to our bank account:<br/>
                     <t t-if="o.payment_bank_id">
-                        IBAN: <span t-field="o.payment_bank_id.acc_number"/><br/>
-                        SWIFT: <t t-if="o.payment_bank_id.bank_id and o.payment_bank_id.bank_id.bic"><span t-field="o.payment_bank_id.bank_id.bic"/></t>
+                        <strong>IBAN:</strong> <span t-field="o.payment_bank_id.acc_number"/><br/>
+                        <strong>SWIFT:</strong> <t t-if="o.payment_bank_id.bank_id and o.payment_bank_id.bank_id.bic"><span t-field="o.payment_bank_id.bank_id.name"/> - <span t-field="o.payment_bank_id.bank_id.bic"/></t>
                     </t>
                 </p>
             </xpath>
