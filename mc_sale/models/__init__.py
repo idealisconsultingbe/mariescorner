@@ -24,4 +24,5 @@ from . import res_config_settings
 from . import stock_picking
 from . import product_category
 from . import delivery_carrier
+from . import uom_uom
 

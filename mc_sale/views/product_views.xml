@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="product_category_form_view" model="ir.ui.view">
-        <field name="name">product.category.form</field>
+        <field name="name">product.category.form.inherited.mail.confirmation</field>
         <field name="model">product.category</field>
         <field name="inherit_id" ref="product.product_category_form_view"/>
         <field name="arch" type="xml">
@@ -10,4 +10,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="product_category_form_view" model="ir.ui.view">
+        <field name="name">product.category.form.view.inherited.is.packed</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="stock.product_category_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='removal_strategy_id']" position="after">
+                <field name="is_packed"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
