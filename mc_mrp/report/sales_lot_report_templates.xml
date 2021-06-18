@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <template id="report_sales_lot_stock_sticker">
+        <t t-foreach="docs" t-as="doc">
+            <!-- Description on stickers should have max. 3 lines and 165 characters. -->
+            <!-- Description is cut to contain max. 165 characters -->
+            <!-- if description has more than 3 lines, then description is inline. -->
+            <!-- if description has 3 lines or less and one of those lines is longer than 55 characters, description is inline too. -->
+            <t t-set="description" t-value="doc.short_name[:165] if doc.short_name else doc.product_id.name[:165]"/>
+            <t t-set="description_lines" t-value="description.split('\n')"/>
+            <t t-foreach="doc.lot_ids" t-as="lot">
+                <t t-translation="off">
+                    ^XA
+
+                    ^FX Top section with product reference.
+                    ^CF0,40
+                    ^FO20,20^FD<t t-esc="lot.name"/>^FS
+                    ^FO500,20^FD<t t-esc="doc.so_origin_name"/>^FS
+
+                    ^FO20,70^BY3
+                    ^BCN,100,Y,N,N
+                    ^FD<t t-esc="lot.name"/>^FS
+
+                    ^CF0,30
+                    ^FB770,3,0,L^FO20,215
+                    ^FD<t t-if="len(description_lines) &gt; 3 or any([len(line) &gt; 55 for line in description_lines])" t-raw="' '.join(description_lines)"/><t t-else="" t-raw="'\&amp;'.join(description_lines)"/>^FS
+
+                    ^XZ
+                </t>
+            </t>
+        </t>
+    </template>
+
     <template id="report_saleslot_document" inherit_id="mc_sales_lot.report_saleslot_document">
         <xpath expr="//div[@name='barcode']" position="after">
             <div name="date">
