@@ -9,7 +9,7 @@ from odoo.exceptions import ValidationError, UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    carrier_id = fields.Many2one('delivery.carrier', compute='_compute_carrier_id', store=True, help='Automatically filled with the first shipping method available for current delivery address.')
+    carrier_id = fields.Many2one('delivery.carrier', help='Automatically filled with the first shipping method available for current delivery address.')
     comment = fields.Html(string='Comment')
     delivery_comment = fields.Html(string='Delivery Comment')
     allowed_invoice_address_ids = fields.Many2many('res.partner', 'sale_order_allowed_invoice_address_rel', 'order_id', 'partner_id', string='Allowed Invoice Addresses', compute='_compute_allowed_addresses')
@@ -29,8 +29,8 @@ class SaleOrder(models.Model):
                 order.allowed_shipping_address_ids = self.env['res.partner'].search([('type', '=', 'delivery'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
                 order.allowed_invoice_address_ids = self.env['res.partner'].search([('type', '=', 'invoice'), ('parent_id', '=', commercial_partner.id)]) + order.partner_id + commercial_partner
 
-    @api.depends('partner_shipping_id')
-    def _compute_carrier_id(self):
+    @api.onchange('partner_shipping_id')
+    def _onhange_carrier_id(self):
         """ Compute shipping method according to delivery address """
         for order in self:
             carriers = self.env['delivery.carrier'].search(
