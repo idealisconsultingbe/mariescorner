@@ -35,7 +35,7 @@
                     <h1>
                         <field name="name" readonly="1"/>
                     </h1>
-                    <group name="main" col="3">
+                    <group name="main">
                         <group string="General" name="general_fields">
                             <field name="active" invisible="1"/>
                             <field name="supplier_type" invisible="1"/>

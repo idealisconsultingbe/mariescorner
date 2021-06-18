@@ -36,7 +36,9 @@
         'views/stock_production_sales_lot_views.xml',
         'views/product_category_views.xml',
         'views/sale_order_views.xml',
-        'wizard/confirm_purchase_order_views.xml'
+        'views/stock_production_lot_views.xml',
+        'views/stock_quant_views.xml',
+        'wizard/confirm_purchase_order_views.xml',
     ],
     'auto_install': False,
     'installable': True,
