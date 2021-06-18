@@ -29,10 +29,10 @@ class SaleOrderLine(models.Model):
         """
         for line in self:
             price = line.list_price
+            price += sum(line.product_id.product_template_attribute_value_ids.mapped('price_extra'))
             extra_prices = line._get_no_variant_attributes_price_extra(line.product_id)
             if extra_prices:
-                precision = self.env['decimal.precision'].precision_get('Product Price')
-                price += float_round(sum(extra_prices), precision_digits=precision)
+                price += sum(extra_prices)
             line.list_price_extra = float_round(price, precision_digits=0)
 
     @api.model
