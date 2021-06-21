@@ -39,6 +39,7 @@ class StockPicking(models.Model):
             else:
                 nb_packages = 0
                 for line in pick.move_lines.filtered(lambda line: line.product_id.categ_id.is_packed if line.product_id else False):
+                    quantity = line.quantity_done if line.state == 'done' else line.product_uom_qty
                     # If ratio is equal to zero then number of package is always zero.
                     if line.product_uom.packaging_ratio == 0 or not line.product_uom.packaging_ratio:
                         continue
@@ -47,7 +48,7 @@ class StockPicking(models.Model):
                         nb_packages += 1
                     # If ratio is bigger than zero then number of package is quantity / ratio (with upper rounding).
                     else:
-                        nb_packages += ceil(line.quantity_done / line.product_uom.packaging_ratio)
+                        nb_packages += ceil(quantity / line.product_uom.packaging_ratio)
                 pick.number_of_packages = nb_packages
 
     def _set_scheduled_date(self):
