@@ -45,6 +45,7 @@ class PartnerCustomReport(models.AbstractModel):
                 payment_info = invoice._get_reconciled_info_JSON_values()
                 if payment_info:
                     payment_date = [payment['date'] for payment in payment_info]
+                    payment_date.append(invoice.invoice_date)
                 else:
                     payment_date = [invoice.invoice_date]
                 if invoice.is_outbound():
@@ -72,7 +73,8 @@ class PartnerCustomReport(models.AbstractModel):
                 lines = [{
                     'order_no': ', '.join([order.name for order in inv.invoice_line_ids.mapped('sale_line_ids.order_id')]),
                     'invoice_no': inv.name,
-                    'invoice_date': invoices_data[inv.id].get('last_payment', ''),
+                    'invoice_date': inv.invoice_date,
+                    'payment_date': invoices_data[inv.id].get('last_payment', ''),
                     'invoice_total': invoices_data[inv.id].get('amount_untaxed_signed', 0.0),
                     'commission_amount': float_round(invoices_data[inv.id].get('amount_untaxed_signed', 0.0) * percentage, precision_rounding=0.01, rounding_method='HALF-UP'),
                     'due_date': inv.invoice_date_due
