@@ -54,8 +54,8 @@
                     <div class="row" style="min-height:310px">
                         <div class="col-6" name="part_left">
                             <div name="order" style="padding-left:5px;padding-top:10px;">
+                                <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/><span> - </span><strong class="m-0 h4" t-field="doc.sales_lot_id.name"/> <br/>
                                 <strong>ID CUST </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <br/>
-                                <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/><span> - </span><strong class="m-0" t-field="doc.sales_lot_id.name"/> <br/>
                                 <strong>PACK : </strong> <strong t-esc="current_label_index"/> <strong> / </strong> <strong t-esc="max_label_index"/> <br/>
                                 <strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/> <br/>
                             </div>
@@ -75,8 +75,8 @@
                                 <span class="m-0" t-esc="serial_number" style="font-size:8pt;"/>
                             </div>
                             <div name="delivery" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-right:4px;margin-bottom:4px;">
-                                <div style="padding-left:2px;">
-                                    <p><strong>Delivery To:</strong></p>
+                                <div style="padding-left:5px;">
+                                    <p class="m-0"><strong>Delivery To:</strong></p>
                                     <div t-field="doc.sales_lot_id.partner_shipping_id"
                                          t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "no_marker": True, "phone_icons": True}'/>
                                 </div>
