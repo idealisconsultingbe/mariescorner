@@ -97,6 +97,11 @@
                             <span t-esc="round(shipping_volume * 100) / 100"/>
                             <span t-field="o.volume_uom_name"/>
                         </div>
+                        <div t-if="o.number_of_packages" class="col-auto">
+                            <strong>Number of Packages:</strong>
+                            <br/>
+                            <span t-field="o.number_of_packages"/>
+                        </div>
                         <div t-if="partner and partner.vat" class="col-auto">
                             <strong>VAT:</strong>
                             <br/>

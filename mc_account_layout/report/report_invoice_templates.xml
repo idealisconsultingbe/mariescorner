@@ -32,6 +32,12 @@
         </template>
 
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@id='informations']" position="inside">
+                <div class="col-auto mw-100 mb-2" t-if="o.number_of_packages" name="package_number">
+                    <strong>Number of Packages:</strong>
+                    <p class="m-0" t-field="o.number_of_packages"/>
+                </div>
+            </xpath>
             <xpath expr="//address[@t-field='o.partner_id']" position="attributes">
                 <attribute name="t-options">{"widget": "contact", "fields": ["address", "parent_name"], "no_marker": True}</attribute>
             </xpath>

@@ -11,6 +11,16 @@
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="attributes">
                 <attribute name="optional">hide</attribute>
             </xpath>
+            <xpath expr="//page[@name='other_info']/group" position="inside">
+                <group string="Packaging">
+                    <label class="font-weight-bold" for="number_of_packages"/>
+                    <div class="o_row">
+                        <field name="number_of_packages" attrs="{'invisible': [('is_package_number_user_defined', '=', True)]}"/>
+                        <field name="manual_number_of_packages" attrs="{'invisible': [('is_package_number_user_defined', '=', False)]}"/>
+                        <field class="oe_edit_only" name="is_package_number_user_defined"/><span class="oe_edit_only">User Defined</span>
+                    </div>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -13,6 +13,14 @@
             <field name="carrier_tracking_ref" position="attributes">
                 <attribute name="attrs">{'readonly': [('state', '=', 'cancel')]}</attribute>
             </field>
+            <group name="carrier_data" position="inside">
+                <label class="font-weight-bold" for="number_of_packages"/>
+                <div class="o_row">
+                    <field name="number_of_packages" attrs="{'invisible': [('is_package_number_user_defined', '=', True)]}"/>
+                    <field name="manual_number_of_packages" attrs="{'invisible': [('is_package_number_user_defined', '=', False)]}"/>
+                    <field class="oe_edit_only" name="is_package_number_user_defined"/><span class="oe_edit_only">User Defined</span>
+                </div>
+            </group>
         </field>
     </record>
 
