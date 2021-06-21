@@ -45,9 +45,10 @@ class SaleOrderLine(models.Model):
                 self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids,
                 self.order_id.partner_id, product_qty=self._origin.product_uom_qty, product_variant=self.product_id,
                 display_custom=True)
-            extra_desc = '\n'.join([desc for desc in self._origin.short_name.split('\n') if desc not in short_name_with_origin_qty.split('\n')])
-            if extra_desc:
-                short_name = short_name + "\n" + extra_desc
+            if self._origin.short_name:
+                extra_desc = '\n'.join([desc for desc in self._origin.short_name.split('\n') if desc not in short_name_with_origin_qty.split('\n')])
+                if extra_desc:
+                    short_name = short_name + "\n" + extra_desc
 
         self.update({'short_name': short_name,
                      'list_price': product.list_price,})
