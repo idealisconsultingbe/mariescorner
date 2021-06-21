@@ -54,7 +54,7 @@
                     <div class="row" style="min-height:310px">
                         <div class="col-6" name="part_left">
                             <div name="order" style="padding-left:5px;padding-top:10px;">
-                                <strong class="m-0" t-field="doc.sales_lot_id.origin_sale_order_id.name"/><span> - </span><strong class="m-0 h4" t-field="doc.sales_lot_id.name"/> <br/>
+                                <strong class="m-0 h4" t-field="doc.sales_lot_id.origin_sale_order_id.name"/><span> - </span><strong class="m-0 h4" t-field="doc.sales_lot_id.name"/> <br/>
                                 <strong>ID CUST </strong> <strong class="m-0" t-field="doc.sales_lot_id.partner_id.ref"/> <br/>
                                 <strong>PACK : </strong> <strong t-esc="current_label_index"/> <strong> / </strong> <strong t-esc="max_label_index"/> <br/>
                                 <strong>Destination:</strong> <strong class="m-0" t-field="doc.sales_lot_id.carrier_id.name"/> <br/>
