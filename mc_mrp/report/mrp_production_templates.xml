@@ -118,13 +118,20 @@
                 </div>
 
                 <div class="row" name="manuf_number_details" style="font-size:1.0rem; padding-left:5px;">
-                    <div class="col-auto">
+                    <div class="col-2">
                         <strong>Details</strong>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-10">
                         <span t-field="doc.sales_lot_id.short_name"/>
                     </div>
-                    <div style="color:red;" t-if="doc.sale_comment"><strong>Special Remarks:</strong> <span t-field="doc.sale_comment"/></div>
+                </div>
+                <div class="row" name="manuf_number_remarks" t-if="doc.sale_comment" style="color:red; font-size:1.0rem; padding-left:5px;">
+                    <div class="col-2">
+                        <strong>Remarks</strong>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.sale_comment"/>
+                    </div>
                 </div>
             </div>
         </xpath>
