@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <record id="view_production_lot_form" model="ir.ui.view">
+        <field name="name">stock.production.lot.form.inherited.short.name</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="short_name"/>
+                <field name="sales_lot_ids" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_production_lot_tree" model="ir.ui.view">
+        <field name="name">stock.production.lot.tree.inherited.short.name</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <field name="create_date" position="after">
+                <field name="short_name" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -19,3 +19,4 @@ from . import stock_picking
 from . import account_move_line
 from . import account_move
 from . import stock_inventory_line
+from . import stock_production_lot
