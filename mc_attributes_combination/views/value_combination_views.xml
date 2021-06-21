@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    <record id="product_attribute_combination_value_tree_view" model="ir.ui.view">-->
+<!--        <field name="name">mc.product.attribute.combination.value.tree.view</field>-->
+<!--        <field name="model">product.attribute.combination.value</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree name="product_attribute_combination_tree" string="Attributes_combination">-->
+<!--                <field name="name"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="value_combination_form_view" model="ir.ui.view">
+        <field name="name">mc.value.combination.form.view</field>
+        <field name="model">value.combination</field>
+        <field name="arch" type="xml">
+            <form name="value_combination_form">
+                <sheet>
+                    <group name="main">
+                        <field name="attribute_id" invisible="1"/>
+                        <field name="value_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
