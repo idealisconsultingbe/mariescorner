@@ -15,7 +15,7 @@
 
         <template id="report_invoice_document_with_payments" inherit_id="account.report_invoice_document_with_payments">
             <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
-                <p class="mt-2" t-if="o.amount_residual">
+                <p class="mt-2" t-if="o.amount_residual and o.type == 'out_invoice'">
                     We would be grateful if you could pay us the amount of <b><span t-field="o.amount_residual"/></b> to our bank account:<br/>
                     <t t-if="o.payment_bank_id">
                         <strong>IBAN:</strong> <span t-field="o.payment_bank_id.acc_number"/><br/>
