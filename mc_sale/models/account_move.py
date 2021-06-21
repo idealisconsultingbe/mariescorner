@@ -22,16 +22,23 @@ class AccountMove(models.Model):
                  'invoice_line_ids.product_id.categ_id.is_packed'
                  )
     def _compute_number_of_packages(self):
+        """
+        Compute the number of package of an invoice depending on the package ratio of the uom unit and the product categories.
+        """
         for move in self:
+            # The user has manually set a number of packages.
             if move.is_package_number_user_defined:
                 move.number_of_packages = move.manual_number_of_packages
             else:
                 nb_packages = 0
                 for line in move.invoice_line_ids.filtered(lambda line: line.product_id.categ_id.is_packed if line.product_id else False):
+                    # If ratio is equal to zero then number of package is always zero.
                     if line.product_uom_id.packaging_ratio == 0 or not line.product_uom_id.packaging_ratio:
                         continue
+                    # If ratio is lower than zero then number of package is always one.
                     elif line.product_uom_id.packaging_ratio < 0:
                         nb_packages += 1
+                    # If ratio is bigger than zero then number of package is quantity / ratio (with upper rounding).
                     else:
                         nb_packages += ceil(line.quantity / line.product_uom_id.packaging_ratio)
                 move.number_of_packages = nb_packages
