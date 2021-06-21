@@ -100,6 +100,7 @@
                                 <th class="text-left"><span>Order No</span></th>
                                 <th class="text-left"><span>Invoice No</span></th>
                                 <th class="text-center"><span>Invoice Date</span></th>
+                                <th class="text-center"><span>Payment Date</span></th>
                                 <th class="text-center"><span>Payment Deadline</span></th>
                                 <th class="text-right"><span>Base</span></th>
                                 <th class="text-right"><span>Commission %</span></th>
@@ -120,6 +121,7 @@
                                             <td class="text-left border-left-lightgray"><span t-esc="line.get('order_no', 'None')"/></td>
                                             <td class="text-left border-left-lightgray"><span t-esc="line.get('invoice_no', 'None')"/></td>
                                             <td class="text-center border-left-lightgray"><span t-esc="line.get('invoice_date', 'None')"/></td>
+                                            <td class="text-center border-left-lightgray"><span t-esc="line.get('payment_date', 'None')"/></td>
                                             <td class="text-center border-left-lightgray"><span t-esc="line.get('due_date', 'None')"/></td>
                                             <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % line.get('invoice_total', 0.0)"/></td>
                                             <td class="text-right border-left-lightgray"><span t-esc="'%.2f' % (representative_data.get('commission_percentage', 0.0) * 100)"/></td>
