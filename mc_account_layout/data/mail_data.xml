@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Set noupdate to False -->
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'account'), ('name', '=', 'email_template_edi_invoice')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <!-- Override subject of mail.template -->
+    <record id="account.email_template_edi_invoice" model="mail.template">
+        <field name="subject">${object.company_id.name} Invoice (Ref ${object.name or 'n/a'}) ${'(Origin %s)' % (object.invoice_origin) if object.invoice_origin else ''}</field>
+    </record>
+
+    <!-- Set the previously noupdate False to True again -->
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'account'), ('name', '=', 'email_template_edi_invoice')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+</odoo>
