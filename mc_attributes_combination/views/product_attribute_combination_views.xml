@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_attribute_combination_tree_view" model="ir.ui.view">
+        <field name="name">mc.product.attribute.combination.tree.view</field>
+        <field name="model">product.attribute.combination</field>
+        <field name="arch" type="xml">
+            <tree name="product_attribute_combination_tree" string="Attributes_combination">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_attribute_combination_form_view" model="ir.ui.view">
+        <field name="name">mc.product.attribute.combination.form.view</field>
+        <field name="model">product.attribute.combination</field>
+        <field name="arch" type="xml">
+            <form name="product_attribute_combination_form">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group name="main">
+                        <group string="General" name="general_fields">
+                            <field name="attribute_ids" widget="many2many_tags"/>
+                        </group>
+                        <field name="attribute_value_combination_ids"/>
+                        <group string="Secondary" name="secondary_fields">
+                            <field name="product_tmpl_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_attribute_combination_action" model="ir.actions.act_window">
+        <field name="name">Attributes Combination</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.attribute.combination</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="product_attribute_combination_menu" name="Attributes Combination" parent="base.menu_administration" action="mc_attributes_combination.product_attribute_combination_action"/>
+
+</odoo>
