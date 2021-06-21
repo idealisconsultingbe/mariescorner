@@ -28,6 +28,7 @@
         'report/mrp_production_templates.xml',
         'report/sales_lot_report_templates.xml',
         'report/mrp_production_report_views.xml',
+        'report/sales_lot_report_views.xml',
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_bom_line_views.xml',
