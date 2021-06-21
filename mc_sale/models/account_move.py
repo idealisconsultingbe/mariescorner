@@ -17,7 +17,10 @@ class AccountMove(models.Model):
                  'invoice_line_ids',
                  'invoice_line_ids.quantity',
                  'invoice_line_ids.product_uom_id',
-                 'invoice_line_ids.product_id')
+                 'invoice_line_ids.product_id',
+                 'invoice_line_ids.product_uom_id.packaging_ratio',
+                 'invoice_line_ids.product_id.categ_id.is_packed'
+                 )
     def _compute_number_of_packages(self):
         for move in self:
             if move.is_package_number_user_defined:
