@@ -139,14 +139,16 @@
                                 <th name="th_delivery_signature" class="text-center" style="border-top: 3px solid Black; border-bottom-width: 2px; width: 50%;"><span>Delivery Signature</span></th>
                             </tr>
                             <tr>
-                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
-                                <td style="line-height: 100px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 35px !important;">&amp;nbsp;</td>
+                                <td style="line-height: 35px !important;">&amp;nbsp;</td>
                             </tr>
-                            <tr t-if="o.delivery_comment">
-                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><strong>Delivery Comment</strong></td>
-                            </tr>
-                            <tr t-if="o.delivery_comment">
-                                <td colspan="2" class="pl-2" style="height: 50px !important;;"><span t-field="o.delivery_comment"/></td>
+                            <tr t-if="show_delivery_comment">
+                                <td colspan="2" class="pl-2" style="height: 75px !important;">
+                                    <p>
+                                        <strong>Delivery Comment</strong>
+                                        <t t-raw="o.delivery_comment"/>
+                                    </p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -157,6 +159,7 @@
 
     <template id="report_so_planned_deliveryslip">
         <t t-foreach="docs" t-as="o">
+            <t t-set="show_delivery_comment" t-value="show_delivery_comment.get(o.id, False)"/>
             <t t-call="mc_stock_layout.report_so_delivery_document" t-lang="o.partner_id.lang"/>
         </t>
     </template>
