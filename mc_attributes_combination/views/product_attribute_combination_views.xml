@@ -23,7 +23,7 @@
                         <group string="General" name="general_fields">
                             <field name="attribute_ids" widget="many2many_tags"/>
                         </group>
-                        <field name="attribute_value_combination_ids"/>
+                        <field name="attribute_value_combination_ids" context="{'default_attribute_combination_id': id}"/>
                         <group string="Secondary" name="secondary_fields">
                             <field name="product_tmpl_ids" widget="many2many_tags"/>
                         </group>

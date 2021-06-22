@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+all_access_attributes_combination,product.attribute.combination all access,model_product_attribute_combination,base.group_system,1,1,1,1
+all_access_attributes_combination_values,product.attribute.combination.value all access,model_product_attribute_combination_value,base.group_system,1,1,1,1
+all_access_value_combination,value.combination all access,model_value_combination,base.group_system,1,1,1,1

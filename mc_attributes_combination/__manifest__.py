@@ -11,6 +11,7 @@
     'website': 'http://www.idealisconsulting.com',
     'depends': ['base', 'product'],
     'data': [
+        'security/ir.model.access.csv',
         'views/product_attribute_combination_views.xml',
         'views/product_attribute_combination_value_views.xml',
         'views/value_combination_views.xml',
