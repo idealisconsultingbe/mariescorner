@@ -40,6 +40,7 @@ class PartnerCustomReport(models.AbstractModel):
 
             # create a dictionary with untaxed amount without shipping costs and last payment date for each invoice
             delivery_products = self.env['delivery.carrier'].search([]).mapped('product_id')
+            delivery_accounts = self.env['account.account'].search([('is_transport', '=', True)])
             invoices_data = dict()
             for invoice in commissionned_invoices:
                 payment_info = invoice._get_reconciled_info_JSON_values()
@@ -53,7 +54,7 @@ class PartnerCustomReport(models.AbstractModel):
                 else:
                     sign = 1
                 last_payment_date = max(payment_date) if payment_date else False
-                invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products)
+                invoice_lines = invoice.mapped('invoice_line_ids').filtered(lambda line: line.product_id not in delivery_products and not line.account_id in delivery_accounts)
                 untaxed_total_signed = sign * sum(invoice_lines.mapped('price_subtotal'))
                 invoices_data[invoice.id] = {'last_payment': last_payment_date, 'amount_untaxed_signed': untaxed_total_signed}
 
