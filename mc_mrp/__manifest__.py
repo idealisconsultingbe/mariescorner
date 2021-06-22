@@ -28,6 +28,7 @@
         'report/mrp_production_templates.xml',
         'report/sales_lot_report_templates.xml',
         'report/mrp_production_report_views.xml',
+        'report/sales_lot_report_views.xml',
         'views/product_attribute_views.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_bom_line_views.xml',
@@ -36,7 +37,9 @@
         'views/stock_production_sales_lot_views.xml',
         'views/product_category_views.xml',
         'views/sale_order_views.xml',
-        'wizard/confirm_purchase_order_views.xml'
+        'views/stock_production_lot_views.xml',
+        'views/stock_quant_views.xml',
+        'wizard/confirm_purchase_order_views.xml',
     ],
     'auto_install': False,
     'installable': True,

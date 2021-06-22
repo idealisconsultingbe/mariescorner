@@ -21,34 +21,37 @@ class SaleOrderLine(models.Model):
             line.route_id = line.order_id.carrier_id.route_id if line.order_id.carrier_id else False
 
     @api.onchange('product_id', 'product_uom_qty')
-    def product_id_change(self):
+    def _onchange_product_info(self):
         """
-        Overridden method
         Update short description with product attributes flagged accordingly and description lines on product.template related
         """
-        res = super(SaleOrderLine, self).product_id_change()
-
-        vals = {}
-        if not self.product_uom or (self.product_id.uom_id.id != self.product_uom.id):
-            vals['product_uom'] = self.product_id.uom_id
-            vals['product_uom_qty'] = self.product_uom_qty or 1.0
-
         product = self.product_id.with_context(
             lang=get_lang(self.env, self.order_id.partner_id.lang).code,
             partner=self.order_id.partner_id,
-            quantity=vals.get('product_uom_qty') or self.product_uom_qty,
+            quantity=self.product_uom_qty or 1.0,
             date=self.order_id.date_order,
             pricelist=self.order_id.pricelist_id.id,
             uom=self.product_uom.id
         )
-
         short_name = ''
         if self.product_id:
-            short_name = self.product_id.product_tmpl_id.get_product_configurable_description(self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids, self.order_id.partner_id, product_qty=self.product_uom_qty, product_variant=self.product_id, display_custom=True)
+            short_name = self.product_id.product_tmpl_id.get_product_configurable_description(
+                self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids,
+                self.order_id.partner_id, product_qty=self.product_uom_qty, product_variant=self.product_id,
+                display_custom=True)
+
+            # Retrieve extra description from delta between original short name and short name computed with original quantity
+            short_name_with_origin_qty = self.product_id.product_tmpl_id.get_product_configurable_description(
+                self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids,
+                self.order_id.partner_id, product_qty=self._origin.product_uom_qty, product_variant=self.product_id,
+                display_custom=True)
+            if self._origin.short_name:
+                extra_desc = '\n'.join([desc for desc in self._origin.short_name.split('\n') if desc not in short_name_with_origin_qty.split('\n')])
+                if extra_desc:
+                    short_name = short_name + "\n" + extra_desc
 
         self.update({'short_name': short_name,
                      'list_price': product.list_price,})
-        return res
 
     def _prepare_invoice_line(self):
         """

@@ -9,9 +9,10 @@
         <value eval="{'noupdate': False}" />
     </function>
 
-    <!-- Override partner_to of mail.template -->
+    <!-- Override partner_to and subject of mail.template -->
     <record id="stock.mail_template_data_delivery_confirmation" model="mail.template">
-        <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
+        <field name="subject">${object.company_id.name} Delivery Order (Ref ${object.name or 'n/a' }) ${'(Origin %s)' % (object.sale_id.name) if object.sale_id else ''}</field>
+        <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else ''},${object.sale_id.sales_representative_id.id if object.sale_id and object.sale_id.sales_representative_id and object.sale_id.sales_representative_id.email and object.sale_id.sales_representative_id.delivery_slip_default_receiver else ''}</field>
     </record>
 
     <!-- Set the previously noupdate False to True again -->
@@ -27,9 +28,9 @@
         <record id="picking_availability_mail" model="mail.template">
             <field name="name">Picking Availability</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) available for pickup</field>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) available for pickup ${'(Origin %s)' % (object.sale_id.name) if object.sale_id else ''}</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else ''},${object.sale_id.sales_representative_id.id if object.sale_id and object.sale_id.sales_representative_id and object.sale_id.sales_representative_id.email and object.sale_id.sales_representative_id.delivery_slip_default_receiver else ''}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
@@ -86,9 +87,9 @@
         <record id="picking_internal_transfer_mail" model="mail.template">
             <field name="name">Picking Internal Transfer</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) transfer</field>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) transfer ${'(Origin %s)' % (object.sale_id.name) if object.sale_id else ''}</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else ''},${object.sale_id.sales_representative_id.id if object.sale_id and object.sale_id.sales_representative_id and object.sale_id.sales_representative_id.email and object.sale_id.sales_representative_id.delivery_slip_default_receiver else ''}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
@@ -152,9 +153,9 @@
         <record id="picking_delivery_mail" model="mail.template">
             <field name="name">Picking Delivery</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) delivery</field>
+            <field name="subject">${object.company_id.name} Picking Order (Ref ${object.name or 'n/a' }) delivery ${'(Origin %s)' % (object.sale_id.name) if object.sale_id else ''}</field>
             <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.picking_type_id.warehouse_id.partner_id.email or object.company_id.email) | safe}&gt;</field>
-            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else False}</field>
+            <field name="partner_to">${object.partner_id.id},${object.sale_id.user_id.partner_id.id if object.sale_id and object.sale_id.user_id else ''},${object.sale_id.sales_representative_id.id if object.sale_id and object.sale_id.sales_representative_id and object.sale_id.sales_representative_id.email and object.sale_id.sales_representative_id.delivery_slip_default_receiver else ''}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">

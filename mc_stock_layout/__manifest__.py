@@ -14,6 +14,7 @@
         'data/data_reports.xml',
         'wizard/print_stock_report_views.xml',
         'views/stock_picking_views.xml',
+        'views/res_partner_views.xml',
         'report/sale_order_templates.xml',
         'report/sale_order_report.xml',
         'report/stock_picking_templates.xml',

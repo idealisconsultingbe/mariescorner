@@ -56,6 +56,7 @@
         'views/report_templates.xml',
         'views/delivery_view.xml',
         'views/product_views.xml',
+        'views/uom_uom_views.xml',
         # wizard
         'wizard/sale_product_configurator_views.xml',
         # report

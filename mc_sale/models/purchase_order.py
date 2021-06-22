@@ -34,6 +34,9 @@ class PurchaseOrder(models.Model):
             :rtype direct_delivery_address : res.partner record
         """
         res = super(PurchaseOrder, self)._prepare_sale_order_data(name, partner, company, direct_delivery_address)
+        carriers = self.order_line.mapped('sales_lot_id.carrier_id')
+        if carriers:
+            res['carrier_id'] = carriers[0].id
         res['origin'] = self.origin
         return res
 
