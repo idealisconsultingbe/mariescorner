@@ -130,7 +130,7 @@
                                     </t>
                                     <tr>
                                         <td class="border-top-0"><span> </span></td>
-                                        <td class="text-right border-left-lightgray" colspan="4"><strong>Total</strong></td>
+                                        <td class="text-right border-left-lightgray" colspan="5"><strong>Total</strong></td>
                                         <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('total', 0.0)"/></strong></td>
                                         <td class="border-left-lightgray"><span> </span></td>
                                         <td class="text-right border-left-lightgray"><strong><span t-esc="'%.2f' % invoice.get('commissions', 0.0)"/></strong></td>
@@ -138,7 +138,7 @@
                                 </div>
                             </t>
                             <tr>
-                                <td class="text-right border-top-black" colspan="5"><strong>Total <span t-esc="representative_name"/></strong></td>
+                                <td class="text-right border-top-black" colspan="6"><strong>Total <span t-esc="representative_name"/></strong></td>
                                 <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_invoiced', 0.0)"/></strong></td>
                                 <td class="border-left-lightgray border-top-black"><span> </span></td>
                                 <td class="text-right border-left-lightgray border-top-black"><strong><span t-esc="'%.2f' % representative_data.get('total_commissions', 0.0)"/></strong></td>
