@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+         <field name="name">view.partner.form.inherited.sales.representative.receiver</field>
+         <field name="model">res.partner</field>
+         <field name="inherit_id" ref="mc_sales_representative.view_partner_form"/>
+         <field name="arch" type="xml">
+             <xpath expr="//field[@name='representative_ref']" position="after">
+                 <field name="delivery_slip_default_receiver" attrs="{'invisible': ['|', ('type', '!=', 'contact'), ('is_sales_representative', '=', False)]}"/>
+             </xpath>
+         </field>
+     </record>
+</odoo>
