@@ -55,6 +55,9 @@ class AccountMove(models.Model):
                     id = invoice_line[1]
                     for line in vals['line_ids']:
                         if len(line) == 3 and line[1] == id:
-                            line[2]['short_name'] = invoice_line[2]['short_name']
+                            if isinstance(line[2], dict):
+                                line[2]['short_name'] = invoice_line[2]['short_name']
+                            else:
+                                line[2] = {'short_name': invoice_line[2]['short_name']}
         res = super(AccountMove, self).write(vals)
         return res
