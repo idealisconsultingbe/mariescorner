@@ -271,9 +271,16 @@ for color_attribute_value in attribute_combinaison_inverse:
                                                     [seat_main_fabric_id, seat_secondary_fabric_id],
                                                     product_no_tcl_ids)
     i += 1
+    if exclusion_to_create and i % 20 == 0:
+        print("Create Missing exclusion ptav")
+        exclusion_ids = models.execute_kw(db, uid, password, 'product.template.attribute.exclusion', 'create', [exclusion_to_create])
+        print('%s Exclusion PTAV created' % len(exclusion_ids))
+        exclusion_to_create = []
+
 if exclusion_to_create:
     print("Create Missing exclusion ptav")
     exclusion_ids = models.execute_kw(db, uid, password, 'product.template.attribute.exclusion', 'create', [exclusion_to_create])
     print('%s Exclusion PTAV created' % len(exclusion_ids))
+    exclusion_to_create = []
 
 print('done')
