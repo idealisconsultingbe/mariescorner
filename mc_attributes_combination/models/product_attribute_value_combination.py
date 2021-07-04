@@ -8,6 +8,7 @@ class ProductAttributeCombinationValue(models.Model):
     _name = 'product.attribute.combination.value'
 
     name = fields.Char(string="Name", compute='_get_name')
+    sequence = fields.Integer("Sequence", default=10)
     attribute_combination_id = fields.Many2one('product.attribute.combination', string="Attribute combination", required=True, ondelete='cascade')
     attribute_ids = fields.Many2many('product.attribute', related="attribute_combination_id.attribute_ids", string='Attributes')
     value_combination_ids = fields.One2many('value.combination', 'combination_id', string='Values Combination')

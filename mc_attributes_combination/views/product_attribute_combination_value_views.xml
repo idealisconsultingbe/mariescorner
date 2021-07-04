@@ -5,6 +5,7 @@
         <field name="model">product.attribute.combination.value</field>
         <field name="arch" type="xml">
             <tree name="product_attribute_combination_tree" string="Attributes_combination">
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
             </tree>
         </field>
