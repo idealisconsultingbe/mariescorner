@@ -18,23 +18,23 @@ class ProductAttributeCombination(models.Model):
         self.ensure_one()
         attribute_combination_inverse = {}
         for avc in self.attribute_value_combination_ids:
-            vc_does_exclude = avc.value_combination_ids.filtered(lambda vc: vc.attribute_id.id == self.does_exclude_attribute_id)
-            vc_to_be_allowed = avc.value_combination_ids.filtered(lambda vc: vc.attribute_id.id != self.does_exclude_attribute_id)
+            vc_does_exclude = avc.value_combination_ids.filtered(lambda vc: vc.attribute_id.id == self.does_exclude_attribute_id.id)
+            vc_to_be_allowed = avc.value_combination_ids.filtered(lambda vc: vc.attribute_id.id != self.does_exclude_attribute_id.id)
             for attribute_value in vc_does_exclude.value_ids:
                 if attribute_value in attribute_combination_inverse:
                     for vc in vc_to_be_allowed:
                         if vc.attribute_id in attribute_combination_inverse[attribute_value]: 
-                            attribute_combination_inverse[attribute_value][vc.attribute_id] |= vc.values_ids
+                            attribute_combination_inverse[attribute_value][vc.attribute_id] |= vc.value_ids
                         else:
-                            attribute_combination_inverse[attribute_value][vc.attribute_id] = vc.values_ids
+                            attribute_combination_inverse[attribute_value][vc.attribute_id] = vc.value_ids
                 else:
-                    attribute_combination_inverse[attribute_value] = {vc.attribute_id: vc.values_ids for vc in vc_to_be_allowed}
+                    attribute_combination_inverse[attribute_value] = {vc.attribute_id: vc.value_ids for vc in vc_to_be_allowed}
         return attribute_combination_inverse
 
     @api.model
-    def get_unallowed_ptav(self, attribute_combination_inverse, does_exclude_ptav, product_tmpl):
+    def get_unallowed_ptav(self, attribute_combination_inverse, does_exclude_attribute_value, product_tmpl):
         unallowed_ptav = self.env['product.template.attribute.value']
-        for attribute, allowed_values in attribute_combination_inverse[does_exclude_ptav]:
+        for attribute, allowed_values in attribute_combination_inverse[does_exclude_attribute_value].items():
             product_attribute_line = self.env['product.template.attribute.line'].search([('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', attribute.id)])
             unallowed_ptav |= self.env['product.template.attribute.value'].search(
                 [('product_attribute_value_id', 'not in', allowed_values.ids),
@@ -63,21 +63,18 @@ class ProductAttributeCombination(models.Model):
             exclusions_values = {}
             for product_tmpl in pac.product_tmpl_ids:
                 for does_exclude_attribute_value in attribute_combination_inverse:
-                    does_exclude_ptav = self.env['product.template.attribute.value'].search([('name', '=', does_exclude_attribute_value), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', pac.does_exclude_attribute_id)])
-                    unallowed_ptav = pac.get_unallowed_ptav(attribute_combination_inverse, does_exclude_ptav, product_tmpl)
-                    if unallowed_ptav:
-                        exclusion = does_exclude_ptav.exclude_for.filtered(
-                            lambda ex: ex.product_tmpl_id.id == product_tmpl.id)
-                        if not exclusion:
-                            exclusion = self.env['product.template.attribute.exclusion'].create(
-                                {'product_template_attribute_value_id': does_exclude_ptav.id,
-                                 'product_tmpl_id': product_tmpl.id})
-                        missing_values = unallowed_ptav - exclusion.value_ids
-                        if missing_values:
-                            if exclusions_values.get(exclusion.id, False):
-                                exclusions_values[exclusion.id].extend(unallowed_ptav.ids)
-                            else:
-                                exclusions_values[exclusion.id] = unallowed_ptav.ids
+                    does_exclude_ptav = self.env['product.template.attribute.value'].search([('product_attribute_value_id', '=', does_exclude_attribute_value.id), ('product_tmpl_id', '=', product_tmpl.id), ('attribute_id', '=', pac.does_exclude_attribute_id.id)])
+                    unallowed_ptav = pac.get_unallowed_ptav(attribute_combination_inverse, does_exclude_attribute_value, product_tmpl)
+                    exclusion = does_exclude_ptav.exclude_for.filtered(lambda ex: ex.product_tmpl_id.id == product_tmpl.id)
+                    if not exclusion:
+                        exclusion = self.env['product.template.attribute.exclusion'].create(
+                            {'product_template_attribute_value_id': does_exclude_ptav.id,
+                             'product_tmpl_id': product_tmpl.id})
+                    if unallowed_ptav != exclusion.value_ids:
+                        if exclusions_values.get(exclusion.id, False):
+                            exclusions_values[exclusion.id].extend(unallowed_ptav.ids)
+                        else:
+                            exclusions_values[exclusion.id] = unallowed_ptav.ids
                 i += 1
                 logging.info('%s product template attribute exclusion values configured' % (i))
                 if i % 50 == 0:
