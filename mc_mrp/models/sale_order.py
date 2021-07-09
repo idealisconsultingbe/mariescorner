@@ -93,7 +93,7 @@ class SaleOrder(models.Model):
     def _compute_po_state(self):
         """ Retrieve Purchase Order Status from related purchase order """
         for order in self:
-            purchase_order = self._get_purchase_order()
+            purchase_order = order._get_purchase_order()
             if not purchase_order:
                 order.po_state = 'none'
             elif len(purchase_order) > 1:
