@@ -141,10 +141,10 @@ class ProductionSalesLot(models.Model):
                         state = 'cancel'
                 else:
                     state = 'in_manufacturing'
-                    if all([x not in ['cancel', 'draft'] for x in sale_lot.production_ids.mapped('state')]):
-                        state = 'received_by_manufacturer'
-                    elif all([x == 'cancel' for x in sale_lot.production_ids.mapped('state')]):
+                    if all([x == 'cancel' for x in sale_lot.production_ids.mapped('state')]):
                         state = 'cancel'
+                    elif all([x not in ['draft'] for x in sale_lot.production_ids.mapped('state')]):
+                        state = 'received_by_manufacturer'
             sale_lot.manufacturing_state = state
         # track changing state
         if initial_values:
