@@ -30,6 +30,10 @@
                             <br/>
                             <span t-field="partner.ref"/>
                         </div>
+                        <div t-if="o.sale_id and o.sale_id.client_order_ref" class="col-auto">
+                            <strong>Customer Reference:</strong>
+                            <p t-field="o.sale_id.client_order_ref"/>
+                        </div>
                         <div t-if="o.sale_id and o.sale_id.payment_term_id and o.sale_id.payment_term_id.note"
                              class="col-auto">
                             <span t-field="o.sale_id.payment_term_id.note"/>

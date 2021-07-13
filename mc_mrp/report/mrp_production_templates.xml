@@ -309,8 +309,8 @@
     </template>
 
     <template id="report_mrp_saleslot_labels_manufacturing_document" inherit_id="mc_warranty.report_mrp_saleslot_labels_mc_care_document">
-        <xpath expr="//div[@name='label_1']//div[@name='part_left']//div[@name='product']//div[@name='mc_care']" position="before">
-            <strong t-field="doc.product_id.name" style="font-size:14pt"/><br/>
+        <xpath expr="//div[@name='mc_care']" position="before">
+            <strong t-field="doc.product_id.name" style="font-size:13pt"/><br/>
             <span style="font-size:10pt">Fabric(s):</span>
 
             <table class="table table-sm" style="font-size:8pt">
@@ -318,7 +318,7 @@
                     <t t-foreach="doc.move_raw_ids.filtered(lambda move: move.product_id.is_fabric)" t-as="raw">
                         <tr>
                             <td>
-                                <strong class="m-0" t-field="raw.product_id.default_code"/><br/>
+                                <span t-field="raw.product_id.default_code"/>
                             </td>
                         </tr>
                     </t>
