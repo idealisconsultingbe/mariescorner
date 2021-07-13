@@ -19,4 +19,6 @@ class PurchaseOrderLine(models.Model):
             intercompany_sale_order_line = self.sudo().env['sale.order.line'].search([('inter_company_po_line_id', '=', self.id)], limit=1)
             if intercompany_sale_order_line:
                 return {}
-        return super(PurchaseOrderLine, self)._prepare_account_move_line(move)
+        res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
+        res.update({'partner_ref': self.order_id.partner_ref, 'origin': self.order_id.name})
+        return res
