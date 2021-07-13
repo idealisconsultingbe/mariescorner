@@ -32,6 +32,14 @@
         </template>
 
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+            <xpath expr="//div[@name='origin']" position="attributes">
+                <attribute name="t-if">o.invoice_origin and len(o.invoice_origin) &lt; 100</attribute>
+            </xpath>
+            <xpath expr="//div[@name='reference']" position="attributes">
+                <attribute name="t-if">o.ref and len(o.ref) &lt; 100</attribute>
+            </xpath>
+
             <xpath expr="//div[@id='informations']" position="inside">
                 <div class="col-auto mw-100 mb-2" t-if="o.number_of_packages" name="package_number">
                     <strong>Number of Packages:</strong>
@@ -50,15 +58,24 @@
             <xpath expr="//td[@name='account_invoice_line_name']/span" position="replace">
                 <span t-field="line.short_name" t-options="{'widget': 'text'}"/>
             </xpath>
+
             <xpath expr="//th[@name='th_description']" position="after">
-                <th name="th_account_invoice_line_sales_lot">
+                <th class="text-center" name="th_account_invoice_line_sales_lot">
                     <span>Manuf N°</span>
+                </th>
+                <th class="text-center">
+                    <span>Origin</span>
+                </th>
+                <th class="text-center">
+                    <span><t t-if="o.type in ['out_invoice', 'out_refund']">Customer </t><t t-elif="o.type in ['in_invoice', 'in_refund']">Vendor </t>Reference</span>
                 </th>
             </xpath>
             <xpath expr="//td[@name='account_invoice_line_name']" position="after">
                 <td name="account_invoice_line_sales_lot">
                     <span t-if="line.sales_lot_ids" t-field="line.sales_lot_ids[0].name"/>
                 </td>
+                <td><span t-field="line.origin"/></td>
+                <td><span t-field="line.partner_ref"/></td>
             </xpath>
 
             <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="attributes">
