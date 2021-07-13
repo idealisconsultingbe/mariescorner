@@ -16,6 +16,7 @@
             </field>
             <field name="quantity" position="before">
                 <field name="comment"/>
+                <field name="manual_description"/>
             </field>
         </field>
     </record>

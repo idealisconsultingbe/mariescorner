@@ -171,7 +171,8 @@
                                         <span class="i-block-100" t-field="line.product_id.image_128" t-att-title="line.product_id.name" role="img" t-att-aria-label="line.product_id.name" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-width: 60px; display: inline-block&quot;}"/>
                                     </td>
                                     <td name="td_desc" class="text-left fs-8">
-                                        <span t-field="line.short_name"/>
+                                        <div><span t-field="line.short_name"/></div>
+                                        <div><span t-field="line.manual_description"/></div>
                                     </td>
                                     <td name="td_sales_lot" t-if="display_sales_lot" class="text-center">
                                         <span t-field="line.sales_lot_id"/>
