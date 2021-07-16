@@ -33,6 +33,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                             default_standard_product_price: product_price,
                             default_product_cost: product_cost,
                             default_comment: self._getComment(),
+                            default_manual_description: self._getManualDescription(),
                             default_company_id: self._getCompanyId(),
                             // End custom changes
                         },
@@ -65,6 +66,7 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
                     default_product_cost: this._getPurchasePrice(),
                     default_standard_product_price: this._getProductSalePrice(),
                     default_comment: this._getComment(),
+                    default_manual_description: this._getManualDescription(),
                     default_company_id: this._getCompanyId(),
                     // End custom changes
                     default_product_template_attribute_value_ids: this._convertFromMany2Many(
@@ -90,6 +92,9 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
             result = this._super.apply(this, arguments);
             if (mainProduct.comment !== 'None') {
                 result['comment'] = mainProduct.comment;
+            }
+            if (mainProduct.manual_description !== 'None') {
+                result['manual_description'] = mainProduct.manual_description;
             }
             if (mainProduct.product_cost !== -1) {
                 result['purchase_price'] = mainProduct.product_cost;
@@ -136,6 +141,9 @@ odoo.define('mc_sale.product_configurator_widget', function (require) {
          */
         _getComment: function () {
             return this.record.evalContext.comment;
+        },
+        _getManualDescription: function () {
+            return this.record.evalContext.manual_description;
         },
 
         /**

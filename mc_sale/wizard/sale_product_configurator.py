@@ -12,3 +12,4 @@ class McSaleProductConfigurator(models.TransientModel):
     standard_product_price = fields.Float(string="Standard Product Price", readonly=1)
     product_cost = fields.Float(string="Product Cost", readonly=1)
     comment = fields.Text(string="Comment")
+    manual_description = fields.Text(string='Manual Description', help='Additional information added to short description in report')

@@ -12,6 +12,7 @@ class SaleOrderLine(models.Model):
     product_sale_price = fields.Float(related='product_template_id.list_price', string='Standard Sale Price')
     comment = fields.Text(string='Comment')
     short_name = fields.Text(string='Short Description')
+    manual_description = fields.Text(string='Manual Description', help='Additional information added to short description in report')
     price_unit = fields.Float(string='Your Price')
     route_id = fields.Many2one('stock.location.route', compute='_compute_route_id', store=True, readonly=False)
 
@@ -39,16 +40,6 @@ class SaleOrderLine(models.Model):
                 self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids,
                 self.order_id.partner_id, product_qty=self.product_uom_qty, product_variant=self.product_id,
                 display_custom=True)
-
-            # Retrieve extra description from delta between original short name and short name computed with original quantity
-            short_name_with_origin_qty = self.product_id.product_tmpl_id.get_product_configurable_description(
-                self.product_custom_attribute_value_ids, self.product_no_variant_attribute_value_ids,
-                self.order_id.partner_id, product_qty=self._origin.product_uom_qty, product_variant=self.product_id,
-                display_custom=True)
-            if self._origin.short_name:
-                extra_desc = '\n'.join([desc for desc in self._origin.short_name.split('\n') if desc not in short_name_with_origin_qty.split('\n')])
-                if extra_desc:
-                    short_name = short_name + "\n" + extra_desc
 
         self.update({'short_name': short_name,
                      'list_price': product.list_price,})

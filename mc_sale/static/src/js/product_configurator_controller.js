@@ -8,6 +8,7 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
         init: function () {
             this._super.apply(this, arguments);
             this.comment = 'None';
+            this.manual_description = 'None';
             this.product_cost = -1;
         },
 
@@ -17,6 +18,9 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
         _onFieldChanged: function (event) {
             if ('comment' in event.data.changes){
                 this.comment = event.data.changes.comment
+            }
+            if ('manual_description' in event.data.changes){
+                this.manual_description = event.data.changes.manual_description;
             }
             if ('product_cost' in event.data.changes){
                 this.product_cost = event.data.changes.product_cost
@@ -41,6 +45,7 @@ odoo.define('mc_sale.product_configurator_controller', function (require) {
          */
         _addProducts: function (products) {
             products[0]['comment'] = this.comment;
+            products[0]['manual_description'] = this.manual_description;
             products[0]['product_cost'] = this.product_cost;
             this._super.apply(this, arguments);
         },
