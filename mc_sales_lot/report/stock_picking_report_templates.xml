@@ -47,8 +47,7 @@
             <table class="table-label-bold" style="page-break-inside: avoid;">
                 <tr>
                     <td class="pt-2 pb-01">
-                        <strong>ID CUST</strong>
-                        <span class="font-weight-bold" t-if="doc.sale_id" t-field="doc.sale_id.partner_id.ref"/>
+
                     </td>
                     <td rowspan="5" class="pt-2 pb-04">
                         <img alt="Barcode" t-if="line.lot_id"
@@ -57,6 +56,8 @@
                         <div class="text-center">
                             <span class="small text-center" t-if="line.lot_id" t-field="line.lot_id.name"/>
                         </div>
+                        <strong>ID CUST</strong>
+                        <span class="font-weight-bold" t-if="doc.sale_id" t-field="doc.sale_id.partner_id.ref"/>
                         <table class="table-label-light">
                             <tr>
                                 <td>
@@ -74,9 +75,9 @@
                 </tr>
                 <tr>
                     <td class="pt-01 pb-01">
-                        <span class="font-weight-bold" t-if="doc.sale_id and doc.sale_id.origin"
+                        <span class="h4 font-weight-bold" t-if="doc.sale_id and doc.sale_id.origin"
                               t-field="doc.sale_id.origin"/>
-                        <span class="font-weight-bold" t-if="doc.sale_id and not doc.sale_id.origin"
+                        <span class="h4 font-weight-bold" t-if="doc.sale_id and not doc.sale_id.origin"
                               t-field="doc.sale_id.name"/>
                         <t t-if="line.lot_id">
                             <span>-</span>
