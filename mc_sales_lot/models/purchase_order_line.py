@@ -27,6 +27,7 @@ class PurchaseOrderLine(models.Model):
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
         res['short_name'] = self.short_name
         if self.sales_lot_id:
+            res['sales_lot_ids'] = [(4, self.sales_lot_id.id)]
             res['sale_lot_id'] = self.sales_lot_id.id
         return res
 

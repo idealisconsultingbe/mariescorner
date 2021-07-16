@@ -83,17 +83,10 @@ class AccountMove(models.Model):
                                             bill.date, round=False)
                                         new_line = bill_invoice_lines.new(po_line._prepare_account_move_line(bill))
                                         new_line.update({
-                                            'short_name': po_line.short_name,
-                                            'sales_lot_ids': [
-                                                (4, po_line.sales_lot_id.id, 0)] if po_line.sales_lot_id else False,
                                             'quantity': quantity,
                                             'price_unit': price_unit,
-                                            'purchase_line_id': po_line.id,
                                             'discount': inv_line.discount,
-                                            'name': new_line._get_computed_name(),
                                             'account_id': new_line._get_computed_account(),
-                                            'tax_ids': new_line._get_computed_taxes(),
-                                            'product_uom_id': new_line._get_computed_uom(),
                                             'debit': invoices_sync_destination_company.currency_id.round(
                                                 price_unit * quantity),
                                         })
