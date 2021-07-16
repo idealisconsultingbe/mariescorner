@@ -63,6 +63,7 @@ class AccountMove(models.Model):
                             'journal_id': journal.id,
                             'invoice_origin': invoice_origin,
                             'partner_id': invoices_sync_origin_company.partner_id.id,
+                            'fiscal_position_id': invoices_sync_origin_company.partner_id.property_account_position_id.id
                         })
                         bill._onchange_journal()
                         bill._onchange_invoice_date()
