@@ -51,24 +51,32 @@
     </template>
 
     <template id="report_saleslot_labels_document">
+        <style>
+            ul.no-marker-style {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            }
+        </style>
         <div class="page">
             <t t-set="current_label_index" t-value="1"/>
-            <t t-set="max_label_index" t-value="saleslot.product_qty"/>
+            <t t-set="max_label_index" t-value="int(saleslot.product_qty)"/>
 
             <t t-foreach="serial_numbers[saleslot.id]" t-as="serial_number">
-                <div name="label_1" style="border-top: 2px solid black;border-bottom: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;page-break-inside: avoid;">
+                <div name="label_1" style="border:2px solid black; page-break-inside: avoid;">
                     <div class="row" style="min-height:310px">
                         <div class="col-6" name="part_left">
-                            <div name="order" style="padding-left:5px;padding-top:10px;">
-                                <strong class="m-0 h4" t-field="saleslot.origin_sale_order_id.name"/><span> - </span><strong class="m-0 h4" t-field="saleslot.name"/> <br/>
-                                <strong>ID CUST </strong> <strong class="m-0" t-field="saleslot.partner_id.ref"/> <br/>
-                                <strong>PACK : </strong> <strong t-esc="current_label_index"/> <strong> / </strong> <strong t-esc="max_label_index"/> <br/>
-                                <strong>Destination:</strong> <strong class="m-0" t-field="saleslot.carrier_id.name"/> <br/>
+                            <div name="order" class="p-1">
+                                <ul class="no-marker-style">
+                                    <li><span class="h4 font-weight-bold" t-field="saleslot.origin_sale_order_id.name"/><span t-if="saleslot.origin_sale_order_id"> - </span><span class="h4 font-weight-bold" t-field="saleslot.name"/></li>
+                                    <li><strong>PACK: </strong><span class="font-weight-bold" t-esc="current_label_index"/> <span> / </span> <span class="font-weight-bold" t-esc="max_label_index"/></li>
+                                    <li><strong>Destination: </strong><span class="font-weight-bold" t-field="saleslot.carrier_id.name"/></li>
+                                </ul>
                             </div>
 
-                            <div name="product" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-left:4px;min-height:185px;margin-bottom:4px;">
+                            <div name="product" class="ml-1 mb-1 p-1" style="border:1px solid black;min-height:183px;">
                                 <div class="row">
-                                    <div class="col-4 text-center align-middle" name="image" style="padding-top:5px;">
+                                    <div class="col-4 text-center align-middle" name="image">
                                         <span class="i-block-100" t-if="saleslot.product_id.image_128" t-field="saleslot.product_id.image_128" t-att-title="saleslot.product_id.name" role="img" t-att-aria-label="saleslot.product_id.name" t-options="{'widget': 'image', 'style':'max-width: 60px; display: inline-block'}"/>
                                     </div>
                                 </div>
@@ -76,24 +84,26 @@
                         </div>
 
                         <div class="col-6" name="part_right">
-                            <div class="text-center align-middle" name="barcode" style="padding-top:3px;">
+                            <div class="text-center align-middle px-1 pt-1" name="barcode">
                                 <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(serial_number or ''), 400, 50)" style="width:100%;"/>
-                                <span class="m-0" t-esc="serial_number" style="font-size:8pt;"/>
+                                <span t-esc="serial_number" style="font-size:8pt;"/>
                             </div>
-                            <div name="delivery" style="border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-right:4px;margin-bottom:4px;">
-                                <div style="padding-left:2px;">
-                                    <p><strong>Delivery To:</strong></p>
-                                    <div t-field="saleslot.partner_shipping_id"
-                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "no_marker": True, "phone_icons": True}'/>
-                                </div>
+                            <div name="customer" class="pb-1 px-1">
+                                <ul class="no-marker-style" style="font-size:11pt;">
+                                    <li><strong>ID CUST: </strong><span class="font-weight-bold" t-field="saleslot.partner_id.ref"/></li>
+                                    <li t-if="saleslot.origin_sale_order_line_id and saleslot.origin_sale_order_line_id.order_id.client_order_ref"><strong>REF CUST: </strong><span class="font-weight-bold" t-field="saleslot.origin_sale_order_line_id.order_id.client_order_ref"/></li>
+                                </ul>
+                            </div>
+                            <div name="delivery" class="mr-1 ml-1 p-1" style="border:1px solid black;">
+                                <strong>Delivery To:</strong>
+                                <p class="m-0 p-0" t-field="saleslot.partner_shipping_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "no_marker": True, "phone_icons": True}'/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <t t-set="current_label_index" t-value="current_label_index + 1"/>
-                <br/>
-                <div style="border-bottom: 1px solid black;"/>
-                <br/>
+                <div class="my-3" style="border-bottom: 1px solid black;"/>
             </t>
         </div>
     </template>

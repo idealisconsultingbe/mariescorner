@@ -9,10 +9,10 @@
     </template>
 
     <template id="report_mrp_saleslot_labels_mc_care_document" inherit_id="mc_sales_lot.report_mrp_saleslot_labels_document">
-        <xpath expr="//div[@name='label_1']//div[@name='part_left']//div[@name='product']/div" position="inside">
-            <div class="col-8" style="font-size:8pt">
+        <xpath expr="//div[@name='product']/div" position="inside">
+            <div class="col-8 p-1" style="font-size:10pt;">
                 <div name="mc_care">
-                    <strong >Mc Care:</strong> <strong class="m-0" t-if="doc.sales_lot_id.mc_care">Yes</strong> <strong class="m-0" t-if="not doc.sales_lot_id.mc_care">No</strong>
+                    <strong >Mc Care:</strong> <span class="font-weight-bold" t-if="doc.sales_lot_id.mc_care">Yes</span> <span class="font-weight-bold" t-if="not doc.sales_lot_id.mc_care">No</span>
                 </div>
             </div>
         </xpath>
