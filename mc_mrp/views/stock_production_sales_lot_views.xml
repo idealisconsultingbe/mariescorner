@@ -13,6 +13,7 @@
             <xpath expr="//group[@name='main']" position="inside">
                 <group string="Comment" name="sale_comment" colspan="3">
                     <field name="short_name" readonly="1"/>
+                    <field name="manual_description" readonly="1"/>
                     <field name="sale_comment" readonly="1"/>
                 </group>
             </xpath>
