@@ -25,8 +25,9 @@ class PurchaseOrderLine(models.Model):
     def _prepare_account_move_line(self, move):
         """ add manufacturing numbers to supplier invoice lines values """
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
-        if res and self.sales_lot_id:
-            res['sales_lot_ids'] = [(4, self.sales_lot_id.id, 0)]
+        res['short_name'] = self.short_name
+        if self.sales_lot_id:
+            res['sale_lot_id'] = self.sales_lot_id.id
         return res
 
     def _prepare_stock_moves(self, picking):
